@@ -13,7 +13,8 @@
     "next-themes": "^0.3.0",
     "notion-utils": "^6.16.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-notion-x": "^6.16.0"
   },
   "devDependencies": {
     "@types/node": "^20",
