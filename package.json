@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "got": "^14.4.2",
     "next": "^14.2.5",
     "next-themes": "^0.3.0",
     "notion-utils": "^6.16.0",
+    "p-map": "^7.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-notion-x": "^6.16.0"

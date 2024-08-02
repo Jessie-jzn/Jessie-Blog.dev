@@ -6,6 +6,10 @@ import Link from "next/link";
 
 const NotionPageHeader = ({ block }: any) => {
   const router = useRouter();
+  const isBlogPost =
+    block?.type === "page" && block?.parent_table === "collection";
+
+  console.log("block?.typeblock?.typeblock?.typeblock?.type", block);
   const [breadcrumbs, setBreadcrumbs] = useState<
     Array<{ href: string; label: string }>
   >([]);
@@ -30,26 +34,32 @@ const NotionPageHeader = ({ block }: any) => {
   }, [router]);
 
   return (
-    <header className="notion-header">
-      <div
-        className="notion-nav-header"
-        style={{ justifyContent: "space-between" }}
-      >
-        <div className="flex items-center">
-          {breadcrumbs.map((breadcrumb, index) => (
-            <div key={index} className="breadcrumbs">
-              <Link href={breadcrumb.href} className="breadcrumb">
-                {breadcrumb.label}
-              </Link>
-              <div> / </div>
+    <>
+      {!isBlogPost ? (
+        <></>
+      ) : (
+        <header className="notion-header">
+          <div
+            className="notion-nav-header"
+            style={{ justifyContent: "space-between" }}
+          >
+            <div className="flex items-center">
+              {breadcrumbs.map((breadcrumb, index) => (
+                <div key={index} className="breadcrumbs">
+                  <Link href={breadcrumb.href} className="breadcrumb">
+                    {breadcrumb.label}
+                  </Link>
+                  <div> / </div>
+                </div>
+              ))}
+              <Breadcrumbs block={block} rootOnly={true} />
             </div>
-          ))}
-          <Breadcrumbs block={block} rootOnly={true} />
-        </div>
 
-        <Search block={block} title={null} />
-      </div>
-    </header>
+            <Search block={block} title={null} />
+          </div>
+        </header>
+      )}
+    </>
   );
 };
 export default NotionPageHeader;

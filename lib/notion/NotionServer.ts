@@ -1,10 +1,10 @@
 // import { Client } from '@notionhq/client';
 // import { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
-import { NotionAPI } from './NotionAPI';
+import { NotionAPI } from "./NotionAPI";
 
-import { NOTION_TOKEN } from '../constants';
+import { NOTION_TOKEN } from "../constants";
 if (!NOTION_TOKEN) {
-  throw new Error('NOTION_TOKEN is not defined');
+  throw new Error("NOTION_TOKEN is not defined");
 }
 
 class NotionService {
@@ -50,13 +50,13 @@ class NotionService {
       const page = await this.notionAPI.getCollectionData(
         params.collectionId,
         params.collectionViewId,
-        params.collectionView,
+        params.collectionView
       );
 
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error("Error fetching page:", error.body || error);
+      throw new Error("Failed to fetch page");
     }
   }
   /**
@@ -68,10 +68,12 @@ class NotionService {
     try {
       const page = await this.notionAPI.getPage(pageId);
 
+      console.log("getPagepagepagepage", page);
+
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error("Error fetching page:", error.body || error);
+      throw new Error("Failed to fetch page");
     }
   }
   /**
@@ -85,8 +87,8 @@ class NotionService {
 
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error("Error fetching page:", error.body || error);
+      throw new Error("Failed to fetch page");
     }
   }
   async getPageRaw(pageId: string) {
@@ -95,8 +97,8 @@ class NotionService {
 
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error("Error fetching page:", error.body || error);
+      throw new Error("Failed to fetch page");
     }
   }
   async getBlocks(blockIds: string[], gotOptions?: any) {
@@ -105,8 +107,8 @@ class NotionService {
 
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error("Error fetching page:", error.body || error);
+      throw new Error("Failed to fetch page");
     }
   }
 }

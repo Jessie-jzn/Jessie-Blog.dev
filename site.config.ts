@@ -119,5 +119,5 @@ const SiteConfig = {
     ext: process.env.NEXT_PUBLIC_NOTION_PROPERTY_EXT || "ext",
   },
   NOTION_HOST: "https://www.notion.so",
-};
+} as const;
 export default SiteConfig;

@@ -1,12 +1,12 @@
-import getPage from './getPage';
-import getAllPageIds from './getAllPageIds';
-import getBlockInBatches from './getBlockInBatches';
-import getPageProperties from './getPageProperties';
-import getAllTagsList from './getAllTagsList';
-import { idToUuid } from 'notion-utils';
-import SiteConfig from '../../site.config';
+import getPage from "./getPage";
+import getAllPageIds from "./getAllPageIds";
+import getBlockInBatches from "./getBlockInBatches";
+import getPageProperties from "./getPageProperties";
+import getAllTagsList from "./getAllTagsList";
+import { idToUuid } from "notion-utils";
+import SiteConfig from "../../site.config";
 
-import * as Types from '@/lib/type';
+import * as Types from "@/lib/type";
 
 /**
  * 获取数据库数据
@@ -17,13 +17,13 @@ export default async function getDataBaseList({
   pageId,
   from,
 }: Types.NotionPageParamsProp) {
-  console.log('[Fetching Data]', pageId, from);
+  console.log("[Fetching Data]", pageId, from);
   const pageRecordMap = await getPage({ pageId, from });
 
-  console.log('pageRecordMappageRecordMappageRecordMap', pageRecordMap);
+  console.log("pageRecordMappageRecordMappageRecordMap", pageRecordMap);
 
   if (!pageRecordMap) {
-    console.error('can`t get Notion Data ; Which id is: ', pageId);
+    console.error("can`t get Notion Data ; Which id is: ", pageId);
     return {};
   }
 
@@ -51,17 +51,17 @@ export default async function getDataBaseList({
     collectionQuery,
     collectionId,
     collectionView,
-    viewIds,
+    viewIds
   );
 
   if (pageIds?.length === 0) {
     console.error(
-      '获取到的文章列表为空，请检查notion模板',
+      "获取到的文章列表为空，请检查notion模板",
       collectionQuery,
       collection,
       collectionView,
       viewIds,
-      pageRecordMap,
+      pageRecordMap
     );
   }
   // 抓取主数据库最多抓取1000个blocks，溢出的数block这里统一抓取一遍
@@ -94,10 +94,10 @@ export default async function getDataBaseList({
 
   // 查找所有的Post和Page
   const allPages = collectionData.filter((post) => {
-    if (post?.type === 'Post' && post.status === 'Published') {
+    if (post?.type === "Post" && post.status === "Published") {
       postCount++;
     }
-    return post && post?.status === 'Published';
+    return post && post?.status === "Published";
   });
 
   // 所有标签
@@ -106,7 +106,8 @@ export default async function getDataBaseList({
     tagOptions: getTagOptions(schema),
   });
 
-  return { allPages, tagOptions };
+  console.log("allPagesallPagesallPages", allPages);
+  return { allPages, tagOptions, pageIds };
 }
 
 /**
@@ -117,7 +118,7 @@ export default async function getDataBaseList({
 const getTagOptions = (schema: Types.SchemaProp) => {
   if (!schema) return {};
   const tagSchema = Object.values(schema).find(
-    (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.tags,
+    (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.tags
   ) as any;
 
   return tagSchema?.options || [];

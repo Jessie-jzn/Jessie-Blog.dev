@@ -18,7 +18,7 @@ import NotionPageHeader from "./NotionPageHeader";
 import { BlogSEO } from "@/components/SEO";
 import { mapImageUrl, mapPageUrl } from "@/lib/util";
 import { Modal } from "react-notion-x/build/third-party/modal";
-import { NOTION_GUIDE_ID } from "@/lib/constants";
+// import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "./AdSense";
 // const Code = dynamic(() =>
 //   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -189,7 +189,7 @@ const NotionPage: React.FC<Types.PageProps> = ({
         recordMap={recordMap}
         isShowingSearch={false}
         onHideSearch={() => {}}
-        rootPageId={NOTION_GUIDE_ID}
+        // rootPageId={NOTION_ROOT_ID}
         rootDomain={SiteConfig.domain}
         fullPage={true}
         previewImages={!!recordMap?.preview_images}

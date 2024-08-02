@@ -1,10 +1,10 @@
 import { GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
-import { NOTION_ABOUT_ID } from "@/lib/constants";
+import { NOTION_HOME_ID } from "@/lib/constants";
 import NotionPage from "@/components/NotionPage";
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async () => {
-  const post = await notionService.getPage(NOTION_ABOUT_ID);
+  const post = await notionService.getPage(NOTION_HOME_ID);
 
   return {
     props: {
@@ -13,11 +13,11 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 10,
   };
 };
-const About = ({ post }: any) => {
+const Home = ({ post }: any) => {
   return (
     <>
       <NotionPage recordMap={post} />
     </>
   );
 };
-export default About;
+export default Home;

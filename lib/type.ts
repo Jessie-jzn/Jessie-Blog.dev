@@ -1,4 +1,4 @@
-import { ExtendedRecordMap, Block } from 'notion-types';
+import { ExtendedRecordMap, Block } from "notion-types";
 
 export interface MenuItem {
   id: number;

@@ -1,12 +1,12 @@
-import * as notion from 'notion-types';
-import got, { OptionsOfJSONResponseBody } from 'got';
+import * as notion from "notion-types";
+import got, { OptionsOfJSONResponseBody } from "got";
 import {
   getBlockCollectionId,
   getPageContentBlockIds,
   parsePageId,
   uuidToId,
-} from 'notion-utils';
-import pMap from 'p-map';
+} from "notion-utils";
+import pMap from "p-map";
 
 // import * as types from './types';
 export interface SignedUrlRequest {
@@ -33,10 +33,10 @@ export class NotionAPI {
   private readonly _userTimeZone: string;
 
   constructor({
-    apiBaseUrl = 'https://www.notion.so/api/v3',
+    apiBaseUrl = "https://www.notion.so/api/v3",
     authToken,
     activeUser,
-    userTimeZone = 'America/New_York',
+    userTimeZone = "America/New_York",
   }: {
     apiBaseUrl?: string;
     authToken?: string;
@@ -50,6 +50,12 @@ export class NotionAPI {
     this._userTimeZone = userTimeZone;
   }
 
+  /**
+   * // 获取页面的函数
+   * @param pageId
+   * @param param1
+   * @returns
+   */
   public async getPage(
     pageId: string,
     {
@@ -68,8 +74,9 @@ export class NotionAPI {
       chunkLimit?: number;
       chunkNumber?: number;
       gotOptions?: OptionsOfJSONResponseBody;
-    } = {},
+    } = {}
   ): Promise<notion.ExtendedRecordMap> {
+    // 获取原始页面数据
     const page = await this.getPageRaw(pageId, {
       chunkLimit,
       chunkNumber,
@@ -82,22 +89,22 @@ export class NotionAPI {
       throw new Error(`Notion page not found "${uuidToId(pageId)}"`);
     }
 
-    // ensure that all top-level maps exist
+    // 确保所有顶级映射都存在
     recordMap.collection = recordMap.collection ?? {};
     recordMap.collection_view = recordMap.collection_view ?? {};
     recordMap.notion_user = recordMap.notion_user ?? {};
 
-    // additional mappings added for convenience
-    // note: these are not native notion objects
+    // 额外映射，便于使用（这些不是原生的 Notion 对象）
     recordMap.collection_query = {};
     recordMap.signed_urls = {};
 
+    // 如果需要，获取缺失的内容块
     if (fetchMissingBlocks) {
       // eslint-disable-next-line no-constant-condition
       while (true) {
         // fetch any missing content blocks
         const pendingBlockIds = getPageContentBlockIds(recordMap).filter(
-          (id) => !recordMap.block[id],
+          (id) => !recordMap.block[id]
         );
 
         if (!pendingBlockIds.length) {
@@ -106,7 +113,7 @@ export class NotionAPI {
 
         const newBlocks = await this.getBlocks(
           pendingBlockIds,
-          gotOptions,
+          gotOptions
         ).then((res) => res.recordMap.block);
 
         recordMap.block = { ...recordMap.block, ...newBlocks };
@@ -120,6 +127,7 @@ export class NotionAPI {
     // This is really convenient in order to ensure that all data needed for a given
     // Notion page is readily available for use cases involving server-side rendering
     // and edge caching.
+    // 可选地获取嵌入集合及其关联视图的数据
     if (fetchCollections) {
       const allCollectionInstances: Array<{
         collectionId: string;
@@ -128,8 +136,8 @@ export class NotionAPI {
         const block = recordMap.block[blockId].value;
         const collectionId =
           block &&
-          (block.type === 'collection_view' ||
-            block.type === 'collection_view_page') &&
+          (block.type === "collection_view" ||
+            block.type === "collection_view_page") &&
           getBlockCollectionId(block, recordMap);
 
         if (collectionId) {
@@ -142,14 +150,17 @@ export class NotionAPI {
         }
       });
 
-      // fetch data for all collection view instances
+      // 获取所有集合视图实例的数据
       await pMap(
         allCollectionInstances,
         async (collectionInstance) => {
           const { collectionId, collectionViewId } = collectionInstance;
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value;
-
+          console.log(
+            "collectionViewIdcollectionViewIdcollectionViewIdcollectionViewId",
+            collectionViewId
+          );
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
@@ -157,12 +168,7 @@ export class NotionAPI {
               collectionView,
               {
                 gotOptions,
-              },
-            );
-
-            console.log(
-              'collectionDatacollectionDatacollectionData',
-              collectionData,
+              }
             );
 
             // await fs.writeFile(
@@ -196,7 +202,7 @@ export class NotionAPI {
                 ?.reducerResults,
             };
 
-            console.log('recordMap.collection_query', {
+            console.log("recordMap.collection_query", {
               ...recordMap.collection_query![collectionId],
               [collectionViewId]: (collectionData.result as any)
                 ?.reducerResults,
@@ -205,16 +211,16 @@ export class NotionAPI {
             // It's possible for public pages to link to private collections, in which case
             // Notion returns a 400 error
             console.warn(
-              'NotionAPI collectionQuery error',
+              "NotionAPI collectionQuery error",
               pageId,
-              err.message,
+              err.message
             );
             console.error(err);
           }
         },
         {
           concurrency,
-        },
+        }
       );
     }
 
@@ -222,12 +228,13 @@ export class NotionAPI {
     // NOTE: Similar to collection data, we default to eagerly fetching signed URL info
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
+    // 可选地获取嵌入文件的签名 URL
     if (signFileUrls) {
       await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions });
     }
     console.log(
-      'recordMaprecordMaprecordMaprecordMaprecordMaprecordMap',
-      recordMap,
+      "recordMaprecordMaprecordMaprecordMaprecordMaprecordMap",
+      recordMap
     );
 
     return recordMap;
@@ -253,27 +260,27 @@ export class NotionAPI {
 
       if (
         block &&
-        (block.type === 'pdf' ||
-          block.type === 'audio' ||
-          (block.type === 'image' && block.file_ids?.length) ||
-          block.type === 'video' ||
-          block.type === 'file' ||
-          block.type === 'page')
+        (block.type === "pdf" ||
+          block.type === "audio" ||
+          (block.type === "image" && block.file_ids?.length) ||
+          block.type === "video" ||
+          block.type === "file" ||
+          block.type === "page")
       ) {
         const source =
-          block.type === 'page'
+          block.type === "page"
             ? block.format?.page_cover
             : block.properties?.source?.[0]?.[0];
         // console.log(block, source)
 
         if (source) {
-          if (!source.includes('secure.notion-static.com')) {
+          if (!source.includes("secure.notion-static.com")) {
             return [];
           }
 
           return {
             permissionRecord: {
-              table: 'block',
+              table: "block",
               id: block.id,
             },
             url: source,
@@ -288,7 +295,7 @@ export class NotionAPI {
       try {
         const { signedUrls } = await this.getSignedFileUrls(
           allFileInstances,
-          gotOptions,
+          gotOptions
         );
 
         if (signedUrls.length === allFileInstances.length) {
@@ -300,7 +307,7 @@ export class NotionAPI {
           }
         }
       } catch (err) {
-        console.warn('NotionAPI getSignedfileUrls error', err);
+        console.warn("NotionAPI getSignedfileUrls error", err);
       }
     }
   }
@@ -325,7 +332,7 @@ export class NotionAPI {
       chunkLimit?: number;
       chunkNumber?: number;
       gotOptions?: OptionsOfJSONResponseBody;
-    } = {},
+    } = {}
   ): Promise<notion.PageChunk> {
     const parsedPageId = parsePageId(pageId);
 
@@ -342,7 +349,7 @@ export class NotionAPI {
     };
 
     return this.fetch<notion.PageChunk>({
-      endpoint: 'loadPageChunk',
+      endpoint: "loadPageChunk",
       body,
       gotOptions,
     });
@@ -362,7 +369,7 @@ export class NotionAPI {
     collectionView?: any,
     {
       limit = 9999,
-      searchQuery = '',
+      searchQuery = "",
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
       gotOptions,
@@ -374,10 +381,14 @@ export class NotionAPI {
       userLocale?: string; // 用户时区
       loadContentCover?: boolean; // 是否加载内容封面
       gotOptions?: OptionsOfJSONResponseBody; // 请求选项
-    } = {},
+    } = {}
   ) {
     const type = collectionView?.type;
-    const isBoardType = type === 'board';
+    // const type = "gallery";
+    console.log("typetypetypetypetypetype", type);
+
+    debugger;
+    const isBoardType = type === "board";
     const groupBy = isBoardType
       ? collectionView?.format?.board_columns_by
       : collectionView?.format?.collection_group_by;
@@ -392,7 +403,7 @@ export class NotionAPI {
             filter: filterObj?.filter?.filter,
             property: filterObj?.filter?.property,
           };
-        },
+        }
       );
     }
 
@@ -402,10 +413,10 @@ export class NotionAPI {
     }
 
     let loader: any = {
-      type: 'reducer',
+      type: "reducer",
       reducers: {
         collection_group_results: {
-          type: 'results',
+          type: "results",
           limit,
           loadContentCover,
         },
@@ -414,7 +425,7 @@ export class NotionAPI {
       ...collectionView?.query2,
       filter: {
         filters: filters,
-        operator: 'and',
+        operator: "and",
       },
       searchQuery,
       userTimeZone,
@@ -429,18 +440,18 @@ export class NotionAPI {
 
       // 定义迭代器，根据不同的类型选择不同的迭代器
       const iterators = [
-        isBoardType ? 'board' : 'group_aggregation',
-        'results',
+        isBoardType ? "board" : "group_aggregation",
+        "results",
       ];
       // 定义运算符，用于不同类型的过滤条件
       const operators = {
-        checkbox: 'checkbox_is',
-        url: 'string_starts_with',
-        text: 'string_starts_with',
-        select: 'enum_is',
-        multi_select: 'enum_contains',
-        created_time: 'date_is_within',
-        ['undefined']: 'is_empty', // 未定义的情况
+        checkbox: "checkbox_is",
+        url: "string_starts_with",
+        text: "string_starts_with",
+        select: "enum_is",
+        multi_select: "enum_contains",
+        created_time: "date_is_within",
+        ["undefined"]: "is_empty", // 未定义的情况
       } as any;
 
       // 初始化 reducersQuery 对象，用于存储不同的 reducer 查询
@@ -457,27 +468,27 @@ export class NotionAPI {
         for (const iterator of iterators) {
           // 根据迭代器类型设置属性
           const iteratorProps =
-            iterator === 'results' // 结果迭代器
+            iterator === "results" // 结果迭代器
               ? {
                   type: iterator,
                   limit,
                 }
               : {
-                  type: 'aggregation', // 聚合迭代器
+                  type: "aggregation", // 聚合迭代器
                   aggregation: {
-                    aggregator: 'count', // 聚合方式为计数
+                    aggregator: "count", // 聚合方式为计数
                   },
                 };
           // 判断值是否未定义
-          const isUncategorizedValue = typeof value === 'undefined';
+          const isUncategorizedValue = typeof value === "undefined";
           // 判断值是否为日期范围
           const isDateValue = value?.range;
           // 根据不同的值类型设置查询标签
           const queryLabel = isUncategorizedValue
-            ? 'uncategorized' // 未分类
+            ? "uncategorized" // 未分类
             : isDateValue
-              ? value.range?.start_date || value.range?.end_date // 日期范围
-              : value?.value || value;
+            ? value.range?.start_date || value.range?.end_date // 日期范围
+            : value?.value || value;
 
           // 根据不同的值类型设置查询值
           const queryValue =
@@ -486,17 +497,17 @@ export class NotionAPI {
           reducersQuery[`${iterator}:${type}:${queryLabel}`] = {
             ...iteratorProps,
             filter: {
-              operator: 'and',
+              operator: "and",
               filters: [
                 {
                   property,
                   filter: {
                     operator: !isUncategorizedValue
                       ? operators[type]
-                      : 'is_empty',
+                      : "is_empty",
                     ...(!isUncategorizedValue && {
                       value: {
-                        type: 'exact',
+                        type: "exact",
                         value: queryValue,
                       },
                     }),
@@ -508,13 +519,13 @@ export class NotionAPI {
         }
       }
       // 根据是否为看板类型设置 reducer 标签
-      const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`;
+      const reducerLabel = isBoardType ? "board_columns" : `${type}_groups`;
       // 构建 loader 对象
       loader = {
-        type: 'reducer',
+        type: "reducer",
         reducers: {
           [reducerLabel]: {
-            type: 'groups',
+            type: "groups",
             groupBy, // 分组依据
             ...(collectionView?.query2?.filter && {
               filter: collectionView?.query2?.filter, // 继承原有的过滤条件
@@ -530,11 +541,11 @@ export class NotionAPI {
         // 添加其他过滤条件
         filter: {
           filters: filters,
-          operator: 'and',
+          operator: "and",
         },
       };
 
-      console.log('loaderloaderloader', loader);
+      console.log("loaderloaderloader", loader);
     }
 
     // if (isBoardType) {
@@ -554,7 +565,7 @@ export class NotionAPI {
     // }
 
     return this.fetch<notion.CollectionInstance>({
-      endpoint: 'queryCollection',
+      endpoint: "queryCollection",
       body: {
         collection: {
           id: collectionId,
@@ -570,12 +581,12 @@ export class NotionAPI {
 
   public async getUsers(
     userIds: string[],
-    gotOptions?: OptionsOfJSONResponseBody,
+    gotOptions?: OptionsOfJSONResponseBody
   ) {
     return this.fetch<notion.RecordValues<notion.User>>({
-      endpoint: 'getRecordValues',
+      endpoint: "getRecordValues",
       body: {
-        requests: userIds.map((id) => ({ id, table: 'notion_user' })),
+        requests: userIds.map((id) => ({ id, table: "notion_user" })),
       },
       gotOptions,
     });
@@ -583,14 +594,14 @@ export class NotionAPI {
 
   public async getBlocks(
     blockIds: string[],
-    gotOptions?: OptionsOfJSONResponseBody,
+    gotOptions?: OptionsOfJSONResponseBody
   ) {
     return this.fetch<notion.PageChunk>({
-      endpoint: 'syncRecordValues',
+      endpoint: "syncRecordValues",
       body: {
         requests: blockIds.map((blockId) => ({
           // TODO: when to use table 'space' vs 'block'?
-          table: 'block',
+          table: "block",
           id: blockId,
           version: -1,
         })),
@@ -601,10 +612,10 @@ export class NotionAPI {
 
   public async getSignedFileUrls(
     urls: SignedUrlRequest[],
-    gotOptions?: OptionsOfJSONResponseBody,
+    gotOptions?: OptionsOfJSONResponseBody
   ) {
     return this.fetch<SignedUrlResponse>({
-      endpoint: 'getSignedFileUrls',
+      endpoint: "getSignedFileUrls",
       body: {
         urls,
       },
@@ -614,16 +625,16 @@ export class NotionAPI {
 
   public async search(
     params: notion.SearchParams,
-    gotOptions?: OptionsOfJSONResponseBody,
+    gotOptions?: OptionsOfJSONResponseBody
   ) {
     //
 
     const body = {
-      type: 'BlocksInAncestor',
-      source: 'quick_find_public',
+      type: "BlocksInAncestor",
+      source: "quick_find_public",
       ancestorId: parsePageId(params.ancestorId),
       sort: {
-        field: 'relevance',
+        field: "relevance",
       },
       limit: params.limit || 20,
       query: params.query,
@@ -642,7 +653,7 @@ export class NotionAPI {
     };
 
     return this.fetch<notion.SearchResults>({
-      endpoint: 'search',
+      endpoint: "search",
       body,
       gotOptions,
     });
@@ -672,7 +683,7 @@ export class NotionAPI {
     const headers: any = {
       ...clientHeaders,
       ...gotOptions?.headers,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     if (this._authToken) {
@@ -680,21 +691,21 @@ export class NotionAPI {
     }
 
     if (this._activeUser) {
-      headers['x-notion-active-user-header'] = this._activeUser;
+      headers["x-notion-active-user-header"] = this._activeUser;
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`;
 
-    console.log('url', url);
+    console.log("url", url);
     console.log(
-      '搜索返回的数据',
+      "搜索返回的数据",
       got
         .post(url, {
           ...gotOptions,
           json: body,
           headers,
         })
-        .json(),
+        .json()
     );
 
     return got

@@ -1,28 +1,28 @@
-import { LANG } from './constants';
-import SiteConfig from '../site.config';
-import { defaultMapImageUrl } from 'react-notion-x';
+import { LANG } from "./constants";
+import SiteConfig from "../site.config";
+import { defaultMapImageUrl } from "react-notion-x";
 import {
   parsePageId,
   uuidToId,
   // getCanonicalPageId as getCanonicalPageIdImpl,
-} from 'notion-utils';
-import { Block, ExtendedRecordMap } from 'notion-types';
+} from "notion-utils";
+import { Block, ExtendedRecordMap } from "notion-types";
 
-import * as Types from './type';
+import * as Types from "./type";
 /**
  * 格式化日期
  * @timestampString 2024-02-22T15:22:31
  * @returns 格式化后的日期字符串，例如：2024年02月22日
  */
 export const formatTimestampToDate = (
-  timestampString: number | string,
+  timestampString: number | string
 ): string => {
-  if (!timestampString) return '';
+  if (!timestampString) return "";
   const timestamp = new Date(timestampString);
   const year = timestamp.getFullYear();
   const month =
-    (timestamp.getMonth() + 1 < 10 ? '0' : '') + (timestamp.getMonth() + 1);
-  const day = (timestamp.getDate() < 10 ? '0' : '') + timestamp.getDate();
+    (timestamp.getMonth() + 1 < 10 ? "0" : "") + (timestamp.getMonth() + 1);
+  const day = (timestamp.getDate() < 10 ? "0" : "") + timestamp.getDate();
   return `${year}年${month}月${day}日`;
 };
 /**
@@ -33,22 +33,22 @@ export const formatTimestampToDate = (
  */
 export const formatDate = (
   date: string | Date,
-  locale: string = 'zh-CN',
+  locale: string = "zh-CN"
 ): string => {
-  if (!date || !locale) return date ? date.toString() : '';
+  if (!date || !locale) return date ? date.toString() : "";
 
   const d = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   };
   const res = d.toLocaleDateString(locale, options);
 
   // 如果格式是中文日期，则转为横杆
   const format =
-    locale.slice(0, 2).toLowerCase() === 'zh'
-      ? res.replace('年', '-').replace('月', '-').replace('日', '')
+    locale.slice(0, 2).toLowerCase() === "zh"
+      ? res.replace("年", "-").replace("月", "-").replace("日", "")
       : res;
 
   return format;
@@ -63,7 +63,7 @@ export const deepClone = <T>(obj: T): T => {
   if (Array.isArray(obj)) {
     // If obj is an array, create a new array and deep clone each element
     return obj.map((item) => deepClone(item)) as unknown as T;
-  } else if (obj && typeof obj === 'object') {
+  } else if (obj && typeof obj === "object") {
     const newObj: { [key: string]: any } = {};
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
@@ -91,50 +91,44 @@ export const formatDatabase = (pages: any) => {
     const properties = page?.properties;
 
     // 遍历 properties 并提取每个属性的值
-    const extractedProperties = Object.keys(properties).reduce(
-      (acc, key) => {
-        const property = properties[key];
+    const extractedProperties = Object.keys(properties).reduce((acc, key) => {
+      const property = properties[key];
 
-        let value;
+      let value;
 
-        switch (property.type) {
-          case 'title':
-            value = property.title[0]?.plain_text || '';
-            break;
-          case 'rich_text':
-            value = property.rich_text[0]?.plain_text || '';
-            break;
-          case 'date':
-            value = property.date?.start || '';
-            break;
-          case 'multi_select':
-            value = property.multi_select.map((tag: any) => tag.name);
-            break;
-          case 'relation':
-            value = property.relation.map((rel: any) => rel.id);
-            break;
-          case 'checkbox':
-            value = property.checkbox;
-            break;
-          case 'created_time':
-            value = formatDate(
-              new Date(property.created_time).toString(),
-              LANG,
-            );
-            break;
-          default:
-            value = null;
-        }
-        // 处理key，只对包含空格的key用下划线连接
-        const formattedKey = key.includes(' ')
-          ? key.replace(/\s+/g, '_').toLowerCase()
-          : key.toLowerCase();
+      switch (property.type) {
+        case "title":
+          value = property.title[0]?.plain_text || "";
+          break;
+        case "rich_text":
+          value = property.rich_text[0]?.plain_text || "";
+          break;
+        case "date":
+          value = property.date?.start || "";
+          break;
+        case "multi_select":
+          value = property.multi_select.map((tag: any) => tag.name);
+          break;
+        case "relation":
+          value = property.relation.map((rel: any) => rel.id);
+          break;
+        case "checkbox":
+          value = property.checkbox;
+          break;
+        case "created_time":
+          value = formatDate(new Date(property.created_time).toString(), LANG);
+          break;
+        default:
+          value = null;
+      }
+      // 处理key，只对包含空格的key用下划线连接
+      const formattedKey = key.includes(" ")
+        ? key.replace(/\s+/g, "_").toLowerCase()
+        : key.toLowerCase();
 
-        acc[formattedKey] = value;
-        return acc;
-      },
-      {} as { [key: string]: any },
-    );
+      acc[formattedKey] = value;
+      return acc;
+    }, {} as { [key: string]: any });
 
     const cover = page?.cover?.external?.url || null;
 
@@ -142,7 +136,7 @@ export const formatDatabase = (pages: any) => {
       id: page.id,
       cover:
         cover ||
-        'https://cdn.aglty.io/blog-starter-2021-template/posts/virtual-tour_20210331171226_0.jpg?format=auto&w=480',
+        "https://cdn.aglty.io/blog-starter-2021-template/posts/virtual-tour_20210331171226_0.jpg?format=auto&w=480",
       url: page.url,
       ...extractedProperties,
     };
@@ -156,20 +150,20 @@ export const formatPostBlock = (blockMap: any, pageId: string) => {
   return {
     id: pageId,
     type: postInfo.type,
-    category: '',
+    category: "",
     tags: [],
     title: postInfo?.properties?.title?.[0]?.[0],
-    status: 'Published',
+    status: "Published",
     createdTime: formatDate(new Date(postInfo.created_time).toString(), LANG),
     lastEditedDay: formatDate(
       new Date(postInfo?.last_edited_time).toString(),
-      LANG,
+      LANG
     ),
     fullWidth: postInfo?.fullWidth || false,
     date: {
       start_date: formatDate(
         new Date(postInfo?.last_edited_time).toString(),
-        LANG,
+        LANG
       ),
     },
     blockMap,
@@ -179,7 +173,7 @@ export const formatPostBlock = (blockMap: any, pageId: string) => {
 export const getEnv = (
   key: string,
   defaultValue?: string,
-  env = process.env,
+  env = process.env
 ): string => {
   const value = env[key];
 
@@ -206,7 +200,7 @@ export const mapImageUrl = (url: string, block: Block) => {
 };
 
 const createUrl = (path: string, searchParams: URLSearchParams) => {
-  return [path, searchParams.toString()].filter(Boolean).join('?');
+  return [path, searchParams.toString()].filter(Boolean).join("?");
 };
 /**
  * 将页面 ID 映射到相应的 URL。
@@ -217,13 +211,13 @@ const createUrl = (path: string, searchParams: URLSearchParams) => {
  */
 export const mapPageUrl =
   (recordMap: ExtendedRecordMap, searchParams: URLSearchParams) =>
-  (pageId = ''): string => {
+  (pageId = ""): string => {
     const pageUuid = parsePageId(pageId, { uuid: true }); // 将页面 ID 解析为 UUID 格式
 
     // 如果页面 ID 对应于根 Notion 页面，则返回根 URL
     return createUrl(
       `/${getCanonicalPageId(pageUuid, recordMap, { uuid: true })}`,
-      searchParams,
+      searchParams
     );
     // if (uuidToId(pageUuid) === SiteConfig.rootNotionPageId) {
     //   return createUrl('/', searchParams);
@@ -255,7 +249,7 @@ export const mapPageUrl =
 const getCanonicalPageId = (
   pageId: string,
   recordMap: ExtendedRecordMap,
-  { uuid = true }: { uuid?: boolean } = {},
+  { uuid = true }: { uuid?: boolean } = {}
 ) => {
   const cleanPageId = parsePageId(pageId, { uuid: false });
   if (!cleanPageId) {
@@ -276,7 +270,7 @@ const getCanonicalPageId = (
 
 export const getCanonicalPageIdImpl = (
   pageId: string,
-  recordMap: ExtendedRecordMap,
+  recordMap: ExtendedRecordMap
   // { uuid = true }: { uuid?: boolean } = {},
 ) => {
   if (!pageId || !recordMap) return null;
@@ -296,7 +290,7 @@ export const getCanonicalPageIdImpl = (
     //     return slug;
     //   }
     // }
-    return `guide/${pageId}`;
+    return `post/${pageId}`;
   }
 
   // return id;
