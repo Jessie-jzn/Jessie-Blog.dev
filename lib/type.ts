@@ -10,21 +10,45 @@ export interface PageError {
   message?: string;
   statusCode: number;
 }
+// export interface Post {
+//   id: string;
+//   description?: string;
+//   name?: string;
+//   published?: boolean;
+//   url: string;
+//   date?: string;
+//   image: string;
+//   tags?: any;
+//   tagItems?: { name: string; color: string }[];
+//   pageCover?: string;
+//   cover?: string;
+//   created_time?: string;
+//   country: string[];
+// }
 export interface Post {
   id: string;
-  description?: string;
-  name?: string;
-  published?: boolean;
-  url: string;
-  date?: string;
-  image: string;
-  tags?: any;
-  tagItems?: { name: string; color: string }[];
-  pageCover?: string;
-  cover?: string;
-  created_time?: string;
-  country: string[];
+  type?: "Post";
+  status?: "Published";
+  tags?: string[];
+  title?: string;
+  slug?: string;
+  category?: string;
+  comment?: string;
+  publishDate?: number; // 以时间戳表示
+  publishDay?: string; // 格式化的日期字符串
+  lastEditedDate?: string; // 格式化的日期字符串
+  lastEditedDay?: string; // 格式化的日期字符串
+  fullWidth?: boolean;
+  pageIcon?: string; // 图标
+  pageCover?: string; // 封面图像 URL
+  pageCoverThumbnail?: string; // 封面缩略图 URL
+  ext?: Record<string, any>; // 扩展属性，可以是任意对象
+  tagItems?: Array<{
+    id: string; // 假设 tagItems 数组中的每个对象有 id
+    name: string; // 假设每个 tagItems 对象有 name
+  }>;
 }
+
 export interface Site {
   name: string;
   domain: string;
@@ -114,4 +138,13 @@ export interface SchemaProp {
     type: string;
     name: string;
   };
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  color: string;
+  count: number;
+  value: string;
+  articles: Post[];
 }

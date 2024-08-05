@@ -1,4 +1,5 @@
 // import { siteConfig } from '../config';
+import * as Types from "@/lib/type";
 
 /**
  * 获取所有文章的标签
@@ -12,36 +13,45 @@ export default function getAllTagsList({
   allPages,
   sliceCount = 0,
   tagOptions,
-  //   NOTION_CONFIG,
-}: {
+}: //   NOTION_CONFIG,
+{
   allPages: any[];
   sliceCount?: number;
-  tagOptions: { id: string; value: string; color: string }[];
-}): { id: string; name: string; color: string; count: number }[] {
+  tagOptions: Types.Tag[];
+}): Types.Tag[] {
   // 筛选所有发布状态的文章
   const allPosts = allPages?.filter(
-    (page) => page.type === 'Post' && page.status === 'Published',
+    (page) => page.type === "Post" && page.status === "Published"
   );
 
   if (!allPosts || !tagOptions) {
     return [];
   }
 
-  // 获取所有文章的标签
-  let tags = allPosts.map((p) => p.tags).flat();
+  console.log("allPostsallPostsallPostsallPosts", allPosts);
+  // // 获取所有文章的标签
+  // let tags = allPosts.map((p) => p.tags).flat();
 
   // 统计每个标签的数量
-  const tagCountMap: { [key: string]: number } = {};
-  tags.forEach((tag) => {
-    if (tag in tagCountMap) {
-      tagCountMap[tag]++;
-    } else {
-      tagCountMap[tag] = 1;
-    }
+  // const tagCountMap: { [key: string]: number } = {};
+  // tags.forEach((tag) => {
+  //   if (tag in tagCountMap) {
+  //     tagCountMap[tag]++;
+  //   } else {
+  //     tagCountMap[tag] = 1;
+  //   }
+  // });
+  const tagArticleMap: { [key: string]: any[] } = {};
+  allPosts.forEach((post) => {
+    post.tags.forEach((tag: string) => {
+      if (tagArticleMap[tag]) {
+        tagArticleMap[tag].push(post);
+      } else {
+        tagArticleMap[tag] = [post];
+      }
+    });
   });
-
-  const tagList: { id: string; name: string; color: string; count: number }[] =
-    [];
+  const tagList: Types.Tag[] = [];
 
   //   // 是否区分标签颜色
   //   const IS_TAG_COLOR_DISTINGUISHED = siteConfig(
@@ -56,37 +66,54 @@ export default function getAllTagsList({
   //     NOTION_CONFIG,
   //   );
 
+  // if (isIterable(tagOptions)) {
+  //   // if (!IS_TAG_COLOR_DISTINGUISHED) {
+  //   //   // 如果不区分颜色, 不同颜色相同名称的tag当做同一种tag
+  //   //   const savedTagNames = new Set<string>();
+  //   //   tagOptions.forEach((tagOption) => {
+  //   //     if (!savedTagNames.has(tagOption.value)) {
+  //   //       const count = tagCountMap[tagOption.value];
+  //   //       if (count) {
+  //   //         tagList.push({
+  //   //           id: tagOption.id,
+  //   //           name: tagOption.value,
+  //   //           color: tagOption.color,
+  //   //           count,
+  //   //         });
+  //   //       }
+  //   //       savedTagNames.add(tagOption.value);
+  //   //     }
+  //   //   });
+  //   // } else {
+  //   tagOptions.forEach((tagOption) => {
+  //     const count = tagCountMap[tagOption.value];
+  //     if (count) {
+  //       tagList.push({
+  //         id: tagOption.id,
+  //         name: tagOption.value,
+  //         color: tagOption.color,
+  //         count,
+  //         value: tagOption.value,
+  //       });
+  //     }
+  //   });
+  //   // }
+  // }
   if (isIterable(tagOptions)) {
-    // if (!IS_TAG_COLOR_DISTINGUISHED) {
-    //   // 如果不区分颜色, 不同颜色相同名称的tag当做同一种tag
-    //   const savedTagNames = new Set<string>();
-    //   tagOptions.forEach((tagOption) => {
-    //     if (!savedTagNames.has(tagOption.value)) {
-    //       const count = tagCountMap[tagOption.value];
-    //       if (count) {
-    //         tagList.push({
-    //           id: tagOption.id,
-    //           name: tagOption.value,
-    //           color: tagOption.color,
-    //           count,
-    //         });
-    //       }
-    //       savedTagNames.add(tagOption.value);
-    //     }
-    //   });
-    // } else {
     tagOptions.forEach((tagOption) => {
-      const count = tagCountMap[tagOption.value];
-      if (count) {
+      const articles = tagArticleMap[tagOption.value] || [];
+      const count = articles.length;
+      if (count > 0) {
         tagList.push({
           id: tagOption.id,
           name: tagOption.value,
           color: tagOption.color,
           count,
+          value: tagOption.value,
+          articles,
         });
       }
     });
-    // }
   }
 
   //   // 按照数量排序
@@ -108,5 +135,5 @@ export default function getAllTagsList({
  * @returns
  */
 const isIterable = (obj: any) => {
-  return obj != null && typeof obj[Symbol.iterator] === 'function';
+  return obj != null && typeof obj[Symbol.iterator] === "function";
 };

@@ -101,12 +101,13 @@ export default async function getDataBaseList({
   });
 
   // 所有标签
-  const tagOptions = getAllTagsList({
-    allPages,
-    tagOptions: getTagOptions(schema),
-  });
+  const tagOptions =
+    getAllTagsList({
+      allPages,
+      tagOptions: getTagOptions(schema),
+    }) || [];
 
-  console.log("allPagesallPagesallPages", allPages);
+  console.log("allPagesallPagesallPages", tagOptions);
   return { allPages, tagOptions, pageIds };
 }
 

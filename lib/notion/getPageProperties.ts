@@ -1,6 +1,6 @@
-import SiteConfig from '../../site.config';
-import { getDateValue, getTextContent } from 'notion-utils';
-import { formatDate, formatTimestampToDate } from '@/lib/util'; // 假设这些是存在的实用函数
+import SiteConfig from "../../site.config";
+import { getDateValue, getTextContent } from "notion-utils";
+import { formatDate, formatTimestampToDate } from "@/lib/util"; // 假设这些是存在的实用函数
 
 interface PageProperties {
   id: string;
@@ -43,10 +43,10 @@ const getPageProperties = async (
   id: string,
   value: Value,
   schema: Schema,
-  tagOptions: TagOption[],
+  tagOptions: TagOption[]
 ): Promise<PageProperties> => {
   const rawProperties = Object.entries(value?.properties || []);
-  const excludeProperties = ['date', 'select', 'multi_select', 'person'];
+  const excludeProperties = ["date", "select", "multi_select", "person"];
   const properties: PageProperties = { id };
 
   for (const [key, val] of rawProperties) {
@@ -54,16 +54,16 @@ const getPageProperties = async (
       properties[schema[key].name] = getTextContent(val);
     } else {
       switch (schema[key]?.type) {
-        case 'date': {
+        case "date": {
           const dateProperty = getDateValue(val);
           properties[schema[key].name] = dateProperty;
           break;
         }
-        case 'select':
-        case 'multi_select': {
+        case "select":
+        case "multi_select": {
           const selects = getTextContent(val);
           if (selects.length) {
-            properties[schema[key].name] = selects.split(',');
+            properties[schema[key].name] = selects.split(",");
           }
           break;
         }
@@ -106,38 +106,38 @@ const getPageProperties = async (
   //   }
 
   // type\status\category 是单选下拉框 取数组第一个
-  properties.type = properties.type?.[0] || '';
-  properties.status = properties.status?.[0] || '';
-  properties.category = properties.category?.[0] || '';
-  properties.comment = properties.comment?.[0] || '';
+  properties.type = properties.type?.[0] || "";
+  properties.status = properties.status?.[0] || "";
+  properties.category = properties.category?.[0] || "";
+  properties.comment = properties.comment?.[0] || "";
 
   // 映射值：用户个性化 type 和 status 字段的下拉框选项，在此映射回代码的英文标识
   mapProperties(properties);
 
   properties.publishDate = new Date(
-    properties?.date?.start_date || value.created_time,
+    properties?.date?.start_date || value.created_time
   ).getTime();
   properties.publishDay = formatDate(
     properties.publishDate,
-    SiteConfig.language,
+    SiteConfig.language
   );
   properties.lastEditedDate = formatTimestampToDate(value?.last_edited_time);
   properties.lastEditedDay = formatDate(
     new Date(value?.last_edited_time),
-    SiteConfig.language,
+    SiteConfig.language
   );
   properties.fullWidth = value?.format?.page_full_width ?? false;
-  properties.pageIcon = mapImgUrl(value?.format?.page_icon, value) ?? '';
-  properties.pageCover = mapImgUrl(value?.format?.page_cover, value) ?? '';
+  properties.pageIcon = mapImgUrl(value?.format?.page_icon, value) ?? "";
+  properties.pageCover = mapImgUrl(value?.format?.page_cover, value) ?? "";
   properties.pageCoverThumbnail =
-    mapImgUrl(value?.format?.page_cover, value, 'block') ?? '';
+    mapImgUrl(value?.format?.page_cover, value, "block") ?? "";
   properties.ext = convertToJSON(properties?.ext);
   properties.content = value.content ?? [];
   properties.tagItems =
     properties?.tags?.map((tag: any) => {
       return {
         name: tag,
-        color: tagOptions?.find((t) => t.value === tag)?.color || '',
+        color: tagOptions?.find((t) => t.value === tag)?.color || "",
       };
     }) || [];
 
@@ -158,9 +158,9 @@ const convertToJSON = (str: string) => {
   }
   // 使用正则表达式去除空格和换行符
   try {
-    return JSON.parse(str.replace(/\s/g, ''));
+    return JSON.parse(str.replace(/\s/g, ""));
   } catch (error) {
-    console.warn('无效JSON', str);
+    console.warn("无效JSON", str);
     return {};
   }
 };
@@ -176,19 +176,19 @@ interface MapProperties {
  */
 const mapProperties = (properties: MapProperties): void => {
   if (properties?.type === SiteConfig.NOTION_PROPERTY_NAME.type_post) {
-    properties.type = 'Post';
+    properties.type = "Post";
   } else if (properties?.type === SiteConfig.NOTION_PROPERTY_NAME.type_page) {
-    properties.type = 'Page';
+    properties.type = "Page";
   } else if (properties?.type === SiteConfig.NOTION_PROPERTY_NAME.type_notice) {
-    properties.type = 'Notice';
+    properties.type = "Notice";
   }
 
   if (properties?.status === SiteConfig.NOTION_PROPERTY_NAME.status_publish) {
-    properties.status = 'Published';
+    properties.status = "Published";
   } else if (
     properties?.status === SiteConfig.NOTION_PROPERTY_NAME.status_invisible
   ) {
-    properties.status = 'Invisible';
+    properties.status = "Invisible";
   }
 };
 
@@ -205,8 +205,8 @@ const mapProperties = (properties: MapProperties): void => {
 const mapImgUrl = (
   img: string | undefined,
   block: any,
-  type: string = 'block',
-  needCompress: boolean = true,
+  type: string = "block",
+  needCompress: boolean = true
 ): string | null => {
   if (!img) {
     return null;
@@ -215,7 +215,7 @@ const mapImgUrl = (
   let ret: string | null = null;
 
   // 如果图片地址是相对路径，则视为 Notion 的自带图片
-  if (img.startsWith('/')) {
+  if (img.startsWith("/")) {
     ret = SiteConfig.NOTION_HOST + img;
   } else {
     ret = img;
@@ -223,30 +223,30 @@ const mapImgUrl = (
 
   // 判断是否是 Notion 的图床转换地址
   const hasConverted =
-    ret.startsWith('https://www.notion.so/image') ||
-    ret.includes('notion.site/images/page-cover/');
+    ret.startsWith("https://www.notion.so/image") ||
+    ret.includes("notion.site/images/page-cover/");
 
   // 判断是否需要转换的 URL (AWS 图床地址或者 bookmark 类型的外链图片)
   const needConvert =
     !hasConverted &&
-    (block.type === 'bookmark' ||
-      ret.includes('secure.notion-static.com') ||
-      ret.includes('prod-files-secure'));
+    (block.type === "bookmark" ||
+      ret.includes("secure.notion-static.com") ||
+      ret.includes("prod-files-secure"));
 
   // 使用 Notion 图传转换地址
   if (needConvert) {
     ret =
       SiteConfig.NOTION_HOST +
-      '/image/' +
+      "/image/" +
       encodeURIComponent(ret) +
-      '?table=' +
+      "?table=" +
       type +
-      '&id=' +
+      "&id=" +
       block.id;
   }
 
   // 如果不是 emoji 并且不是 Notion 的 page-cover 图片
-  if (!isEmoji(ret) && !ret.includes('notion.so/images/page-cover')) {
+  if (!isEmoji(ret) && !ret.includes("notion.so/images/page-cover")) {
     // if (SiteConfig.RANDOM_IMAGE_URL) {
     //   // 只有配置了随机图片接口，才会替换图片
     //   const texts = SiteConfig.RANDOM_IMAGE_REPLACE_TEXT;
@@ -273,10 +273,10 @@ const mapImgUrl = (
     if (
       ret &&
       ret.length > 4 &&
-      !ret.includes('https://www.notion.so/images/')
+      !ret.includes("https://www.notion.so/images/")
     ) {
       // 图片接口拼接唯一识别参数，防止请求的图片被缓存而导致随机结果相同
-      const separator = ret.includes('?') ? '&' : '?';
+      const separator = ret.includes("?") ? "&" : "?";
       ret = `${ret.trim()}${separator}t=${block.id}`;
     }
   }
@@ -306,13 +306,13 @@ const compressImage = (
   image: string,
   width: number = 100,
   quality: number = 50,
-  fmt: string = 'webp',
+  fmt: string = "webp"
 ): string => {
-  if (!image || !image.startsWith('http')) {
+  if (!image || !image.startsWith("http")) {
     return image;
   }
 
-  if (image.includes('.svg')) {
+  if (image.includes(".svg")) {
     return image;
   }
 
@@ -328,23 +328,23 @@ const compressImage = (
   // Notion 图床
   if (
     image.startsWith(SiteConfig.NOTION_HOST) &&
-    image.includes('amazonaws.com')
+    image.includes("amazonaws.com")
   ) {
-    params.set('width', width.toString());
-    params.set('cache', 'v2');
+    params.set("width", width.toString());
+    params.set("cache", "v2");
     // 生成新的 URL
     urlObj.search = params.toString();
     return urlObj.toString();
-  } else if (image.startsWith('https://images.unsplash.com/')) {
+  } else if (image.startsWith("https://images.unsplash.com/")) {
     // 压缩 Unsplash 图片
-    params.set('q', quality.toString());
-    params.set('width', width.toString());
-    params.set('fmt', fmt);
-    params.set('fm', fmt);
+    params.set("q", quality.toString());
+    params.set("width", width.toString());
+    params.set("fmt", fmt);
+    params.set("fm", fmt);
     // 生成新的 URL
     urlObj.search = params.toString();
     return urlObj.toString();
-  } else if (image.startsWith('https://your_picture_bed')) {
+  } else if (image.startsWith("https://your_picture_bed")) {
     // 添加自定义图传的封面图压缩参数
     // 示例： return 'do_somethin_here'
   }
