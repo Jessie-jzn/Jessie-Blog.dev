@@ -5,11 +5,10 @@
 name: Deploy Next.js site to Pages
 
 on:
-  # Runs on pushes targeting branch
+  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-  schedule:
-    - cron: "0 * * * *" # 每小时触发一次构建和部署
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -55,7 +54,13 @@ jobs:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
+        with:
+          # Automatically inject basePath in your Next.js configuration file and disable
+          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
+          #
+          # You may remove this line if you want to manage the configuration yourself.
+          static_site_generator: next
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -70,11 +75,6 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Build the project
-        env:
-          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          NOTION_POST_ID: ${{ secrets.NOTION_POST_ID }}
-        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
