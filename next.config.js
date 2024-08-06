@@ -6,12 +6,19 @@ const path = require("path");
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
 //   enabled: false,
 // });
+const repo = "Jessie-Blog.dev";
+const assetPrefix = `/${repo}/`;
+const basePath = `/${repo}`;
 
 module.exports = {
   // env: {
   //   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   //   SITE_URL: process.env.SITE_URL, // 替换为你的站点URL
   // },
+  assetPrefix,
+  basePath,
+  reactStrictMode: true,
+
   webpack: (config, { isServer }) => {
     // 添加别名配置
     config.resolve.alias["@"] = path.resolve(__dirname);
@@ -41,6 +48,7 @@ module.exports = {
     },
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
