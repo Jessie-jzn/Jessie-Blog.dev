@@ -1,23 +1,25 @@
 /** @type {import('next').NextConfig} */
 
 const path = require("path");
-
+const isProd = process.env.NODE_ENV === "production";
 // 打包时是否分析代码
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
 //   enabled: false,
 // });
-const repo = "Jessie-Blog.dev";
-const assetPrefix = `/${repo}/`;
-const basePath = `/${repo}`;
+// const repo = "Jessie-Blog.dev";
+// const assetPrefix = `/${repo}/`;
+// const basePath = `/${repo}`;
 
 module.exports = {
   // env: {
   //   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   //   SITE_URL: process.env.SITE_URL, // 替换为你的站点URL
   // },
-  assetPrefix,
-  basePath,
-  reactStrictMode: true,
+  output: "export",
+  basePath: isProd ? "/Jessie-Blog.dev" : "",
+  // assetPrefix,
+  // basePath,
+  // reactStrictMode: true,
 
   webpack: (config, { isServer }) => {
     // 添加别名配置
