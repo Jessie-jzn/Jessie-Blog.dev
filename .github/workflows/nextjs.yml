@@ -72,8 +72,8 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Build the project
         env:
-          NEXT_PUBLIC_API_URL: ${{ secrets.NOTION_API_KEY }}
-          ANOTHER_SECRET_KEY: ${{ secrets.NOTION_POST_ID }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_POST_ID: ${{ secrets.NOTION_POST_ID }}
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
