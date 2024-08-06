@@ -15,8 +15,8 @@ module.exports = {
   //   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   //   SITE_URL: process.env.SITE_URL, // 替换为你的站点URL
   // },
-  trailingSlash: true,
-  basePath: isProd ? "/Jessie-Blog.dev" : "",
+  // trailingSlash: true,
+  // basePath: isProd ? "/Jessie-Blog.dev" : "",
   // assetPrefix,
   // basePath,
   // reactStrictMode: true,
