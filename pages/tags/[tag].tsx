@@ -56,8 +56,8 @@ export default function TagPage({
   tagOptions: Types.Tag[];
   posts: Types.Post[];
 }) {
-  const title = tagOptions[0].name.toUpperCase();
+  // const title = tagOptions[0].name.toUpperCase();
   return (
-    <ListLayoutWithTags posts={posts} tagOptions={tagOptions} title={title} />
+    <ListLayoutWithTags posts={posts} tagOptions={tagOptions} title="Tag" />
   );
 }
