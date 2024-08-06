@@ -13,14 +13,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       from: "tags-index",
     });
 
-    const filteredPosts =
-      response.tagOptions?.find((tag: Types.Tag) => tag.id === params?.tag)
-        ?.articles || [];
+    const filteredTag = response.tagOptions?.find(
+      (tag: Types.Tag) => tag.id === params?.tag
+    );
+    const filteredPosts = filteredTag?.articles || [];
 
     return {
       props: {
         tagOptions: response.tagOptions || [],
         posts: filteredPosts || [],
+        filteredTag: filteredTag,
       },
       revalidate: 10,
     };
@@ -52,12 +54,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export default function TagPage({
   tagOptions,
   posts,
+  filteredTag,
 }: {
   tagOptions: Types.Tag[];
   posts: Types.Post[];
+  filteredTag: Types.Tag;
 }) {
   // const title = tagOptions[0].name.toUpperCase();
   return (
-    <ListLayoutWithTags posts={posts} tagOptions={tagOptions} title="Tag" />
+    <ListLayoutWithTags
+      posts={posts}
+      tagOptions={tagOptions}
+      title={`Tag:${filteredTag.name}`}
+    />
   );
 }
