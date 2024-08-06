@@ -10,7 +10,7 @@ interface ListLayoutWithTagsProps {
 }
 
 const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
-  posts: initialDisplayPosts,
+  posts,
   title,
   tagOptions = [],
 }) => {
@@ -19,21 +19,24 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
 
   // Use useMemo to optimize the computation of filteredBlogPosts
   const filteredBlogPosts = useMemo(() => {
-    return initialDisplayPosts.filter((post) => {
+    if (!Array.isArray(posts)) {
+      return [];
+    }
+    return posts.filter((post) => {
       const searchContent = [
-        post?.title || "", // Default to empty string if undefined
-        post?.slug || "", // Default to empty string if undefined
-        post?.tags?.join(" ") || "", // Default to empty string if undefined
+        post.title,
+        post.slug,
+        post.tags?.join(" ") || "",
       ].join(" ");
 
       return searchContent.toLowerCase().includes(searchValue.toLowerCase());
     });
-  }, [initialDisplayPosts, searchValue]);
+  }, [posts, searchValue]);
 
   // Use useMemo to optimize the computation of displayPosts
   const displayPosts = useMemo(() => {
-    return !searchValue ? initialDisplayPosts : filteredBlogPosts;
-  }, [initialDisplayPosts, filteredBlogPosts, searchValue]);
+    return !searchValue ? posts : filteredBlogPosts;
+  }, [posts, filteredBlogPosts, searchValue]);
 
   return (
     <div className="container mx-auto pt-6 pb-8">
@@ -41,36 +44,31 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
         <div className="w-full sm:w-1/4 px-4 mb-8 sm:mb-0">
           <div className="h-full max-h-screen overflow-auto rounded bg-gray-50 p-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40">
             <div className="px-6 py-4">
-              {pathname.startsWith("/post") ? (
-                <h3 className="font-bold uppercase text-primary-500">
-                  All Posts
-                </h3>
-              ) : (
-                <Link
-                  href={`/post`}
-                  className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                >
-                  All Posts
-                </Link>
-              )}
+              <Link
+                href={`/post`}
+                className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+              >
+                All Posts
+              </Link>
               <ul>
-                {tagOptions.map((t: Types.Tag) => (
-                  <li key={t.id} className="my-3">
-                    {pathname.split("/tags/")[1] === t.id ? (
-                      <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                        {`${t.name} (${t.count})`}
-                      </h3>
-                    ) : (
-                      <Link
-                        href={`/tags/${t.id}`}
-                        className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                        aria-label={`View posts tagged ${t.name}`}
-                      >
-                        {`${t.name} (${t.count})`}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                {!!tagOptions.length &&
+                  tagOptions?.map((t: Types.Tag) => (
+                    <li key={t.id} className="my-3">
+                      {pathname.split("/tags/")[1] === t.id ? (
+                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
+                          {`${t.name} (${t.count})`}
+                        </h3>
+                      ) : (
+                        <Link
+                          href={`/tags/${t.id}`}
+                          className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+                          aria-label={`View posts tagged ${t.name}`}
+                        >
+                          {`${t.name} (${t.count})`}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -110,7 +108,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
             </div>
             <ul>
               {!filteredBlogPosts.length && "No posts found."}
-              {displayPosts.map((post: Types.Post) => {
+              {displayPosts?.map((post: Types.Post) => {
                 const { id, title, slug, tags, lastEditedDate } = post;
                 return (
                   <li key={id} className="py-4">

@@ -20,7 +20,7 @@ export default function getAllTagsList({
   tagOptions: Types.Tag[];
 }): Types.Tag[] {
   // 筛选所有发布状态的文章
-  const allPosts = allPages?.filter(
+  const allPosts = allPages.filter(
     (page) => page.type === "Post" && page.status === "Published"
   );
 

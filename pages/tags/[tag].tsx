@@ -12,7 +12,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       from: "tags-index",
     });
 
-    const filteredTag = response.tagOptions?.find(
+    const filteredTag = (response.tagOptions as any).find(
       (tag: Types.Tag) => tag.id === params?.tag
     );
     const filteredPosts = filteredTag?.articles || [];
@@ -30,6 +30,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         tagOptions: [],
         posts: [],
+        filteredTag: {},
       },
       revalidate: 10,
     };
