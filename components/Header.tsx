@@ -4,6 +4,9 @@ import menuList from "@/data/menuList";
 import MobileNav from "./MobileNav";
 import ThemeSwitch from "./ThemeSwitch";
 import Image from "next/image";
+import { Analytics } from "@vercel/analytics/react";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import Link from "next/link";
 const Header = () => {
   return (
@@ -42,6 +45,8 @@ const Header = () => {
         ))}
 
         <ThemeSwitch />
+        <Analytics />
+        {/* <SpeedInsights /> */}
         <MobileNav />
       </div>
     </header>

@@ -351,13 +351,12 @@ const compressImage = (
 
   return image;
 };
-
 /**
  * 是否是emoji图标
  * @param {*} str
  * @returns
  */
-const isEmoji = (str: string) => {
+const isEmoji = (str: string): boolean => {
   const emojiRegex =
     /[\u{1F300}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F018}-\u{1F270}\u{238C}\u{2B06}\u{2B07}\u{2B05}\u{27A1}\u{2194}-\u{2199}\u{2194}\u{21A9}\u{21AA}\u{2934}\u{2935}\u{25AA}\u{25AB}\u{25FE}\u{25FD}\u{25FB}\u{25FC}\u{25B6}\u{25C0}\u{1F200}-\u{1F251}]/u;
   return emojiRegex.test(str);

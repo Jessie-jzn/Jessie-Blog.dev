@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     from: "post-id",
   });
 
-  const paths = posts.pageIds.map((post) => ({
+  const paths = (posts.pageIds as any).map((post: any) => ({
     params: { id: post },
   }));
 
