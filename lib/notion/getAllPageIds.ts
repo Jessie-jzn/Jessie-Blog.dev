@@ -13,7 +13,7 @@ export default function getAllPageIds(
   collectionQuery: CollectionQuery,
   collectionId: string,
   collectionView: any,
-  viewIds: string[],
+  viewIds: string[]
 ): string[] {
   if (!collectionQuery || !collectionView) {
     return [];
@@ -32,10 +32,8 @@ export default function getAllPageIds(
       }
     }
   } catch (error) {
-    console.error('Error fetching page IDs from collectionQuery:', error);
+    console.error("Error fetching page IDs from collectionQuery:", error);
   }
-
-  console.log('pageIds', pageIds);
 
   // 否则按照数据库原始排序
   if (
@@ -47,7 +45,7 @@ export default function getAllPageIds(
     Object.values(collectionQuery[collectionId]).forEach((view) => {
       view?.blockIds?.forEach((id) => pageSet.add(id)); // group视图
       view?.collection_group_results?.blockIds?.forEach((id) =>
-        pageSet.add(id),
+        pageSet.add(id)
       ); // table视图
     });
     pageIds = Array.from(pageSet);

@@ -2,7 +2,7 @@
 // import { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints';
 import { NotionAPI } from "./NotionAPI";
 
-import { NOTION_TOKEN } from "../constants";
+import { NOTION_TOKEN } from "@/lib/constants";
 if (!NOTION_TOKEN) {
   throw new Error("NOTION_TOKEN is not defined");
 }
@@ -67,8 +67,6 @@ class NotionService {
   async getPage(pageId: string) {
     try {
       const page = await this.notionAPI.getPage(pageId);
-
-      console.log("getPagepagepagepage", page);
 
       return page;
     } catch (error: any) {

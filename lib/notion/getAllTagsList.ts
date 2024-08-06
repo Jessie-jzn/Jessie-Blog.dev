@@ -28,19 +28,6 @@ export default function getAllTagsList({
     return [];
   }
 
-  console.log("allPostsallPostsallPostsallPosts", allPosts);
-  // // 获取所有文章的标签
-  // let tags = allPosts.map((p) => p.tags).flat();
-
-  // 统计每个标签的数量
-  // const tagCountMap: { [key: string]: number } = {};
-  // tags.forEach((tag) => {
-  //   if (tag in tagCountMap) {
-  //     tagCountMap[tag]++;
-  //   } else {
-  //     tagCountMap[tag] = 1;
-  //   }
-  // });
   const tagArticleMap: { [key: string]: any[] } = {};
   allPosts.forEach((post) => {
     post.tags.forEach((tag: string) => {

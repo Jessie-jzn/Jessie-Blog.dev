@@ -9,7 +9,6 @@ const NotionPageHeader = ({ block }: any) => {
   const isBlogPost =
     block?.type === "page" && block?.parent_table === "collection";
 
-  console.log("block?.typeblock?.typeblock?.typeblock?.type", block);
   const [breadcrumbs, setBreadcrumbs] = useState<
     Array<{ href: string; label: string }>
   >([]);

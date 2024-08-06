@@ -6,7 +6,6 @@ import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log("params", params);
   try {
     const response = await getDataBaseList({
       pageId: NOTION_POST_ID,
@@ -65,7 +64,7 @@ export default function TagPage({
     <ListLayoutWithTags
       posts={posts}
       tagOptions={tagOptions}
-      title={`Tag:${filteredTag.name}`}
+      title={`Tag: ${filteredTag?.name}`}
     />
   );
 }

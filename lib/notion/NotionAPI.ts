@@ -157,10 +157,7 @@ export class NotionAPI {
           const { collectionId, collectionViewId } = collectionInstance;
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value;
-          console.log(
-            "collectionViewIdcollectionViewIdcollectionViewIdcollectionViewId",
-            collectionViewId
-          );
+
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
@@ -201,12 +198,6 @@ export class NotionAPI {
               [collectionViewId]: (collectionData.result as any)
                 ?.reducerResults,
             };
-
-            console.log("recordMap.collection_query", {
-              ...recordMap.collection_query![collectionId],
-              [collectionViewId]: (collectionData.result as any)
-                ?.reducerResults,
-            });
           } catch (err: any) {
             // It's possible for public pages to link to private collections, in which case
             // Notion returns a 400 error
@@ -232,10 +223,6 @@ export class NotionAPI {
     if (signFileUrls) {
       await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions });
     }
-    console.log(
-      "recordMaprecordMaprecordMaprecordMaprecordMaprecordMap",
-      recordMap
-    );
 
     return recordMap;
   }
@@ -384,8 +371,6 @@ export class NotionAPI {
     } = {}
   ) {
     const type = collectionView?.type;
-    // const type = "gallery";
-    console.log("typetypetypetypetypetype", type);
 
     debugger;
     const isBoardType = type === "board";
@@ -544,8 +529,6 @@ export class NotionAPI {
           operator: "and",
         },
       };
-
-      console.log("loaderloaderloader", loader);
     }
 
     // if (isBoardType) {
@@ -695,18 +678,6 @@ export class NotionAPI {
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`;
-
-    console.log("url", url);
-    console.log(
-      "搜索返回的数据",
-      got
-        .post(url, {
-          ...gotOptions,
-          json: body,
-          headers,
-        })
-        .json()
-    );
 
     return got
       .post(url, {

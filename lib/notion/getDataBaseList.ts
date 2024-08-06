@@ -20,8 +20,6 @@ export default async function getDataBaseList({
   console.log("[Fetching Data]", pageId, from);
   const pageRecordMap = await getPage({ pageId, from });
 
-  console.log("pageRecordMappageRecordMappageRecordMap", pageRecordMap);
-
   if (!pageRecordMap) {
     console.error("can`t get Notion Data ; Which id is: ", pageId);
     return {};
@@ -107,7 +105,6 @@ export default async function getDataBaseList({
       tagOptions: getTagOptions(schema),
     }) || [];
 
-  console.log("allPagesallPagesallPages", tagOptions);
   return { allPages, tagOptions, pageIds };
 }
 
