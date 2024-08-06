@@ -8,6 +8,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  schedule:
+    - cron: "0 * * * *" # 每小时触发一次构建和部署
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -75,6 +77,16 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Build the project
+        env:
+          NOTION_ABOUT_ID: ${{ secrets.NOTION_ABOUT_ID }}
+          NOTION_API_BASE_URL: ${{ secrets.NOTION_API_BASE_URL }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_HOME_ID: ${{ secrets.NOTION_HOME_ID }}
+          NOTION_POSTLIST_ID: ${{ secrets.NOTION_POSTLIST_ID }}
+          NOTION_POST_ID: ${{ secrets.NOTION_POST_ID }}
+          NOTION_ROOT_ID: ${{ secrets.NOTION_ROOT_ID }}
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
