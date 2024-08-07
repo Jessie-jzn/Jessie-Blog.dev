@@ -1,8 +1,11 @@
 import { FC } from "react";
-import SiteConfig from "../site.config";
-import Header from "./Header";
+// import Header from "./Header";
 import Footer from "./Footer";
+import dynamic from "next/dynamic";
 
+const Header = dynamic(() => import("./Header"), {
+  ssr: true,
+});
 interface LayoutProps {
   children: React.ReactNode;
 }

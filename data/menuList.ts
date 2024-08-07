@@ -1,9 +1,9 @@
 const menuList = [
-  { href: "/", title: "Home", id: 1 },
-  { href: "/post", title: "Post", id: 2 },
-  { href: "/tags", title: "Tags", id: 3 },
-  { href: "/projects", title: "Projects", id: 4 },
-  { href: "/about", title: "About", id: 5 },
+  { href: "/", title: "home", id: 1 },
+  { href: "/post", title: "post", id: 2 },
+  { href: "/tags", title: "tags", id: 3 },
+  { href: "/projects", title: "projects", id: 4 },
+  { href: "/about", title: "about", id: 5 },
 ];
 
 export default menuList;

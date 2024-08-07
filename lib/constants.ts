@@ -11,6 +11,9 @@ const PREVIEW_IMAGES_ENABLED = true;
 const LANG = process.env.NEXT_PUBLIC_LANG || "zh-CN"; // zh-CN,'n-U
 const IsPROD = process.env.NODE_ENV === "production";
 
+const TRANSLATE_BAIDU_APPID = process.env.TRANSLATE_BAIDU_APPID;
+const TRANSLATE_BAIDU_SECRETKEY = process.env.TRANSLATE_BAIDU_SECRETKEY;
+
 /** 营收广告 */
 /** google ads */
 const ADSENSE_GOOGLE_ID = process.env.ADSENSE_GOOGLE_ID;
@@ -28,6 +31,8 @@ export {
   NOTION_ROOT_ID,
   NOTION_ABOUT_ID,
   LANG,
+  TRANSLATE_BAIDU_APPID,
+  TRANSLATE_BAIDU_SECRETKEY,
   IsPROD,
   ADSENSE_GOOGLE_ID,
   ADSENSE_GOOGLE_SLOT_IN_ARTICLE,

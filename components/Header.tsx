@@ -1,14 +1,16 @@
 import SiteConfig from "../site.config";
 import menuList from "@/data/menuList";
-// import Link from "./Link";
 import MobileNav from "./MobileNav";
 import ThemeSwitch from "./ThemeSwitch";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 import { Analytics } from "@vercel/analytics/react";
-// import { SpeedInsights } from "@vercel/speed-insights/next";
-
 import Link from "next/link";
+import LanguageSwitch from "./LanguageSwitch";
+
 const Header = () => {
+  const { t } = useTranslation("common");
+
   return (
     <header className="flex items-center justify-between py-10">
       <div>
@@ -40,11 +42,12 @@ const Header = () => {
             href={link.href}
             className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
           >
-            {link.title}
+            {t(link.title)}
           </Link>
         ))}
 
         <ThemeSwitch />
+        <LanguageSwitch />
         <Analytics />
         {/* <SpeedInsights /> */}
         <MobileNav />

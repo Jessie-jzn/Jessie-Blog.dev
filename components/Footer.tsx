@@ -2,22 +2,24 @@
 import React from "react";
 import Link from "next/link";
 import SiteConfig from "../site.config";
-import menuList from "@/data/menuList";
+
 import SocialContactIcon from "./SocialContactIcon";
+import { useTranslation } from "next-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation("common");
   return (
     <div className=" box-border flex flex-col pt-8 items-center w-full border-t border-[#E8E8EA] dark:border-zinc-900 dark:bg-zinc-800">
       <div className="flex flex-wrap justify-between w-full pb-8">
         <div className="flex flex-col max-w-xs">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-            关于
+            {t("about")}
           </h2>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
             {SiteConfig.description}
           </p>
           <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
-            <strong>联系 :</strong> {SiteConfig.email}
+            <strong>{t("contact")} :</strong> {SiteConfig.email}
           </p>
           {/* <p className="text-sm text-zinc-600 dark:text-zinc-400">
             <strong>Phone :</strong> 880 123 456 789

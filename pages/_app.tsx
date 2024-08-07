@@ -1,19 +1,13 @@
 import { ThemeProvider } from "next-themes";
+import { appWithTranslation } from "next-i18next";
 import "react-notion-x/src/styles.css";
-// import "prismjs/themes/prism-tomorrow.css";
-// import "katex/dist/katex.min.css";
 import "tailwindcss/tailwind.css";
-// import "../build.css";
-import SiteConfig from "../site.config";
-
-// import "../styles/main.css";
 import "../styles/globals.css";
 import "../styles/notion.css";
-
-// import * as API from '@/lib/api/guide';
+import nextI18NextConfig from "../next-i18next.config";
 import RootLayout from "@/components/RootLayout";
-import { Space_Grotesk } from "next/font/google";
 
+import "../i18n"; // 导入 i18n.js 文件
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -22,12 +16,6 @@ interface MyAppProps {
   Component: React.ComponentType;
   pageProps: Record<string, unknown>;
 }
-
-const space_grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-space-grotesk",
-});
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
   const router = useRouter();
@@ -105,4 +93,4 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18NextConfig);

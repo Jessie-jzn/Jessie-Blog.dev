@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const path = require("path");
+const { i18n } = require("./next-i18next.config");
 const isProd = process.env.NODE_ENV === "production";
 // 打包时是否分析代码
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({
@@ -11,22 +12,11 @@ const isProd = process.env.NODE_ENV === "production";
 // const basePath = `/${repo}`;
 
 module.exports = {
-  // env: {
-  //   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  //   SITE_URL: process.env.SITE_URL, // 替换为你的站点URL
-  // },
-  // trailingSlash: true,
-  // basePath: isProd ? "/Jessie-Blog.dev" : "",
-  // assetPrefix,
-  // basePath,
-  // reactStrictMode: true,
+  i18n,
 
   webpack: (config, { isServer }) => {
     // 添加别名配置
     config.resolve.alias["@"] = path.resolve(__dirname);
-    // config.resolve.alias['@/notion'] = path.resolve(__dirname, 'lib', 'notion');
-    // config.resolve.alias['dns'] = path.resolve(__dirname, 'empty.js');
-    // config.resolve.alias['fs'] = path.resolve(__dirname, 'empty.js');
 
     // 如果需要在服务器端进行别名配置，则还需要进行服务端的别名配置
     if (isServer) {
@@ -37,12 +27,19 @@ module.exports = {
   },
   async rewrites() {
     return [
-      // 将以/api开头的路径代理到OpenAI API
+      // 伪静态重写
       {
-        source: "/api/:path*",
-        destination: "https://api.openai.com/:path*",
+        source: "/:path*.html",
+        destination: "/:path*",
       },
     ];
+    // return [
+    //   // 将以/api开头的路径代理到OpenAI API
+    //   {
+    //     source: "/api/:path*",
+    //     destination: "https://api.fanyi.baidu.com/:path*",
+    //   },
+    // ];
   },
   logging: {
     fetches: {
