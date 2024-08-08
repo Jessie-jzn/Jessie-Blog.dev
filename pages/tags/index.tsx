@@ -3,11 +3,12 @@ import { GetStaticProps } from "next";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_POST_ID } from "@/lib/constants";
 import * as Types from "@/lib/type";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface TagOptions {
   tagOptions: Types.Tag[];
 }
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const response = await getDataBaseList({
     pageId: NOTION_POST_ID,
     from: "tags-index",
@@ -16,6 +17,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       tagOptions: response.tagOptions,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
     revalidate: 10,
   };

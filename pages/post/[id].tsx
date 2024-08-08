@@ -7,10 +7,14 @@ import getDataBaseList from "@/lib/notion/getDataBaseList";
 
 import React from "react";
 import NotionPage from "@/components/NotionPage";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const notionService = new NotionService();
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale,
+}: any) => {
   const postId = params?.id as string;
   // console.log('idToUuid(postId)', idToUuid(postId));
   const post = await notionService.getPage(postId);
@@ -18,6 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       post: post,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
     revalidate: 10,
   };

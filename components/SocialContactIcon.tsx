@@ -3,7 +3,7 @@ import SiteConfig from "../site.config";
 
 const SocialContactIcon = ({ prop }: any) => {
   return (
-    <div className="flex space-x-4" {...prop}>
+    <div className="flex space-x-4 mt-4" {...prop}>
       <SocialIcon
         kind="mail"
         href={`mailto:${SiteConfig.email}`}

@@ -2,13 +2,17 @@ import { GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import { NOTION_ABOUT_ID } from "@/lib/constants";
 import NotionPage from "@/components/NotionPage";
+
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 const notionService = new NotionService();
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const post = await notionService.getPage(NOTION_ABOUT_ID);
 
   return {
     props: {
       post,
+      ...(await serverSideTranslations(locale, ["common"])),
     },
     revalidate: 10,
   };
