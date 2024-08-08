@@ -10,7 +10,7 @@ const LanguageSwitcher = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const changeLanguage = (e) => {
+  const changeLanguage = (e: any) => {
     const selectedLocale = e.target.getAttribute("data-lang");
     router.push({ pathname, query }, asPath, { locale: selectedLocale });
     setDropdownVisible(false); // Hide dropdown after selecting a language
