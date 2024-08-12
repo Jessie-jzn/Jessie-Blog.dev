@@ -4,5 +4,7 @@
   "tags": "标签",
   "projects": "项目",
   "about": "关于我",
-  "contact": "联系"
+  "contact": "联系",
+  "subscribe": "订阅",
+  "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！"
 }

@@ -51,10 +51,10 @@ const Footer = () => {
         </div> */}
         <div className="flex flex-col">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-            订阅
+            {t("subscribe")}
           </h2>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-            订阅我的文章，收到我的最新发布通知，可随时取消订阅
+            {t("subscribeDesc")}
           </p>
           <form className="rounded-2xl" action="/thank-you">
             <div className="mt-6 flex">
@@ -67,7 +67,7 @@ const Footer = () => {
                 className="inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70 ml-4 flex-none"
                 type="submit"
               >
-                订阅
+                {t("subscribe")}
               </button>
             </div>
           </form>
