@@ -6,8 +6,9 @@ import SiteConfig from "../site.config";
 import SocialContactIcon from "./SocialContactIcon";
 import { useTranslation } from "next-i18next";
 
-const Footer = () => {
+const Footer = ({ handleSubscribe }: any) => {
   const { t } = useTranslation("common");
+
   return (
     <div className=" box-border flex flex-col pt-8 items-center w-full border-t border-[#E8E8EA] dark:border-zinc-900 dark:bg-zinc-800">
       <div className="flex flex-wrap justify-between w-full pb-8">
@@ -56,7 +57,7 @@ const Footer = () => {
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
             {t("subscribeDesc")}
           </p>
-          <form className="rounded-2xl" action="/thank-you">
+          <div className="rounded-2xl">
             <div className="mt-6 flex">
               <input
                 type="email"
@@ -66,11 +67,12 @@ const Footer = () => {
               <button
                 className="inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-800 font-semibold text-zinc-100 hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70 ml-4 flex-none"
                 type="submit"
+                onClick={() => handleSubscribe()}
               >
                 {t("subscribe")}
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div className="mt-16 flex flex-col items-center ">
