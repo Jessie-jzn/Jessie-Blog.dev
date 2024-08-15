@@ -6,5 +6,8 @@
   "about": "About",
   "contact": "Contact Me",
   "subscribe": "Subscribe",
-  "subscribeDesc": "Subscribe to receive notifications of my latest posts and unsubscribe at any time!"
+  "subscribeDesc": "Subscribe to receive notifications of my latest posts and unsubscribe at any time!",
+  "emailRequired": "请输入您的邮箱📮",
+  "subscriptionSuccess": "订阅成功，感谢您的订阅！",
+  "subscriptionFailed": "订阅失败，请重试！"
 }

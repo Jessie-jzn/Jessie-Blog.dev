@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { subscribeToMailchimpApi } from "@/lib/mailchimp";
 
@@ -18,59 +17,46 @@ export default async function handler(
   res: NextApiResponse<ApiResponse>
 ) {
   if (req.method === "POST") {
-    const { email, firstName, lastName } = req.body;
-    const API_KEY = process.env.MAILCHIMP_API_KEY;
-    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
-    const SERVER_PREFIX = process.env.MAILCHIMP_SERVER_PREFIX;
-    const url = `https://${SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
+    const { email, firstName = "", lastName = "" } = req.body;
 
     if (!email) {
       return res
         .status(400)
         .json({ status: "error", message: "Email is required." });
     }
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `api_key ${API_KEY}`,
-      },
-    };
-    const data = {
-      email_address: email,
-      status: "subscribed",
-    };
 
     try {
-      //   const response = await subscribeToMailchimpApi({
-      //     email,
-      //     first_name: firstName,
-      //     last_name: lastName,
-      //   });
-      const response = await axios.post(url, data, options);
-      if (response.status == 200) {
-        return res.status(201).json({
-          message: "Awesome! You have successfully subscribed!",
-          status: "success",
-        });
-      }
-      debugger;
+      console.log("Request received:", { email, firstName, lastName });
+
+      const response = await subscribeToMailchimpApi({
+        email,
+        first_name: firstName,
+        last_name: lastName,
+      });
 
       if (!response) {
+        console.error("No response from Mailchimp API");
         throw new Error("Mailchimp API returned undefined response.");
       }
 
+      // 解析 response body 并获取详细的错误信息
+      const responseData = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `Mailchimp API error: ${errorData.detail || "Unknown error"}`
-        );
+        console.error("Mailchimp API error response:", responseData); // 打印详细的错误信息
+        res.status(400).json({
+          status: "error",
+          message: "Subscription failed!",
+          error: responseData.detail || "Unknown error",
+        });
+        return;
       }
 
       res
         .status(200)
         .json({ status: "success", message: "Subscription successful!" });
     } catch (error) {
-      console.error("Error subscribing to Mailchimp:", error);
+      console.error("Error in handler:", error);
       res.status(500).json({
         status: "error",
         message: "Subscription failed!",

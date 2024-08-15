@@ -6,5 +6,8 @@
   "about": "关于我",
   "contact": "联系",
   "subscribe": "订阅",
-  "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！"
+  "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！",
+  "emailRequired": "请输入您的邮箱📮",
+  "subscriptionSuccess": "订阅成功，感谢您的订阅！",
+  "subscriptionFailed": "订阅失败，请重试！"
 }

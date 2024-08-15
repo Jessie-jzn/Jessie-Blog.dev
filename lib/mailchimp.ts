@@ -44,11 +44,10 @@ export async function subscribeToMailchimpApi({
       headers: {
         Authorization: `apikey ${API_KEY}`,
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(data),
     });
-    console.log("responseresponseresponseresponse", response);
-    debugger;
 
     if (!response.ok) {
       throw new Error(`Mailchimp API error: ${response.statusText}`);
@@ -81,8 +80,8 @@ export async function subscribeToNewsletter(
       },
       body: JSON.stringify({
         email,
-        // first_name: firstName,
-        // last_name: lastName,
+        first_name: firstName,
+        last_name: lastName,
       }),
     });
 
@@ -91,7 +90,7 @@ export async function subscribeToNewsletter(
     }
 
     const data = await response.json();
-    return { success: true, message: "Subscription successful!" };
+    return { success: data.status, message: data.message };
   } catch (error) {
     console.error("Error subscribing to newsletter:", error);
     return {

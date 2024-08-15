@@ -33,15 +33,6 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
     };
   }, [router.events]);
 
-  const handleSubscribe = async () => {
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: "740395858@qq.com" }),
-    });
-  };
   return (
     <>
       <meta
@@ -95,7 +86,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         enableSystem={true}
         attribute="class"
       >
-        <RootLayout handleSubscribe={handleSubscribe}>
+        <RootLayout>
           <Component {...pageProps} />
         </RootLayout>
       </ThemeProvider>
