@@ -2,6 +2,8 @@ import { GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import { NOTION_HOME_ID } from "@/lib/constants";
 import NotionPage from "@/components/NotionPage";
+import SiteConfig from "../site.config";
+import HomeLayout from "@/components/HomeLayout";
 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
@@ -20,7 +22,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
 const Home = ({ post }: any) => {
   return (
     <>
-      <NotionPage recordMap={post} />
+      {SiteConfig.useCustomHomeLayout ? (
+        <HomeLayout />
+      ) : (
+        <NotionPage recordMap={post} />
+      )}
     </>
   );
 };

@@ -59,6 +59,9 @@ const SiteConfig = {
   defaultPageCover: undefined,
   defaultPageCoverPosition: 0.5,
 
+  // layout配置
+  useCustomHomeLayout: false,
+
   // notion配置
   NOTION_PROPERTY_NAME: {
     password: process.env.NEXT_PUBLIC_NOTION_PROPERTY_PASSWORD || "password",
