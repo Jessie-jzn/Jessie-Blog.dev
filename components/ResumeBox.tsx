@@ -4,11 +4,11 @@ const ResumeBox = () => {
   return (
     <div className="max-w-2xl mx-auto bg-white p-8 shadow-lg rounded-lg">
       <header className="flex items-center mb-8">
-        <img
+        {/* <img
           src="https://via.placeholder.com/150"
           alt="Profile"
           className="w-24 h-24 rounded-full object-cover mr-6"
-        />
+        /> */}
         <div>
           <h1 className="text-3xl font-bold">Sherry Betts</h1>
           <p className="text-blue-600">Web-Designer</p>

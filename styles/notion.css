@@ -18,7 +18,9 @@
 .notion-frame {
   padding: 0;
 }
-
+.notion-app {
+  background: none;
+}
 .notion-page {
   padding-bottom: calc(max(5vh, 32px)) !important;
   line-height: 1.65;
@@ -149,6 +151,22 @@
 .notion-hr {
   margin: 2em 0;
 }
+.notion-table-of-contents {
+  width: 300px;
+  padding: 0 8px;
+}
+.notion-table-of-contents-item {
+  padding: 8px;
+}
+.notion-page-content-has-aside {
+  justify-content: space-between;
+  width: 100%;
+}
+.notion-aside-table-of-contents-header {
+  width: 100%;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
 @media only screen and (min-width: 1400px) {
   .index-page.notion-page {
     padding-left: 2vw;
@@ -196,6 +214,9 @@
 @media only screen and (max-width: 600px) {
   .notion-search-button {
     display: none !important;
+  }
+  .notion-table-of-contents {
+    display: none;
   }
 }
 

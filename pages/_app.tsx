@@ -5,7 +5,9 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import "../styles/notion.css";
 import nextI18NextConfig from "../next-i18next.config";
-import RootLayout from "@/components/RootLayout";
+import RootLayout from "@/components/RootLayout/index";
+import CustomLayout from "@/components/CustomLayout/index";
+import SiteConfig from "../site.config";
 
 import "../i18n"; // 导入 i18n.js 文件
 import { useEffect } from "react";
@@ -32,6 +34,8 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
+
+  const Layout = SiteConfig.useCustomLayout ? CustomLayout : RootLayout;
 
   return (
     <>
@@ -86,9 +90,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         enableSystem={true}
         attribute="class"
       >
-        <RootLayout>
+        <Layout>
           <Component {...pageProps} />
-        </RootLayout>
+        </Layout>
       </ThemeProvider>
     </>
   );

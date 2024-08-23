@@ -1,5 +1,8 @@
 {
   "home": "Home",
+  "technical": "Technical",
+  "travel": "Travel",
+  "life": "Life",
   "post": "Post",
   "tags": "Tags",
   "projects": "Projects",
@@ -7,7 +10,11 @@
   "contact": "Contact Me",
   "subscribe": "Subscribe",
   "subscribeDesc": "Subscribe to receive notifications of my latest posts and unsubscribe at any time!",
-  "emailRequired": "请输入您的邮箱📮",
-  "subscriptionSuccess": "订阅成功，感谢您的订阅！",
-  "subscriptionFailed": "订阅失败，请重试！"
+  "emailRequired": "Please enter your e-mail",
+  "subscriptionSuccess": "Subscription successful, thank you for subscribing!",
+  "subscriptionFailed": "Subscription failed, please try again!",
+  "learnMore": "Learn more",
+  "workWithMe": "Work With Me",
+  "authorDesc": "Passionate full-stack developer, entrepreneur and open source project author, and involved in several successful startup projects. Passionate about sharing technical insights, travel tips and life lessons, now lives in Shanghai, China and is active on GitHub and Twitter.",
+  "lastPost": "Latest Articles"
 }

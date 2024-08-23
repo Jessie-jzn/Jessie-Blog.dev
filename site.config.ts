@@ -24,21 +24,33 @@ const SiteConfig = {
   navigationLinks: [
     {
       id: 1,
-      title: "🏠首页",
-      url: "/",
-      pageId: "",
+      title: "home",
+      href: "/",
     },
     {
       id: 2,
-      title: "🌊攻略",
-      url: "/guide",
-      pageId: "",
+      title: "technical",
+      href: "/technical",
     },
     {
       id: 3,
-      title: "☎️联系",
-      url: "/about",
-      pageId: "",
+      title: "travel",
+      href: "/travel",
+    },
+    {
+      id: 4,
+      title: "life",
+      href: "/life",
+    },
+    // {
+    //   id: 4,
+    //   title: "tags",
+    //   href: "/tags",
+    // },
+    {
+      id: 5,
+      title: "about",
+      href: "/about",
     },
   ],
   // 社交媒体地址（可选）
@@ -60,7 +72,8 @@ const SiteConfig = {
   defaultPageCoverPosition: 0.5,
 
   // layout配置
-  useCustomHomeLayout: false,
+  useCustomLayout: true,
+  useCustomHomeLayout: true,
 
   // notion配置
   NOTION_PROPERTY_NAME: {

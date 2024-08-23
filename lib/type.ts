@@ -142,8 +142,8 @@ export interface SchemaProp {
 
 export interface Tag {
   id: string;
-  name: string;
-  color: string;
+  name?: string;
+  color?: string;
   count: number;
   value: string;
   articles: Post[];

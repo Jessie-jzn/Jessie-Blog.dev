@@ -21,7 +21,9 @@ export default function getAllTagsList({
 }): Types.Tag[] {
   // 筛选所有发布状态的文章
   const allPosts = allPages.filter(
-    (page) => page.type === "Post" && page.status === "Published"
+    (page) =>
+      page.type === "Post" &&
+      (page.status === "Published" || page.status === "P")
   );
 
   if (!allPosts || !tagOptions) {
@@ -40,52 +42,6 @@ export default function getAllTagsList({
   });
   const tagList: Types.Tag[] = [];
 
-  //   // 是否区分标签颜色
-  //   const IS_TAG_COLOR_DISTINGUISHED = siteConfig(
-  //     'IS_TAG_COLOR_DISTINGUISHED',
-  //     false,
-  //     NOTION_CONFIG,
-  //   );
-  //   // 是否按标签数量排序
-  //   const TAG_SORT_BY_COUNT = siteConfig(
-  //     'TAG_SORT_BY_COUNT',
-  //     true,
-  //     NOTION_CONFIG,
-  //   );
-
-  // if (isIterable(tagOptions)) {
-  //   // if (!IS_TAG_COLOR_DISTINGUISHED) {
-  //   //   // 如果不区分颜色, 不同颜色相同名称的tag当做同一种tag
-  //   //   const savedTagNames = new Set<string>();
-  //   //   tagOptions.forEach((tagOption) => {
-  //   //     if (!savedTagNames.has(tagOption.value)) {
-  //   //       const count = tagCountMap[tagOption.value];
-  //   //       if (count) {
-  //   //         tagList.push({
-  //   //           id: tagOption.id,
-  //   //           name: tagOption.value,
-  //   //           color: tagOption.color,
-  //   //           count,
-  //   //         });
-  //   //       }
-  //   //       savedTagNames.add(tagOption.value);
-  //   //     }
-  //   //   });
-  //   // } else {
-  //   tagOptions.forEach((tagOption) => {
-  //     const count = tagCountMap[tagOption.value];
-  //     if (count) {
-  //       tagList.push({
-  //         id: tagOption.id,
-  //         name: tagOption.value,
-  //         color: tagOption.color,
-  //         count,
-  //         value: tagOption.value,
-  //       });
-  //     }
-  //   });
-  //   // }
-  // }
   if (isIterable(tagOptions)) {
     tagOptions.forEach((tagOption) => {
       const articles = tagArticleMap[tagOption.value] || [];
@@ -102,11 +58,6 @@ export default function getAllTagsList({
       }
     });
   }
-
-  //   // 按照数量排序
-  //   if (TAG_SORT_BY_COUNT) {
-  //     tagList.sort((a, b) => b.count - a.count);
-  //   }
 
   // 返回截取后的标签列表
   if (sliceCount && sliceCount > 0) {

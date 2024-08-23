@@ -16,7 +16,6 @@ export const getStaticProps: GetStaticProps = async ({
   locale,
 }: any) => {
   const postId = params?.id as string;
-  // console.log('idToUuid(postId)', idToUuid(postId));
   const post = await notionService.getPage(postId);
 
   return {
@@ -29,13 +28,6 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  //   if (isDev) {
-  //     return {
-  //       paths: [],
-  //       fallback: true,
-  //     };
-  //   }
-
   const posts = await getDataBaseList({
     pageId: NOTION_POST_ID,
     from: "post-id",

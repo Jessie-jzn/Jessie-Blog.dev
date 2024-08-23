@@ -21,7 +21,7 @@ const NotionPageHeader = ({ block }: any) => {
       const pathArray = linkPath?.slice(0, -1)?.map((path, index) => {
         const href = "/" + linkPath.slice(0, index + 1).join("/");
         const matchingLink = SiteConfig.navigationLinks.find(
-          (link) => link.url === href
+          (link) => link.href === href
         );
         return {
           href,

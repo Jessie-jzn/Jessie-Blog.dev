@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import SiteConfig from "../site.config";
+import SiteConfig from "../../site.config";
 import { subscribeToNewsletter } from "@/lib/mailchimp";
 
-import SocialContactIcon from "./SocialContactIcon";
+import SocialContactIcon from "../SocialContactIcon";
 import { useTranslation } from "next-i18next";
 
 const Footer: React.FC = () => {
@@ -16,33 +16,36 @@ const Footer: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  const handleSubscribe = async (event: any) => {
-    event.preventDefault(); // 阻止页面刷新
-    if (emailRef.current) {
-      const email = emailRef.current.value;
-      if (email) {
-        try {
-          const response = await subscribeToNewsletter(email);
-          console.log("Subscription succeeded:", response);
-          // 在此处添加成功订阅后的操作
-          if (response.success) {
-            setMessage(t("subscriptionSuccess")); // 设置成功消息
-            emailRef.current.value = ""; // 清空输入框
-          } else {
-            setMessage(response.message);
+  const handleSubscribe = useCallback(
+    async (event: any) => {
+      event.preventDefault(); // 阻止页面刷新
+      if (emailRef.current) {
+        const email = emailRef.current.value;
+        if (email) {
+          try {
+            const response = await subscribeToNewsletter(email);
+            console.log("Subscription succeeded:", response);
+            // 在此处添加成功订阅后的操作
+            if (response.success) {
+              setMessage(t("subscriptionSuccess")); // 设置成功消息
+              emailRef.current.value = ""; // 清空输入框
+            } else {
+              setMessage(response.message);
+            }
+          } catch (error) {
+            console.error("Subscription failed:", error);
+            // 在此处添加订阅失败后的操作
+            setMessage(t("subscriptionFailed")); // 设置失败消息
+          } finally {
+            setIsSubmitting(false); // 重新启用按钮
           }
-        } catch (error) {
-          console.error("Subscription failed:", error);
-          // 在此处添加订阅失败后的操作
-          setMessage(t("subscriptionFailed")); // 设置失败消息
-        } finally {
-          setIsSubmitting(false); // 重新启用按钮
+        } else {
+          setMessage(t("emailRequired")); // 设置提示消息
         }
-      } else {
-        setMessage(t("emailRequired")); // 设置提示消息
       }
-    }
-  };
+    },
+    [t]
+  );
 
   useEffect(() => {
     const form = formRef.current;
@@ -50,10 +53,10 @@ const Footer: React.FC = () => {
     return () => {
       form?.removeEventListener("submit", handleSubscribe);
     };
-  }, []);
+  }, [handleSubscribe]);
 
   return (
-    <div className=" box-border flex flex-col pt-8 items-center w-full border-t border-[#E8E8EA] dark:border-zinc-900 dark:bg-zinc-800">
+    <div className="box-border flex flex-col pt-8 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-zinc-800">
       <div className="flex flex-wrap justify-between w-full pb-8">
         <div className="flex flex-col max-w-xs">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">

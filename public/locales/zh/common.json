@@ -1,5 +1,8 @@
 {
   "home": "首页",
+  "technical": "技术文章",
+  "travel": "旅行攻略",
+  "life": "生活感想",
   "post": "文章",
   "tags": "标签",
   "projects": "项目",
@@ -9,5 +12,9 @@
   "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！",
   "emailRequired": "请输入您的邮箱📮",
   "subscriptionSuccess": "订阅成功，感谢您的订阅！",
-  "subscriptionFailed": "订阅失败，请重试！"
+  "subscriptionFailed": "订阅失败，请重试！",
+  "learnMore": "查看更多",
+  "workWithMe": "了解我",
+  "authorDesc": "我是一名充满热情的全栈开发者、创业者和开源项目作者，并参与多个成功的创业项目。热衷于分享技术见解、旅行攻略和生活感悟，现居中国上海，活跃于GitHub和Twitter等平台。",
+  "lastPost": "最新文章"
 }

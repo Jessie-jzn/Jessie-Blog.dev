@@ -10,13 +10,29 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    // screens: {
-    //   sm: { max: "430px" },
-    //   // => @media (min-width: 640px and max-width: 767px) { ... }
-    //   md: { min: "431px", max: "1023px" },
-    //   lg: { min: "1024px", max: "1440px" },
-    //   xl: { min: "1441px" },
-    // },
+    screens: {
+      //   sm: { max: "430px" },
+      //   // => @media (min-width: 640px and max-width: 767px) { ... }
+      //   md: { min: "431px", max: "1023px" },
+      //   lg: { min: "1024px", max: "1440px" },
+      //   xl: { min: "1441px" },
+      xs: {
+        max: "430px",
+      },
+      sm: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
+
+      lg: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      xl: "1280px",
+      // => @media (min-width: 1280px) { ... }
+
+      "2xl": "1536px",
+    },
     extend: {
       zIndex: {
         201: 201,
@@ -68,6 +84,7 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        // "sort-first-img": "url('/img/footer-texture.png')",
       },
       spacing: {
         "9/16": "56.25%",
@@ -219,6 +236,11 @@ module.exports = {
             },
           },
         },
+        // green:{
+        //   css:{
+
+        //   }
+        // }
       }),
     },
   },

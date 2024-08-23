@@ -92,10 +92,13 @@ export default async function getDataBaseList({
 
   // 查找所有的Post和Page
   const allPages = collectionData.filter((post) => {
-    if (post?.type === "Post" && post.status === "Published") {
+    if (
+      post?.type === "Post" &&
+      (post.status === "Published" || post.status === "P")
+    ) {
       postCount++;
     }
-    return post && post?.status === "Published";
+    return post && (post.status === "Published" || post.status === "P");
   });
 
   // 所有标签
