@@ -1,5 +1,5 @@
-import SocialIcon from "./SocialIcon";
-import SiteConfig from "../site.config";
+import SocialIcon from "@/components/SocialIcon";
+import SiteConfig from "@/site.config";
 
 const SocialContactIcon = ({ prop }: any) => {
   return (

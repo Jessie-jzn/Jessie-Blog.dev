@@ -11,7 +11,7 @@ const SiteConfig = {
   description:
     "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
   language: "zh-CN",
-  siteLogo: "/static/images/avatar.jpg",
+  siteLogo: "/public/data/images/avatar.png",
   socialBanner: "/static/images/projects/karhdo-blog.png",
   theme: "system",
   locale: "zh-CN",
@@ -31,6 +31,7 @@ const SiteConfig = {
       id: 2,
       title: "technical",
       href: "/technical",
+      headTitle: "旅行攻略",
     },
     {
       id: 3,
@@ -74,6 +75,8 @@ const SiteConfig = {
   // layout配置
   useCustomLayout: true,
   useCustomHomeLayout: true,
+  useCustomPostLayout: true,
+  useCustomHeader: true,
 
   // notion配置
   NOTION_PROPERTY_NAME: {

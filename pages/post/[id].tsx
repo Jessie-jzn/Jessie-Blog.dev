@@ -4,9 +4,10 @@ import { Post } from "@/lib/type";
 // import * as API from '@/lib/api/guide';
 import { NOTION_POST_ID } from "@/lib/constants";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
+import Header from "@/components/Header";
 
 import React from "react";
-import NotionPage from "@/components/NotionPage";
+import NotionPage from "@/components/Notion/NotionPage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const notionService = new NotionService();
@@ -45,9 +46,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const RenderPost = ({ post }: any): React.JSX.Element => {
   return (
-    <div className="flex-auto mx-auto w-full">
-      <NotionPage recordMap={post} />
-    </div>
+    <>
+      <div className="flex-auto mx-auto w-full  pt-[190px]">
+        <NotionPage recordMap={post} />
+      </div>
+    </>
   );
 };
 

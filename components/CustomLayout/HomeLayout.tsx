@@ -14,24 +14,22 @@ const features = [
     href: "/technical",
     description:
       "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析",
-    icon: require("../../data/images/image2.jpg"),
+    icon: require("@/public/images/image2.jpg"),
   },
   {
     title: "旅行攻略",
     href: "/travel",
 
     description: "全面的旅行指南和建议",
-    icon: require("../../data/images/image4.jpg"),
+    icon: require("@/public/images/image4.jpg"),
   },
   {
     title: "生活感想",
     href: "/life",
     description: "个人的生活经历和思考",
-    icon: require("../../data/images/image5.jpg"),
+    icon: require("@/public/images/image5.jpg"),
   },
 ];
-
-
 
 const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
   const { t } = useTranslation("common");
@@ -45,7 +43,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
     <>
       {/* Hero Section */}
       <motion.section
-        className="relative bg-[#bec088] dark:bg-gray-950 text-gray-100 py-16"
+        className="relative bg-[#bec088] dark:bg-gray-950 text-gray-100 py-16 pt-[190px]"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -75,7 +73,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           </div>
           <div className="md:w-1/2 px-8 md:px-12 lg:px-16 xs:hidden">
             <Image
-              src={require("../../data/images/image1.jpg")}
+              src={require("@/public/images/image1.jpg")}
               alt="New Home Builders"
               width={700}
               height={400}
@@ -151,12 +149,44 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                 id={p.id}
                 imageSrc={p.pageCoverThumbnail}
                 title={p.title}
-                description="It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world."
+                description={p.slug}
               />
             </motion.div>
           ))}
         </div>
       </motion.section>
+      {/* <motion.section
+        className="bg-[#fffaeb] dark:bg-gray-900 p-8 py-32"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        variants={fadeInUp}
+      >
+        <h2 className="text-6xl font-bold mb-10 font-serif">
+          {t("featuredPost")}
+        </h2>
+
+        <div className="grid lg:grid-cols-5 sm:grid-cols-3 gap-8">
+          {posts.map((p: Types.Post) => (
+            <motion.div
+              key={p.id}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              variants={fadeInUp}
+            >
+              <CardArticle
+                id={p.id}
+                imageSrc={p.pageCoverThumbnail}
+                title={p.title}
+                description="It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world."
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.section> */}
       {/* <motion.section
         className="bg-[#f8f5dc] py-16"
         initial="hidden"
@@ -168,7 +198,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between px-4">
           <div className="w-full md:w-1/2 mb-8 md:mb-0">
             <Image
-              src={require("../../data/images/image2.jpg")}
+              src={require("@/public/images/image2.jpg")}
               alt="Construction"
               className="rounded-md shadow-lg"
             />

@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import { NOTION_HOME_ID } from "@/lib/constants";
-import NotionPage from "@/components/NotionPage";
+import NotionPage from "@/components/Notion/NotionPage";
 import SiteConfig from "@/site.config";
 import HomeLayout from "@/components/CustomLayout/HomeLayout";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
