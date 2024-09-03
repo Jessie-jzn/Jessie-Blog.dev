@@ -1,14 +1,13 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import NotionService from "@/lib/notion/NotionServer";
-import { Post } from "@/lib/type";
+import { GetStaticPaths, GetStaticProps } from 'next';
+import NotionService from '@/lib/notion/NotionServer';
+import { Post } from '@/lib/type';
 // import * as API from '@/lib/api/guide';
-import { NOTION_POST_ID } from "@/lib/constants";
-import getDataBaseList from "@/lib/notion/getDataBaseList";
-import Header from "@/components/Header";
+import { NOTION_POST_ID } from '@/lib/constants';
+import getDataBaseList from '@/lib/notion/getDataBaseList';
 
-import React from "react";
-import NotionPage from "@/components/Notion/NotionPage";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import React from 'react';
+import NotionPage from '@/components/Notion/NotionPage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const notionService = new NotionService();
 
@@ -22,7 +21,7 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       post: post,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 10,
   };
@@ -31,7 +30,7 @@ export const getStaticProps: GetStaticProps = async ({
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getDataBaseList({
     pageId: NOTION_POST_ID,
-    from: "post-id",
+    from: 'post-id',
   });
 
   const paths = (posts.pageIds as any).map((post: any) => ({
@@ -47,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const RenderPost = ({ post }: any): React.JSX.Element => {
   return (
     <>
-      <div className="flex-auto mx-auto w-full  pt-[190px]">
+      <div className='flex-auto mx-auto w-full  pt-[190px]'>
         <NotionPage recordMap={post} />
       </div>
     </>
