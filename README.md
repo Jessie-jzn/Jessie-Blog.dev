@@ -1,7 +1,7 @@
 <h1 align="center">Jessie's Blog</h1>
-<p align="center"><i>Embark on a journey with curated travel guides and tips to make your adventures unforgettable. 
+<p align="center"><i>Explore a blend of technical articles, travel guides, and personal reflections. 
 <br>
-开启一段旅程，提供精心策划的旅游指南和建议，让您的冒险难以忘怀。</i></p>
+探索技术文章、旅行攻略和个人感想的融合。</i></p>
 
 <div align="center">
     <a href="https://github.com/Jessie-jzn/Next-Notion-Blog/stargazers"><img src="https://img.shields.io/github/stars/Jessie-jzn/Next-Notion-Blog" alt="Stars Badge"/></a>
@@ -19,7 +19,7 @@
 
 ## Website / 网站
 
-<a href="https://next-notion-blog-jessie-jzns-projects.vercel.app/"><img src="https://raw.githubusercontent.com/Jessie-jzn/Jessie-Blog.dev/main/public/imags/website.png" alt="TravelGuide Explorer Website" /></a>
+<a href="https://next-notion-blog-jessie-jzns-projects.vercel.app/"><img src="https://raw.githubusercontent.com/Jessie-jzn/Jessie-Blog.dev/main/public/images/website.png" alt="TravelGuide Explorer Website" /></a>
 
 ## Tech Stack / 技术栈
 
@@ -29,9 +29,9 @@ This project is hosted on [Vercel](https://vercel.com/), built with [Next.js](ht
 
 [![Next][Next.js]][Next-url] [![MDX][MDX]][MDX-url] [![Vercel][Vercel]][Vercel-url] [![React][React]][React-url] [![Typescript][Typescript]][Typescript-url] [![Tailwind CSS][Tailwind CSS]][Tailwind CSS-url]
 
-Inspired by travel blogs and the need for a comprehensive travel guide, this project aims to provide an intuitive and visually appealing platform for travelers.
+Inspired by travel blogs and the need for comprehensive guides, this project aims to provide an intuitive and visually appealing platform for travelers. It also includes technical articles and personal reflections.
 <br>
-受旅游博客和综合旅游指南需求的启发，本项目旨在为旅行者提供一个直观且视觉美观的平台。
+受旅游博客和综合旅游指南需求的启发，本项目旨在为旅行者提供一个直观且视觉美观的平台。同时还包括技术文章和个人感想。
 
 Some major features include: / 主要功能包括：
 
@@ -67,7 +67,7 @@ If you find this project helpful, please give it a ⭐
 
 ---
 
-<p align="center"><b>Copyright © 2024 - TravelGuide Explorer Team </p>
+<p align="center"><b>Copyright © 2024 - Jessie </p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
