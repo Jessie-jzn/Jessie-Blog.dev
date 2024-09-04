@@ -1,4 +1,5 @@
 import * as notion from "notion-types";
+// @ts-ignore
 import got, { OptionsOfJSONResponseBody } from "got";
 import {
   getBlockCollectionId,

@@ -1,72 +1,72 @@
-import React, { useMemo } from 'react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
-import SiteConfig from '@/site.config';
+import React, { useMemo } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import SiteConfig from "@/site.config";
 // import PageSocial from './PageSocial';
 // import PropertyValue from './PropertyValue';
-import { searchNotion } from '@/lib/notion/searchNotion';
+import { searchNotion } from "@/lib/notion/searchNotion";
 // import { PageBlock } from 'notion-types'
-import { getPageProperty } from 'notion-utils';
-import { NotionRenderer } from 'react-notion-x';
-import { Block } from 'notion-types';
-import * as Types from '@/lib/type';
-import styles from './styles.module.css';
-import NotionPropertyValue from './NotionPropertyValue';
-import NotionPageHeader from './NotionPageHeader';
-import NotionPageAside from './NotionPageAside';
-import { BlogSEO } from '@/components/SEO';
-import { mapImageUrl, mapPageUrl } from '@/lib/util';
-import { Modal } from 'react-notion-x/build/third-party/modal';
+import { getPageProperty } from "notion-utils";
+import { NotionRenderer } from "react-notion-x";
+import { Block } from "notion-types";
+import * as Types from "@/lib/type";
+import styles from "./styles.module.css";
+import NotionPropertyValue from "./NotionPropertyValue";
+import NotionPageHeader from "./NotionPageHeader";
+import NotionPageAside from "./NotionPageAside";
+import { BlogSEO } from "@/components/SEO";
+import { mapImageUrl, mapPageUrl } from "@/lib/util";
+import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
-import AdSense from '@/components/AdSense';
+import AdSense from "@/components/AdSense";
 const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then(async (m) => {
+  import("react-notion-x/build/third-party/code").then(async (m) => {
     // add / remove any prism syntaxes here
     await Promise.allSettled([
-      import('prismjs/components/prism-markup-templating.js'),
-      import('prismjs/components/prism-markup.js'),
-      import('prismjs/components/prism-bash.js'),
-      import('prismjs/components/prism-c.js'),
-      import('prismjs/components/prism-cpp.js'),
-      import('prismjs/components/prism-csharp.js'),
-      import('prismjs/components/prism-docker.js'),
-      import('prismjs/components/prism-java.js'),
-      import('prismjs/components/prism-js-templates.js'),
-      import('prismjs/components/prism-coffeescript.js'),
-      import('prismjs/components/prism-diff.js'),
-      import('prismjs/components/prism-git.js'),
-      import('prismjs/components/prism-go.js'),
-      import('prismjs/components/prism-graphql.js'),
-      import('prismjs/components/prism-handlebars.js'),
-      import('prismjs/components/prism-less.js'),
-      import('prismjs/components/prism-makefile.js'),
-      import('prismjs/components/prism-markdown.js'),
-      import('prismjs/components/prism-objectivec.js'),
-      import('prismjs/components/prism-ocaml.js'),
-      import('prismjs/components/prism-python.js'),
-      import('prismjs/components/prism-reason.js'),
-      import('prismjs/components/prism-rust.js'),
-      import('prismjs/components/prism-sass.js'),
-      import('prismjs/components/prism-scss.js'),
-      import('prismjs/components/prism-solidity.js'),
-      import('prismjs/components/prism-sql.js'),
-      import('prismjs/components/prism-stylus.js'),
-      import('prismjs/components/prism-swift.js'),
-      import('prismjs/components/prism-wasm.js'),
-      import('prismjs/components/prism-yaml.js'),
+      import("prismjs/components/prism-markup-templating.js"),
+      import("prismjs/components/prism-markup.js"),
+      import("prismjs/components/prism-bash.js"),
+      import("prismjs/components/prism-c.js"),
+      import("prismjs/components/prism-cpp.js"),
+      import("prismjs/components/prism-csharp.js"),
+      import("prismjs/components/prism-docker.js"),
+      import("prismjs/components/prism-java.js"),
+      import("prismjs/components/prism-js-templates.js"),
+      import("prismjs/components/prism-coffeescript.js"),
+      import("prismjs/components/prism-diff.js"),
+      import("prismjs/components/prism-git.js"),
+      import("prismjs/components/prism-go.js"),
+      import("prismjs/components/prism-graphql.js"),
+      import("prismjs/components/prism-handlebars.js"),
+      import("prismjs/components/prism-less.js"),
+      import("prismjs/components/prism-makefile.js"),
+      import("prismjs/components/prism-markdown.js"),
+      import("prismjs/components/prism-objectivec.js"),
+      import("prismjs/components/prism-ocaml.js"),
+      import("prismjs/components/prism-python.js"),
+      import("prismjs/components/prism-reason.js"),
+      import("prismjs/components/prism-rust.js"),
+      import("prismjs/components/prism-sass.js"),
+      import("prismjs/components/prism-scss.js"),
+      import("prismjs/components/prism-solidity.js"),
+      import("prismjs/components/prism-sql.js"),
+      import("prismjs/components/prism-stylus.js"),
+      import("prismjs/components/prism-swift.js"),
+      import("prismjs/components/prism-wasm.js"),
+      import("prismjs/components/prism-yaml.js"),
     ]);
     return m.Code;
   })
 );
 
 const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
+  import("react-notion-x/build/third-party/collection").then(
     (m) => m.Collection
   )
 );
 const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+  import("react-notion-x/build/third-party/equation").then((m) => m.Equation)
 );
 // const Pdf = dynamic(
 //   () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
@@ -83,7 +83,7 @@ const propertyLastEditedTimeValue = (
 ) =>
   NotionPropertyValue(
     {
-      type: 'lastEdited',
+      type: "lastEdited",
       block,
       pageHeader,
     },
@@ -100,7 +100,7 @@ const propertyDateValue = (
 ) =>
   NotionPropertyValue(
     {
-      type: 'published',
+      type: "published",
       block,
       schema,
       pageHeader,
@@ -114,7 +114,7 @@ const propertyCreatedTimeValue = (
 ) =>
   NotionPropertyValue(
     {
-      type: 'created',
+      type: "created",
       block,
       pageHeader,
     },
@@ -125,13 +125,13 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
   const block = recordMap?.block?.[keys[0]]?.value;
 
   const isBlogPost =
-    block?.type === 'page' && block?.parent_table === 'collection';
+    block?.type === "page" && block?.parent_table === "collection";
 
   const showTableOfContents = !!isBlogPost;
 
   const title = SiteConfig.title;
   const socialDescription =
-    getPageProperty<string>('Description', block, recordMap) ||
+    getPageProperty<string>("Description", block, recordMap) ||
     SiteConfig.description;
   const socialImage = mapImageUrl(
     (block as Block)?.format?.page_cover || SiteConfig.defaultPageCover,
@@ -146,9 +146,9 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
   }, [recordMap]);
 
   const lastEditTime =
-    getPageProperty<string>('last_edited_time', block, recordMap) || new Date();
+    getPageProperty<string>("last_edited_time", block, recordMap) || new Date();
   const createdTime =
-    getPageProperty<string>('created_time', block, recordMap) || new Date();
+    getPageProperty<string>("created_time", block, recordMap) || new Date();
 
   const components = useMemo(
     () => ({
@@ -178,7 +178,7 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
         lastEditTime={lastEditTime}
         image={socialImage}
       />
-      <div className='mx-10 xs:mx-0'>
+      <div className="mx-10 xs:mx-0">
         <NotionRenderer
           bodyClassName={styles.notion}
           components={components}

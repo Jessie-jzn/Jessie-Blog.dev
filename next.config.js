@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-
+// import path from "path";
+// import i18n from "./next-i18next.config";
 const path = require("path");
 const { i18n } = require("./next-i18next.config");
 const isProd = process.env.NODE_ENV === "production";
