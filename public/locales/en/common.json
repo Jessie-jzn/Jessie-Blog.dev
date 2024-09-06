@@ -17,5 +17,10 @@
   "workWithMe": "Work With Me",
   "authorDesc": "Passionate full-stack developer, entrepreneur and open source project author, and involved in several successful startup projects. Passionate about sharing technical insights, travel tips and life lessons, now lives in Shanghai, China and is active on GitHub and Twitter.",
   "lastPost": "Latest Articles",
-  "featuredPost": "Featured Post"
+  "featuredPost": "Featured Post",
+  "typedTexts": [
+    "I love coding 💻.",
+    "I enjoy playing 🎮.",
+    "Let's build something awesome! 🚀"
+  ]
 }

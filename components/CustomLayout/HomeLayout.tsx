@@ -7,6 +7,7 @@ import CardPost from "@/components/CustomLayout/CardPost";
 import Image from "next/image";
 import Link from "next/link";
 import SectionFAQ from "./SectionFAQ";
+import TypedEffect from "./TypedEffect";
 
 const features = [
   {
@@ -33,6 +34,9 @@ const features = [
 
 const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
   const { t } = useTranslation("common");
+  const typedTexts: string[] = t("typedTexts", {
+    returnObjects: true,
+  }) as string[];
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
@@ -55,6 +59,19 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               👋 Hello,I&apos;m Jessie
             </h2>
+            <div className="h-10">
+              <TypedEffect
+                texts={typedTexts}
+                typeSpeed={80}
+                deleteSpeed={40}
+                pauseTime={1000}
+                loop={true}
+                textStyle={{
+                  fontSize: "24px",
+                }}
+              />
+            </div>
+
             <div className="text-lg md:text-xl leading-relaxed">
               <p className="mb-2">{t("authorDesc")}</p>
             </div>
