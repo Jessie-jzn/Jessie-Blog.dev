@@ -1,21 +1,21 @@
-import { GetStaticProps } from "next";
+import { GetStaticProps } from 'next';
 // import NotionService from "@/lib/notion/NotionServer";
-import { NOTION_POST_ID } from "@/lib/constants";
-import NotionPage from "@/components/Notion/NotionPage";
-import getPage from "@/lib/notion/getPage";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NOTION_POST_ID } from '@/lib/constants';
+import NotionPage from '@/components/Notion/NotionPage';
+import getPage from '@/lib/notion/getPage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const post = await getPage({
     pageId: NOTION_POST_ID,
-    from: "post-index",
+    from: 'post-index',
   });
 
   return {
     props: {
       post: post,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 10,
   };
