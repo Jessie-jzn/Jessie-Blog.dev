@@ -148,3 +148,13 @@ export interface Tag {
   value: string;
   articles: Post[];
 }
+export interface Feature {
+  title: string;
+  href: string;
+  description: string;
+  icon: string;
+}
+export interface FAQItem {
+  question: string;
+  answer: string;
+}

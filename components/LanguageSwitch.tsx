@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import SiteConfig from "@/site.config";
+
+const getInitialLanguage = (
+  siteConfigLanguage: string | undefined,
+  locale: string | undefined
+) => {
+  if (locale) return locale; // Use locale from Next.js if available
+  if (siteConfigLanguage) return siteConfigLanguage; // Site config language
+  return "en"; // Default fallback language
+};
 
 const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
   const { locale, locales, pathname, asPath, query } = router;
+  console.log("SiteConfig.language", SiteConfig.language);
+  console.log("locale", locale);
+  const [currentLocale, setCurrentLocale] = useState(
+    getInitialLanguage(SiteConfig.language, locale)
+  );
+  useEffect(() => {
+    if (locale) {
+      setCurrentLocale(locale);
+    }
+  }, [locale]);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -22,8 +42,8 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
         className={`bg-[${btnColor}] px-4 py-2 rounded-full text-black font-semibold`}
         onClick={toggleDropdown}
       >
-        <span className="mr-2">{locale === "en" ? "🇺🇸" : "🇨🇳"}</span>
-        {locale === "en" ? "English" : "中文"}
+        <span className="mr-2">{currentLocale === "en" ? "🇺🇸" : "🇨🇳"}</span>
+        {currentLocale === "en" ? "English" : "中文"}
         {/* </button> */}
       </button>
       {dropdownVisible && (

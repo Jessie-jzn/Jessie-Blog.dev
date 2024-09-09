@@ -9,7 +9,7 @@ const NOTION_GUIDE_ID = process.env.NOTION_GUIDE_ID as string; // 旅行攻略
 
 const NOTION_COUNTRY_ID = process.env.NOTION_COUNTRY_ID as string;
 const PREVIEW_IMAGES_ENABLED = true;
-const LANG = process.env.NEXT_PUBLIC_LANG || "zh-CN"; // zh-CN,'n-U
+const LANG = process.env.NEXT_PUBLIC_LANG || "zh"; // zh-CN,'n-U
 const IsPROD = process.env.NODE_ENV === "production";
 
 const TRANSLATE_BAIDU_APPID = process.env.TRANSLATE_BAIDU_APPID;

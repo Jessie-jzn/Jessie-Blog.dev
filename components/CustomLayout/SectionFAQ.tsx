@@ -1,27 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "next-i18next";
+import * as Types from "@/lib/type";
 
 interface FAQItemProps {
   question: string;
   answer: string;
 }
-const faqs = [
-  {
-    question: "你能从这个博客中获得什么？",
-    answer:
-      "在这个博客中，我会分享技术见解、旅行攻略和生活感悟，技术分享主要包括 Next.js、React 和 Node.js 等前端技术，搭建高效、美观、用户友好的 web 应用，旅行攻略包括国内外旅游攻略详情",
-  },
-  {
-    question: "为什么要有这个博客？",
-    answer:
-      "我对编程和技术分享的热爱促使我创建了这个博客。这里是我记录开发历程、分享技术技巧，并提供深入的编程指南的平台。通过这个博客，我希望与各位开发者建立联系，分享有价值的见解，并提供实用的建议，帮助大家提升编程技能。我相信技术能够改变世界，创造更好的未来。我希望我的博客能成为你编程学习的灵感和信息来源。",
-  },
-  {
-    question: "针对技术开发，使用的工具有哪些？",
-    answer:
-      "编辑器：Visual Studio Code,版本控制：Git & GitHub,框架和库：Next.js, React, Node.js, Tailwind CSS,开发环境：Docker, Vercel",
-  },
-];
+
 const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,6 +38,10 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   );
 };
 const SectionFAQ = () => {
+  const { t } = useTranslation("common");
+  const faqs: Types.FAQItem[] = t("faqs", {
+    returnObjects: true,
+  }) as Types.FAQItem[];
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
@@ -69,7 +59,7 @@ const SectionFAQ = () => {
         FAQs
       </h2>
       <div className="flex flex-col dark:text-white">
-        {faqs.map((faq, index) => (
+        {faqs?.map((faq, index) => (
           <FAQItem key={index} question={faq.question} answer={faq.answer} />
         ))}
       </div>

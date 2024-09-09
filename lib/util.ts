@@ -33,7 +33,7 @@ export const formatTimestampToDate = (
  */
 export const formatDate = (
   date: string | Date,
-  locale: string = "zh-CN"
+  locale: string = "zh"
 ): string => {
   if (!date || !locale) return date ? date.toString() : "";
 

@@ -22,5 +22,39 @@
     "I love coding 💻.",
     "I enjoy playing 🎮.",
     "Let's build something awesome! 🚀"
+  ],
+  "features": [
+    {
+      "title": "Technical Articles",
+      "href": "/technical",
+      "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis.",
+      "icon": "images/image2.jpg"
+    },
+    {
+      "title": "Travel Guides",
+      "href": "/travel",
+      "description": "Comprehensive travel guides and tips.",
+      "icon": "images/image4.jpg"
+    },
+    {
+      "title": "Life Reflections",
+      "href": "/life",
+      "description": "Personal life experiences and thoughts.",
+      "icon": "images/image5.jpg"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What can you gain from this blog?",
+      "answer": "In this blog, I will share technical insights, travel guides, and life reflections. The technical sharing mainly includes front-end technologies such as Next.js, React, and Node.js, focusing on building efficient, beautiful, and user-friendly web applications. Travel guides will include detailed itineraries both domestic and international."
+    },
+    {
+      "question": "Why did I create this blog?",
+      "answer": "My passion for programming and technical sharing led me to create this blog. It is a platform where I can document my development journey, share coding tips, and provide in-depth guides. Through this blog, I hope to connect with developers, share valuable insights, and offer practical advice to help you improve your coding skills. I believe that technology can change the world and create a better future. I hope this blog serves as a source of inspiration and information for your programming journey."
+    },
+    {
+      "question": "What tools are used for development?",
+      "answer": "Editor: Visual Studio Code, Version Control: Git & GitHub, Frameworks and Libraries: Next.js, React, Node.js, Tailwind CSS, Development Environment: Docker, Vercel"
+    }
   ]
 }

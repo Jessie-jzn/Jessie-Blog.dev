@@ -9,34 +9,12 @@ import Link from "next/link";
 import SectionFAQ from "./SectionFAQ";
 import TypedEffect from "./TypedEffect";
 
-const features = [
-  {
-    title: "技术文章",
-    href: "/technical",
-    description:
-      "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析",
-    icon: require("@/public/images/image2.jpg"),
-  },
-  {
-    title: "旅行攻略",
-    href: "/travel",
-
-    description: "全面的旅行指南和建议",
-    icon: require("@/public/images/image4.jpg"),
-  },
-  {
-    title: "生活感想",
-    href: "/life",
-    description: "个人的生活经历和思考",
-    icon: require("@/public/images/image5.jpg"),
-  },
-];
-
 const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
   const { t } = useTranslation("common");
   const typedTexts: string[] = t("typedTexts", {
     returnObjects: true,
   }) as string[];
+  const features = t("features", { returnObjects: true }) as Types.Feature[];
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
@@ -100,46 +78,48 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         </div>
       </motion.section>
 
-      <motion.section
-        className="bg-[#f8f5dc] py-36 xs:py-12 dark:bg-gray-950"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
-      >
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((f, index) => (
-              <Link key={index} href={f.href}>
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-start text-left relative"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  variants={fadeInUp}
-                >
-                  <Image
-                    src={f.icon}
-                    alt={f.title}
-                    className="rounded-lg object-cover w-full h-96"
-                  />
-                  <div className="absolute bottom-4 left-4 px-3 bg-black bg-opacity-50">
-                    <h3 className="text-5xl font-semibold text-gray-100 mb-4">
-                      {f.title}
-                    </h3>
-                    <p className="text-gray-100 dark:text-white">
-                      {f.description}
-                    </p>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
+      {!!features.length && (
+        <motion.section
+          className="bg-[#f8f5dc] py-36 xs:py-12 dark:bg-gray-950"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          variants={fadeInUp}
+        >
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {features?.map((f, index) => (
+                <Link key={index} href={f.href}>
+                  <motion.div
+                    key={index}
+                    className="flex flex-col items-start text-left relative"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    variants={fadeInUp}
+                  >
+                    <Image
+                      src={require(`@/public/${f.icon}`)}
+                      alt={f.title}
+                      className="rounded-lg object-cover w-full h-96"
+                    />
+                    <div className="absolute bottom-4 left-4 px-3 bg-black bg-opacity-50">
+                      <h3 className="text-5xl font-semibold text-gray-100 mb-4">
+                        {f.title}
+                      </h3>
+                      <p className="text-gray-100 dark:text-white">
+                        {f.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
+      )}
 
       {/* Services Section */}
       <motion.section
@@ -172,72 +152,6 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           ))}
         </div>
       </motion.section>
-      {/* <motion.section
-        className="bg-[#fffaeb] dark:bg-gray-900 p-8 py-32"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
-      >
-        <h2 className="text-6xl font-bold mb-10 font-serif">
-          {t("featuredPost")}
-        </h2>
-
-        <div className="grid lg:grid-cols-5 sm:grid-cols-3 gap-8">
-          {posts.map((p: Types.Post) => (
-            <motion.div
-              key={p.id}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              variants={fadeInUp}
-            >
-              <CardArticle
-                id={p.id}
-                imageSrc={p.pageCoverThumbnail}
-                title={p.title}
-                description="It all begins with an idea. Maybe you want to launch a business. Maybe you want to turn a hobby into something more. Or maybe you have a creative project to share with the world."
-              />
-            </motion.div>
-          ))}
-        </div>
-      </motion.section> */}
-      {/* <motion.section
-        className="bg-[#f8f5dc] py-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
-      >
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between px-4">
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
-            <Image
-              src={require("@/public/images/image2.jpg")}
-              alt="Construction"
-              className="rounded-md shadow-lg"
-            />
-          </div>
-          <div className="w-full md:w-1/2 md:pl-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Build Your Vision?
-            </h2>
-            <p className="text-gray-700 mb-8">
-              It all begins with an idea. Maybe you want to launch a business.
-              Maybe you want to turn a hobby into something more. Or maybe you
-              have a creative project to share with the world.
-            </p>
-            <a
-              href="#contact"
-              className="bg-[#D4D268] hover:bg-[#B4B165] text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300"
-            >
-              GET IN TOUCH
-            </a>
-          </div>
-        </div>
-      </motion.section> */}
       <SectionFAQ />
 
       {/* Contact Section */}
