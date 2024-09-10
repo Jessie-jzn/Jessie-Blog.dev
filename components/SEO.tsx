@@ -1,18 +1,18 @@
-import Head from 'next/head';
-import SiteConfig from '../site.config';
-import * as Config from '@/lib/config';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import SiteConfig from "../site.config";
+import * as Config from "@/lib/config";
+import { useRouter } from "next/router";
 interface CommonSEOProps {
   title?: string;
   description?: string;
-  image: string | null;
+  image?: string | null;
   ogType?: string;
 }
 export const CommonSEO = ({
   title,
   description,
   image,
-  ogType = 'website',
+  ogType = "website",
 }: CommonSEOProps) => {
   const router = useRouter();
   const rssFeedUrl = `${Config.host}/feed`;
@@ -132,25 +132,25 @@ export const BlogSEO = ({
   const modifiedAt = new Date(lastEditTime).toISOString();
 
   const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${SiteConfig.siteUrl}${router.asPath}`,
+      "@type": "WebPage",
+      "@id": `${SiteConfig.siteUrl}${router.asPath}`,
     },
     headline: title,
     image: image,
     datePublished: publishedAt,
     dateModified: modifiedAt,
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: SiteConfig.author,
     },
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: SiteConfig.author,
       logo: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${SiteConfig.siteUrl}${SiteConfig.siteLogo}`,
       },
     },

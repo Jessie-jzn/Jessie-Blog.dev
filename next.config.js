@@ -1,31 +1,34 @@
 /** @type {import('next').NextConfig} */
-// import path from "path";
-// import i18n from "./next-i18next.config";
 const path = require("path");
 const { i18n } = require("./next-i18next.config");
 const isProd = process.env.NODE_ENV === "production";
 // 打包时是否分析代码
-// const withBundleAnalyzer = require("@next/bundle-analyzer")({
-//   enabled: false,
-// });
-// const repo = "Jessie-Blog.dev";
-// const assetPrefix = `/${repo}/`;
-// const basePath = `/${repo}`;
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   i18n,
 
   webpack: (config, { isServer }) => {
     // 添加别名配置
     config.resolve.alias["@"] = path.resolve(__dirname);
 
-    // 如果需要在服务器端进行别名配置，则还需要进行服务端的别名配置
+    // 针对服务端和客户端的不同配置
     if (isServer) {
       config.resolve.alias["@"] = path.resolve(__dirname);
+      config.resolve.fallback = {
+        fs: false, // 禁用 Node.js 的 fs 模块（因为它在浏览器中无效）
+      };
+    }
+    if (isProd) {
+      // 生产环境优化配置
+      config.optimization.minimize = true;
     }
 
     return config;
   },
+  trailingSlash: true, // 确保你的 URL 末尾有斜杠
   async rewrites() {
     return [
       // 伪静态重写
@@ -76,4 +79,4 @@ module.exports = {
       },
     ],
   },
-};
+});

@@ -13,6 +13,7 @@ import "../i18n"; // 导入 i18n.js 文件
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Script from "next/script";
 
 interface MyAppProps {
   Component: React.ComponentType;
@@ -54,37 +55,39 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         media="(prefers-color-scheme: dark)"
         content="#000"
       />
-      <Head>
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-RDJEQXSM3X`}
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-RDJEQXSM3X');
           `,
-          }}
-        ></script>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
-          crossOrigin="anonymous"
-        ></script>
-        <script
-          async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-        ></script>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
-          crossOrigin="anonymous"
-        ></script>
-      </Head>
+        }}
+      ></Script>
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=G-RDJEQXSM3X`}
+      ></Script>
+
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
+        crossOrigin="anonymous"
+      ></Script>
+      <Script
+        async
+        custom-element="amp-ad"
+        src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+      ></Script>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
+        crossOrigin="anonymous"
+      ></Script>
+
       <ThemeProvider
         defaultTheme="system"
         enableSystem={true}

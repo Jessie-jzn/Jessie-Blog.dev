@@ -5,6 +5,7 @@ const NOTION_HOME_ID = process.env.NOTION_HOME_ID as string; // home
 const NOTION_ABOUT_ID = process.env.NOTION_ABOUT_ID as string; // about
 const NOTION_ROOT_ID = process.env.NOTION_ROOT_ID as string; // root
 const NOTION_POST_ID = process.env.NOTION_POST_ID as string; // post
+const NOTION_POST_EN_ID = process.env.NOTION_POST_EN_ID as string; // post-en
 const NOTION_GUIDE_ID = process.env.NOTION_GUIDE_ID as string; // 旅行攻略
 
 const NOTION_COUNTRY_ID = process.env.NOTION_COUNTRY_ID as string;
@@ -30,6 +31,7 @@ export {
   NOTION_COUNTRY_ID,
   NOTION_GUIDE_ID,
   NOTION_POST_ID,
+  NOTION_POST_EN_ID,
   NOTION_ROOT_ID,
   NOTION_ABOUT_ID,
   LANG,

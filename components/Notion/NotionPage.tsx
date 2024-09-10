@@ -3,10 +3,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import SiteConfig from "@/site.config";
-// import PageSocial from './PageSocial';
-// import PropertyValue from './PropertyValue';
 import { searchNotion } from "@/lib/notion/searchNotion";
-// import { PageBlock } from 'notion-types'
 import { getPageProperty } from "notion-utils";
 import { NotionRenderer } from "react-notion-x";
 import { Block } from "notion-types";
@@ -17,7 +14,7 @@ import NotionPageHeader from "./NotionPageHeader";
 import NotionPageAside from "./NotionPageAside";
 import { BlogSEO } from "@/components/SEO";
 import { mapImageUrl, mapPageUrl } from "@/lib/util";
-import { Modal } from "react-notion-x/build/third-party/modal";
+// import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
 const Code = dynamic(() =>
@@ -67,6 +64,9 @@ const Collection = dynamic(() =>
 );
 const Equation = dynamic(() =>
   import("react-notion-x/build/third-party/equation").then((m) => m.Equation)
+);
+const Modal = dynamic(() =>
+  import("react-notion-x/build/third-party/modal").then((m) => m.Modal)
 );
 // const Pdf = dynamic(
 //   () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
