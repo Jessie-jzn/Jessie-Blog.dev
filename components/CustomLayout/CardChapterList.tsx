@@ -7,11 +7,13 @@ import { motion } from 'framer-motion';
 interface CardChapterListProps {
   chapter: Types.Tag;
   index: number;
+  category: string;
 }
 
 const CardChapterList: React.FC<CardChapterListProps> = ({
   chapter,
   index,
+  category
 }) => {
   return (
     <motion.div
@@ -31,7 +33,7 @@ const CardChapterList: React.FC<CardChapterListProps> = ({
       </p>
       <ul className='space-y-2'>
         {chapter.articles.map((article: any) => (
-          <Link href={`/post/${article.id}`} key={article.id}>
+          <Link href={`/${category}/${article.id}`} key={article.id}>
             <motion.li
               key={article.id}
               className='flex items-center space-x-4 space-y-4'

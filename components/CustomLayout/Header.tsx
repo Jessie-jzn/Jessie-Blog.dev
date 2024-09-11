@@ -19,14 +19,14 @@ const Header = ({ btnColor }: HeaderProp) => {
   const [activeLink, setActiveLink] = useState<string>("/");
   const router = useRouter();
 
-  console.log("router", router);
   const menuItemVariants = {
     initial: { opacity: 1, y: 0 },
     hover: { scale: 1.1 }, // 悬停效果 (放大并改变颜色)
     active: { scale: 1.2 }, // 点击效果 (缩小并改变颜色)
   };
-  console.log("activeLink", activeLink);
+  
   useEffect(() => {
+    console.log('router',router)
     setActiveLink(router.pathname);
   }, [router.pathname]);
 

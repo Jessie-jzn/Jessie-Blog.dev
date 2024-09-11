@@ -13,7 +13,7 @@ import NotionPropertyValue from "./NotionPropertyValue";
 import NotionPageHeader from "./NotionPageHeader";
 import NotionPageAside from "./NotionPageAside";
 import { BlogSEO } from "@/components/SEO";
-import { mapImageUrl, mapPageUrl } from "@/lib/util";
+import { mapImageUrl, mapPageUrl } from "@/lib/notion-utils";
 // import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";

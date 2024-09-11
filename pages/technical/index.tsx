@@ -127,7 +127,7 @@ const Post = ({ tagOptions }: any) => {
       >
         <div className='space-y-4'>
           {tagOptions.map((chapter: Types.Tag, index: number) => (
-            <CardChapterList chapter={chapter} index={index} key={chapter.id} />
+            <CardChapterList chapter={chapter} index={index} key={chapter.id} category='technical' />
           ))}
         </div>
       </motion.div>

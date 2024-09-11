@@ -29,6 +29,8 @@ const Post = ({ posts, tagOptions }: any) => {
   const [curTab, setCurTab] = useState("All");
   const [postList, setPostList] = useState(posts);
 
+  const category = 'travel'
+
   const tabItemVariants = {
     initial: { opacity: 1, y: 0 },
     hover: { scale: 1.1, color: "#bec088" },
@@ -116,7 +118,7 @@ const Post = ({ posts, tagOptions }: any) => {
           animate="visible"
         >
           {postList.map((post: any) => (
-            <Link href={`post/${post.id}`} key={post.id}>
+            <Link href={`${category}/${post.id}`} key={post.id}>
               <motion.div
                 className="rounded-lg overflow-hidden"
                 variants={cardVariants}

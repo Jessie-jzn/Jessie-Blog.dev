@@ -12,7 +12,6 @@ import SiteConfig from "../site.config";
 import "../i18n"; // 导入 i18n.js 文件
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import Script from "next/script";
 
 interface MyAppProps {

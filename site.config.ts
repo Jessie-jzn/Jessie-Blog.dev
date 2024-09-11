@@ -31,7 +31,6 @@ const SiteConfig = {
       id: 2,
       title: "technical",
       href: "/technical",
-      headTitle: "旅行攻略",
     },
     {
       id: 3,
@@ -137,6 +136,15 @@ const SiteConfig = {
     // 扩展字段，存放json-string，用于复杂业务
     ext: process.env.NEXT_PUBLIC_NOTION_PROPERTY_EXT || "ext",
   },
+  Notion_ROOT_PAGE_Id: "",
   NOTION_HOST: "https://www.notion.so",
-} as const;
+  databaseMapping: {
+    [process.env.NOTION_POST_ID || '']: 'technical',
+    [process.env.NOTION_GUIDE_ID || '']: 'travel',
+    // 添加其他数据库映射
+  }
+};
+
+
+
 export default SiteConfig;
