@@ -1,0 +1,6 @@
+{
+  "crons": [{
+    "path": "/api/checkNewPostsAndNotify",
+    "schedule": "0 10 * * *"
+  }]
+}

@@ -1,5 +1,5 @@
 import SiteConfig from "../../site.config";
-import { getDateValue, getTextContent } from "notion-utils";
+import { getDateValue, getTextContent } from "@/lib/notion-utils";
 import { formatDate, formatTimestampToDate } from "@/lib/util"; // 假设这些是存在的实用函数
 
 interface PageProperties {

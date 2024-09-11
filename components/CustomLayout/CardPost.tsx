@@ -19,7 +19,9 @@ const CardPost = ({
       <Image
         src={imageSrc || require("@/public/images/image1.jpg")}
         alt={title}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         width={700}
+        loading="lazy"
         height={400}
         className="w-full h-48 object-cover rounded-lg"
       />

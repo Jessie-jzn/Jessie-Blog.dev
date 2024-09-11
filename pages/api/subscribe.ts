@@ -1,69 +1,33 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { subscribeToMailchimpApi } from "@/lib/mailchimp";
+import type { NextApiRequest, NextApiResponse } from 'next'
+import mailchimp from '@mailchimp/mailchimp_marketing'
 
-interface ApiResponse {
-  status: "success" | "error";
-  message: string;
-  error?: string;
-}
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_SERVER_PREFIX,
+})
 
-/**
- * 接受邮件订阅
- * @param {NextApiRequest} req
- * @param {NextApiResponse<ApiResponse>} res
- */
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse>
+  res: NextApiResponse
 ) {
-  if (req.method === "POST") {
-    const { email, firstName = "", lastName = "" } = req.body;
+  const { email, firstName, lastName } = req.body
 
-    if (!email) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "Email is required." });
-    }
+  if (!email || !firstName || !lastName) {
+    return res.status(400).json({ error: 'Missing required fields' })
+  }
 
-    try {
-      console.log("Request received:", { email, firstName, lastName });
+  try {
+    await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID!, {
+      email_address: email,
+      status: 'subscribed',
+      merge_fields: {
+        FNAME: firstName,
+        LNAME: lastName,
+      },
+    })
 
-      const response = await subscribeToMailchimpApi({
-        email,
-        first_name: firstName,
-        last_name: lastName,
-      });
-
-      if (!response) {
-        console.error("No response from Mailchimp API");
-        throw new Error("Mailchimp API returned undefined response.");
-      }
-
-      // 解析 response body 并获取详细的错误信息
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        console.error("Mailchimp API error response:", responseData); // 打印详细的错误信息
-        res.status(400).json({
-          status: "error",
-          message: "Subscription failed!",
-          error: responseData.detail || "Unknown error",
-        });
-        return;
-      }
-
-      res
-        .status(200)
-        .json({ status: "success", message: "Subscription successful!" });
-    } catch (error) {
-      console.error("Error in handler:", error);
-      res.status(500).json({
-        status: "error",
-        message: "Subscription failed!",
-        error: (error as Error).message,
-      });
-    }
-  } else {
-    res.status(405).json({ status: "error", message: "Method not allowed" });
+    return res.status(201).json({ error: '' })
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message || error.toString() })
   }
 }

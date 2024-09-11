@@ -26,7 +26,6 @@ const Header = ({ btnColor }: HeaderProp) => {
   };
   
   useEffect(() => {
-    console.log('router',router)
     setActiveLink(router.pathname);
   }, [router.pathname]);
 

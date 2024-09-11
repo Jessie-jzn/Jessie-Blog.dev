@@ -6,8 +6,14 @@ import * as Types from "@/lib/type";
 import CardPost from "@/components/CustomLayout/CardPost";
 import Image from "next/image";
 import Link from "next/link";
-import SectionFAQ from "./SectionFAQ";
+import dynamic from 'next/dynamic';
+import { Suspense, lazy, useState } from 'react';
 import TypedEffect from "./TypedEffect";
+
+// 动态导入非关键组件
+const SectionFAQ = dynamic(() => import('./SectionFAQ'), {
+  suspense: true,
+});
 
 const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
   const { t } = useTranslation("common");
@@ -15,10 +21,57 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
     returnObjects: true,
   }) as string[];
   const features = t("features", { returnObjects: true }) as Types.Feature[];
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState('');
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubscribeStatus('loading');
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, firstName, lastName }),
+      });
+
+      if (response.ok) {
+        setSubscribeStatus('success');
+        setEmail('');
+        setFirstName('');
+        setLastName('');
+      } else {
+        const data = await response.json();
+        throw new Error(data.error);
+      }
+    } catch (error: any) {
+      setSubscribeStatus('error');
+      console.error('Subscription error:', error);
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 50
+      }
+    }
   };
 
   return (
@@ -27,17 +80,18 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
       <motion.section
         className="relative bg-[#bec088] dark:bg-gray-950 text-gray-100 py-16 pt-[190px]"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
+        animate="visible"
+        variants={containerVariants}
       >
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 px-8 md:px-12 lg:px-16 mb-12 md:mb-0">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <motion.h2 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              variants={itemVariants}
+            >
               👋 Hello,I&apos;m Jessie
-            </h2>
-            <div className="h-10">
+            </motion.h2>
+            <motion.div className="h-10" variants={itemVariants}>
               <TypedEffect
                 texts={typedTexts}
                 typeSpeed={80}
@@ -48,33 +102,46 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                   fontSize: "24px",
                 }}
               />
-            </div>
+            </motion.div>
 
-            <div className="text-lg md:text-xl leading-relaxed">
+            <motion.div 
+              className="text-lg md:text-xl leading-relaxed"
+              variants={itemVariants}
+            >
               <p className="mb-2">{t("authorDesc")}</p>
-            </div>
-            <SocialContactIcon
-              prop={{
-                className: "mb-3 flex space-x-4 mt-8 text-gray-100",
-                theme: "white",
-              }}
-            />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <SocialContactIcon
+                prop={{
+                  className: "mb-3 flex space-x-4 mt-8 text-gray-100",
+                  theme: "white",
+                }}
+              />
+            </motion.div>
 
-            <Link href={"/about"}>
-              <div className="mt-4 w-52 p-4 bg-[#D4D268] hover:bg-[#B4B165] text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 text-center">
-                {t("workWithMe")}
-              </div>
-            </Link>
+            <motion.div variants={itemVariants}>
+              <Link href={"/about"}>
+                <div className="mt-4 w-52 p-4 bg-[#D4D268] hover:bg-[#B4B165] text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 text-center">
+                  {t("workWithMe")}
+                </div>
+              </Link>
+            </motion.div>
           </div>
-          <div className="md:w-1/2 px-8 md:px-12 lg:px-16 xs:hidden">
+          <motion.div 
+            className="md:w-1/2 px-8 md:px-12 lg:px-16 xs:hidden"
+            variants={itemVariants}
+          >
             <Image
               src={require("@/public/images/image1.jpg")}
               alt="New Home Builders"
               width={700}
               height={400}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover rounded-lg shadow-lg"
+              loading="eager"
+              priority
             />
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -84,26 +151,33 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          variants={fadeInUp}
+          variants={containerVariants}
         >
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {features?.map((f, index) => (
                 <Link key={index} href={f.href}>
                   <motion.div
-                    key={index}
                     className="flex flex-col items-start text-left relative"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: index * 0.2 }}
-                    variants={fadeInUp}
+                    variants={{
+                      hidden: { x: -50, opacity: 0 },
+                      visible: { 
+                        x: 0, 
+                        opacity: 1,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 50,
+                          delay: index * 0.1
+                        }
+                      }
+                    }}
                   >
                     <Image
                       src={require(`@/public/${f.icon}`)}
                       alt={f.title}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="rounded-lg object-cover w-full h-96"
+                      loading="lazy"
                     />
                     <div className="absolute bottom-4 left-4 px-3 bg-black bg-opacity-50">
                       <h3 className="text-5xl font-semibold text-gray-100 mb-4">
@@ -127,20 +201,31 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
+        variants={containerVariants}
       >
-        <h2 className="text-6xl font-bold mb-10 font-serif">{t("lastPost")}</h2>
+        <motion.h2 
+          className="text-6xl font-bold mb-10 font-serif"
+          variants={itemVariants}
+        >
+          {t("lastPost")}
+        </motion.h2>
 
         <div className="grid lg:grid-cols-5 sm:grid-cols-3 gap-8">
-          {posts.map((p: Types.Post) => (
+          {posts.map((p: Types.Post, index: number) => (
             <motion.div
               key={p.id}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              variants={fadeInUp}
+              variants={{
+                hidden: { y: 50, opacity: 0 },
+                visible: { 
+                  y: 0, 
+                  opacity: 1,
+                  transition: { 
+                    type: "spring",
+                    stiffness: 50,
+                    delay: index * 0.05
+                  }
+                }
+              }}
             >
               <CardPost
                 id={p.id}
@@ -152,7 +237,10 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           ))}
         </div>
       </motion.section>
-      <SectionFAQ />
+      
+      <Suspense fallback={<div>Loading...</div>}>
+        <SectionFAQ />
+      </Suspense>
 
       {/* Contact Section */}
       <motion.section
@@ -160,8 +248,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        variants={fadeInUp}
+        variants={containerVariants}
       >
         <div className="flex flex-wrap justify-around w-full pb-8">
           <div className="flex flex-col xs:max-w-xs mb-2">
@@ -177,7 +264,21 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           </div>
         </div>
 
-        <div className="max-w-4xl w-full bg-[#fffaeb] rounded-3xl p-12 ">
+        <motion.div 
+          className="max-w-4xl w-full bg-[#fffaeb] rounded-3xl p-12"
+          variants={{
+            hidden: { scale: 0.8, opacity: 0 },
+            visible: { 
+              scale: 1, 
+              opacity: 1,
+              transition: { 
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }
+            }
+          }}
+        >
           <h1 className="text-center text-3xl font-bold mb-6">
             {t("subscribe")}
           </h1>
@@ -185,20 +286,26 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           <h3 className="text-center font-semibold mb-8 text-black">
             {t("subscribeDesc")}
           </h3>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubscribe}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col">
                 <input
                   type="text"
                   placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                  required
                 />
               </div>
               <div className="flex flex-col">
                 <input
                   type="text"
                   placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                  required
                 />
               </div>
             </div>
@@ -206,19 +313,29 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
               <input
                 type="email"
                 placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                required
               />
             </div>
             <div className="flex justify-center">
               <button
                 type="submit"
                 className="mt-4 w-56 p-8 py-4 bg-[#4d472f] text-white rounded-full hover:bg-[#5e5639]"
+                disabled={subscribeStatus === 'loading'}
               >
-                {t("subscribe")}
+                {subscribeStatus === 'loading' ? t("subscribing") : t("subscribe")}
               </button>
             </div>
           </form>
-        </div>
+          {subscribeStatus === 'success' && (
+            <p className="mt-4 text-green-600 text-center">{t("subscriptionSuccess")}</p>
+          )}
+          {subscribeStatus === 'error' && (
+            <p className="mt-4 text-red-600 text-center">{t("subscriptionFailed")}</p>
+          )}
+        </motion.div>
       </motion.section>
     </>
   );

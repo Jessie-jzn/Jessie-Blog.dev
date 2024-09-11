@@ -6,7 +6,7 @@ import {
   getPageContentBlockIds,
   parsePageId,
   uuidToId,
-} from "notion-utils";
+} from "@/lib/notion-utils";
 import pMap from "p-map";
 
 // import * as types from './types';
@@ -259,7 +259,6 @@ export class NotionAPI {
           block.type === "page"
             ? block.format?.page_cover
             : block.properties?.source?.[0]?.[0];
-        // console.log(block, source)
 
         if (source) {
           if (!source.includes("secure.notion-static.com")) {

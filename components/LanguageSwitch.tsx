@@ -15,8 +15,7 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
   const { locale, locales, pathname, asPath, query } = router;
-  console.log("SiteConfig.language", SiteConfig.language);
-  console.log("locale", locale);
+
   const [currentLocale, setCurrentLocale] = useState(
     getInitialLanguage(SiteConfig.language, locale)
   );

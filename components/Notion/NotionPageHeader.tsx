@@ -9,7 +9,6 @@ const NotionPageHeader = ({ block }: any) => {
   const router = useRouter();
   const { t } = useTranslation("common");
 
-  console.log('router',router)
   const isBlogPost =
     block?.type === "page" && block?.parent_table === "collection";
 

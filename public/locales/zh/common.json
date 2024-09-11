@@ -45,7 +45,7 @@
   ],
   "faqs": [
     {
-      "question": "你能从这个博客中获得什么？",
+      "question": "你能从这个博���中获得什么？",
       "answer": "在这个博客中，我会分享技术见解、旅行攻略和生活感悟，技术分享主要包括 Next.js、React 和 Node.js 等前端技术，搭建高效、美观、用户友好的 web 应用，旅行攻略包括国内外旅游攻略详情"
     },
     {
@@ -57,6 +57,7 @@
       "answer": "编辑器：Visual Studio Code,版本控制：Git & GitHub,框架和库：Next.js, React, Node.js, Tailwind CSS,开发环境：Docker, Vercel"
     }
   ],
-  "lastEdited":"最新编辑"
-
+  "lastEdited":"最新编辑",
+  "newPostsNotification": "新文章通知",
+  "newPostsAvailable": "我们的博客有新文章啦！"
 }

@@ -7,7 +7,7 @@ const NOTION_ROOT_ID = process.env.NOTION_ROOT_ID as string; // root
 const NOTION_POST_ID = process.env.NOTION_POST_ID as string; // post
 const NOTION_POST_EN_ID = process.env.NOTION_POST_EN_ID as string; // post-en
 const NOTION_GUIDE_ID = process.env.NOTION_GUIDE_ID as string; // 旅行攻略
-
+const NOTION_NOTIFICATIONS_ID = process.env.NOTION_NOTIFICATIONS_ID as string; // 用户订阅数据库
 const NOTION_COUNTRY_ID = process.env.NOTION_COUNTRY_ID as string;
 const PREVIEW_IMAGES_ENABLED = true;
 const LANG = process.env.NEXT_PUBLIC_LANG || "zh"; // zh-CN,'n-U
@@ -34,6 +34,7 @@ export {
   NOTION_POST_EN_ID,
   NOTION_ROOT_ID,
   NOTION_ABOUT_ID,
+  NOTION_NOTIFICATIONS_ID,
   LANG,
   TRANSLATE_BAIDU_APPID,
   TRANSLATE_BAIDU_SECRETKEY,

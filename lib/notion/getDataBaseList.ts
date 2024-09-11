@@ -3,7 +3,7 @@ import getAllPageIds from "./getAllPageIds";
 import getBlockInBatches from "./getBlockInBatches";
 import getPageProperties from "./getPageProperties";
 import getAllTagsList from "./getAllTagsList";
-import { idToUuid } from "notion-utils";
+import { idToUuid } from "@/lib/notion-utils";
 import SiteConfig from "../../site.config";
 
 import * as Types from "@/lib/type";
@@ -27,7 +27,9 @@ export default async function getDataBaseList({
 
   pageId = idToUuid(pageId);
   let block = pageRecordMap.block || {};
+
   const rawMetadata = block[pageId]?.value;
+
   // Check Type Page-Database和Inline-Database
   // if (
   //   rawMetadata?.type !== 'collection_view_page' &&
