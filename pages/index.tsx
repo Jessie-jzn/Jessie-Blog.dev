@@ -7,6 +7,8 @@ import HomeLayout from "@/components/CustomLayout/HomeLayout";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_POST_ID, NOTION_POST_EN_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { baiduTranslate } from '@/lib/baidu/baiduTranslate';
+import { useEffect } from "react";
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
@@ -33,6 +35,20 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   };
 };
 const Home = ({ posts }: any) => {
+
+  async function main() {
+    try {
+      const translatedText = await baiduTranslate('Hello, world!', 'en', 'zh');
+      console.log('Translated text:', translatedText);
+    } catch (error) {
+      console.error('Translation error:', error);
+    }
+  }
+  useEffect(()=>{
+    main();
+
+  },[])
+  
   return (
     <>
       {SiteConfig.useCustomHomeLayout ? (

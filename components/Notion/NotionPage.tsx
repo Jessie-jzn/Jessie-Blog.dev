@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useEffect,useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import {useRouter} from 'next/router'
 import SiteConfig from "@/site.config";
 import { searchNotion } from "@/lib/notion/searchNotion";
 import { NotionRenderer } from "react-notion-x";
@@ -16,6 +17,7 @@ import { mapImageUrl, mapPageUrl,getPageProperty } from "@/lib/notion-utils";
 // import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
+import { getTranslation } from '@/lib/translationCache'
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then(async (m) => {
     // add / remove any prism syntaxes here
@@ -120,6 +122,8 @@ const propertyCreatedTimeValue = (
     defaultFn
   );
 const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
+  const router = useRouter();
+  const { locale } = router;
   const keys = Object.keys(recordMap?.block || {});
   const block = recordMap?.block?.[keys[0]]?.value;
 
@@ -168,6 +172,33 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
   );
   const pageAside = React.useMemo(() => <NotionPageAside />, []);
 
+  const [translatedRecordMap, setTranslatedRecordMap] = useState(recordMap)
+  useEffect(() => {
+    const translateRecordMap = async () => {
+      if (locale !== 'zh') {
+        const newRecordMap = { ...recordMap }
+        for (const [id, block] of Object.entries(newRecordMap.block)) {
+          if (block.value.properties) {
+            for (const [key, value] of Object.entries(block.value.properties)) {
+              if (Array.isArray(value)) {
+                for (let i = 0; i < value.length; i++) {
+                  if (typeof value[i] === 'string') {
+                    value[i] = await getTranslation(value[i], 'zh', 'en')
+                  }
+                }
+              }
+            }
+          }
+        }
+        setTranslatedRecordMap(newRecordMap)
+      }
+    }
+
+    translateRecordMap()
+  }, [recordMap, locale])
+
+  console.log('translateRecordMap',translatedRecordMap)
+
   return (
     <>
       <BlogSEO
@@ -181,7 +212,7 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
         <NotionRenderer
           bodyClassName={styles.notion}
           components={components}
-          recordMap={recordMap}
+          recordMap={translatedRecordMap}
           isShowingSearch={false}
           onHideSearch={() => {}}
           // rootPageId={NOTION_ROOT_ID}

@@ -47,7 +47,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   };
 };
-
+// export async function getServerSideProps({ params, locale }) {
+//   const notionAPI = new NotionAPI()
+//   const pageData = await notionAPI.getPage(params.slug, 'zh') // 始终获取中文版本
+//   return { props: { pageData } }
+// }
 const RenderPost = ({ post }: any): React.JSX.Element => {
   return (
     <>

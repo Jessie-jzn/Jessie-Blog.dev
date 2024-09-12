@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
+import { useTranslation } from 'next-i18next';
 
 const getInitialLanguage = (
   siteConfigLanguage: string | undefined,
@@ -14,7 +15,8 @@ const getInitialLanguage = (
 const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
-  const { locale, locales, pathname, asPath, query } = router;
+  const { i18n } = useTranslation();
+  const { locale, locales } = router;
 
   const [currentLocale, setCurrentLocale] = useState(
     getInitialLanguage(SiteConfig.language, locale)
@@ -29,10 +31,19 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const changeLanguage = (e: any) => {
+  // const changeLanguage = (e: any) => {
+  //   i18n.changeLanguage(lng);
+  //   router.push(router.pathname, router.asPath, { locale: lng });
+  //   const selectedLocale = e.target.getAttribute("data-lang");
+  //   router.push({ pathname, query }, asPath, { locale: selectedLocale });
+  //   // Hide dropdown after selecting a language
+  // };
+
+  const changeLanguage = (e: any)=> {
     const selectedLocale = e.target.getAttribute("data-lang");
-    router.push({ pathname, query }, asPath, { locale: selectedLocale });
-    setDropdownVisible(false); // Hide dropdown after selecting a language
+    i18n.changeLanguage(selectedLocale);
+    router.push(router.pathname, router.asPath, { locale: selectedLocale });
+    setDropdownVisible(false);
   };
 
   return (
