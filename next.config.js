@@ -9,6 +9,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   i18n,
+  env: {
+    TRANSLATE_BAIDU_APPID: process.env.TRANSLATE_BAIDU_APPID,
+    TRANSLATE_BAIDU_SECRETKEY: process.env.TRANSLATE_BAIDU_SECRETKEY,
+  },
 
   webpack: (config, { isServer }) => {
     // 添加别名配置

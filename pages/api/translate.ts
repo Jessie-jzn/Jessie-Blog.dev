@@ -4,7 +4,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
 
     try {
-        const response = await axios.post('https://www.fanyigou.com/TranslateApi/api/trans', new URLSearchParams(req.body).toString(), {
+        const response = await axios.post('https://fanyi-api.baidu.com/api/trans/vip/translate', new URLSearchParams(req.body).toString(), {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
