@@ -72,7 +72,7 @@ export const CommonSEO = ({
       <title>{title}</title>
       <meta
         name="keywords"
-        content="travel, blog, Jessie, travel blogger, travel tips, travel stories"
+        content="travel, blog, Jessie, travel blogger, travel tips, travel stories, SEO, optimization"
       />
 
       {/* 配置社交媒体分享图片的相关 meta 标签 */}
@@ -122,22 +122,16 @@ export const BlogSEO = ({
   title,
   createdTime,
   lastEditTime,
-
+  description,
   // url,
   image,
 }: BlogSeoProps) => {
-  const router = useRouter();
-
   const publishedAt = new Date(createdTime).toISOString();
   const modifiedAt = new Date(lastEditTime).toISOString();
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${SiteConfig.siteUrl}${router.asPath}`,
-    },
+    "@type": "BlogPosting",
     headline: title,
     image: image,
     datePublished: publishedAt,
@@ -154,7 +148,7 @@ export const BlogSEO = ({
         url: `${SiteConfig.siteUrl}${SiteConfig.siteLogo}`,
       },
     },
-    description: SiteConfig.description,
+    description: description,
   };
 
   return (
