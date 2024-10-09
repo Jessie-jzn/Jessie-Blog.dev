@@ -7,12 +7,14 @@ interface CommonSEOProps {
   description?: string;
   image?: string | null;
   ogType?: string;
+  keywords?: string;
 }
 export const CommonSEO = ({
   title,
   description,
   image,
   ogType = "website",
+  keywords
 }: CommonSEOProps) => {
   const router = useRouter();
   const rssFeedUrl = `${Config.host}/feed`;
@@ -72,7 +74,8 @@ export const CommonSEO = ({
       <title>{title}</title>
       <meta
         name="keywords"
-        content="travel, blog, Jessie, travel blogger, travel tips, travel stories, SEO, optimization"
+        content={keywords ||
+          'travel, blog, Jessie, travel blogger, travel tips, travel stories, SEO, optimization,solo travel, travel tips, eco-friendly travel, Jessie travel, solo adventure, sustainable travel, Front-end,enginner'}
       />
 
       {/* 配置社交媒体分享图片的相关 meta 标签 */}
@@ -115,6 +118,7 @@ export const CommonSEO = ({
 interface BlogSeoProps extends CommonSEOProps {
   // url: string;
   createdTime: string | Date;
+  keywords?: string;
   lastEditTime: string | Date;
 }
 
@@ -124,6 +128,7 @@ export const BlogSEO = ({
   lastEditTime,
   description,
   // url,
+  keywords,
   image,
 }: BlogSeoProps) => {
   const publishedAt = new Date(createdTime).toISOString();
@@ -149,11 +154,12 @@ export const BlogSEO = ({
       },
     },
     description: description,
+    articleSection: "Travel Tips",  // 添加文章类别
   };
 
   return (
     <>
-      <CommonSEO title={title} ogType="article" image={image} />
+      <CommonSEO title={title} ogType="article" image={image} keywords={keywords}/>
       <Head>
         {/* {date && (
           <meta property="article:published_time" content={publishedAt} />

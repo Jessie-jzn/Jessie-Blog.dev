@@ -133,7 +133,6 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
 
   const showTableOfContents = !!isBlogPost;
 
-  const title = SiteConfig.title;
   const socialDescription =
     getPageProperty<string>("Description", block, recordMap) ||
     SiteConfig.description;
@@ -153,6 +152,10 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
     getPageProperty<string>("last_edited_time", block, recordMap) || new Date();
   const createdTime =
     getPageProperty<string>("created_time", block, recordMap) || new Date();
+  const title =
+    getPageProperty<string>("title", block, recordMap) || SiteConfig.title;
+
+  const keywords = getPageProperty<string>("keywords", block, recordMap)
 
   const components = useMemo(
     () => ({
@@ -181,6 +184,7 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
         createdTime={createdTime}
         lastEditTime={lastEditTime}
         image={socialImage}
+        keywords={keywords}
       />
       <div className="mx-10 xs:mx-0">
         <NotionRenderer

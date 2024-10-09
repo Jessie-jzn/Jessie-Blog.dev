@@ -1,12 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import NotionPage from "@/components/Notion/NotionPage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import SiteConfig from "@/site.config";
-import { baiduTranslate } from '@/lib/baidu/baiduTranslate';
-import { BlogSEO } from '@/components/SEO'
 const notionService = new NotionService();
 
 export const getStaticProps: GetStaticProps = async ({
@@ -119,13 +117,6 @@ const RenderPost = ({ post }: any): React.JSX.Element => {
 
   return (
     <>
-      <BlogSEO
-        title={post.title} // 确保使用动态标题
-        description={post.description || SiteConfig.description} // 使用动态描述
-        createdTime={post?.createdTime}
-        lastEditTime={post?.lastEditTime}
-        image={post?.socialImage}
-      />
       <NotionPage recordMap={post} />
     </>
   );
