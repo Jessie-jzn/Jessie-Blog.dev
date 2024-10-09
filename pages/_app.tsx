@@ -57,39 +57,40 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
           content="#000"
         />
         <meta name="baidu-site-verification" content="codeva-oUzlmBUgI9" />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+      </Head>
+
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-RDJEQXSM3X');
           `,
-          }}
-        ></Script>
-        <Script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-RDJEQXSM3X`}
-        ></Script>
+        }}
+      ></Script>
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=G-RDJEQXSM3X`}
+      ></Script>
 
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
-          crossOrigin="anonymous"
-        ></Script>
-        <Script
-          async
-          custom-element="amp-ad"
-          src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-        ></Script>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
-          crossOrigin="anonymous"
-        ></Script>
-      </Head>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
+        crossOrigin="anonymous"
+      ></Script>
+      <Script
+        async
+        custom-element="amp-ad"
+        src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
+      ></Script>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
+        crossOrigin="anonymous"
+      ></Script>
       <ThemeProvider
         defaultTheme="system"
         enableSystem={true}
