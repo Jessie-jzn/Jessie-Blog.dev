@@ -17,6 +17,8 @@ interface HeaderProp {
 const Header = ({ btnColor }: HeaderProp) => {
   const { t } = useTranslation("common");
   const [activeLink, setActiveLink] = useState<string>("/");
+  const [headerTitle, setHeaderTitle] = useState<string | undefined>(undefined); // 新增状态
+
   const router = useRouter();
 
   const menuItemVariants = {
@@ -27,12 +29,13 @@ const Header = ({ btnColor }: HeaderProp) => {
   
   useEffect(() => {
     setActiveLink(router.pathname);
+    setHeaderTitle(SiteConfig.headerTitle); // 在客户端设置标题
   }, [router.pathname]);
 
   return (
     <header className="flex items-center justify-between absolute top-0 right-0 w-full p-14 z-[999] h-[192px] box-border">
       <div>
-        <Link href="/" aria-label={SiteConfig.headerTitle}>
+        <Link href="/" aria-label={headerTitle}>
           <div className="flex items-center justify-between">
             <div className="mr-3">
               <Image
@@ -43,12 +46,12 @@ const Header = ({ btnColor }: HeaderProp) => {
                 className="h-16 w-16 rounded-full"
               />
             </div>
-            {typeof SiteConfig.headerTitle === "string" ? (
+            {typeof headerTitle === "string" ? (
               <div className="hidden h-6 sm:block text-3xl font-bold ">
-                {SiteConfig.headerTitle}
+                {headerTitle}
               </div>
             ) : (
-              SiteConfig.headerTitle
+              headerTitle
             )}
           </div>
         </Link>

@@ -116,9 +116,9 @@ const RenderPost = ({ post }: any): React.JSX.Element => {
   // }, []);
 
   return (
-    <>
+    <div className="pt-[170px]" >
       <NotionPage recordMap={post} />
-    </>
+    </div>
   );
 };
 
