@@ -44,7 +44,7 @@ const NotionPageHeader = ({ block }: any) => {
 
       setBreadcrumbs(pathArray);
     }
-  }, [router, block, isBlogPost]);
+  }, [router, block, isBlogPost, t]);
 
   if (!isBlogPost) {
     return null;

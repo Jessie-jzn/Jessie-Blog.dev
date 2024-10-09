@@ -29,6 +29,14 @@ module.exports = withBundleAnalyzer({
       // 生产环境优化配置
       config.optimization.minimize = true;
     }
+    config.module.rules.push({
+      test: /\.txt$/,
+      use: 'raw-loader',
+    });
+    config.module.rules.push({
+      test: /\.xml$/,
+      use: 'raw-loader',
+    });
 
     return config;
   },

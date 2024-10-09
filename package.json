@@ -28,10 +28,12 @@
     "notion-utils": "^6.16.0",
     "p-map": "^7.0.2",
     "prismjs": "^1.29.0",
+    "raw-loader": "^4.0.2",
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^15.0.0",
-    "react-notion-x": "^6.16.0"
+    "react-notion-x": "^6.16.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
