@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import React, { useState, useEffect } from 'react';
-import { NOTION_POST_ID } from '@/lib/constants';
+import { NOTION_POST_ID, NOTION_POST_EN_ID } from '@/lib/constants';
 import getDataBaseList from '@/lib/notion/getDataBaseList';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -11,8 +11,10 @@ import CardChapterList from '@/components/CustomLayout/CardChapterList';
 import * as Types from '@/lib/type';
 
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
+  // 根据语言选择不同的 Notion ID
+  const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_POST_ID;
   const response = await getDataBaseList({
-    pageId: NOTION_POST_ID,
+    pageId: notionPostId,
     from: 'post-index',
   });
 
@@ -61,9 +63,8 @@ const Post = ({ tagOptions }: any) => {
       </motion.header>
 
       <nav
-        className={`p-4 w-48 bg-yellow-50 rounded-lg xs:hidden ${
-          isFixed ? 'fixed top-20' : 'absolute top-[812px] left-0'
-        }`}
+        className={`p-4 w-48 bg-yellow-50 rounded-lg xs:hidden ${isFixed ? 'fixed top-20' : 'absolute top-[812px] left-0'
+          }`}
       >
         <div className='pb-2 text-center flex justify-b border-b-stone-300 border-b-2'>
           <Image

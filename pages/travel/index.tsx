@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { motion } from "framer-motion";
-import { NOTION_GUIDE_ID } from "@/lib/constants";
+import { NOTION_GUIDE_ID,NOTION_GUIDE_EN_ID } from "@/lib/constants";
 import Image from "next/image";
 import * as Types from "@/lib/type";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
@@ -8,10 +8,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
 import CardArticle from "@/components/CustomLayout/CardArticle";
 import Link from "next/link";
-
+import { useTranslation } from "next-i18next";
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
+  const notionPostId = locale === "en" ? NOTION_GUIDE_EN_ID : NOTION_GUIDE_ID;
   const response = await getDataBaseList({
-    pageId: NOTION_GUIDE_ID,
+    pageId: notionPostId,
     from: "travel-index",
   });
 
@@ -26,6 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
 };
 
 const Post = ({ posts, tagOptions }: any) => {
+  const { t } = useTranslation("common");
   const [curTab, setCurTab] = useState("All");
   const [postList, setPostList] = useState(posts);
 
@@ -68,8 +70,11 @@ const Post = ({ posts, tagOptions }: any) => {
         <div className="flex flex-col justify-center ml-12">
           {/* 主标题 */}
           <h2 className="text-6xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-            It all begins with an idea
+            {t('travelTitle')}
           </h2>
+          <div className="text-3xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
+          {t('travelDesc')}
+          </div>
         </div>
       </header>
       <motion.div
