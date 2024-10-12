@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { motion } from "framer-motion";
-import { NOTION_GUIDE_ID,NOTION_GUIDE_EN_ID } from "@/lib/constants";
+import { NOTION_GUIDE_ID, NOTION_GUIDE_EN_ID } from "@/lib/constants";
 import Image from "next/image";
 import * as Types from "@/lib/type";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
@@ -73,7 +73,7 @@ const Post = ({ posts, tagOptions }: any) => {
             {t('travelTitle')}
           </h2>
           <div className="text-3xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-          {t('travelDesc')}
+            {t('travelDesc')}
           </div>
         </div>
       </header>

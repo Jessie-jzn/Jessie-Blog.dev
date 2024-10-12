@@ -418,7 +418,6 @@ export const parsePageId = (
   id: string | null = '',
   { uuid = true }: { uuid?: boolean } = {}
 ) => {
-    console.log('id',id)
   // 如果输入为空，直接返回 null
   if (!id) {
     return null
@@ -434,7 +433,6 @@ export const parsePageId = (
     // 如果匹配成功，根据 uuid 选项决定是否转换为带连字符的 UUID 格式
     return uuid ? idToUuid(match[1]) : match[1]
   }
-  console.log('match',match)
 
   // 匹配标准的 UUID 格式（带连字符）
   const match2 = id.match(/\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/)
@@ -442,7 +440,6 @@ export const parsePageId = (
     // 如果匹配成功，根据 uuid 选项决定是否保留连字符
     return uuid ? match2[1] : match2[1].replace(/-/g, '')
   }
-  console.log('match2',match2)
 
 
   // 如果都不匹配，返回 null
