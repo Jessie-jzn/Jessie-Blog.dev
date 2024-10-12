@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         tagOptions: response.tagOptions || [],
         posts: filteredPosts || [],
         filteredTag: filteredTag,
+        
       },
       revalidate: 10,
     };

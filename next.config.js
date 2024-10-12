@@ -62,6 +62,7 @@ module.exports = withBundleAnalyzer({
       fullUrl: true,
     },
   },
+  staticPageGenerationTimeout: 60,
   images: {
     unoptimized: true,
     remotePatterns: [
