@@ -9,6 +9,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   i18n,
+  swcMinify: true, // 启用 SWC 最小化
   env: {
     TRANSLATE_BAIDU_APPID: process.env.TRANSLATE_BAIDU_APPID,
     TRANSLATE_BAIDU_SECRETKEY: process.env.TRANSLATE_BAIDU_SECRETKEY,
@@ -90,6 +91,10 @@ module.exports = withBundleAnalyzer({
         protocol: "https",
         hostname: "*.jessieontheroad.**",
       },
+      {
+        protocol: "https",
+        hostname: "*.dropbox.**",
+      }
     ],
   },
 });

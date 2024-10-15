@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
 import { useTranslation } from 'next-i18next';
@@ -9,7 +9,7 @@ const getInitialLanguage = (
 ) => {
   if (locale) return locale; // Use locale from Next.js if available
   if (siteConfigLanguage) return siteConfigLanguage; // Site config language
-  return "en"; // Default fallback language
+  return "zh"; // Default fallback language
 };
 
 const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
@@ -39,12 +39,16 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   //   // Hide dropdown after selecting a language
   // };
 
-  const changeLanguage = (e: any)=> {
-    const selectedLocale = e.target.getAttribute("data-lang");
+  const handleLanguageChange = useCallback((e: any)=> {
+    console.log('执行', e)
+    const selectedLocale = e.currentTarget.getAttribute("data-lang");
+    console.log('执行',selectedLocale)
+
     i18n.changeLanguage(selectedLocale);
     router.push(router.pathname, router.asPath, { locale: selectedLocale });
     setDropdownVisible(false);
-  };
+    setCurrentLocale(selectedLocale);
+  },[i18n, router]);
 
   return (
     <div className="relative inline-block text-left">
@@ -64,7 +68,7 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
             <div
               key={loc}
               data-lang={loc}
-              onClick={changeLanguage}
+              onClick={handleLanguageChange}
               className="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
             >
               <span className="mr-2">{loc === "en" ? "🇺🇸" : "🇨🇳"}</span>
@@ -77,4 +81,4 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   );
 };
 
-export default LanguageSwitcher;
+export default React.memo(LanguageSwitcher);

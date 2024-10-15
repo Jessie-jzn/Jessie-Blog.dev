@@ -13,6 +13,7 @@ import { CommonSEO } from '@/components/SEO'
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
+  console.log('locale',locale)
   let posts;
   // 根据语言选择不同的 Notion ID
   const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_POST_ID;
@@ -52,8 +53,8 @@ const Home = ({ posts }: any) => {
   return (
     <>
       <CommonSEO
-        title="首页 - Jessie的旅行博客"
-        description="欢迎来到Jessie的旅行博客，分享旅行故事和小贴士。"
+        title="首页 - Jessie的博客"
+        description="欢迎来到Jessie的博客，分享技术、旅行故事和小贴士。"
       />
       {SiteConfig.useCustomHomeLayout ? (
         <HomeLayout posts={posts} />

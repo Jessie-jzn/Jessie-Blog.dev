@@ -28,19 +28,19 @@
       "title": "技术文章",
       "href": "/technical",
       "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。",
-      "icon": "images/image2.jpg"
+      "icon": "https://www.dropbox.com/scl/fi/m103b265tpa6sk2xoe0ju/image2.jpg?rlkey=6s561ca5ttgd8d6f2o7dh2h6h&st=dspmlutf&raw=1"
     },
     {
       "title": "旅行攻略",
       "href": "/travel",
       "description": "全面的旅行指南和建议。",
-      "icon": "images/image4.jpg"
+      "icon": "https://www.dropbox.com/scl/fi/1gxahn1acxfc3sd13imqk/image4.jpg?rlkey=bmco3aggguqbrmrtdixjy9rce&st=wg1xhfwu&raw=1"
     },
     {
       "title": "生活感想",
       "href": "/life",
       "description": "个人的生活经历和思考。",
-      "icon": "images/image5.jpg"
+      "icon": "https://www.dropbox.com/scl/fi/a690n6iqhc8s74rwfftkb/image5.jpg?rlkey=1zfl0xl91wmxan8jpk4kiifnq&st=semtasaw&raw=1"
     }
   ],
   "faqs": [

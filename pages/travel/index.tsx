@@ -31,7 +31,7 @@ const Post = ({ posts, tagOptions }: any) => {
   const [curTab, setCurTab] = useState("All");
   const [postList, setPostList] = useState(posts);
 
-  const category = 'travel'
+  const category = "travel";
 
   const tabItemVariants = {
     initial: { opacity: 1, y: 0 },
@@ -64,16 +64,16 @@ const Post = ({ posts, tagOptions }: any) => {
       {/* 新增的头部 */}
       <header
         className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
-        style={{ backgroundImage: `url('/images/image6.jpg')` }}
+        style={{ backgroundImage: `url('https://www.dropbox.com/scl/fi/khh5lr7gyktykevhd8rmo/image6.png?rlkey=3kua3amypt36p336kf3o6cdwe&st=ox2qepqa&raw=1')` }}
       >
         {/* 左侧内容 */}
         <div className="flex flex-col justify-center ml-12">
           {/* 主标题 */}
           <h2 className="text-6xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-            {t('travelTitle')}
+            {t("travelTitle")}
           </h2>
           <div className="text-3xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-            {t('travelDesc')}
+            {t("travelDesc")}
           </div>
         </div>
       </header>
@@ -137,6 +137,9 @@ const Post = ({ posts, tagOptions }: any) => {
                     width={640}
                     height={360}
                     layout="responsive"
+                    quality={75} // 设置压缩质量，默认为75
+                    loading="lazy"
+                    
                     className="w-full h-48 object-cover"
                   />
                 </div>

@@ -10,11 +10,11 @@ const SiteConfig = {
   headerTitle: "Jessie's Blog",
   description:
     "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
-  language: "en", // 中文：zh 英文：en
-  siteLogo: "/public/data/images/avatar.png",
+  language: "zh", // 中文：zh 英文：en
+  siteLogo: "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=b8oojkui&raw=1",
   socialBanner: "/static/images/projects/karhdo-blog.png",
   theme: "system",
-  locale: "en",
+  locale: "zh",
   // siteUrl: 'www.jessieontheroad.com',
   siteUrl: "https://www.jessieontheroad.com",
   domain: "jessieontheroad.com",

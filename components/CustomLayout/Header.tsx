@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SiteConfig from "@/site.config";
-import MobileNav from "@/components/MobileNav";
-import ThemeSwitch from "@/components/ThemeSwitch";
-import Image from "next/image";
+import dynamic from 'next/dynamic';
+import Image from "next/image"; // 确保使用 Next.js 的 Image 组件
 import { motion } from "framer-motion";
 import { useTranslation } from "next-i18next";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
-import LanguageSwitch from "@/components/LanguageSwitch";
 import { useRouter } from "next/router";
+
+const MobileNav = dynamic(() => import('@/components/MobileNav'));
+const ThemeSwitch = dynamic(() => import('@/components/ThemeSwitch'));
+const LanguageSwitch = dynamic(() => import('@/components/LanguageSwitch'));
 
 interface HeaderProp {
   btnColor?: string;
@@ -17,7 +19,7 @@ interface HeaderProp {
 const Header = ({ btnColor }: HeaderProp) => {
   const { t } = useTranslation("common");
   const [activeLink, setActiveLink] = useState<string>("/");
-  const [headerTitle, setHeaderTitle] = useState<string | undefined>(undefined); // 新增状态
+  const [headerTitle, setHeaderTitle] = useState<string | undefined>(undefined);
 
   const router = useRouter();
 
@@ -26,10 +28,10 @@ const Header = ({ btnColor }: HeaderProp) => {
     hover: { scale: 1.1 }, // 悬停效果 (放大并改变颜色)
     active: { scale: 1.2 }, // 点击效果 (缩小并改变颜色)
   };
-  
+
   useEffect(() => {
     setActiveLink(router.pathname);
-    setHeaderTitle(SiteConfig.headerTitle); // 在客户端设置标题
+    setHeaderTitle(SiteConfig.headerTitle); // 确保在客户端设置标题
   }, [router.pathname]);
 
   return (
@@ -39,10 +41,12 @@ const Header = ({ btnColor }: HeaderProp) => {
           <div className="flex items-center justify-between">
             <div className="mr-3">
               <Image
-                src={require("@/public/images/avatar.png")}
+                src='https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=b8oojkui&raw=1' // 使用 WebP 格式
                 alt="avatar"
-                width={192}
+                width={192} // 根据需要调整大小
                 height={192}
+                quality={75} // 设置压缩质量，默认为75
+                priority // 提升优先级，优先加载重要图片
                 className="h-16 w-16 rounded-full"
               />
             </div>
@@ -116,4 +120,4 @@ const Header = ({ btnColor }: HeaderProp) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

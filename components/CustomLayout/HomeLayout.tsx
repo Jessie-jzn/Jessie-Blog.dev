@@ -6,12 +6,12 @@ import * as Types from "@/lib/type";
 import CardPost from "@/components/CustomLayout/CardPost";
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from 'next/dynamic';
-import { Suspense, lazy, useState } from 'react';
+import dynamic from "next/dynamic";
+import { Suspense, lazy, useState } from "react";
 import TypedEffect from "./TypedEffect";
 
 // 动态导入非关键组件
-const SectionFAQ = dynamic(() => import('./SectionFAQ'), {
+const SectionFAQ = dynamic(() => import("./SectionFAQ"), {
   suspense: true,
 });
 
@@ -21,34 +21,34 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
     returnObjects: true,
   }) as string[];
   const features = t("features", { returnObjects: true }) as Types.Feature[];
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [subscribeStatus, setSubscribeStatus] = useState('');
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [subscribeStatus, setSubscribeStatus] = useState("");
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubscribeStatus('loading');
+    setSubscribeStatus("loading");
 
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, firstName, lastName }),
       });
 
       if (response.ok) {
-        setSubscribeStatus('success');
-        setEmail('');
-        setFirstName('');
-        setLastName('');
+        setSubscribeStatus("success");
+        setEmail("");
+        setFirstName("");
+        setLastName("");
       } else {
         const data = await response.json();
         throw new Error(data.error);
       }
     } catch (error: any) {
-      setSubscribeStatus('error');
-      console.error('Subscription error:', error);
+      setSubscribeStatus("error");
+      console.error("Subscription error:", error);
     }
   };
 
@@ -57,9 +57,9 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -69,9 +69,9 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 50
-      }
-    }
+        stiffness: 50,
+      },
+    },
   };
 
   return (
@@ -85,11 +85,11 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
       >
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 px-8 md:px-12 lg:px-16 mb-12 md:mb-0">
-            <motion.h2 
+            <motion.h2
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
               variants={itemVariants}
             >
-              👋 Hello,I&apos;m Jessie
+              👋 Hello, I&apos;m Jessie
             </motion.h2>
             <motion.div className="h-10" variants={itemVariants}>
               <TypedEffect
@@ -104,7 +104,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
               />
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="text-lg md:text-xl leading-relaxed"
               variants={itemVariants}
             >
@@ -127,19 +127,20 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
               </Link>
             </motion.div>
           </div>
-          <motion.div 
+          <motion.div
             className="md:w-1/2 px-8 md:px-12 lg:px-16 xs:hidden"
             variants={itemVariants}
           >
             <Image
-              src={require("@/public/images/image1.jpg")}
+              src='https://www.dropbox.com/scl/fi/p5jykwuc23gopzf7dnpnd/image1.webp?rlkey=q59ji1f207siy21n7t27uatdx&st=7r1p4qlj&raw=1'
               alt="New Home Builders"
               width={700}
               height={400}
+              quality={75}
+              priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover rounded-lg shadow-lg"
               loading="eager"
-              priority
             />
           </motion.div>
         </div>
@@ -161,23 +162,25 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                     className="flex flex-col items-start text-left relative"
                     variants={{
                       hidden: { x: -50, opacity: 0 },
-                      visible: { 
-                        x: 0, 
+                      visible: {
+                        x: 0,
                         opacity: 1,
-                        transition: { 
+                        transition: {
                           type: "spring",
                           stiffness: 50,
-                          delay: index * 0.1
-                        }
-                      }
+                          delay: index * 0.1,
+                        },
+                      },
                     }}
                   >
                     <Image
-                      src={require(`@/public/${f.icon}`)}
+                      src={f.icon}
                       alt={f.title}
+                      width={100}
+                      height={100}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="rounded-lg object-cover w-full h-96"
-                      loading="lazy"
+                      quality={75}
                     />
                     <div className="absolute bottom-4 left-4 px-3 bg-black bg-opacity-50">
                       <h3 className="text-5xl font-semibold text-gray-100 mb-4">
@@ -203,7 +206,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         viewport={{ once: true }}
         variants={containerVariants}
       >
-        <motion.h2 
+        <motion.h2
           className="text-6xl font-bold mb-10 font-serif"
           variants={itemVariants}
         >
@@ -216,15 +219,15 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
               key={p.id}
               variants={{
                 hidden: { y: 50, opacity: 0 },
-                visible: { 
-                  y: 0, 
+                visible: {
+                  y: 0,
                   opacity: 1,
-                  transition: { 
+                  transition: {
                     type: "spring",
                     stiffness: 50,
-                    delay: index * 0.05
-                  }
-                }
+                    delay: index * 0.05,
+                  },
+                },
               }}
             >
               <CardPost
@@ -237,7 +240,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           ))}
         </div>
       </motion.section>
-      
+
       <Suspense fallback={<div>Loading...</div>}>
         <SectionFAQ />
       </Suspense>
@@ -264,28 +267,28 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           </div>
         </div>
 
-        <motion.div 
+        <motion.div
           className="max-w-4xl w-full bg-[#fffaeb] rounded-3xl p-12"
           variants={{
             hidden: { scale: 0.8, opacity: 0 },
-            visible: { 
-              scale: 1, 
+            visible: {
+              scale: 1,
               opacity: 1,
-              transition: { 
+              transition: {
                 type: "spring",
                 stiffness: 100,
-                damping: 15
-              }
-            }
+                damping: 15,
+              },
+            },
           }}
         >
           <h1 className="text-center text-3xl font-bold mb-6">
             {t("subscribe")}
           </h1>
 
-          <h3 className="text-center font-semibold mb-8 text-black">
+          <h2 className="text-center font-semibold mb-8 text-black">
             {t("subscribeDesc")}
-          </h3>
+          </h2>
           <form className="space-y-6" onSubmit={handleSubscribe}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col">
@@ -323,17 +326,23 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
               <button
                 type="submit"
                 className="mt-4 w-56 p-8 py-4 bg-[#4d472f] text-white rounded-full hover:bg-[#5e5639]"
-                disabled={subscribeStatus === 'loading'}
+                disabled={subscribeStatus === "loading"}
               >
-                {subscribeStatus === 'loading' ? t("subscribing") : t("subscribe")}
+                {subscribeStatus === "loading"
+                  ? t("subscribing")
+                  : t("subscribe")}
               </button>
             </div>
           </form>
-          {subscribeStatus === 'success' && (
-            <p className="mt-4 text-green-600 text-center">{t("subscriptionSuccess")}</p>
+          {subscribeStatus === "success" && (
+            <p className="mt-4 text-green-600 text-center">
+              {t("subscriptionSuccess")}
+            </p>
           )}
-          {subscribeStatus === 'error' && (
-            <p className="mt-4 text-red-600 text-center">{t("subscriptionFailed")}</p>
+          {subscribeStatus === "error" && (
+            <p className="mt-4 text-red-600 text-center">
+              {t("subscriptionFailed")}
+            </p>
           )}
         </motion.div>
       </motion.section>
