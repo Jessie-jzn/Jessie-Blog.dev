@@ -41,6 +41,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   return (
     <>
       <Head>
+        {/* 预先连接到 GTM */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <meta
           name="google-adsense-account"
           content="ca-pub-9533100025276131"
@@ -90,6 +93,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
         crossOrigin="anonymous"
+        strategy="afterInteractive"  // 确保页面互动之后才加载广告脚本
       ></Script>
       <ThemeProvider
         defaultTheme="system"

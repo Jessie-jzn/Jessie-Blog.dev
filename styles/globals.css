@@ -35,5 +35,7 @@ body {
 :root {
   --notion-max-width: 100%;
   --notion-header-height: 45px;
-  font: "--font-space-grotesk";
+}
+:root:state(font-space-grotesk) {
+  font-family: 'Space Grotesk', sans-serif;
 }
