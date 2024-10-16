@@ -42,7 +42,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
     <>
       <Head>
         {/* 预先连接到 GTM */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        {/* <link rel="preconnect" href="https://www.googletagmanager.com" /> */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <meta
           name="google-adsense-account"
