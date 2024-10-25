@@ -80,6 +80,7 @@ export interface Country {
 export interface PageProps {
   site?: Site;
   recordMap: ExtendedRecordMap;
+  postData?: PostData;
   pageId?: string;
   error?: PageError;
 }
@@ -157,4 +158,33 @@ export interface Feature {
 export interface FAQItem {
   question: string;
   answer: string;
+}
+
+// 定义 TagItem 类型
+interface TagItem {
+  name: string;
+  color: string;
+}
+
+// 定义 PostData 类型
+export interface PostData {
+  id: string; // 文章的唯一 ID
+  keywords: string; // 关键字，用于 SEO
+  slug: string; // 文章简介或页面 URL 描述
+  type: "Post" | "Page"; // 文章类型，可以是 Post 或 Page
+  status: "Published" | "Draft"; // 文章状态，已发布或草稿
+  tags: string[]; // 文章标签，字符串数组
+  title: string; // 文章标题
+  category: string; // 文章类别，可能为空
+  comment: string; // 评论字段，可能为空
+  publishDate: number; // 发布时间，Unix 时间戳
+  publishDay: string; // 发布的具体日期，格式 'YYYY-MM-DD'
+  lastEditedDate: string; // 最后编辑日期
+  lastEditedDay: string; // 最后编辑具体日期，格式 'YYYY-MM-DD'
+  fullWidth: boolean; // 页面是否全宽显示
+  pageIcon: string; // 页面图标
+  pageCover: string; // 页面封面图片 URL
+  pageCoverThumbnail: string; // 页面封面缩略图 URL
+  ext: Record<string, any>; // 扩展字段，允许附加任意扩展数据
+  tagItems: TagItem[]; // 详细的标签数组，包含名称和颜色
 }

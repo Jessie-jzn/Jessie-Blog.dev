@@ -10,24 +10,28 @@ import * as Types from "@/lib/type";
 
 /**
  * 获取数据库数据
- * @param param0
- * @returns
+ * @param pageId 页面ID
+ * @param from 来源信息
+ * @returns 返回包含所有页面、标签选项和页面ID的对象
  */
 export default async function getDataBaseList({
   pageId,
   from,
 }: Types.NotionPageParamsProp) {
   console.log("[Fetching Data]", pageId, from);
+  // 获取页面记录映射
   const pageRecordMap = await getPage({ pageId, from });
 
+  // 如果无法获取页面记录，输出错误并返回空对象
   if (!pageRecordMap) {
     console.error("can`t get Notion Data ; Which id is: ", pageId);
     return {};
   }
-
+  // 将页面ID转换为UUID格式
   pageId = idToUuid(pageId);
   let block = pageRecordMap.block || {};
 
+  // 获取原始元数据
   const rawMetadata = block[pageId]?.value;
 
   // Check Type Page-Database和Inline-Database
@@ -38,6 +42,7 @@ export default async function getDataBaseList({
   //   console.error(`pageId "${pageId}" is not a database`);
   //   return EmptyData(pageId);
   // }
+  // 获取集合信息
   const collection =
     (Object.values(pageRecordMap.collection)[0] as any)?.value || {};
   const collectionId = rawMetadata?.collection_id;
@@ -45,6 +50,7 @@ export default async function getDataBaseList({
   const collectionView = pageRecordMap.collection_view;
   const schema = collection?.schema;
 
+  // 获取视图ID和页面ID
   const viewIds = rawMetadata?.view_ids;
   const collectionData = [];
   const pageIds = getAllPageIds(
@@ -54,6 +60,7 @@ export default async function getDataBaseList({
     viewIds
   );
 
+  // 如果没有获取到页面ID，输出错误信息
   if (pageIds?.length === 0) {
     console.error(
       "获取到的文章列表为空，请检查notion模板",
@@ -110,6 +117,7 @@ export default async function getDataBaseList({
       tagOptions: getTagOptions(schema),
     }) || [];
 
+  // 返回包含所有页面、标签选项和页面ID的对象
   return { allPages, tagOptions, pageIds };
 }
 
@@ -118,7 +126,7 @@ export default async function getDataBaseList({
  * @param schema
  * @returns {undefined}
  */
-const getTagOptions = (schema: Types.SchemaProp) => {
+export const getTagOptions = (schema: Types.SchemaProp) => {
   if (!schema) return {};
   const tagSchema = Object.values(schema).find(
     (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.tags

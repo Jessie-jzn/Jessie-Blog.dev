@@ -85,12 +85,12 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
       >
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 px-8 md:px-12 lg:px-16 mb-12 md:mb-0">
-            <motion.h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+            <motion.div
+              className="text-2xl md:text-5xl lg:text-6xl font-bold mb-6"
               variants={itemVariants}
             >
               👋 Hello, I&apos;m Jessie
-            </motion.h2>
+            </motion.div>
             <motion.div className="h-10" variants={itemVariants}>
               <TypedEffect
                 texts={typedTexts}

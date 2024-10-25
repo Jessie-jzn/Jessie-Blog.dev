@@ -1,8 +1,8 @@
-import React, { useMemo,useEffect,useState } from "react";
+import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import {useRouter} from 'next/router'
+import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
 import { searchNotion } from "@/lib/notion/searchNotion";
 import { NotionRenderer } from "react-notion-x";
@@ -12,12 +12,13 @@ import styles from "./styles.module.css";
 import NotionPropertyValue from "./NotionPropertyValue";
 import NotionPageHeader from "./NotionPageHeader";
 import NotionPageAside from "./NotionPageAside";
+
 import { BlogSEO } from "@/components/SEO";
-import { mapImageUrl, mapPageUrl,getPageProperty } from "@/lib/notion-utils";
+import { mapImageUrl, mapPageUrl, getPageProperty } from "@/lib/notion-utils";
 // import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
-import { baiduTranslate } from '@/lib/baidu/baiduTranslate';
+import { baiduTranslate } from "@/lib/baidu/baiduTranslate";
 
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then(async (m) => {
@@ -122,7 +123,7 @@ const propertyCreatedTimeValue = (
     },
     defaultFn
   );
-const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
+const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
   const router = useRouter();
   const { locale } = router;
   const keys = Object.keys(recordMap?.block || {});
@@ -133,29 +134,12 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
 
   const showTableOfContents = !!isBlogPost;
 
-  const socialDescription =
-    getPageProperty<string>("Description", block, recordMap) ||
-    SiteConfig.description;
-  const socialImage = mapImageUrl(
-    (block as Block)?.format?.page_cover || SiteConfig.defaultPageCover,
-    block
-  );
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {};
-    // if (lite) params.lite = lite;
 
     const searchParams = new URLSearchParams(params);
     return mapPageUrl(recordMap, searchParams);
   }, [recordMap]);
-
-  const lastEditTime =
-    getPageProperty<string>("last_edited_time", block, recordMap) || new Date();
-  const createdTime =
-    getPageProperty<string>("created_time", block, recordMap) || new Date();
-  const title =
-    getPageProperty<string>("title", block, recordMap) || SiteConfig.title;
-
-  const keywords = getPageProperty<string>("keywords", block, recordMap)
 
   const components = useMemo(
     () => ({
@@ -179,12 +163,12 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap }) => {
   return (
     <>
       <BlogSEO
-        title={title}
-        description={socialDescription}
-        createdTime={createdTime}
-        lastEditTime={lastEditTime}
-        image={socialImage}
-        keywords={keywords}
+        title={postData?.title}
+        description={postData?.slug || SiteConfig.description}
+        createdTime={postData?.lastEditedDay || new Date()}
+        lastEditTime={postData?.lastEditedDate || new Date()}
+        image={postData?.pageCover || SiteConfig.defaultPageCover}
+        keywords={postData?.keywords}
       />
       <div className="mx-10 xs:mx-0">
         <NotionRenderer

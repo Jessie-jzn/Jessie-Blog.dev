@@ -131,16 +131,16 @@ export const BlogSEO = ({
   keywords,
   image,
 }: BlogSeoProps) => {
-  const publishedAt = new Date(createdTime).toISOString();
-  const modifiedAt = new Date(lastEditTime).toISOString();
+  // const publishedAt = new Date(createdTime).toISOString();
+  // const modifiedAt = new Date(lastEditTime).toISOString();
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
     image: image,
-    datePublished: publishedAt,
-    dateModified: modifiedAt,
+    datePublished: createdTime,
+    dateModified: lastEditTime,
     author: {
       "@type": "Person",
       name: SiteConfig.author,
