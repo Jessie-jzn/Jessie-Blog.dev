@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo} from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import NotionPageHeader from "./NotionPageHeader";
 import NotionPageAside from "./NotionPageAside";
 
 import { BlogSEO } from "@/components/SEO";
-import { mapImageUrl, mapPageUrl, getPageProperty } from "@/lib/notion-utils";
+import { mapPageUrl } from "@/lib/notion-utils";
 // import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
@@ -123,6 +123,7 @@ const propertyCreatedTimeValue = (
     },
     defaultFn
   );
+
 const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
   const router = useRouter();
   const { locale } = router;
@@ -158,7 +159,9 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
     }),
     []
   );
-  const pageAside = React.useMemo(() => <NotionPageAside />, []);
+  const pageAside = React.useMemo(() => <NotionPageAside postData/>, []);
+
+
 
   return (
     <>
@@ -196,6 +199,8 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
       </div>
 
       <AdSense />
+
+   
     </>
   );
 };

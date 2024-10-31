@@ -32,23 +32,27 @@ export class NotionAPI {
   private readonly _authToken?: string;
   private readonly _activeUser?: string;
   private readonly _userTimeZone: string;
+  private readonly _databaseId?: string; // 添加数据库ID属性
 
   constructor({
     apiBaseUrl = "https://www.notion.so/api/v3",
     authToken,
     activeUser,
     userTimeZone = "America/New_York",
+    databaseId, // 添加数据库ID参数
   }: {
     apiBaseUrl?: string;
     authToken?: string;
     userLocale?: string;
     userTimeZone?: string;
     activeUser?: string;
+    databaseId?: string; // 添加到类型定义
   } = {}) {
     this._apiBaseUrl = apiBaseUrl;
     this._authToken = authToken;
     this._activeUser = activeUser;
     this._userTimeZone = userTimeZone;
+    this._databaseId = databaseId;
   }
 
   /**
@@ -371,8 +375,6 @@ export class NotionAPI {
     } = {}
   ) {
     const type = collectionView?.type;
-
-    debugger;
     const isBoardType = type === "board";
     const groupBy = isBoardType
       ? collectionView?.format?.board_columns_by
@@ -687,4 +689,5 @@ export class NotionAPI {
       })
       .json();
   }
+
 }

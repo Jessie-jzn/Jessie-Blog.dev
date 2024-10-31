@@ -1,24 +1,25 @@
 import React from "react";
 import SocialContactIcon from "@/components/SocialContactIcon";
+import RelatedPosts from "@/components/RelatedPosts/RelatedPosts";
+import { useRelatedPosts } from "@/hooks/useRelatedPosts";
+import { NOTION_POST_ID } from '@/lib/constants';
 
 interface NotionPageAsideProps {
-  relatedArticles?: { id: string; title: string; slug: string }[];
+  postData?: any;
 }
 
-const NotionPageAside: React.FC<NotionPageAsideProps> = ({ relatedArticles }) => {
+const NotionPageAside: React.FC<NotionPageAsideProps> = ({ postData }) => {
+  // 使用自定义Hook获取相关文章
+  const { relatedPosts, isLoading, error } = useRelatedPosts(
+    postData,
+    NOTION_POST_ID
+  );
   return (
     <div className="bg-white mt-5 p-4 rounded shadow-md">
       <h2 className="text-lg font-bold mb-4">相关推荐</h2>
       <SocialContactIcon />
-      <ul className="space-y-2">
-        {relatedArticles?.map((article) => (
-          <li key={article.id} className="border-b pb-2">
-            <a href={`/articles/${article.slug}`} className="text-blue-600 hover:underline">
-              {article.title}
-            </a>
-          </li>
-        ))}
-      </ul>
+      {/* 使用独立的RelatedPosts组件 */}
+      <RelatedPosts posts={relatedPosts} isLoading={isLoading} error={error} />
     </div>
   );
 };
