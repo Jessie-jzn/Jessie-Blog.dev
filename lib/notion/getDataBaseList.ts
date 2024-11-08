@@ -128,6 +128,7 @@ export default async function getDataBaseList({
  */
 export const getTagOptions = (schema: Types.SchemaProp) => {
   if (!schema) return {};
+  // 查找标签模式
   const tagSchema = Object.values(schema).find(
     (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.tags
   ) as any;

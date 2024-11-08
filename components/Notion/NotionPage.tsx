@@ -1,4 +1,4 @@
-import React, { useMemo} from "react";
+import React, { useMemo, useEffect} from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
 import { searchNotion } from "@/lib/notion/searchNotion";
 import { NotionRenderer } from "react-notion-x";
-import { Block } from "notion-types";
+import { Block, ExtendedRecordMap } from "notion-types";
 import * as Types from "@/lib/type";
 import styles from "./styles.module.css";
 import NotionPropertyValue from "./NotionPropertyValue";
@@ -18,7 +18,8 @@ import { mapPageUrl } from "@/lib/notion-utils";
 // import { Modal } from "react-notion-x/build/third-party/modal";
 // import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
-import { baiduTranslate } from "@/lib/baidu/baiduTranslate";
+// import { baiduTranslate } from "@/lib/baidu/baiduTranslate";
+// import RelatedPosts from "@/components/RelatedPosts";
 
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then(async (m) => {
@@ -124,9 +125,25 @@ const propertyCreatedTimeValue = (
     defaultFn
   );
 
-const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
+interface NotionPageProps {
+  recordMap: ExtendedRecordMap;
+  postData: Types.PostData;
+  relatedPosts?: Types.PostData[];
+}
+
+const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPosts }) => {
   const router = useRouter();
   const { locale } = router;
+
+  // 添加错误处理和重定向逻辑
+  useEffect(() => {
+    if (!recordMap || !recordMap.block) {
+      console.warn('Page not found, redirecting to home...');
+      router.push('/');
+      return;
+    }
+  }, [recordMap, router]);
+
   const keys = Object.keys(recordMap?.block || {});
   const block = recordMap?.block?.[keys[0]]?.value;
 
@@ -159,9 +176,14 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
     }),
     []
   );
-  const pageAside = React.useMemo(() => <NotionPageAside postData/>, []);
+  const pageAside = React.useMemo(() => <NotionPageAside relatedPosts={relatedPosts}/>, [relatedPosts]);
+  // const { relatedPosts, isLoading, error } = useRelatedPosts(
+  //   postData as unknown as Types.Post,
+  //   allPosts, 
+  //   tagOptions
+  // );
 
-
+  // console.log('relatedPosts',relatedPosts)
 
   return (
     <>
@@ -199,6 +221,12 @@ const NotionPage: React.FC<Types.PageProps> = ({ recordMap, postData }) => {
       </div>
 
       <AdSense />
+{/* 
+      <RelatedPosts 
+        posts={relatedPosts}
+        isLoading={isLoading}
+        error={error}
+      /> */}
 
    
     </>

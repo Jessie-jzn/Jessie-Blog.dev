@@ -1,44 +1,16 @@
 import React from 'react';
 
-interface Tag {
-  id: string;
-  name: string;
-}
-
 interface RelatedPost {
   id: string;
   title: string;
-  tags: Tag[];
+  tags: string[];
 }
 
 interface RelatedPostsProps {
   posts: RelatedPost[];
-  isLoading?: boolean;
-  error?: Error | null;
 }
 
-const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts, isLoading, error }) => {
-  if (isLoading) {
-    return (
-      <div className="w-64 hidden md:block">
-        <div className="sticky top-24">
-          <h3 className="text-xl font-bold mb-4">相关文章</h3>
-          <p className="text-gray-500">加载中...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-64 hidden md:block">
-        <div className="sticky top-24">
-          <h3 className="text-xl font-bold mb-4">相关文章</h3>
-          <p className="text-red-500">加载失败</p>
-        </div>
-      </div>
-    );
-  }
+const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts}) => {
 
   return (
     <div className="w-64 hidden md:block">
@@ -57,10 +29,10 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts, isLoading, error }) 
                 <div className="flex flex-wrap gap-2 mt-1">
                   {post.tags.map((tag) => (
                     <span
-                      key={tag.id}
+                      key={tag}
                       className="text-xs bg-gray-200 rounded-full px-2 py-1"
                     >
-                      {tag.name}
+                      {tag}
                     </span>
                   ))}
                 </div>

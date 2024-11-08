@@ -1,3 +1,4 @@
+import SiteConfig from "@/site.config";
 
 /**
  * 格式化日期
@@ -88,3 +89,12 @@ export const getEnv = (
 
   throw new Error(`Config error: missing required env variable "${key}"`);
 };
+
+
+  // 添加一个获取数据库ID的方法
+  export const getDatabaseId = (category: string)=> {
+    // 反向查找 databaseMapping
+    const entries = Object.entries(SiteConfig.databaseMapping);
+    const found = entries.find(([_, value]) => value === category);
+    return found ? found[0] : undefined;
+  }
