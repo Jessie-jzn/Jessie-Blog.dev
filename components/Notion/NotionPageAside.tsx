@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SocialContactIcon from "@/components/SocialContactIcon";
 import * as Types from "@/lib/type";
+import SiteConfig from "@/site.config";
 
 interface NotionPageAsideProps {
   relatedPosts?: Types.PostData[];
@@ -54,12 +55,12 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   }, [relatedPosts]);
 
   return (
-    <aside className="bg-white rounded-xl shadow-sm border border-gray-100">
+    <aside className="sticky top-20 space-y-8 hidden lg:block">
       {/* 用户信息部分 */}
       <div className="p-4 text-center border-b border-gray-100">
         <div className="relative w-20 h-20 mx-auto mb-3">
           <Image
-            src="/avatar.jpg"
+            src={`${SiteConfig.imageDomainUrl}/avatar.png`}
             alt="Author avatar"
             fill
             className="rounded-full object-cover"
@@ -70,7 +71,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
         <p className="text-sm text-gray-500 mt-2 line-clamp-2">
           热爱前端开发，分享技术经验和生活感悟
         </p>
-        
+
         {/* 统计信息 */}
         <div className="flex justify-center gap-4 mt-3">
           <div className="text-center">

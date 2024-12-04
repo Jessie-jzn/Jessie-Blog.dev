@@ -11,13 +11,14 @@ const SiteConfig = {
   description:
     "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
   language: "zh", // 中文：zh 英文：en
-  siteLogo: "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=b8oojkui&raw=1",
+  siteLogo: "http://qiniu.jessieontheroad.com/avatar.png",
   socialBanner: "/static/images/projects/karhdo-blog.png",
   theme: "system",
   locale: "zh",
   // siteUrl: 'www.jessieontheroad.com',
   siteUrl: "https://www.jessieontheroad.com",
   domain: "jessieontheroad.com",
+  imageDomainUrl:'http://qiniu.jessieontheroad.com',
 
   // 导航栏（必填）
   // navigation（required）

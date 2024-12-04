@@ -2,6 +2,8 @@ import { GetStaticProps } from "next";
 import { motion } from "framer-motion";
 import { NOTION_GUIDE_ID, NOTION_GUIDE_EN_ID } from "@/lib/constants";
 import Image from "next/image";
+import SiteConfig from "@/site.config";
+
 import * as Types from "@/lib/type";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -64,7 +66,7 @@ const Post = ({ posts, tagOptions }: any) => {
       {/* 新增的头部 */}
       <header
         className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
-        style={{ backgroundImage: `url('https://www.dropbox.com/scl/fi/khh5lr7gyktykevhd8rmo/image6.png?rlkey=3kua3amypt36p336kf3o6cdwe&st=ox2qepqa&raw=1')` }}
+        style={{ backgroundImage: `url('${SiteConfig.imageDomainUrl}/image6.jpg')` }}
       >
         {/* 左侧内容 */}
         <div className="flex flex-col justify-center ml-12">

@@ -5,7 +5,7 @@ import Link from "./Link";
 import SiteConfig from "@/site.config";
 import { useTranslation } from "next-i18next";
 
-const MobileNav = () => {
+const NavMobile = () => {
   const [navShow, setNavShow] = useState(false);
   const { t } = useTranslation("common");
 
@@ -84,4 +84,4 @@ const MobileNav = () => {
   );
 };
 
-export default MobileNav;
+export default NavMobile;

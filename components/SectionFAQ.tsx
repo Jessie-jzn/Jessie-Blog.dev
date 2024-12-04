@@ -48,7 +48,7 @@ const SectionFAQ = () => {
   };
   return (
     <motion.section
-      className="bg-[#f8f5dc] p-16 flex justify-start items-center min-h-96 xs:flex-col dark:bg-gray-950 dark:text-white"
+      className="bg-[#f8f5dc] py-8 px-32 flex justify-start items-center min-h-96 xs:flex-col dark:bg-gray-950 dark:text-white xs:hidden"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}

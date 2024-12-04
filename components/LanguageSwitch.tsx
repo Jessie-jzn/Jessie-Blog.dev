@@ -52,14 +52,14 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
 
   return (
     <div className="relative inline-block text-left">
-      <button
+      <div
         className={`bg-[${btnColor}] px-4 py-2 rounded-full text-black font-semibold`}
         onClick={toggleDropdown}
       >
         <span className="mr-2">{currentLocale === "en" ? "🇺🇸" : "🇨🇳"}</span>
-        {currentLocale === "en" ? "English" : "中文"}
+        <span className="xs:hidden">{currentLocale === "en" ? "English" : "中文"}</span>
         {/* </button> */}
-      </button>
+      </div>
       {dropdownVisible && (
         <div
           className={`origin-top-right z-10 absolute right-0 mt-2 w-30 rounded-md shadow-lg bg-[${btnColor}] ring-1 ring-black ring-opacity-5`}

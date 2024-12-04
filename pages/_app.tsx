@@ -6,8 +6,8 @@ import "../styles/globals.css";
 import "../styles/notion.css";
 import nextI18NextConfig from "../next-i18next.config";
 import RootLayout from "@/components/RootLayout/index";
-import CustomLayout from "@/components/CustomLayout/index";
-import SiteConfig from "../site.config";
+// import CustomLayout from "@/components/CustomLayout/index";
+// import SiteConfig from "../site.config";
 import Head from "next/head";
 
 import "../i18n"; // 导入 i18n.js 文件
@@ -16,7 +16,9 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 
 interface MyAppProps {
-  Component: React.ComponentType;
+  Component: React.ComponentType & {
+    getLayout?: (page: React.ReactElement) => React.ReactNode;
+  };
   pageProps: Record<string, unknown>;
 }
 
@@ -36,7 +38,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
     };
   }, [router.events]);
 
-  const Layout = SiteConfig.useCustomLayout ? CustomLayout : RootLayout;
+  const getLayout = Component.getLayout ?? ((page) => (
+    <RootLayout>{page}</RootLayout>
+  ));
 
   return (
     <>
@@ -100,9 +104,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         enableSystem={true}
         attribute="class"
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
     </>
   );

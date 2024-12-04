@@ -1,10 +1,11 @@
 import Image from "next/image";
+import SiteConfig from "@/site.config";
 
 const CardArticle = () => {
   return (
     <article className="bg-white shadow-md rounded-lg overflow-hidden">
       <Image
-        src='https://www.dropbox.com/scl/fi/p5jykwuc23gopzf7dnpnd/image1.webp?rlkey=q59ji1f207siy21n7t27uatdx&st=7r1p4qlj&raw=1'
+        src={`${SiteConfig.imageDomainUrl}/image1.webp`}
         alt="Article 1"
         className="w-full h-48 object-cover"
         quality={75} // 设置压缩质量，默认为75

@@ -92,6 +92,10 @@ module.exports = withBundleAnalyzer({
         hostname: "*.jessieontheroad.**",
       },
       {
+        protocol: "http",
+        hostname: "*.jessieontheroad.**",
+      },
+      {
         protocol: "https",
         hostname: "*.dropbox.**",
       }

@@ -8,6 +8,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import SiteConfig from "@/site.config";
 import SocialIcon from "@/components/SocialIcon";
 import CardChapterList from "@/components/CustomLayout/CardChapterList";
+import PostListLayout from '@/components/layouts/PostListLayout';
+
 import * as Types from "@/lib/type";
 
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
@@ -28,8 +30,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   };
 };
 
-const Post = ({ tagOptions }: any) => {
+const PostListPage = ({ tagOptions }: any) => {
   const [isFixed, setIsFixed] = useState(false);
+  const [curCategoryItems,setCurCategoryItems] = useState(tagOptions?.[0]);
+
+  console.log('tagOptions',tagOptions)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,32 +49,50 @@ const Post = ({ tagOptions }: any) => {
     };
   }, []);
 
+  /**
+   * 
+   */
+  const handleChangeCategory = (items:Types.Tag) => {
+    setCurCategoryItems(items)
+  }
+  const tabItemVariants = {
+    initial: { opacity: 1, y: 0 },
+    hover: { scale: 1.1, color: "#bec088" },
+    active: { scale: 1.2, color: "#bec088" },
+  };
+
   return (
-    <>
-      <motion.header
-        className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
+    <div className="bg-white dark:bg-gray-900/70">
+      {/* 桌面端 Banner，移动端隐藏 */}
+      {/* <motion.header
+        className="relative w-full h-[700px] bg-cover bg-center p-8 hidden md:block"
         style={{ backgroundImage: `url('https://www.dropbox.com/scl/fi/08hi5tej7hcq4748tl1ue/image7.png?rlkey=3cq2rcf69x70ex3whbekp5hoz&st=wl8eotyx&raw=1')` }}
       >
         <div className="flex flex-col justify-center ml-12">
-          <motion.h2
-            className="text-6xl xs:text-2xl font-extrabold text-white leading-tight mb-6"
+        <motion.h2
+            className="text-7xl xs:text-3xl font-extrabold text-white leading-tight mb-6 shadow-lg"
             initial={{ x: -200 }}
             animate={{ x: 0 }}
             transition={{ type: "spring", stiffness: 50 }}
           >
-            It all begins with an idea
+            Unlocking the Future of Technology
           </motion.h2>
+          <p className="text-lg xs:text-sm text-white leading-tight mb-4">
+            Join us as we explore the latest trends, tools, and techniques in the tech world. 
+            Dive deep into insightful discussions and share your knowledge with a community of innovators.
+          </p>
         </div>
       </motion.header>
+       */}
 
-      <nav
-        className={`p-4 w-48 bg-yellow-50 rounded-lg xs:hidden ${
+      {/* <nav
+        className={`p-4 w-48 rounded-lg xs:hidden ${
           isFixed ? "fixed top-20" : "absolute top-[812px] left-0"
         }`}
       >
         <div className="pb-2 text-center flex justify-b border-b-stone-300 border-b-2">
           <Image
-            src='https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=b8oojkui&raw=1'
+            src='http://jessieontheroad.com/avatar.png'
             alt="Your Name"
             width={50}
             height={50}
@@ -122,27 +145,91 @@ const Post = ({ tagOptions }: any) => {
             </li>
           ))}
         </ul>
+      </nav> */}
+
+      {/* <div className="sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
+        <div className="flex space-x-4 px-4 py-3 overflow-x-auto">
+          <button className="text-blue-500 font-medium">推荐</button>
+          <button className="text-gray-600 hover:text-gray-900">最新</button>
+          <button className="text-gray-600 hover:text-gray-900">热门</button>
+        </div>
+      </div> */}
+
+      {/* 分类导航栏 */}
+      <nav className="w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="flex items-center justify-between px-4">
+            <div className="flex items-center space-x-6 overflow-x-auto py-3 no-scrollbar">
+              {tagOptions.map((category: Types.Tag) => (
+                <motion.div
+                  key={category.id}
+                  onClick={()=>handleChangeCategory(category)}
+                  variants={tabItemVariants}
+                  animate={curCategoryItems.id === category.id ? "active" : "initial"}
+                  className={`whitespace-nowrap text-sm font-medium transition-colors cursor-pointer`}
+                  
+                >
+                  {category.name}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </nav>
 
-      <motion.div
-        className="bg-[#bec088] min-h-screen p-8 pt-28 pb-40 mx-auto ml-48 xs:ml-0"
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="space-y-4">
-          {tagOptions.map((chapter: Types.Tag, index: number) => (
-            <CardChapterList
-              chapter={chapter}
-              index={index}
-              key={chapter.id}
-              category="technical"
-            />
-          ))}
+      {/* 主要内容区域 */}
+      <div className="max-w-screen-xl mx-auto px-4 md:px-8 xs:px-0">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* 左侧文章列表 */}
+          <motion.div
+            className="flex-1 min-h-screen pt-4 md:pt-8"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="space-y-4">
+              {curCategoryItems?.articles.map((article: any, index: number) => (
+                <CardChapterList
+                  article={article}
+                  index={index}
+                  key={article.id}
+                  category="technical"
+                />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 右侧边栏 - 仅在桌面端显示 */}
+          <aside className="hidden md:block w-80 pt-8">
+            <div className="sticky top-[120px] bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <div className="flex items-center space-x-4 mb-6">
+                <Image
+                  src={SiteConfig.siteLogo}
+                  alt={SiteConfig.author}
+                  width={50}
+                  height={50}
+                  className="rounded-full"
+                />
+                <div>
+                  <h3 className="font-semibold">{SiteConfig.author}</h3>
+                  <p className="text-sm text-gray-500">{SiteConfig.summary}</p>
+                </div>
+              </div>
+              <div className="flex justify-center space-x-4">
+                <SocialIcon kind="github" href={SiteConfig.github} size={6} />
+                <SocialIcon kind="twitter" href={SiteConfig.twitter} size={6} />
+                <SocialIcon kind="linkedin" href={SiteConfig.linkedin} size={6} />
+              </div>
+            </div>
+          </aside>
         </div>
-      </motion.div>
-    </>
+      </div>
+    </div>
   );
 };
 
-export default Post;
+PostListPage.getLayout = (page: React.ReactElement) => {
+  return <PostListLayout>{page}</PostListLayout>;
+};
+
+export default PostListPage; 

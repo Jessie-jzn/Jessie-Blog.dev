@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SiteConfig from "@/site.config";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Image from "next/image"; // 确保使用 Next.js 的 Image 组件
 import { motion } from "framer-motion";
 import { useTranslation } from "next-i18next";
@@ -8,9 +8,9 @@ import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const MobileNav = dynamic(() => import('@/components/MobileNav'));
-const ThemeSwitch = dynamic(() => import('@/components/ThemeSwitch'));
-const LanguageSwitch = dynamic(() => import('@/components/LanguageSwitch'));
+const NavMobile = dynamic(() => import("@/components/NavMobile"));
+const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
+const LanguageSwitch = dynamic(() => import("@/components/LanguageSwitch"));
 
 interface HeaderProp {
   btnColor?: string;
@@ -35,31 +35,30 @@ const Header = ({ btnColor }: HeaderProp) => {
   }, [router.pathname]);
 
   return (
-    <header className="flex items-center justify-between absolute top-0 right-0 w-full p-14 z-[999] h-[192px] box-border">
-      <div>
-        <Link href="/" aria-label={headerTitle}>
-          <div className="flex items-center justify-between">
-            <div className="mr-3">
-              <Image
-                src='https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=b8oojkui&raw=1' // 使用 WebP 格式
-                alt="avatar"
-                width={192} // 根据需要调整大小
-                height={192}
-                quality={75} // 设置压缩质量，默认为75
-                priority // 提升优先级，优先加载重要图片
-                className="h-16 w-16 rounded-full"
-              />
-            </div>
-            {typeof headerTitle === "string" ? (
-              <div className="hidden h-6 sm:block text-3xl font-bold ">
-                {headerTitle}
-              </div>
-            ) : (
-              headerTitle
-            )}
+    <header className="fixed flex items-center justify-between top-0 right-0 w-full p-14 z-[999] h-[192px] box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400">
+      <Link href="/" aria-label={headerTitle}>
+        <div className="flex items-center justify-between">
+          <div className="mr-3">
+            <Image
+              src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+              alt="avatar"
+              width={192} // 根据需要调整大小
+              height={192}
+              quality={75} // 设置压缩质量，默认为75
+              priority // 提升优先级，优先加载重要图片
+              className="h-16 w-16 rounded-full xs:h-8 xs:w-8"
+            />
           </div>
-        </Link>
-      </div>
+          {typeof headerTitle === "string" ? (
+            <div className="h-6 text-3xl font-bold xs:text-lg">
+              {headerTitle}
+            </div>
+          ) : (
+            headerTitle
+          )}
+        </div>
+      </Link>
+
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         {SiteConfig.navigationLinks.map((link) => (
           <motion.div
@@ -111,7 +110,7 @@ const Header = ({ btnColor }: HeaderProp) => {
           variants={menuItemVariants}
           className="cursor-pointer"
         >
-          <MobileNav />
+          <NavMobile />
         </motion.div>
       </div>
 

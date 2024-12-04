@@ -45,3 +45,65 @@ body {
 :root:state(font-space-grotesk) {
   font-family: 'Space Grotesk', sans-serif;
 }
+
+/* 添加以下样式 */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* 确保所有容器不会造成水平滚动 */
+#__next {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* 添加��动条样式 */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+/* 暗色模式滚动条 */
+@media (prefers-color-scheme: dark) {
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+}
+
+/* 隐藏滚动条但保持功能 */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* 导航栏样式 */
+.nav-item {
+  padding: 0 12px;
+  font-size: 14px;
+  line-height: 46px;
+  color: #86909c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-item:hover {
+  color: #1e80ff;
+}
+
+.nav-item.active {
+  color: #1e80ff;
+}

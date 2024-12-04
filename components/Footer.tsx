@@ -58,26 +58,26 @@ const Footer: React.FC = () => {
   }, [handleSubscribe]);
 
   return (
-    <div className="box-border flex flex-col p-20 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-gray-950">
+    <div className="box-border flex flex-col p-10 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-gray-950 bg-gray-100">
       {router.pathname !== "/" && (
-        <div className="flex flex-wrap justify-around w-full pb-8">
-          <div className="flex flex-col xs:max-w-xs mb-2">
-            <h2 className="text-2xl lg:text-4xl font-bold text-zinc-100 dark:text-zinc-100">
+        <div className="flex flex-wrap justify-around w-full max-w-screen-xl px-4">
+          <div className="flex flex-col xs:max-w-xs mb-2 xs:mb-4">
+            <h2 className="text-xl lg:text-4xl font-bold ">
               {t("about")}
             </h2>
-            <p className="mt-2 md:text-xl text-zinc-100 dark:text-zinc-400">
+            <p className="mt-2 md:text-xl">
               {SiteConfig.description}
             </p>
-            <p className="mt-4 md:text-xl text-zinc-100 dark:text-zinc-400">
+            <p className="mt-4 md:text-xl ">
               <strong>{t("contact")} :</strong> {SiteConfig.email}
             </p>
           </div>
 
-          <div className="flex flex-col mb-2">
-            <h2 className="text-2xl lg:text-4xl font-bold text-zinc-100 dark:text-zinc-100">
+          <div className="flex flex-col mb-2 xs:mb-4">
+            <h2 className="text-xl lg:text-4xl font-bold">
               {t("subscribe")}
             </h2>
-            <p className="mt-2 text-sm text-zinc-100 dark:text-zinc-400">
+            <p className="mt-2 text-sm ">
               {t("subscribeDesc")}
             </p>
             <form className="rounded-2xl" ref={formRef}>
@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
               </div>
             </form>
             {message && (
-              <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+              <p className="mt-4 text-sm">
                 {message}
               </p>
             )}
@@ -112,13 +112,13 @@ const Footer: React.FC = () => {
 
       <div className="mt-16 flex flex-col items-center ">
         <SocialContactIcon
-          prop={{ className: "mb-3 flex space-x-4", theme: "white" }}
+          prop={{ className: "mb-3 flex space-x-4", theme: "dark" }}
         />
-        <div className="mb-2 flex space-x-2 text-sm text-white dark:text-gray-400">
+        <div className="mb-2 flex space-x-2 text-sm">
           © {new Date().getFullYear()}
           {` • `} Built with {SiteConfig.author} &#128293;{" "}
         </div>
-        <div className="mb-8 text-sm text-white dark:text-gray-400">
+        <div className="mb-8 text-sm">
           <Link href="/">{SiteConfig.title}</Link>
         </div>
       </div>

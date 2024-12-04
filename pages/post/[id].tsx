@@ -8,6 +8,7 @@ import getDataBaseList from "@/lib/notion/getDataBaseList";
 import React from "react";
 import NotionPage from "@/components/Notion/NotionPage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import PostDetailLayout from '@/components/layouts/PostDetailLayout';
 
 const notionService = new NotionService();
 
@@ -43,7 +44,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const RenderPost = ({ post }: any): React.JSX.Element => {
+const PostDetail = ({ post }: any): React.JSX.Element => {
   return (
     <>
       <div className="flex-auto mx-auto w-full  pt-[190px]">
@@ -53,4 +54,9 @@ const RenderPost = ({ post }: any): React.JSX.Element => {
   );
 };
 
-export default RenderPost;
+
+PostDetail.getLayout = (page: React.ReactElement) => {
+  return <PostDetailLayout>{page}</PostDetailLayout>;
+};
+
+export default PostDetail;

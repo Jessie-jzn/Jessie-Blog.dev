@@ -28,19 +28,19 @@
       "title": "Technical Articles",
       "href": "/technical",
       "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis.",
-      "icon": "https://www.dropbox.com/scl/fi/m103b265tpa6sk2xoe0ju/image2.jpg?rlkey=6s561ca5ttgd8d6f2o7dh2h6h&st=dspmlutf&raw=1"
+      "icon": "http://qiniu.jessieontheroad.com/image2.jpg"
     },
     {
       "title": "Travel Guides",
       "href": "/travel",
       "description": "Comprehensive travel guides and tips.",
-      "icon": "https://www.dropbox.com/scl/fi/1gxahn1acxfc3sd13imqk/image4.jpg?rlkey=bmco3aggguqbrmrtdixjy9rce&st=wg1xhfwu&raw=1"
+      "icon": "http://qiniu.jessieontheroad.com/image4.jpg"
     },
     {
       "title": "Life Reflections",
       "href": "/life",
       "description": "Personal life experiences and thoughts.",
-      "icon": "https://www.dropbox.com/scl/fi/a690n6iqhc8s74rwfftkb/image5.jpg?rlkey=1zfl0xl91wmxan8jpk4kiifnq&st=semtasaw&raw=1"
+      "icon": "http://qiniu.jessieontheroad.com/image5.jpg"
     }
   ],
   "faqs": [

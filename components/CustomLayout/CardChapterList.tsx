@@ -5,67 +5,56 @@ import * as Types from "@/lib/type";
 import { motion } from "framer-motion";
 
 interface CardChapterListProps {
-  chapter: Types.Tag;
+  article: Types.Post;
   index: number;
   category: string;
 }
 
 const CardChapterList: React.FC<CardChapterListProps> = ({
-  chapter,
+  article,
   index,
   category,
 }) => {
   return (
-    <motion.div
-      key={index}
-      className="bg-yellow-50 rounded-lg shadow p-4"
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      viewport={{ once: true }}
-      id={`chapter-${index}`}
-    >
-      <h2 className="text-2xl font-bold mb-2 text-gray-600 xs:text-xl">
-        {chapter.name}
-      </h2>
-      <p className="text-sm text-gray-600 mb-4">
-        {chapter.articles.length} Posts
-      </p>
-      <ul className="space-y-2">
-        {chapter.articles.map((article: any) => (
-          <Link href={`/${category}/${article.id}`} key={article.id}>
-            <motion.li
-              key={article.id}
-              className="flex items-center space-x-4 space-y-4"
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex-shrink-0">
-                <Image
-                  src={article.pageCoverThumbnail}
-                  alt="Lesson"
-                  width={700}
-                  height={400}
-                  quality={75} // 设置压缩质量，默认为75
-                  loading="lazy"
-                  
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-gray-600 xs:text-sm">
-                  {article.title}
-                </h3>
-                <p className="text-sm text-gray-600">{article.slug}</p>
-                <p className="text-sm text-gray-500">{article.publishDay}</p>
-              </div>
-            </motion.li>
-          </Link>
-        ))}
-      </ul>
-    </motion.div>
+    <Link href={`/${category}/${article.id}`}>
+      <motion.article
+        className="flex items-start p-4 hover:bg-gray-50 border-b border-gray-100 dark:border-gray-800"
+        initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <div className="flex-1 min-w-0 pr-4">
+          <h3 className="text-base md:text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
+            {article.title}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
+            {article.slug}
+          </p>
+          <div className="flex items-center text-sm text-gray-500">
+            <span>{article.publishDay}</span>
+            <span className="mx-2">·</span>
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              <span>{article.views || 0}</span>
+            </div>
+          </div>
+        </div>
+        {article.pageCoverThumbnail && (
+          <div className="flex-shrink-0 ml-4">
+            <Image
+              src={article.pageCoverThumbnail}
+              alt={article.title || ''}
+              width={120}
+              height={80}
+              className="object-cover rounded-lg w-24 h-16 md:w-32 md:h-20"
+            />
+          </div>
+        )}
+      </motion.article>
+    </Link>
   );
 };
 
