@@ -5,7 +5,7 @@ import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import "../styles/notion.css";
 import nextI18NextConfig from "../next-i18next.config";
-import RootLayout from "@/components/RootLayout/index";
+import BaseLayout from "@/components/layouts/BaseLayout";
 // import CustomLayout from "@/components/CustomLayout/index";
 // import SiteConfig from "../site.config";
 import Head from "next/head";
@@ -39,7 +39,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   }, [router.events]);
 
   const getLayout = Component.getLayout ?? ((page) => (
-    <RootLayout>{page}</RootLayout>
+    <BaseLayout>{page}</BaseLayout>
   ));
 
   return (

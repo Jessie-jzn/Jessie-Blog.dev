@@ -18,7 +18,7 @@ const CardChapterList: React.FC<CardChapterListProps> = ({
   return (
     <Link href={`/${category}/${article.id}`}>
       <motion.article
-        className="flex items-start p-4 hover:bg-gray-50 border-b border-gray-100 dark:border-gray-800"
+        className="flex items-start py-4 hover:bg-gray-50 border-b border-gray-100 dark:border-gray-800"
         initial={{ x: -50, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}

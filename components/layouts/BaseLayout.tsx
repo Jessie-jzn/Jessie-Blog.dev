@@ -1,16 +1,16 @@
 import React from 'react';
-import Header from './Header';
-import Footer from '../Footer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 interface BaseLayoutProps {
   children: React.ReactNode;
   headerProps?: any; // 可以传递给Header的props
 }
 
-const BaseLayout: React.FC<BaseLayoutProps> = ({ children, headerProps }) => {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header {...headerProps} />
+      <Navbar/>
       <main className="flex-grow">
         {children}
       </main>

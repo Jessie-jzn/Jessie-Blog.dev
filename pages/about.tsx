@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
 };
 const About = ({ post }: any) => {
   return (
-    <div className='pt-[190px]'>
+    <div>
       <NotionPage recordMap={post} />
     </div>
   );

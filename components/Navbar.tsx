@@ -14,10 +14,11 @@ const LanguageSwitch = dynamic(() => import("@/components/LanguageSwitch"));
 
 interface NavbarProp {
   btnColor?: string;
-  customClassName?: string; // 添加 style 属性
+  className?: string; // 添加 style 属性
+  isFull?: boolean; // 是否是沉浸式头部
 }
 
-const Navbar = ({ btnColor, customClassName }: NavbarProp) => {
+const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
   const { t } = useTranslation("common");
   const [activeLink, setActiveLink] = useState<string>("/");
   const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
@@ -36,15 +37,15 @@ const Navbar = ({ btnColor, customClassName }: NavbarProp) => {
   }, [router.pathname]);
 
   return (
-    <nav
-      className={`w-full p-8 z-[999] mx-auto relative
+    <div
+      className={`w-full p-8 z-[999] mx-auto ${isFull ? 'absolute top-0 left-0 bg-fixed bg-transparent':'relative'}
         box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400
-        ${customClassName}
+        ${className}
         `}
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4">
         <Link href="/" aria-label={NavbarTitle}>
-          <div className="flex items-center justify-between justify-center">
+          <div className="flex items-center justify-center">
             <div className="mr-3">
               <Image
                 src={`${SiteConfig.imageDomainUrl}/avatar.png`}
@@ -125,7 +126,7 @@ const Navbar = ({ btnColor, customClassName }: NavbarProp) => {
           <Analytics />
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

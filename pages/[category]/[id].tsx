@@ -113,13 +113,12 @@ const RenderPost: React.FC<RenderPostProps> = ({
 
   console.log('relatedPosts',relatedPosts)
   return (
-    <div className="pt-[170px]">
       <NotionPage 
         recordMap={recordMap} 
         postData={postData}
         relatedPosts={relatedPosts} 
       />
-    </div>
+
   );
 };
 

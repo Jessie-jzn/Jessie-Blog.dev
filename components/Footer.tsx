@@ -8,7 +8,11 @@ import { subscribeToNewsletter } from "@/lib/mailchimp";
 import SocialContactIcon from "@/components/SocialContactIcon";
 import { useTranslation } from "next-i18next";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ className }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
 
@@ -58,7 +62,7 @@ const Footer: React.FC = () => {
   }, [handleSubscribe]);
 
   return (
-    <div className="box-border flex flex-col p-10 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-gray-950 bg-gray-100">
+    <div className={`box-border flex flex-col p-10 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-gray-950 bg-gray-100 ${className || ''}`}>
       {router.pathname !== "/" && (
         <div className="flex flex-wrap justify-around w-full max-w-screen-xl px-4">
           <div className="flex flex-col xs:max-w-xs mb-2 xs:mb-4">

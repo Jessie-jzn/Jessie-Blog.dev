@@ -10,6 +10,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
 import CardArticle from "@/components/CustomLayout/CardArticle";
 import Link from "next/link";
+import TravelListLayout from '@/components/layouts/TravelListLayout'
 import { useTranslation } from "next-i18next";
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const notionPostId = locale === "en" ? NOTION_GUIDE_EN_ID : NOTION_GUIDE_ID;
@@ -28,7 +29,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   };
 };
 
-const Post = ({ posts, tagOptions }: any) => {
+const TravelListPage = ({ posts, tagOptions }: any) => {
   const { t } = useTranslation("common");
   const [curTab, setCurTab] = useState("All");
   const [postList, setPostList] = useState(posts);
@@ -174,4 +175,8 @@ const Post = ({ posts, tagOptions }: any) => {
   );
 };
 
-export default Post;
+TravelListPage.getLayout = (page: React.ReactElement) => {
+  return <TravelListLayout>{page}</TravelListLayout>;
+};
+
+export default TravelListPage;
