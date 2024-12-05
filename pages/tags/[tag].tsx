@@ -1,5 +1,5 @@
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import ListLayoutWithTags from "@/components/ListLayoutWithTags";
+import ListLayoutWithTags from "@/components/layouts/ListLayoutWithTags";
 import { GetStaticPaths } from "next";
 import * as Types from "@/lib/type";
 import { GetStaticProps } from "next";

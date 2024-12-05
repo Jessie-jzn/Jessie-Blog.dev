@@ -153,9 +153,6 @@ const Home = ({ posts }: any) => {
                     loop={true}
                     textStyle={{
                       fontSize: "18px",
-                      "@media (min-width: 768px)": {
-                        fontSize: "24px",
-                      },
                     }}
                   />
                 </motion.div>

@@ -127,7 +127,7 @@ const propertyCreatedTimeValue = (
 
 interface NotionPageProps {
   recordMap: ExtendedRecordMap;
-  postData: Types.PostData;
+  postData?: Types.PostData;
   relatedPosts?: Types.PostData[];
 }
 
@@ -177,13 +177,6 @@ const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPos
     []
   );
   const pageAside = React.useMemo(() => <NotionPageAside relatedPosts={relatedPosts}/>, [relatedPosts]);
-  // const { relatedPosts, isLoading, error } = useRelatedPosts(
-  //   postData as unknown as Types.Post,
-  //   allPosts, 
-  //   tagOptions
-  // );
-
-  // console.log('relatedPosts',relatedPosts)
 
   return (
     <>
