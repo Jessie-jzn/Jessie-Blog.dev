@@ -93,7 +93,7 @@ module.exports = withBundleAnalyzer({
       },
       {
         protocol: "http",
-        hostname: "*.jessieontheroad.**",
+        hostname: "qiniu.jessieontheroad.**",
       },
       {
         protocol: "https",
