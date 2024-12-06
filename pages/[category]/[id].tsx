@@ -112,7 +112,7 @@ const RenderPost: React.FC<RenderPostProps> = ({
 }): React.JSX.Element => {
 
   console.log('relatedPosts',relatedPosts)
-  return (
+  return ( 
       <NotionPage 
         recordMap={recordMap} 
         postData={postData}

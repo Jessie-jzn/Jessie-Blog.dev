@@ -7,37 +7,52 @@ const CardPost = ({
   title = "",
   description,
   id = "",
+  date = "",
+  tag = "",
 }: {
   id?: string;
   imageSrc?: string;
   title?: string;
   description?: string;
+  date?: string;
+  tag?: string;
 }) => {
   const { t } = useTranslation("common");
   return (
-    <div className="p-6 xs:p-2 rounded-lg shadow-md text-gray-600 dark:text-white">
-      <Link href={`/post/${id}`} className="flex flex-col items-center">
-        <Image
-          src={
-            imageSrc ||
-            "http://jessieontheroad.com/image1.webp"
-          }
-          alt={title}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          width={700}
-          loading="lazy"
-          height={400}
-          quality={75} // 设置压缩质量，默认为75
-          className="w-full h-48 xs:h-32 object-cover rounded-lg"
-        />
+    <div className="group cursor-pointer">
+      <Link href={`/post/${id}`} className="flex flex-col">
+        <div className="relative aspect-video w-full overflow-hidden">
+          <Image
+            src={imageSrc || "http://jessieontheroad.com/image1.webp"}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
 
-        <h3 className="mt-4 text-lg font-semibold line-clamp-1">{title}</h3>
-        <p className="mt-2 text-left h-20 line-clamp-2 xs:text-sm">{description}</p>
-        <button className="mt-4 px-6 py-2 bg-[#4d472f] text-white rounded-full hover:bg-[#5e5639] xs:hidden">
-          {t("learnMore")}
-        </button>
+        <div className="mt-4 space-y-2">
+          <div className="flex items-center space-x-3 text-sm text-gray-500">
+            {tag && <span>{tag}</span>}
+            {date && (
+              <>
+                <span className="text-gray-300">•</span>
+                <span>{date}</span>
+              </>
+            )}
+          </div>
+          
+          <h3 className="text-xl font-medium line-clamp-2 text-gray-900 dark:text-gray-100">
+            {title}
+          </h3>
+          
+          <p className="text-base text-gray-600 dark:text-gray-400 line-clamp-2">
+            {description}
+          </p>
+        </div>
       </Link>
     </div>
   );
 };
+
 export default CardPost;
