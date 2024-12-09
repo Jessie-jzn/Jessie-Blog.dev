@@ -7,6 +7,7 @@ import { useTranslation } from "next-i18next";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const NavMobile = dynamic(() => import("@/components/NavMobile"));
 const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
@@ -117,13 +118,14 @@ const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
     
           <motion.div
             initial="initial"
-            whileHover="hover"
+            whileHover="hover" 
             variants={menuItemVariants}
             className="cursor-pointer xs:block hidden"
           >
             <NavMobile />
           </motion.div>
           <Analytics />
+          <SpeedInsights/>
         </div>
       </div>
     </div>

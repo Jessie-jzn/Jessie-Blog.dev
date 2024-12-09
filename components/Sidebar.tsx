@@ -1,46 +1,44 @@
 import React from "react";
 import Image from "next/image";
 import SiteConfig from "@/site.config";
-import SocialIcon from "@/components/SocialIcon";
+import SocialContactIcon from "@/components/SocialContactIcon";
+import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      <div className="flex items-center space-x-4 mb-6">
-        <Image
-          src={SiteConfig.siteLogo}
-          alt={SiteConfig.author}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-        <div className="flex flex-col">
-          <div className="flex flex-col">
-            <h3 className="font-semibold">{SiteConfig.author}</h3>
-            <p className="text-sm text-gray-500">{SiteConfig.summary}</p>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2">
+      <div className="p-4 text-center flex items-center flex-col">
+        <div className="relative w-20 h-20 mx-auto">
+          <Image
+            src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+            alt="Author avatar"
+            fill
+            className="rounded-full object-cover"
+          />
+        </div>
+        <h2 className="text-lg font-bold text-gray-900">{SiteConfig.author}</h2>
+        <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+          {SiteConfig.summary}
+        </p>
+
+        {/* 统计信息 */}
+        <div className="flex justify-center gap-4 mt-3">
+          <div className="text-center">
+            <div className="text-lg font-semibold text-gray-900">120</div>
+            <div className="text-xs text-gray-500">文章</div>
           </div>
-          <div className="flex justify-center gap-4 mt-1">
-            <div className="text-center">
-              <div className="text-sm font-semibold text-gray-900">120</div>
-              <div className="text-xs text-gray-500">文章</div>
-            </div>
-            <div className="text-center">
-              <div className="text-sm font-semibold text-gray-900">1.2k</div>
-              <div className="text-xs text-gray-500">访问</div>
-            </div>
-            <div className="text-center">
-              <div className="text-sm font-semibold text-gray-900">89</div>
-              <div className="text-xs text-gray-500">订阅</div>
-            </div>
+          <div className="text-center">
+            <div className="text-lg font-semibold text-gray-900">1.2k</div>
+            <div className="text-xs text-gray-500">访问</div>
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-semibold text-gray-900">89</div>
+            <div className="text-xs text-gray-500">订阅</div>
           </div>
         </div>
-      </div>
+        <SocialContactIcon />
 
-      <div className="flex justify-center space-x-4">
-        <SocialIcon kind="github" href={SiteConfig.github} size={6} />
-        <SocialIcon kind="linkedin" href={SiteConfig.linkedin} size={6} />
-        <SocialIcon kind="instagram" href={SiteConfig.instagram} size={6} />
-        <SocialIcon kind="x" href={SiteConfig.twitter} size={6} />
+        <NewsletterSubscribe />
       </div>
     </div>
   );

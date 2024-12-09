@@ -15,11 +15,7 @@ import NotionPageAside from "./NotionPageAside";
 
 import { BlogSEO } from "@/components/SEO";
 import { mapPageUrl } from "@/lib/notion-utils";
-// import { Modal } from "react-notion-x/build/third-party/modal";
-// import { NOTION_ROOT_ID } from "@/lib/constants";
 import AdSense from "@/components/AdSense";
-// import { baiduTranslate } from "@/lib/baidu/baiduTranslate";
-// import RelatedPosts from "@/components/RelatedPosts";
 
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then(async (m) => {
@@ -214,13 +210,6 @@ const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPos
       </div>
 
       <AdSense />
-{/* 
-      <RelatedPosts 
-        posts={relatedPosts}
-        isLoading={isLoading}
-        error={error}
-      /> */}
-
    
     </>
   );

@@ -1,9 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import SocialContactIcon from "@/components/SocialContactIcon";
 import * as Types from "@/lib/type";
-import SiteConfig from "@/site.config";
+import Sidebar from "@/components/Sidebar";
 
 interface NotionPageAsideProps {
   relatedPosts?: Types.PostData[];
@@ -27,7 +25,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
           >
             <Link href={`/posts/${post.id}`} className="block">
               <h3
-                className="text-sm font-medium text-gray-900 group-hover:text-blue-600 
+                className="text-sm font-medium text-gray-900  group-hover:text-[#bec088]
                            line-clamp-2 mb-1 transition-colors duration-200"
               >
                 {post.title}
@@ -40,7 +38,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
                       key={tag}
                       className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 
                                rounded-full group-hover:bg-blue-50 
-                               group-hover:text-blue-600 transition-colors duration-200"
+                               group-hover:text-[#bec088] transition-colors duration-200"
                     >
                       {tag}
                     </span>
@@ -55,62 +53,11 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   }, [relatedPosts]);
 
   return (
-    <aside className="sticky top-20 space-y-8 hidden lg:block">
-      {/* 用户信息部分 */}
-      <div className="p-4 text-center border-b border-gray-100">
-        <div className="relative w-20 h-20 mx-auto mb-3">
-          <Image
-            src={`${SiteConfig.imageDomainUrl}/avatar.png`}
-            alt="Author avatar"
-            fill
-            className="rounded-full object-cover"
-          />
-        </div>
-        <h2 className="text-lg font-bold text-gray-900">Yiyang</h2>
-        <p className="text-sm text-gray-600 mt-1">Frontend Developer</p>
-        <p className="text-sm text-gray-500 mt-2 line-clamp-2">
-          热爱前端开发，分享技术经验和生活感悟
-        </p>
-
-        {/* 统计信息 */}
-        <div className="flex justify-center gap-4 mt-3">
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900">120</div>
-            <div className="text-xs text-gray-500">文章</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900">1.2k</div>
-            <div className="text-xs text-gray-500">访问</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900">89</div>
-            <div className="text-xs text-gray-500">订阅</div>
-          </div>
-        </div>
-      </div>
-
-      {/* 订阅部分 */}
-      <div className="p-4 border-b border-gray-100">
-        <h3 className="text-sm font-medium text-gray-900 mb-3">订阅更新</h3>
-        <form className="space-y-2">
-          <input
-            type="email"
-            placeholder="输入您的邮箱"
-            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg 
-                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 
-                     rounded-lg hover:bg-blue-700 transition-colors duration-200"
-          >
-            订阅
-          </button>
-        </form>
-      </div>
+    <aside className="xs:hidden block">
+      <Sidebar/>
 
       {/* 相关文章部分 */}
-      <div className="p-4 border-b border-gray-100">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 mt-4">
         <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
           <svg
             className="w-5 h-5 mr-2 text-gray-600"
@@ -128,12 +75,6 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
           相关推荐
         </h2>
         {renderedPosts}
-      </div>
-
-      {/* 社交图标部分 */}
-      <div className="p-4">
-        <h3 className="text-sm font-medium text-gray-900 mb-3">关注我</h3>
-        <SocialContactIcon />
       </div>
     </aside>
   );
