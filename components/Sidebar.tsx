@@ -37,7 +37,6 @@ const Sidebar = () => {
           </div>
         </div>
         <SocialContactIcon />
-
         <NewsletterSubscribe />
       </div>
     </div>

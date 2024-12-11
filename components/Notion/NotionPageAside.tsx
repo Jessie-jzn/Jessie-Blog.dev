@@ -53,7 +53,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   }, [relatedPosts]);
 
   return (
-    <aside className="xs:hidden block">
+    <aside className="xs:hidden block mt-4">
       <Sidebar/>
 
       {/* 相关文章部分 */}
