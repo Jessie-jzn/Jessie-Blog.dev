@@ -228,7 +228,10 @@ const Home = ({ posts }: any) => {
                       }}
                     >
                       <Image
-                        src={f.icon}
+                        src={
+                          f.icon ||
+                          "https://www.dropbox.com/scl/fi/1gxahn1acxfc3sd13imqk/image4.jpg?rlkey=bmco3aggguqbrmrtdixjy9rce&st=zztgj4ix&dl=0"
+                        }
                         alt={f.title}
                         width={100}
                         height={100}

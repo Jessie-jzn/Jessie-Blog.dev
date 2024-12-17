@@ -10,7 +10,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
 import CardArticle from "@/components/CustomLayout/CardArticle";
 import Link from "next/link";
-import TravelListLayout from '@/components/layouts/TravelListLayout'
+import TravelListLayout from "@/components/layouts/TravelListLayout";
 import { useTranslation } from "next-i18next";
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const notionPostId = locale === "en" ? NOTION_GUIDE_EN_ID : NOTION_GUIDE_ID;
@@ -67,7 +67,9 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
       {/* 新增的头部 */}
       <header
         className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
-        style={{ backgroundImage: `url('${SiteConfig.imageDomainUrl}/image6.jpg')` }}
+        style={{
+          backgroundImage: `url('${SiteConfig.imageDomainUrl}/image6.jpg || https://www.dropbox.com/scl/fi/khh5lr7gyktykevhd8rmo/image6.png?rlkey=3kua3amypt36p336kf3o6cdwe&st=bstm4fe5&dl=0')`,
+        }}
       >
         {/* 左侧内容 */}
         <div className="flex flex-col justify-center ml-12">
@@ -142,7 +144,6 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                     layout="responsive"
                     quality={75} // 设置压缩质量，默认为75
                     loading="lazy"
-                    
                     className="w-full h-48 object-cover"
                   />
                 </div>

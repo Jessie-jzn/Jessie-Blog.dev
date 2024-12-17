@@ -40,7 +40,10 @@ const Header = ({ btnColor }: HeaderProp) => {
         <div className="flex items-center justify-between">
           <div className="mr-3">
             <Image
-              src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+              src={
+                `${SiteConfig.imageDomainUrl}/avatar.png` ||
+                "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=rzw9h6j0&dl=0"
+              }
               alt="avatar"
               width={192} // 根据需要调整大小
               height={192}

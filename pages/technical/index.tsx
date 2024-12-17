@@ -80,16 +80,18 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
         name: "全部",
         articles: tagOptions.flatMap((option) => option.articles || []),
       },
-      ...tagOptions.map(tag => ({
+      ...tagOptions.map((tag) => ({
         id: tag.id,
-        name: tag.name || '',
+        name: tag.name || "",
         articles: tag.articles || [],
       })),
     ],
     [tagOptions]
   );
 
-  const [curCategoryItem, setCurCategoryItem] = useState<CategoryItem>(allTagArticles[0]);
+  const [curCategoryItem, setCurCategoryItem] = useState<CategoryItem>(
+    allTagArticles[0]
+  );
 
   const handleChangeCategory = (item: CategoryItem) => {
     setCurCategoryItem(item);

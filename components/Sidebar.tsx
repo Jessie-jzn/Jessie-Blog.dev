@@ -10,7 +10,10 @@ const Sidebar = () => {
       <div className="p-4 text-center flex items-center flex-col">
         <div className="relative w-20 h-20 mx-auto">
           <Image
-            src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+            src={
+              `${SiteConfig.imageDomainUrl}/avatar.png` ||
+              "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=rzw9h6j0&dl=0"
+            }
             alt="Author avatar"
             fill
             className="rounded-full object-cover"

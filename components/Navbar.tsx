@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const NavMobile = dynamic(() => import("@/components/NavMobile"));
 const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
@@ -19,7 +19,7 @@ interface NavbarProp {
   isFull?: boolean; // 是否是沉浸式头部
 }
 
-const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
+const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
   const { t } = useTranslation("common");
   const [activeLink, setActiveLink] = useState<string>("/");
   const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
@@ -39,7 +39,9 @@ const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
 
   return (
     <div
-      className={`w-full p-8 z-[999] mx-auto ${isFull ? 'absolute top-0 left-0 bg-fixed bg-transparent':'relative'}
+      className={`w-full p-8 z-[999] mx-auto ${
+        isFull ? "absolute top-0 left-0 bg-fixed bg-transparent" : "relative"
+      }
         box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400
         ${className}
         `}
@@ -49,7 +51,10 @@ const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
           <div className="flex items-center justify-center">
             <div className="mr-3">
               <Image
-                src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+                src={
+                  `${SiteConfig.imageDomainUrl}/avatar.png` ||
+                  "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=rzw9h6j0&dl=0"
+                }
                 alt="avatar"
                 width={192} // 根据需要调整大小
                 height={192}
@@ -59,9 +64,7 @@ const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
               />
             </div>
             {typeof NavbarTitle === "string" ? (
-              <div className="text-3xl font-bold xs:text-xs">
-                {NavbarTitle}
-              </div>
+              <div className="text-3xl font-bold xs:text-xs">{NavbarTitle}</div>
             ) : (
               NavbarTitle
             )}
@@ -115,17 +118,17 @@ const Navbar = ({ btnColor, className,isFull=false }: NavbarProp) => {
           >
             <LanguageSwitch btnColor={btnColor} />
           </motion.div>
-    
+
           <motion.div
             initial="initial"
-            whileHover="hover" 
+            whileHover="hover"
             variants={menuItemVariants}
             className="cursor-pointer xs:block hidden"
           >
             <NavMobile />
           </motion.div>
           <Analytics />
-          <SpeedInsights/>
+          <SpeedInsights />
         </div>
       </div>
     </div>
