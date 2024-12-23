@@ -68,7 +68,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
       <header
         className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
         style={{
-          backgroundImage: `url('${SiteConfig.imageDomainUrl}/image6.jpg || https://www.dropbox.com/scl/fi/khh5lr7gyktykevhd8rmo/image6.png?rlkey=3kua3amypt36p336kf3o6cdwe&st=bstm4fe5&dl=0')`,
+          backgroundImage: `url('${SiteConfig.imageDomainUrl}image6.jpg')`,
         }}
       >
         {/* 左侧内容 */}

@@ -23,7 +23,11 @@ const CardPost = ({
       <Link href={`/post/${id}`} className="flex flex-col">
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
-            src={imageSrc || "http://jessieontheroad.com/image1.webp"}
+            src={
+              imageSrc 
+                ? `/api/image-proxy?url=${encodeURIComponent(imageSrc)}`
+                : "/images/default.webp"
+            }
             alt={title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

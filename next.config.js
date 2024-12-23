@@ -92,7 +92,7 @@ module.exports = withBundleAnalyzer({
         hostname: "*.jessieontheroad.**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "qiniu.jessieontheroad.**",
       },
       {
@@ -100,14 +100,16 @@ module.exports = withBundleAnalyzer({
         hostname: "*.dropbox.**",
       },
     ],
+    domains: [
+      "localhost",
+      "127.0.0.1",
+      "www.jessieontheroad.com",
+      "jessie-blog.vercel.app", // 如果部署在 Vercel 上
+      "qiniu.jessieontheroad.com",
+      "images.unsplash.com",
+      "prod-files-secure.s3.us-west-2.amazonaws.com",
+    ],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  domains: [
-    "qiniu.jessieontheroad.**",
-    "images.unsplash.com",
-    "prod-files-secure.s3.us-west-2.amazonaws.com", // Notion 图片域名
-    // 添加其他需要的图片域名
-  ],
-  // 添加默认图片配置
-  deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-  imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 });

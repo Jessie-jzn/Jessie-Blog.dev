@@ -11,16 +11,14 @@ const SiteConfig = {
   description:
     "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
   language: "zh", // 中文：zh 英文：en
-  siteLogo:
-    "http://qiniu.jessieontheroad.com/avatar.png" ||
-    "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=rzw9h6j0&dl=0",
+  siteLogo: "https://qiniu.jessieontheroad.com/avatar.png",
   socialBanner: "/static/images/projects/karhdo-blog.png",
   theme: "system",
   locale: "zh",
   // siteUrl: 'www.jessieontheroad.com',
   siteUrl: "https://www.jessieontheroad.com",
   domain: "jessieontheroad.com",
-  imageDomainUrl: "http://qiniu.jessieontheroad.com",
+  imageDomainUrl: "https://qiniu.jessieontheroad.com/",
 
   // 导航栏（必填）
   // navigation（required）
@@ -146,6 +144,11 @@ const SiteConfig = {
     [process.env.NOTION_GUIDE_ID || ""]: "travel",
     // 添加其他数据库映射
   },
+  useImageProxy: true, // 控制是否使用图片代理
+  imageProxyUrl:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/image-proxy"
+      : "https://jessieontheroad.com/api/image-proxy",
 };
 
 export default SiteConfig;

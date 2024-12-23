@@ -19,6 +19,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Suspense, lazy, useState } from "react";
 import TypedEffect from "@/components/TypedEffect";
+import { getProxiedImageUrl } from "@/utils/imageHelper";
 
 // 动态导入非关键组件
 const SectionFAQ = dynamic(() => import("@/components/SectionFAQ"), {
@@ -185,7 +186,9 @@ const Home = ({ posts }: any) => {
               variants={itemVariants}
             >
               <Image
-                src={`${SiteConfig.imageDomainUrl}/image1.webp`}
+                src={getProxiedImageUrl(
+                  `${SiteConfig.imageDomainUrl}/image1.webp`
+                )}
                 alt="New Home Builders"
                 width={700}
                 height={400}
@@ -228,10 +231,7 @@ const Home = ({ posts }: any) => {
                       }}
                     >
                       <Image
-                        src={
-                          f.icon ||
-                          "https://www.dropbox.com/scl/fi/1gxahn1acxfc3sd13imqk/image4.jpg?rlkey=bmco3aggguqbrmrtdixjy9rce&st=zztgj4ix&dl=0"
-                        }
+                        src={getProxiedImageUrl(f.icon)}
                         alt={f.title}
                         width={100}
                         height={100}
