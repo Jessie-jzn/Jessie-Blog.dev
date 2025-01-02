@@ -7,10 +7,10 @@ interface BackToTopProps {
   buttonText?: string;
 }
 
-const BackToTop = ({ 
-  threshold = 200, 
-  className = "fixed bottom-8 right-8 bg-[#bec088] text-white p-4 rounded-full shadow-lg hover:bg-[#bec088] transition duration-300",
-  buttonText = "返回顶部"
+const BackToTop = ({
+  threshold = 200,
+  className = "fixed bottom-8 right-8 bg-[#62BFAD] text-white p-4 rounded-full shadow-lg hover:bg-[#62BFAD] transition duration-300",
+  buttonText = "返回顶部",
 }: BackToTopProps) => {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
@@ -53,4 +53,4 @@ const BackToTop = ({
   );
 };
 
-export default BackToTop; 
+export default BackToTop;

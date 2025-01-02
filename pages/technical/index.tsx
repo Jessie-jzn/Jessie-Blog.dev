@@ -27,8 +27,8 @@ const CategoryTab = React.memo(
   }) => {
     const tabItemVariants = {
       initial: { opacity: 1, y: 0 },
-      hover: { scale: 1.1, color: "#bec088" },
-      active: { scale: 1.2, color: "#bec088" },
+      hover: { scale: 1.1, color: "#62BFAD" },
+      active: { scale: 1.2, color: "#62BFAD" },
     };
 
     return (

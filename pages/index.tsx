@@ -4,34 +4,24 @@ import { NOTION_HOME_ID } from "@/lib/constants";
 import SiteConfig from "@/site.config";
 import HomeLayout from "@/components/layouts/HomeLayout/index";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import { NOTION_POST_ID, NOTION_POST_EN_ID } from "@/lib/constants";
+import { NOTION_GUIDE_ID, NOTION_POST_EN_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { baiduTranslate } from '@/lib/baidu/baiduTranslate';
-// import { useEffect } from "react";
 import { CommonSEO } from "@/components/SEO";
 import * as Types from "@/lib/type";
 import { useTranslation } from "next-i18next";
-import { motion } from "framer-motion";
-import SocialContactIcon from "@/components/SocialContactIcon";
-import CardPost from "@/components/CustomLayout/CardPost";
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { Suspense, lazy, useState } from "react";
-import TypedEffect from "@/components/TypedEffect";
 import { getProxiedImageUrl } from "@/utils/imageHelper";
-
-// 动态导入非关键组件
-const SectionFAQ = dynamic(() => import("@/components/SectionFAQ"), {
-  suspense: true,
-});
+import Carousel from "@/components/Carousel";
+import Navbar from "@/components/Navbar";
+import { useState } from "react";
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   console.log("locale", locale);
   let posts;
   // 根据语言选择不同的 Notion ID
-  const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_POST_ID;
+  const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_GUIDE_ID;
 
   if (!SiteConfig.useCustomHomeLayout) {
     posts = await notionService.getPage(NOTION_HOME_ID);
@@ -53,362 +43,328 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
 };
 const Home = ({ posts }: any) => {
   const { t } = useTranslation("common");
-  const typedTexts: string[] = t("typedTexts", {
-    returnObjects: true,
-  }) as string[];
-  const features = t("features", { returnObjects: true }) as Types.Feature[];
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [subscribeStatus, setSubscribeStatus] = useState("");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubscribeStatus("loading");
-
-    try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, firstName, lastName }),
-      });
-
-      if (response.ok) {
-        setSubscribeStatus("success");
-        setEmail("");
-        setFirstName("");
-        setLastName("");
-      } else {
-        const data = await response.json();
-        throw new Error(data.error);
-      }
-    } catch (error: any) {
-      setSubscribeStatus("error");
-      console.error("Subscription error:", error);
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+  const galleryImages = [
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_0482.jpeg",
+      alt: "日落风景",
     },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 50,
-      },
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_1177.jpeg",
+      alt: "城市街景",
     },
-  };
-  // async function main() {
-  //   try {
-  //     const translatedText = await baiduTranslate('Hello, world!', 'en', 'zh');
-  //     console.log('Translated text:', translatedText);
-  //   } catch (error) {
-  //     console.error('Translation error:', error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   main();
-  // }, [])
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_4648.jpeg",
+      alt: "海滩风景",
+    },
+    {
+      url: "https://qiniu.jessieontheroad.com/DSC03146.jpeg",
+      alt: "古堡风景",
+    },
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_1083.jpeg",
+      alt: "夜景",
+    },
+    {
+      url: "https://qiniu.jessieontheroad.com/A16EBBE4-6ADD-4B4D-BEAA-22D92CB54C05.jpeg",
+      alt: "教堂风景",
+    },
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_1575.jpeg",
+      alt: "市场街景",
+    },
+    {
+      url: "https://qiniu.jessieontheroad.com/IMG_1575.jpeg",
+      alt: "山景",
+    },
+  ];
+
+  const carouselSlides = [
+    {
+      image: "http://qiniu.jessieontheroad.com/image4.jpg",
+      title: "欢迎来到Jessie的世界",
+      description: "愿你走遍世界每个角落，遇见最美的风景和故事",
+      href: "/about",
+    },
+    {
+      image: "http://qiniu.jessieontheroad.com/image6.jpg",
+      title: "分享独特的旅行体验",
+      description: "发现不一样的风景,记录旅途中的精彩瞬间",
+      href: "/travel",
+    },
+    {
+      image: "http://qiniu.jessieontheroad.com/image2.jpg",
+      title: "探索最新的技术实现",
+      description:
+        "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。",
+      href: "/technical",
+    },
+  ];
 
   return (
-    <>
+    <div>
       <CommonSEO
-        title="首页 - Jessie的博客"
-        description="欢迎来到Jessie的博客，分享技术、旅行故事和小贴士。"
+        title="首页 - Jessie的旅行日记"
+        description="欢迎来到Jessie的旅行日记，分享精彩旅程和独特体验。"
       />
 
-      <main className="min-h-screen w-full mx-auto overflow-x-hidden">
-        {/* Hero Section - 调整移动端布局和字体大小 */}
-        <motion.section
-          className="relative bg-[#bec088] dark:bg-gray-950 text-gray-100 xs:py-8 py-12 pt-40 xs:pt-0"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-        >
-          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between xs:px-4 px-24">
-            <div className="w-full md:w-1/2 mb-8 md:mb-0">
-              <motion.div
-                className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6"
-                variants={itemVariants}
-              >
-                👋 Hello, I&apos;m Jessie
-              </motion.div>
-              <motion.div className="h-8 md:h-10" variants={itemVariants}>
-                <TypedEffect
-                  texts={typedTexts}
-                  typeSpeed={80}
-                  deleteSpeed={40}
-                  pauseTime={1000}
-                  loop={true}
-                  textStyle={{
-                    fontSize: "18px",
-                  }}
-                />
-              </motion.div>
+      <main className="min-h-screen w-full mx-auto">
+        {/* 使用轮播组件*/}
+        <Carousel slides={carouselSlides} />
 
-              <motion.div
-                className="text-base md:text-xl leading-relaxed"
-                variants={itemVariants}
-              >
-                <p className="mb-2">{t("authorDesc")}</p>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <SocialContactIcon
-                  prop={{
-                    className:
-                      "mb-3 flex space-x-3 md:space-x-4 mt-6 md:mt-8 text-gray-100",
-                    theme: "white",
-                  }}
-                />
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                <Link href={"/about"}>
-                  <div className="mt-4 w-full md:w-52 p-3 md:p-4 bg-[#D4D268] hover:bg-[#B4B165] text-black font-semibold rounded-full shadow-lg transition-colors duration-300 text-center text-sm md:text-base">
-                    {t("workWithMe")}
-                  </div>
-                </Link>
-              </motion.div>
-            </div>
-            <motion.div
-              className="w-full md:w-1/2 px-4 md:px-12 lg:px-16 hidden md:block"
-              variants={itemVariants}
-            >
-              <Image
-                src={getProxiedImageUrl(
-                  `${SiteConfig.imageDomainUrl}/image1.webp`
-                )}
-                alt="New Home Builders"
-                width={700}
-                height={400}
-                quality={75}
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover rounded-lg shadow-lg"
-                loading="eager"
-              />
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* Features Section - 调整网格布局 */}
-        {!!features.length && (
-          <motion.section
-            className="bg-[#f8f5dc] py-10 md:py-24 dark:bg-gray-950 w-full"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <div className="mx-auto xs:px-4 px-24">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                {features?.map((f, index) => (
-                  <Link key={index} href={f.href}>
-                    <motion.div
-                      className="flex flex-col items-start text-left relative"
-                      variants={{
-                        hidden: { x: -50, opacity: 0 },
-                        visible: {
-                          x: 0,
-                          opacity: 1,
-                          transition: {
-                            type: "spring",
-                            stiffness: 50,
-                            delay: index * 0.1,
-                          },
-                        },
-                      }}
-                    >
-                      <Image
-                        src={getProxiedImageUrl(f.icon)}
-                        alt={f.title}
-                        width={100}
-                        height={100}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="rounded-lg object-cover w-full h-48 md:h-96"
-                        quality={75}
-                      />
-                      <div className="absolute bottom-4 left-4 px-3 bg-black bg-opacity-50">
-                        <h3 className="text-2xl md:text-5xl font-semibold text-gray-100 mb-2 md:mb-4">
-                          {f.title}
-                        </h3>
-                        <p className="text-sm md:text-base text-gray-100 dark:text-white">
-                          {f.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </motion.section>
-        )}
-
-        {/* Posts Section - 调整网格布局和间距 */}
-        <motion.section
-          className="bg-[#fffaeb] dark:bg-gray-900 xs:py-4 py-16 w-full"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-        >
-          <div className="mx-auto xs:px-4 px-24">
-            <motion.h2
-              className="text-2xl md:text-4xl font-bold mb-6 md:mb-10"
-              variants={itemVariants}
-            >
-              {t("lastPost")}
-            </motion.h2>
-
-            <div className="grid xs:grid-cols-1 grid-cols-4 gap-4 md:gap-8">
-              {posts.map((p: Types.Post, index: number) => (
-                <motion.div
-                  key={p.id}
-                  variants={{
-                    hidden: { y: 50, opacity: 0 },
-                    visible: {
-                      y: 0,
-                      opacity: 1,
-                      transition: {
-                        type: "spring",
-                        stiffness: 50,
-                        delay: index * 0.05,
-                      },
-                    },
-                  }}
+        {/* 旅行攻略精选 */}
+        <section className="py-16 bg-gray-50 dark:bg-gray-950">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center text-gray-950 dark:text-gray-100">
+              旅行攻略精选
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
+              这里是我为你精心挑选的旅行攻略和实用贴士
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {posts.slice(0, 6).map((post: any) => (
+                <div
+                  key={post.id}
+                  className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
                 >
-                  <CardPost
-                    id={p.id}
-                    imageSrc={p.pageCoverThumbnail}
-                    title={p.title}
-                    description={p.slug}
-                    date={p.lastEditedDate}
-                    tag={p?.tags?.[0]}
-                  />
-                </motion.div>
+                  <Link href={`/post/${post.id}`}>
+                    <Image
+                      src={post.pageCoverThumbnail}
+                      alt={post.title}
+                      width={700}
+                      height={400}
+                      quality={75}
+                      priority
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2 text-gray-950 dark:text-gray-100">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400">
+                        {post.description}
+                      </p>
+                      <div className="mt-4 text-gray-500 dark:text-gray-500 text-sm">
+                        {post.lastEditedDate}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <SectionFAQ />
-        </Suspense>
+        {/* 独特旅行路线推荐 */}
+        <section className="py-16 bg-[#F9F7E8] dark:bg-gray-950">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-4 text-center text-gray-950 dark:text-gray-100">
+              独特旅行路线推荐
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
+              无论你是喜欢冒险的背包客，还是追求舒适的家庭游客，这里都有合适的旅行路线推荐。
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {/* 路线卡片 */}
+              <Link href="/travel/classic-city" className="block">
+                <div className="relative h-[400px] group overflow-hidden rounded-lg">
+                  <Image
+                    src={getProxiedImageUrl(
+                      "https://qiniu.jessieontheroad.com/IMG_0482.jpeg"
+                    )}
+                    alt="经典城市之旅"
+                    width={700}
+                    height={400}
+                    quality={75}
+                    priority
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                    <h3 className="text-white text-xl font-semibold mb-2">
+                      经典城市之旅
+                    </h3>
+                    <p className="text-white text-sm">
+                      探索世界各大经典城市，感受独特的城市文化和历史魅力，适合喜欢城市游的你。
+                    </p>
+                  </div>
+                </div>
+              </Link>
 
-        {/* Contact Section - 调整移动端布局和间距 */}
-        <motion.section
-          className="bg-[#bec088] p-6 md:p-16 flex xs:flex-col justify-center items-center dark:bg-gray-900"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-        >
-          <div className="flex flex-wrap justify-around w-full pb-4 md:pb-8">
-            <div className="flex flex-col w-full max-w-lg md:max-w-xs mb-2">
-              <h2 className="text-xl md:text-4xl font-bold text-zinc-100 dark:text-zinc-100">
-                {t("about")}
-              </h2>
-              <p className="mt-2 text-base md:text-xl text-zinc-100 dark:text-zinc-400">
-                {SiteConfig.description}
-              </p>
-              <p className="mt-4 text-base md:text-xl text-zinc-100 dark:text-zinc-400">
-                <strong>{t("contact")} :</strong> {SiteConfig.email}
-              </p>
+              <Link href="/travel/nature" className="block">
+                <div className="relative h-[400px] group overflow-hidden rounded-lg">
+                  <Image
+                    src={getProxiedImageUrl(
+                      "https://qiniu.jessieontheroad.com/IMG_1177.jpeg"
+                    )}
+                    alt="自然风光路线"
+                    width={700}
+                    height={400}
+                    quality={75}
+                    priority
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                    <h3 className="text-white text-xl font-semibold mb-2">
+                      自然风光路线
+                    </h3>
+                    <p className="text-white text-sm">
+                      如果你热爱大自然，这些绝美的自然风光路线将带你领略山川湖泊的壮丽，享受宁静的旅行体验。
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              <Link href="/travel/family" className="block">
+                <div className="relative h-[400px] group overflow-hidden rounded-lg">
+                  <Image
+                    src={getProxiedImageUrl(
+                      "https://qiniu.jessieontheroad.com/IMG_4648.jpeg"
+                    )}
+                    alt="家庭亲子游"
+                    width={700}
+                    height={400}
+                    quality={75}
+                    priority
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                    <h3 className="text-white text-xl font-semibold mb-2">
+                      家庭亲子游
+                    </h3>
+                    <p className="text-white text-sm">
+                      为家庭旅行设计的亲子游路线，涵盖适合小朋友的景点和活动，让全家人都能享受快乐的时光。
+                    </p>
+                  </div>
+                </div>
+              </Link>
+
+              <Link href="/travel/adventure" className="block">
+                <div className="relative h-[400px] group overflow-hidden rounded-lg">
+                  <Image
+                    src={getProxiedImageUrl(
+                      "https://qiniu.jessieontheroad.com/DSC03146.jpeg"
+                    )}
+                    alt="探险路线"
+                    width={700}
+                    height={400}
+                    quality={75}
+                    priority
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                    <h3 className="text-white text-xl font-semibold mb-2">
+                      探险路线
+                    </h3>
+                    <p className="text-white text-sm">
+                      适合寻求刺激和冒险的旅行者，带你体验不一样的旅行方式。
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
+        </section>
 
-          <motion.div
-            className="max-w-4xl w-full bg-[#fffaeb] rounded-3xl p-6 md:p-12"
-            variants={{
-              hidden: { scale: 0.8, opacity: 0 },
-              visible: {
-                scale: 1,
-                opacity: 1,
-                transition: {
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                },
-              },
-            }}
-          >
-            <h1 className="text-2xl md:text-3xl text-center font-bold mb-4 md:mb-6">
-              {t("subscribe")}
-            </h1>
-
-            <h2 className="text-center text-sm md:text-base font-semibold mb-6 md:mb-8 text-black">
-              {t("subscribeDesc")}
+        {/* 图册 */}
+        <section className="py-16 bg-[#F9F7E8] dark:bg-gray-950">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-4 text-center text-gray-950 dark:text-gray-100">
+              图册
             </h2>
-            <form className="space-y-6" onSubmit={handleSubscribe}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
-                  required
-                />
-              </div>
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  className="mt-4 w-56 p-8 py-4 bg-[#4d472f] text-white rounded-full hover:bg-[#5e5639]"
-                  disabled={subscribeStatus === "loading"}
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
+              分享我在旅途中的精彩瞬间
+            </p>
+            <div className="flex flex-wrap gap-2 md:gap-4">
+              {galleryImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`relative overflow-hidden rounded-lg ${
+                    index === 0
+                      ? "w-[100%] md:w-[66%] h-[200px] md:h-[400px]"
+                      : "w-[48%] md:w-[calc(33%-1rem)] h-[150px] md:h-[300px]"
+                  } transition-transform duration-300 hover:scale-105`}
                 >
-                  {subscribeStatus === "loading"
-                    ? t("subscribing")
-                    : t("subscribe")}
-                </button>
+                  <Image
+                    src={getProxiedImageUrl(image.url)}
+                    alt={image.alt}
+                    fill
+                    className="object-cover"
+                    priority={index < 3}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 用户评价 */}
+        <section className="py-16 bg-white dark:bg-gray-950">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center text-gray-950 dark:text-gray-100">
+              我们已经帮助数百位旅行者记录他们的精彩旅程。
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* 用户评价卡片 */}
+              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <Image
+                  src={getProxiedImageUrl(
+                    "https://qiniu.jessieontheroad.com/IMG_1083.jpeg"
+                  )}
+                  alt="陈丽的评价"
+                  width={400}
+                  height={700}
+                  className="w-full h-56 object-cover rounded-lg mb-4"
+                />
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
+                  我非常喜欢Jessie的旅行日记！它让我轻松分享我的旅行故事，真是太棒了！
+                </p>
+                <p className="text-right font-semibold text-gray-950 dark:text-gray-100">
+                  — 陈丽
+                </p>
               </div>
-            </form>
-            {subscribeStatus === "success" && (
-              <p className="mt-4 text-green-600 text-center">
-                {t("subscriptionSuccess")}
-              </p>
-            )}
-            {subscribeStatus === "error" && (
-              <p className="mt-4 text-red-600 text-center">
-                {t("subscriptionFailed")}
-              </p>
-            )}
-          </motion.div>
-        </motion.section>
+
+              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <Image
+                  src={getProxiedImageUrl(
+                    "https://qiniu.jessieontheroad.com/A16EBBE4-6ADD-4B4D-BEAA-22D92CB54C05.jpeg"
+                  )}
+                  alt="张伟的评价"
+                  width={400}
+                  height={700}
+                  className="w-full h-56 object-cover rounded-lg mb-4"
+                />
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
+                  作为一名旅行爱好者，我很高兴能找到这样一个平台来整理我的旅行攻略。
+                </p>
+                <p className="text-right font-semibold text-gray-950 dark:text-gray-100">
+                  — 张伟
+                </p>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <Image
+                  src={getProxiedImageUrl(
+                    "https://qiniu.jessieontheroad.com/IMG_1575.jpeg"
+                  )}
+                  alt="李华的评价"
+                  width={400}
+                  height={700}
+                  className="w-full h-56 object-cover rounded-lg mb-4"
+                />
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
+                  Jessie的旅行日记让我能够轻松记录每一次旅行，分享给我的朋友们！
+                </p>
+                <p className="text-right font-semibold text-gray-950 dark:text-gray-100">
+                  — 李华
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-    </>
+    </div>
   );
 };
 

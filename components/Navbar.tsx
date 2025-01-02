@@ -17,9 +17,15 @@ interface NavbarProp {
   btnColor?: string;
   className?: string; // 添加 style 属性
   isFull?: boolean; // 是否是沉浸式头部
+  currentTheme?: "light" | "dark";
 }
 
-const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
+const Navbar = ({
+  btnColor,
+  className,
+  currentTheme = "light",
+  isFull = true,
+}: NavbarProp) => {
   const { t } = useTranslation("common");
   const [activeLink, setActiveLink] = useState<string>("/");
   const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
@@ -64,7 +70,13 @@ const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
               />
             </div>
             {typeof NavbarTitle === "string" ? (
-              <div className="text-3xl font-bold xs:text-xs">{NavbarTitle}</div>
+              <div
+                className={`text-3xl font-bold xs:text-xs dark:text-gray-100 ${
+                  currentTheme === "light" ? "text-gray-900" : "text-gray-100"
+                }`}
+              >
+                {NavbarTitle}
+              </div>
             ) : (
               NavbarTitle
             )}
@@ -74,7 +86,9 @@ const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
           {SiteConfig.navigationLinks.map((link) => (
             <motion.div
               key={link.id}
-              className="hidden sm:block font-medium text-gray-950 dark:text-gray-100"
+              className={`hidden sm:block font-medium dark:text-gray-100  ${
+                currentTheme === "light" ? "text-gray-900" : "text-gray-100"
+              }`}
               variants={menuItemVariants}
               initial="initial"
               animate={activeLink === link.href ? "active" : "initial"}
@@ -83,7 +97,9 @@ const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
             >
               <Link href={link.href}>{t(link.title)}</Link>
               <motion.div
-                className="absolute bottom-[-6px] left-0 right-0 h-[1px] bg-slate-950"
+                className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
+                  currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
+                }`}
                 variants={{
                   initial: { scaleX: 0, originX: 0 },
                   hover: {
@@ -135,4 +151,4 @@ const Navbar = ({ btnColor, className, isFull = false }: NavbarProp) => {
   );
 };
 
-export default React.memo(Navbar);
+export default Navbar;

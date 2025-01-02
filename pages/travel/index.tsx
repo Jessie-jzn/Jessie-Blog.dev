@@ -38,8 +38,8 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
 
   const tabItemVariants = {
     initial: { opacity: 1, y: 0 },
-    hover: { scale: 1.1, color: "#bec088" },
-    active: { scale: 1.2, color: "#bec088" },
+    hover: { scale: 1.1, color: "#62BFAD" },
+    active: { scale: 1.2, color: "#62BFAD" },
   };
 
   const cardVariants = {
@@ -66,13 +66,13 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
     <>
       {/* 新增的头部 */}
       <header
-        className="relative w-full h-[700px] bg-cover bg-center p-8 xs:h-[300px] pt-[190px]"
+        className="relative w-full h-[80vh] xs:h-[50vh] bg-cover bg-center p-8 pt-[190px]"
         style={{
           backgroundImage: `url('${SiteConfig.imageDomainUrl}image6.jpg')`,
         }}
       >
         {/* 左侧内容 */}
-        <div className="flex flex-col justify-center ml-12">
+        <div className="flex flex-col justify-center align-middle ml-12 text-center">
           {/* 主标题 */}
           <h2 className="text-6xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
             {t("travelTitle")}
@@ -83,7 +83,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         </div>
       </header>
       <motion.div
-        className="px-8 xs:px-4 py-12 w-full bg-yellow-50 min-h-screen"
+        className="px-8 xs:px-4 py-12 w-full bg-[#F9F7E8] dark:bg-gray-950 min-h-screen"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -155,7 +155,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                   <div className="flex items-center">
                     {post.sorts.map((s: string) => (
                       <h3
-                        className="text-xs font-mono mt-2 mr-2 bg-[#bec088] px-1 rounded-sm h-4"
+                        className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
                         key={s}
                       >
                         {s}
@@ -163,7 +163,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                     ))}
                   </div>
 
-                  <p className="text-gray-700 mt-2 line-clamp-5 xs:hidden">
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-5 xs:hidden ">
                     {post.slug}
                   </p>
                 </div>

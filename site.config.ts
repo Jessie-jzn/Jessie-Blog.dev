@@ -29,15 +29,16 @@ const SiteConfig = {
       href: "/",
     },
     {
-      id: 2,
-      title: "technical",
-      href: "/technical",
-    },
-    {
       id: 3,
       title: "travel",
       href: "/travel",
     },
+    {
+      id: 2,
+      title: "technical",
+      href: "/technical",
+    },
+
     // {
     //   id: 4,
     //   title: "life",
@@ -149,6 +150,14 @@ const SiteConfig = {
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/image-proxy"
       : "https://jessieontheroad.com/api/image-proxy",
+  gallery: {
+    images: [
+      // 添加图册图片配置
+    ],
+  },
+  testimonials: [
+    // 添加用户评价配置
+  ],
 };
 
 export default SiteConfig;

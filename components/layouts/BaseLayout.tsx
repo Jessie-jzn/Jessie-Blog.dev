@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import React from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface BaseLayoutProps {
   children: React.ReactNode;
@@ -10,10 +10,8 @@ interface BaseLayoutProps {
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar/>
-      <main className="flex-grow">
-        {children}
-      </main>
+      <Navbar isFull={false} />
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );

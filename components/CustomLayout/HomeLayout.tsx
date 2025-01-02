@@ -9,7 +9,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Suspense, lazy, useState } from "react";
 import TypedEffect from "../TypedEffect";
-import Footer from '../Footer'
+import Footer from "../Footer";
 
 // 动态导入非关键组件
 const SectionFAQ = dynamic(() => import("../SectionFAQ"), {
@@ -81,7 +81,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
         <main className="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-8">
           {/* Hero Section */}
           <motion.section
-            className="relative bg-[#bec088] dark:bg-gray-950 text-gray-100 py-16 pt-[190px]"
+            className="relative bg-[#62BFAD] dark:bg-gray-950 text-gray-100 py-16 pt-[190px]"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
@@ -250,7 +250,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
 
           {/* Contact Section */}
           <motion.section
-            className="bg-[#bec088] p-16 flex xs:flex-col justify-center items-center dark:bg-gray-900"
+            className="bg-[#62BFAD] p-16 flex xs:flex-col justify-center items-center dark:bg-gray-900"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -300,7 +300,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                       placeholder="First Name"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                      className="mt-2 p-3 rounded-full bg-[#62BFAD] text-white focus:outline-none placeholder:text-white"
                       required
                     />
                   </div>
@@ -310,7 +310,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                       placeholder="Last Name"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                      className="mt-2 p-3 rounded-full bg-[#62BFAD] text-white focus:outline-none placeholder:text-white"
                       required
                     />
                   </div>
@@ -321,7 +321,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2 p-3 rounded-full bg-[#bec088] text-white focus:outline-none placeholder:text-white"
+                    className="mt-2 p-3 rounded-full bg-[#62BFAD] text-white focus:outline-none placeholder:text-white"
                     required
                   />
                 </div>
@@ -351,7 +351,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
           </motion.section>
         </main>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

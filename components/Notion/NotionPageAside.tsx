@@ -25,7 +25,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
           >
             <Link href={`/posts/${post.id}`} className="block">
               <h3
-                className="text-sm font-medium text-gray-900  group-hover:text-[#bec088]
+                className="text-sm font-medium text-gray-900  group-hover:text-[#62BFAD]
                            line-clamp-2 mb-1 transition-colors duration-200"
               >
                 {post.title}
@@ -38,7 +38,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
                       key={tag}
                       className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 
                                rounded-full group-hover:bg-blue-50 
-                               group-hover:text-[#bec088] transition-colors duration-200"
+                               group-hover:text-[#62BFAD] transition-colors duration-200"
                     >
                       {tag}
                     </span>

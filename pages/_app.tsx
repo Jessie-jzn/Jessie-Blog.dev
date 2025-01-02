@@ -38,9 +38,8 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
     };
   }, [router.events]);
 
-  const getLayout = Component.getLayout ?? ((page) => (
-    <BaseLayout>{page}</BaseLayout>
-  ));
+  const getLayout =
+    Component.getLayout ?? ((page) => <BaseLayout>{page}</BaseLayout>);
 
   return (
     <>
@@ -97,7 +96,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131"
         crossOrigin="anonymous"
-        strategy="afterInteractive"  // 确保页面互动之后才加载广告脚本
+        strategy="afterInteractive" // 确保页面互动之后才加载广告脚本
       ></Script>
       <ThemeProvider
         defaultTheme="system"

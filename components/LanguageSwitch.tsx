@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from "next-i18next";
 
 const getInitialLanguage = (
   siteConfigLanguage: string | undefined,
@@ -39,25 +39,28 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   //   // Hide dropdown after selecting a language
   // };
 
-  const handleLanguageChange = useCallback((e: any)=> {
-    console.log('执行', e)
-    const selectedLocale = e.currentTarget.getAttribute("data-lang");
-    console.log('执行',selectedLocale)
+  const handleLanguageChange = useCallback(
+    (e: any) => {
+      const selectedLocale = e.currentTarget.getAttribute("data-lang");
 
-    i18n.changeLanguage(selectedLocale);
-    router.push(router.pathname, router.asPath, { locale: selectedLocale });
-    setDropdownVisible(false);
-    setCurrentLocale(selectedLocale);
-  },[i18n, router]);
+      i18n.changeLanguage(selectedLocale);
+      router.push(router.pathname, router.asPath, { locale: selectedLocale });
+      setDropdownVisible(false);
+      setCurrentLocale(selectedLocale);
+    },
+    [i18n, router]
+  );
 
   return (
     <div className="relative inline-block text-left">
       <div
-        className={`bg-[${btnColor}] px-4 py-2 rounded-full text-black font-semibold`}
+        className={`bg-[${btnColor}] text-black font-semibold h-8 w-8 rounded hover:bg-gray-200 flex align-middle items-center justify-center`}
         onClick={toggleDropdown}
       >
-        <span className="mr-2">{currentLocale === "en" ? "🇺🇸" : "🇨🇳"}</span>
-        <span className="xs:hidden">{currentLocale === "en" ? "English" : "中文"}</span>
+        {currentLocale === "en" ? "🇺🇸" : "🇨🇳"}
+        {/* <span className="xs:hidden">
+          {currentLocale === "en" ? "English" : "中文"}
+        </span> */}
         {/* </button> */}
       </div>
       {dropdownVisible && (
