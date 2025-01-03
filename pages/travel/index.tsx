@@ -19,6 +19,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
     from: "travel-index",
   });
 
+  console.log(" response.allPages", response.allPages);
+
   return {
     props: {
       posts: response.allPages,
@@ -122,7 +124,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         </nav>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -153,6 +155,14 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                   </div>
                   <h2 className="text-xl font-bold xs:text-sm">{post.title}</h2>
                   <div className="flex items-center">
+                    {post.city?.map((s: string) => (
+                      <h3
+                        className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
+                        key={s}
+                      >
+                        {s}
+                      </h3>
+                    ))}
                     {post.sorts.map((s: string) => (
                       <h3
                         className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"

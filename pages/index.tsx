@@ -115,7 +115,7 @@ const Home = ({ posts }: any) => {
 
         {/* 旅行攻略精选 */}
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 flex flex-col justify-center items-center">
             <h2 className="text-3xl font-bold mb-8 text-center text-gray-950 dark:text-gray-100">
               旅行攻略精选
             </h2>
@@ -153,6 +153,11 @@ const Home = ({ posts }: any) => {
                 </div>
               ))}
             </div>
+            <Link href={"/travel"}>
+              <button className="px-8 mt-10 py-3 bg-white text-black rounded-full hover:bg-[#62BFAD] transition">
+                查看更多
+              </button>
+            </Link>
           </div>
         </section>
 

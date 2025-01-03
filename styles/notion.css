@@ -175,9 +175,19 @@
   justify-content: space-between;
   width: 100%;
 }
+.notion-aside {
+  margin-left: 50px;
+}
+.notion-aside-table-of-contents {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .notion-aside-table-of-contents-header {
   width: 100%;
-  padding: 16px;
+  padding: 8px;
   border-bottom: 1px solid #eee;
 }
 @media only screen and (min-width: 1400px) {
@@ -186,7 +196,7 @@
     padding-right: 2vw;
   }
   .notion {
-    --notion-max-width: 1000px;
+    --notion-max-width: 900px;
     --notion-header-height: 54px;
   }
   /* .notion-table-of-contents {

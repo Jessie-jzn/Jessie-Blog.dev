@@ -7,7 +7,7 @@
   "tags": "Tags",
   "projects": "Projects",
   "about": "About",
-  "all":"All",
+  "all": "All",
   "contact": "Contact Me",
   "subscribe": "Subscribe",
   "subscribeDesc": "Subscribe to receive notifications of my latest posts and unsubscribe at any time!",
@@ -58,9 +58,9 @@
       "answer": "Editor: Visual Studio Code, Version Control: Git & GitHub, Frameworks and Libraries: Next.js, React, Node.js, Tailwind CSS, Development Environment: Docker, Vercel"
     }
   ],
-  "lastEdited":"LastEdited",
+  "lastEdited": "LastEdited",
   "newPostsNotification": "New posts notification",
   "newPostsAvailable": "New posts are available on our blog!",
-  "travelTitle":"Travel Guide",
-  "travelDesc":"Help you effortlessly explore every destination with ease!"
+  "travelTitle": "Travel Guide",
+  "travelDesc": "Help you effortlessly explore every destination with ease!"
 }

@@ -141,6 +141,8 @@ const getPageProperties = async (
       };
     }) || [];
 
+  console.log("properties", properties);
+
   delete properties.content;
   return properties;
 };

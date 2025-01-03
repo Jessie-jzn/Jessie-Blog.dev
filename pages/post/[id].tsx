@@ -47,9 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const PostDetail = ({ post }: any): React.JSX.Element => {
   return (
     <>
-      {/* <div className="flex-auto mx-auto w-full  pt-[190px]"> */}
       <NotionPage recordMap={post} />
-      {/* </div> */}
     </>
   );
 };

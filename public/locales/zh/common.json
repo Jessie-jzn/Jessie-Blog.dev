@@ -7,7 +7,7 @@
   "tags": "标签",
   "projects": "项目",
   "about": "关于我",
-  "all":"全部",
+  "all": "全部",
   "contact": "联系",
   "subscribe": "订阅",
   "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！",
@@ -58,9 +58,27 @@
       "answer": "编辑器：Visual Studio Code,版本控制：Git & GitHub,框架和库：Next.js, React, Node.js, Tailwind CSS,开发环境：Docker, Vercel"
     }
   ],
-  "lastEdited":"最新编辑",
+  "lastEdited": "最新编辑",
   "newPostsNotification": "新文章通知",
   "newPostsAvailable": "我们的博客有新文章啦！",
-  "travelTitle":"超实用的旅行攻略",
-  "travelDesc":"助你轻松畅游每一个目的地"
+  "travelTitle": "超实用的旅行攻略",
+  "travelDesc": "助你轻松畅游每一个目的地",
+  "nav": {
+    "home": "首页",
+    "travel": "旅行",
+    "travel.routes": "路线",
+    "travel.routes.classic": "经典路线",
+    "travel.routes.nature": "自然风光",
+    "travel.guides": "攻略"
+  },
+  "categories": {
+    "routes": "路线攻略",
+    "attractions": "景点推荐",
+    "food": "美食指南"
+  },
+  "countries": {
+    "japan": "日本",
+    "korea": "韩国",
+    "thailand": "泰国"
+  }
 }
