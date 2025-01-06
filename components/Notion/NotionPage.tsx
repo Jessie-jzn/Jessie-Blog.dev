@@ -1,11 +1,11 @@
-import React, { useMemo, useEffect} from "react";
+import React, { useMemo, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
 import { searchNotion } from "@/lib/notion/searchNotion";
-import { NotionRenderer } from "react-notion-x";
+import { NotionRenderer } from "react-notion-simplify";
 import { Block, ExtendedRecordMap } from "notion-types";
 import * as Types from "@/lib/type";
 import styles from "./styles.module.css";
@@ -127,15 +127,19 @@ interface NotionPageProps {
   relatedPosts?: Types.PostData[];
 }
 
-const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPosts }) => {
+const NotionPage: React.FC<NotionPageProps> = ({
+  recordMap,
+  postData,
+  relatedPosts,
+}) => {
   const router = useRouter();
   const { locale } = router;
 
   // 添加错误处理和重定向逻辑
   useEffect(() => {
     if (!recordMap || !recordMap.block) {
-      console.warn('Page not found, redirecting to home...');
-      router.push('/');
+      console.warn("Page not found, redirecting to home...");
+      router.push("/");
       return;
     }
   }, [recordMap, router]);
@@ -172,7 +176,10 @@ const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPos
     }),
     []
   );
-  const pageAside = React.useMemo(() => <NotionPageAside relatedPosts={relatedPosts}/>, [relatedPosts]);
+  const pageAside = React.useMemo(
+    () => <NotionPageAside relatedPosts={relatedPosts} />,
+    [relatedPosts]
+  );
 
   return (
     <>
@@ -210,7 +217,6 @@ const NotionPage: React.FC<NotionPageProps> = ({ recordMap, postData, relatedPos
       </div>
 
       <AdSense />
-   
     </>
   );
 };
