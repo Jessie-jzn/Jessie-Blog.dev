@@ -49,16 +49,25 @@ CategoryTab.displayName = "CategoryTab";
 // 文章列表组件
 const ArticleList = React.memo(({ articles }: { articles: Types.Post[] }) => {
   return (
-    <div className="space-y-4">
-      {articles.map((article: any, index: number) => (
-        <CardChapterList
-          article={article}
-          index={index}
-          key={article.id}
-          category="technical"
-        />
-      ))}
-    </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={articles.length}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+        className="space-y-4"
+      >
+        {articles.map((article: any, index: number) => (
+          <CardChapterList
+            article={article}
+            index={index}
+            key={article.id}
+            category="technical"
+          />
+        ))}
+      </motion.div>
+    </AnimatePresence>
   );
 });
 
@@ -123,14 +132,9 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
       <div className="max-w-screen-xl mx-auto px-4 xs:px-2 w-full">
         <div className="flex flex-col md:flex-row gap-8">
           {/* 文章列表 */}
-          <motion.div
-            className="flex-1 min-h-screen pt-4 md:pt-8"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="flex-1 min-h-screen pt-4 md:pt-8">
             <ArticleList articles={curCategoryItem.articles} />
-          </motion.div>
+          </div>
 
           {/* 右侧边栏 */}
           <aside className="hidden md:block w-80 pt-8">

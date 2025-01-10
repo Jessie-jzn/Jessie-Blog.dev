@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-notion-simplify": {
+      "signature": "c74b2216414b33e4446e48e7da139502",
+      "file": true,
+      "replaced": "^1.0.0"
+    }
+  }
+}

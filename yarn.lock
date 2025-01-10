@@ -1794,11 +1794,6 @@ form-data-encoder@^4.0.2:
   resolved "https://registry.npmmirror.com/form-data-encoder/-/form-data-encoder-4.0.2.tgz"
   integrity sha512-KQVhvhK8ZkWzxKxOr56CPulAhH3dobtuQ4+hNQ+HekH/Wp5gSOafqRAeTphQUJAIk0GBvHZgJ2ZGRWd5kphMuw==
 
-format-number@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmmirror.com/format-number/-/format-number-3.0.0.tgz"
-  integrity sha512-RWcbtINcRZ2DWCo4EcJgOJUYIwtsY5LKlTtL5OX1vfGsxEEK5mKaGxZC0p4Mgy63vXR12rut3lnjwCQ8YIlRMw==
-
 formdata-polyfill@^4.0.10:
   version "4.0.10"
   resolved "https://registry.npmmirror.com/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz"
@@ -2519,14 +2514,14 @@ jsonfile@^6.0.1:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-katex@^0.15.3, katex@>=0.9:
+katex@^0.15.3:
   version "0.15.6"
   resolved "https://registry.npmmirror.com/katex/-/katex-0.15.6.tgz"
   integrity sha512-UpzJy4yrnqnhXvRPhjEuLA4lcPn6eRngixW7Q3TJErjg3Aw2PuLFBzTkdUb89UtumxjhHTqL3a5GDGETMSwgJA==
   dependencies:
     commander "^8.0.0"
 
-katex@^0.16.9:
+katex@^0.16.9, katex@>=0.9:
   version "0.16.19"
   resolved "https://registry.npmmirror.com/katex/-/katex-0.16.19.tgz"
   integrity sha512-3IA6DYVhxhBabjSLTNO9S4+OliA3Qvb8pBQXMfC4WxXJgLwZgnfDl0BmB4z6nBMdznBsZ+CGM8DrGZ5hcguDZg==
@@ -3037,7 +3032,7 @@ p-locate@^5.0.0:
   dependencies:
     p-limit "^3.0.2"
 
-p-map@^7.0.1, p-map@^7.0.2:
+p-map@^7.0.2:
   version "7.0.2"
   resolved "https://registry.npmmirror.com/p-map/-/p-map-7.0.2.tgz"
   integrity sha512-z4cYYMMdKHzw4O5UkWJImbZynVIo0lSGTXc7bzB1e/rrDqkgGUNysK/o4bTr+0+xKvvLoTyGqYC4Fgljy9qe1Q==
@@ -3337,25 +3332,21 @@ react-modal@^3.14.3, react-modal@^3.16.1:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-notion-simplify@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/react-notion-simplify/-/react-notion-simplify-1.0.0.tgz"
-  integrity sha512-xY2pjAcr83MOtSfJGYpuxASozyQfEnMKV7/UxUDKO6tdmxbF4v+RaQH6gQp4so/ljysONR1MC/VTbc7qBiGSiA==
+"react-notion-simplify@file:.yalc/react-notion-simplify":
+  version "1.0.13"
+  resolved "file:.yalc/react-notion-simplify"
   dependencies:
-    "@fisch0920/medium-zoom" "^1.0.7"
     "@matejmazur/react-katex" "^3.1.3"
     clipboard-copy "^4.0.1"
     date-fns "^3.3.1"
-    format-number "^3.0.0"
-    katex "^0.16.9"
     lodash.throttle "^4.1.1"
     notion-types "^6.16.0"
     notion-utils "^6.16.0"
-    p-map "^7.0.1"
-    prismjs "^1.29.0"
     react-fast-compare "^3.2.2"
     react-image "^4.1.0"
     react-modal "^3.16.1"
+  optionalDependencies:
+    "@fisch0920/medium-zoom" "^1.0.7"
     react-pdf "^6.2.2"
     react-use "^17.5.0"
 

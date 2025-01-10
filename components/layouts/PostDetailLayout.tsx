@@ -8,7 +8,7 @@ export default function PostDetailLayout({
 }) {
   return (
     <div className="min-h-screen">
-      <Navbar isFull={true} />
+      <Navbar isFull={false} />
       <article className="container mx-auto px-4 prose dark:prose-invert max-w-none">
         {children}
       </article>

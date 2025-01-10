@@ -19,8 +19,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
     from: "travel-index",
   });
 
-  console.log(" response.allPages", response.allPages);
-
   return {
     props: {
       posts: response.allPages,

@@ -21,10 +21,10 @@ interface StaticProps {
   locale: string;
 }
 
-export const getStaticProps: GetStaticProps<any, { category: string; id: string }> = async ({
-  params,
-  locale,
-}) => {
+export const getStaticProps: GetStaticProps<
+  any,
+  { category: string; id: string }
+> = async ({ params, locale }) => {
   if (!params) {
     return { notFound: true };
   }
@@ -42,14 +42,15 @@ export const getStaticProps: GetStaticProps<any, { category: string; id: string 
       return { notFound: true };
     }
 
-    const collection = (Object.values(recordMap.collection)[0] as any)?.value || {};
+    const collection =
+      (Object.values(recordMap.collection)[0] as any)?.value || {};
     const schema = collection?.schema;
     const block = recordMap.block[postId]?.value;
 
     // 并行获取数据
     const [postData, relatedArticles] = await Promise.all([
       getSinglePostData(postId, block, schema),
-      getRelatedPosts(postId, databaseId, block, schema)
+      getRelatedPosts(postId, databaseId, block, schema),
     ]);
 
     if (!postData) {
@@ -61,7 +62,7 @@ export const getStaticProps: GetStaticProps<any, { category: string; id: string 
         recordMap,
         postData,
         relatedPosts: relatedArticles,
-        ...(await serverSideTranslations(locale ?? 'en', ["common"])),
+        ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 100,
     };
@@ -110,15 +111,12 @@ const RenderPost: React.FC<RenderPostProps> = ({
   postData,
   relatedPosts,
 }): React.JSX.Element => {
-
-  console.log('relatedPosts',relatedPosts)
-  return ( 
-      <NotionPage 
-        recordMap={recordMap} 
-        postData={postData}
-        relatedPosts={relatedPosts} 
-      />
-
+  return (
+    <NotionPage
+      recordMap={recordMap}
+      postData={postData}
+      relatedPosts={relatedPosts}
+    />
   );
 };
 

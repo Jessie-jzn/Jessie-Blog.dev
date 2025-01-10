@@ -181,6 +181,8 @@ const NotionPage: React.FC<NotionPageProps> = ({
     [relatedPosts]
   );
 
+  console.log("recordMap", recordMap);
+
   return (
     <>
       <BlogSEO
@@ -211,7 +213,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
           mapPageUrl={siteMapPageUrl}
           // mapImageUrl={mapImageUrl}
           searchNotion={searchNotion}
-          pageAside={pageAside}
+          pageAsideBottom={pageAside}
           // footer={footer}
         />
       </div>
