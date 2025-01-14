@@ -1,9 +1,11 @@
 import { ThemeProvider } from "next-themes";
 import { appWithTranslation } from "next-i18next";
-import "react-notion-x/src/styles.css";
 import "tailwindcss/tailwind.css";
-import "../styles/globals.css";
+import "react-notion-simplify/dist/themes/prism-theme.css";
+import "react-notion-simplify/dist/styles/styles.css";
 import "../styles/notion.css";
+import "../styles/globals.css";
+
 import nextI18NextConfig from "../next-i18next.config";
 import BaseLayout from "@/components/layouts/BaseLayout";
 // import CustomLayout from "@/components/CustomLayout/index";

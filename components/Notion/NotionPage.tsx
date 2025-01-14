@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
 import { searchNotion } from "@/lib/notion/searchNotion";
-import { NotionRenderer } from "react-notion-simplify";
+import { NotionComponents, NotionRenderer } from "react-notion-simplify";
 import { Block, ExtendedRecordMap } from "notion-types";
 import * as Types from "@/lib/type";
 import styles from "./styles.module.css";
 import NotionPropertyValue from "./NotionPropertyValue";
 import NotionPageHeader from "./NotionPageHeader";
 import NotionPageAside from "./NotionPageAside";
+import Sidebar from "@/components/Sidebar";
 
 import { BlogSEO } from "@/components/SEO";
 import { mapPageUrl } from "@/lib/notion-utils";
@@ -176,7 +177,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
     }),
     []
   );
-  const pageAside = React.useMemo(
+  const pageAsideBottom = React.useMemo(
     () => <NotionPageAside relatedPosts={relatedPosts} />,
     [relatedPosts]
   );
@@ -196,11 +197,10 @@ const NotionPage: React.FC<NotionPageProps> = ({
       <div className="mx-10 xs:mx-0">
         <NotionRenderer
           bodyClassName={styles.notion}
-          components={components}
+          components={components as Partial<NotionComponents>}
           recordMap={recordMap}
           isShowingSearch={false}
           onHideSearch={() => {}}
-          // rootPageId={NOTION_ROOT_ID}
           rootDomain={SiteConfig.domain}
           fullPage={true}
           previewImages={!!recordMap?.preview_images}
@@ -213,7 +213,8 @@ const NotionPage: React.FC<NotionPageProps> = ({
           mapPageUrl={siteMapPageUrl}
           // mapImageUrl={mapImageUrl}
           searchNotion={searchNotion}
-          pageAsideBottom={pageAside}
+          pageAsideTop={<Sidebar />}
+          pageAsideBottom={pageAsideBottom}
           // footer={footer}
         />
       </div>

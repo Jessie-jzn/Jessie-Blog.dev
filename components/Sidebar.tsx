@@ -6,7 +6,7 @@ import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
       <div className="p-4 text-center flex items-center flex-col">
         <div className="relative w-20 h-20 mx-auto">
           <Image

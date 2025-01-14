@@ -165,7 +165,7 @@
   margin: 2em 0;
 }
 .notion-table-of-contents {
-  width: 300px;
+  /* width: 300px; */
   padding: 0 8px;
 }
 .notion-table-of-contents-item {

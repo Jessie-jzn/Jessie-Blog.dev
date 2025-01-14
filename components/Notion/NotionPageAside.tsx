@@ -52,10 +52,12 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
     );
   }, [relatedPosts]);
 
-  return (
-    <aside className="xs:hidden block mt-4">
-      <Sidebar />
+  if (relatedPosts?.length === 0) {
+    return null;
+  }
 
+  return (
+    <aside className="xs:hidden block mt-4 shadow w-full">
       {/* 相关文章部分 */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-2 mt-4">
         <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
