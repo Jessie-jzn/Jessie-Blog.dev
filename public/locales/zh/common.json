@@ -165,10 +165,14 @@
     }
   },
   "footer": {
+    "about": "关于",
+    "description": "探索世界各大经典城市，感受独特的城市文化和历史魅力，适合喜欢城市游的你",
     "copyright": "版权所有",
     "contact": "联系我们",
     "subscribe": "订阅",
-    "subscribeDesc": "订阅我的文章，收到我的最新发布通知"
+    "subscribeDesc": "订阅我的文章，收到我的最新发布通知",
+    "builtWith": "由",
+    "allRights": "版权所有"
   },
   "travel": {
     "title": "超实用的旅行攻略",
@@ -204,5 +208,8 @@
       "description": "如果你对任何创意领域感兴趣，不妨试试创建一个属于自己的智能体吧！",
       "cta": "参加比赛，说不定下一个大奖得主就是你！"
     }
+  },
+  "common": {
+    "explore": "立刻探索"
   }
 }

@@ -18,8 +18,8 @@ const NotionPageHeader = ({ block }: any) => {
 
   useEffect(() => {
     if (router && isBlogPost) {
-      const pathSegments = router.asPath.split('/').filter(Boolean);
-      const pathArray = [{ href: "/", label: t('home') }];
+      const pathSegments = router.asPath.split("/").filter(Boolean);
+      const pathArray = [{ href: "/", label: t("nav.home") }];
 
       let currentPath = "";
       for (let i = 0; i < pathSegments.length - 1; i++) {
@@ -39,7 +39,7 @@ const NotionPageHeader = ({ block }: any) => {
       // 添加文章标题
       pathArray.push({
         href: router.asPath,
-        label: block.properties?.title?.[0]?.[0] || t('post'),
+        label: block.properties?.title?.[0]?.[0] || t("post"),
       });
 
       setBreadcrumbs(pathArray);

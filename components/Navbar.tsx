@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import SiteConfig from "@/site.config";
 import dynamic from "next/dynamic";
 import Image from "next/image"; // 确保使用 Next.js 的 Image 组件
@@ -27,29 +27,43 @@ const Navbar = ({
   isFull = true,
 }: NavbarProp) => {
   const { t } = useTranslation("common");
-  const [activeLink, setActiveLink] = useState<string>("/");
   const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
-
   const router = useRouter();
+
+  const navigationLinks = useMemo(
+    () => [
+      { id: "home", href: "/", title: t("nav.home") },
+      { id: "technical", href: "/technical", title: t("nav.technical") },
+      { id: "travel", href: "/travel", title: t("nav.travel") },
+      { id: "life", href: "/life", title: t("nav.life") },
+      { id: "about", href: "/about", title: t("nav.about") },
+    ],
+    [t]
+  ); // 只依赖 t 函数
 
   const menuItemVariants = {
     initial: { opacity: 1, y: 0 },
-    hover: { scale: 1.1 }, // 悬停效果 (放大并改变颜色)
-    active: { scale: 1.2 }, // 点击效果 (缩小并改变颜色)
+    hover: { scale: 1.1 },
+    active: { scale: 1.2 },
   };
 
-  useEffect(() => {
-    setActiveLink(router.pathname);
-    setNavbarTitle(SiteConfig.headerTitle); // 确保在客户端设置标题
-  }, [router.pathname]);
+  const isActiveLink = useCallback(
+    (href: string): boolean => {
+      if (href === "/") {
+        return router.pathname === "/";
+      }
+      return (
+        router.pathname === href ||
+        (router.pathname.startsWith(href) &&
+          router.pathname[href.length] === "/")
+      );
+    },
+    [router.pathname]
+  );
 
-  const navigationLinks = [
-    { id: "home", href: "/", title: t("nav.home") },
-    { id: "technical", href: "/technical", title: t("nav.technical") },
-    { id: "travel", href: "/travel", title: t("nav.travel") },
-    { id: "life", href: "/life", title: t("nav.life") },
-    { id: "about", href: "/about", title: t("nav.about") },
-  ];
+  useEffect(() => {
+    setNavbarTitle(SiteConfig.headerTitle);
+  }, []);
 
   return (
     <div
@@ -94,33 +108,24 @@ const Navbar = ({
           {navigationLinks.map((link) => (
             <motion.div
               key={link.id}
-              className={`hidden sm:block font-medium dark:text-gray-100  ${
+              className={`hidden sm:block font-medium dark:text-gray-100 relative ${
                 currentTheme === "light" ? "text-gray-900" : "text-gray-100"
               }`}
               variants={menuItemVariants}
               initial="initial"
-              animate={activeLink === link.href ? "active" : "initial"}
+              animate={isActiveLink(link.href) ? "active" : "initial"}
               whileHover="hover"
-              onClick={() => setActiveLink(link.href)}
             >
               <Link href={link.href}>{link.title}</Link>
               <motion.div
                 className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
                   currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
                 }`}
-                variants={{
-                  initial: { scaleX: 0, originX: 0 },
-                  hover: {
-                    scaleX: 1,
-                    originX: 0,
-                    transition: { duration: 0.3 },
-                  },
-                  active: {
-                    scaleX: 1,
-                    originX: 0,
-                    transition: { duration: 0.3 },
-                  },
+                initial={{ scaleX: 0 }}
+                animate={{
+                  scaleX: isActiveLink(link.href) ? 1 : 0,
                 }}
+                transition={{ duration: 0.3 }}
               />
             </motion.div>
           ))}

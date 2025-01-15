@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 interface CarouselProps {
   slides: {
@@ -17,6 +18,7 @@ const Carousel: React.FC<CarouselProps> = ({
   slides,
   autoPlayInterval = 5000,
 }) => {
+  const { t } = useTranslation("common");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -84,7 +86,7 @@ const Carousel: React.FC<CarouselProps> = ({
               </motion.p>
               <Link href={slides[currentIndex].href}>
                 <button className="px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition">
-                  立刻探索
+                  {t("common.explore")}
                 </button>
               </Link>
             </div>

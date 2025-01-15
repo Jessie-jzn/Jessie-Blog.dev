@@ -7,18 +7,14 @@ import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_GUIDE_ID, NOTION_POST_EN_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { CommonSEO } from "@/components/SEO";
-import * as Types from "@/lib/type";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import Link from "next/link";
 import { getProxiedImageUrl } from "@/utils/imageHelper";
 import Carousel from "@/components/Carousel";
-import Navbar from "@/components/Navbar";
-import { useState } from "react";
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  console.log("locale", locale);
   let posts;
   const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_GUIDE_ID;
 
@@ -42,7 +38,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 const Home = ({ posts }: any) => {
   const { t } = useTranslation("common");
-  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const galleryImages = [
     {
@@ -119,6 +114,33 @@ const Home = ({ posts }: any) => {
     },
   ];
 
+  const routeCards = [
+    {
+      href: "/travel/classic-city",
+      image: "https://qiniu.jessieontheroad.com/IMG_0482.jpeg",
+      titleKey: "home.routes.classicCity.title",
+      descriptionKey: "home.routes.classicCity.description",
+    },
+    {
+      href: "/travel/nature",
+      image: "https://qiniu.jessieontheroad.com/IMG_1177.jpeg",
+      titleKey: "home.routes.nature.title",
+      descriptionKey: "home.routes.nature.description",
+    },
+    {
+      href: "/travel/family",
+      image: "https://qiniu.jessieontheroad.com/IMG_4648.jpeg",
+      titleKey: "home.routes.family.title",
+      descriptionKey: "home.routes.family.description",
+    },
+    {
+      href: "/travel/adventure",
+      image: "https://qiniu.jessieontheroad.com/DSC03146.jpeg",
+      titleKey: "home.routes.adventure.title",
+      descriptionKey: "home.routes.adventure.description",
+    },
+  ];
+
   return (
     <div>
       <CommonSEO
@@ -185,101 +207,29 @@ const Home = ({ posts }: any) => {
               {t("home.routes.subtitle")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Link href="/travel/classic-city" className="block">
-                <div className="relative h-[400px] group overflow-hidden rounded-lg">
-                  <Image
-                    src={getProxiedImageUrl(
-                      "https://qiniu.jessieontheroad.com/IMG_0482.jpeg"
-                    )}
-                    alt={t("home.routes.classicCity.title")}
-                    width={700}
-                    height={400}
-                    quality={75}
-                    priority
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
-                    <h3 className="text-white text-xl font-semibold mb-2">
-                      {t("home.routes.classicCity.title")}
-                    </h3>
-                    <p className="text-white text-sm">
-                      {t("home.routes.classicCity.description")}
-                    </p>
+              {routeCards.map((card, index) => (
+                <Link key={index} href={card.href} className="block">
+                  <div className="relative h-[400px] group overflow-hidden rounded-lg">
+                    <Image
+                      src={getProxiedImageUrl(card.image)}
+                      alt={t(card.titleKey)}
+                      width={700}
+                      height={400}
+                      quality={75}
+                      priority
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
+                      <h3 className="text-white text-xl font-semibold mb-2">
+                        {t(card.titleKey)}
+                      </h3>
+                      <p className="text-white text-sm">
+                        {t(card.descriptionKey)}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-
-              <Link href="/travel/nature" className="block">
-                <div className="relative h-[400px] group overflow-hidden rounded-lg">
-                  <Image
-                    src={getProxiedImageUrl(
-                      "https://qiniu.jessieontheroad.com/IMG_1177.jpeg"
-                    )}
-                    alt={t("home.routes.nature.title")}
-                    width={700}
-                    height={400}
-                    quality={75}
-                    priority
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
-                    <h3 className="text-white text-xl font-semibold mb-2">
-                      {t("home.routes.nature.title")}
-                    </h3>
-                    <p className="text-white text-sm">
-                      {t("home.routes.nature.description")}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-
-              <Link href="/travel/family" className="block">
-                <div className="relative h-[400px] group overflow-hidden rounded-lg">
-                  <Image
-                    src={getProxiedImageUrl(
-                      "https://qiniu.jessieontheroad.com/IMG_4648.jpeg"
-                    )}
-                    alt={t("home.routes.family.title")}
-                    width={700}
-                    height={400}
-                    quality={75}
-                    priority
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
-                    <h3 className="text-white text-xl font-semibold mb-2">
-                      {t("home.routes.family.title")}
-                    </h3>
-                    <p className="text-white text-sm">
-                      {t("home.routes.family.description")}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-
-              <Link href="/travel/adventure" className="block">
-                <div className="relative h-[400px] group overflow-hidden rounded-lg">
-                  <Image
-                    src={getProxiedImageUrl(
-                      "https://qiniu.jessieontheroad.com/DSC03146.jpeg"
-                    )}
-                    alt={t("home.routes.adventure.title")}
-                    width={700}
-                    height={400}
-                    quality={75}
-                    priority
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
-                    <h3 className="text-white text-xl font-semibold mb-2">
-                      {t("home.routes.adventure.title")}
-                    </h3>
-                    <p className="text-white text-sm">
-                      {t("home.routes.adventure.description")}
-                    </p>
-                  </div>
-                </div>
-              </Link>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

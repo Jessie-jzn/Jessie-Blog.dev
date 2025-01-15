@@ -27,8 +27,8 @@ const CategoryTab = React.memo(
   }) => {
     const tabItemVariants = {
       initial: { opacity: 1, y: 0 },
-      hover: { scale: 1.1, color: "#62BFAD" },
-      active: { scale: 1.2, color: "#62BFAD" },
+      hover: { scale: 1.05, color: "#62BFAD" },
+      active: { scale: 1.1, color: "#62BFAD" },
     };
 
     return (
@@ -37,7 +37,11 @@ const CategoryTab = React.memo(
         variants={tabItemVariants}
         animate={isActive ? "active" : "initial"}
         whileHover="hover"
-        className="whitespace-nowrap text-sm font-medium transition-colors cursor-pointer mx-2"
+        className={`
+          whitespace-nowrap text-xs sm:text-sm font-medium 
+          transition-colors cursor-pointer mx-1 sm:mx-2
+          ${isActive ? "text-[#62BFAD]" : "text-gray-600 dark:text-gray-300"}
+        `}
       >
         {category.name}
       </motion.div>
@@ -82,21 +86,28 @@ type CategoryItem = {
 
 // 主页面组件
 const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
-  const allTagArticles = useMemo<CategoryItem[]>(
-    () => [
+  const allTagArticles = useMemo<CategoryItem[]>(() => {
+    // 收集所有文章并去重
+    const allArticlesMap = new Map();
+    tagOptions.forEach((tag) => {
+      (tag.articles || []).forEach((article) => {
+        allArticlesMap.set(article.id, article);
+      });
+    });
+
+    return [
       {
         id: "all",
         name: "全部",
-        articles: tagOptions.flatMap((option) => option.articles || []),
+        articles: Array.from(allArticlesMap.values()),
       },
       ...tagOptions.map((tag) => ({
         id: tag.id,
         name: tag.name || "",
         articles: tag.articles || [],
       })),
-    ],
-    [tagOptions]
-  );
+    ];
+  }, [tagOptions]);
 
   const [curCategoryItem, setCurCategoryItem] = useState<CategoryItem>(
     allTagArticles[0]
@@ -107,12 +118,12 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900/70 flex items-center flex-col">
-      {/* 分类导航栏 */}
-      <nav className="max-w-screen-xl xs:max-w-full w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
+    <div className="bg-white dark:bg-gray-900/70 flex items-center flex-col min-h-screen">
+      {/* 分类导航栏 - 优化移动端显示 */}
+      <nav className="w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
         <div className="mx-auto">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6 overflow-x-auto px-4 py-3 no-scrollbar">
+            <div className="flex items-center space-x-2 sm:space-x-6 overflow-x-auto px-2 sm:px-4 py-2 sm:py-3 no-scrollbar">
               <AnimatePresence>
                 {allTagArticles.map((category: CategoryItem) => (
                   <CategoryTab
@@ -128,16 +139,16 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
         </div>
       </nav>
 
-      {/* 主要内容区域 */}
-      <div className="max-w-screen-xl mx-auto px-4 xs:px-2 w-full">
-        <div className="flex flex-col md:flex-row gap-8">
+      {/* 主要内容区域 - 优化间距和布局 */}
+      <div className="w-full max-w-screen-xl mx-auto px-2 sm:px-4">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
           {/* 文章列表 */}
-          <div className="flex-1 min-h-screen pt-4 md:pt-8">
+          <div className="flex-1 min-h-screen pt-2 sm:pt-4 md:pt-8">
             <ArticleList articles={curCategoryItem.articles} />
           </div>
 
-          {/* 右侧边栏 */}
-          <aside className="hidden md:block w-80 pt-8">
+          {/* 右侧边栏 - 保持在大屏幕显示 */}
+          <aside className="hidden md:block w-80 pt-8 sticky top-[120px]">
             <Sidebar />
           </aside>
         </div>
@@ -166,22 +177,60 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     locale === "en" ? zhResponse.allPages : enResponse.allPages;
 
   // 合并文章列表
-  const allPosts = [...primaryPosts, ...secondaryPosts];
+  const allPosts = [...(primaryPosts || []), ...(secondaryPosts || [])];
 
-  // 合并并去重标签选项
-  const combinedTagOptions = [
-    ...(zhResponse.tagOptions || []),
-    ...(enResponse.tagOptions || []),
-  ];
-  const uniqueTagOptions = Array.from(
-    new Map(combinedTagOptions.map((tag) => [tag.id, tag])).values()
-  );
+  // 合并标签选项和其对应的文章
+  const tagMap = new Map();
+
+  // 处理中文标签和文章
+  (zhResponse.tagOptions || []).forEach((tag) => {
+    tagMap.set(tag.id, {
+      id: tag.id,
+      name: tag.name,
+      articles: tag.articles || [],
+    });
+  });
+
+  // 合并英文标签和文章
+  (enResponse.tagOptions || []).forEach((tag) => {
+    if (tagMap.has(tag.id)) {
+      // 如果标签已存在，合并文章并去重
+      const existingTag = tagMap.get(tag.id);
+      const newArticles = tag.articles || [];
+
+      // 使用 Map 去重，以文章 ID 为键
+      const articlesMap = new Map();
+
+      // 先添加已有的文章
+      existingTag.articles.forEach((article: { id: any }) => {
+        articlesMap.set(article.id, article);
+      });
+
+      // 添加新文章，如果 ID 已存在会自动覆盖
+      newArticles.forEach((article) => {
+        articlesMap.set(article.id, article);
+      });
+
+      // 更新文章列表
+      existingTag.articles = Array.from(articlesMap.values());
+    } else {
+      // 如果是新标签，直接添加
+      tagMap.set(tag.id, {
+        id: tag.id,
+        name: tag.name,
+        articles: tag.articles || [],
+      });
+    }
+  });
+
+  // 转换回数组形式
+  const uniqueTagOptions = Array.from(tagMap.values());
 
   return {
     props: {
       posts: allPosts,
       tagOptions: uniqueTagOptions,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale || "zh", ["common"])),
     },
     revalidate: 10,
   };

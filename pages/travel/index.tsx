@@ -22,11 +22,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   });
 
   const primaryPosts =
-    locale === "en" ? enResponse.allPages : zhResponse.allPages;
+    locale === "en" ? enResponse.allPages : zhResponse.allPages || [];
   const secondaryPosts =
-    locale === "en" ? zhResponse.allPages : enResponse.allPages;
+    locale === "en" ? zhResponse.allPages : enResponse.allPages || [];
 
-  const allPosts = [...primaryPosts, ...secondaryPosts];
+  const allPosts = [...(primaryPosts || []), ...(secondaryPosts || [])];
 
   const combinedTagOptions = [
     ...(zhResponse.tagOptions || []),

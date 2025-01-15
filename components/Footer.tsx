@@ -27,13 +27,13 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           {/* About Section */}
           <div className="space-y-4">
             <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
-              {t("about")}
+              {t("footer.about")}
             </h2>
             <p className="text-base lg:text-lg text-gray-600 dark:text-gray-300">
-              {SiteConfig.description}
+              {t("footer.description")}
             </p>
             <div className="flex items-center space-x-2">
-              <span className="font-semibold">{t("contact")}:</span>
+              <span className="font-semibold">{t("footer.contact")}:</span>
               <a
                 href={`mailto:${SiteConfig.email}`}
                 className="text-blue-600 dark:text-blue-400 hover:underline transition-colors"
@@ -46,10 +46,10 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           {/* Newsletter Section */}
           <div className="space-y-4">
             <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
-              {t("subscribe")}
+              {t("footer.subscribe")}
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300">
-              {t("subscribeDesc")}
+              {t("footer.subscribeDesc")}
             </p>
             <NewsletterSubscribe />
           </div>
@@ -68,7 +68,9 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
         <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
           <span>© {new Date().getFullYear()}</span>
           <span>•</span>
-          <span>Built with {SiteConfig.author}</span>
+          <span>
+            {t("footer.builtWith")} {SiteConfig.author}
+          </span>
           <span className="animate-pulse">&#128293;</span>
         </div>
         <Link

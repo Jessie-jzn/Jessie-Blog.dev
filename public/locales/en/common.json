@@ -95,10 +95,14 @@
     }
   },
   "footer": {
+    "about": "About",
+    "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
     "copyright": "All rights reserved",
     "contact": "Contact Us",
     "subscribe": "Subscribe",
-    "subscribeDesc": "Subscribe to receive notifications of my latest posts"
+    "subscribeDesc": "Subscribe to receive notifications of my latest posts",
+    "builtWith": "Built with",
+    "allRights": "All rights reserved"
   },
   "travel": {
     "title": "Super Practical Travel Guides",
@@ -129,5 +133,8 @@
       "food": "Food",
       "tips": "Tips"
     }
+  },
+  "common": {
+    "explore": "Explore Now"
   }
 }
