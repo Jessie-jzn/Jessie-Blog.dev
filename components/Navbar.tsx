@@ -43,6 +43,14 @@ const Navbar = ({
     setNavbarTitle(SiteConfig.headerTitle); // 确保在客户端设置标题
   }, [router.pathname]);
 
+  const navigationLinks = [
+    { id: "home", href: "/", title: t("nav.home") },
+    { id: "technical", href: "/technical", title: t("nav.technical") },
+    { id: "travel", href: "/travel", title: t("nav.travel") },
+    { id: "life", href: "/life", title: t("nav.life") },
+    { id: "about", href: "/about", title: t("nav.about") },
+  ];
+
   return (
     <div
       className={`w-full p-8 z-[999] mx-auto ${
@@ -83,7 +91,7 @@ const Navbar = ({
           </div>
         </Link>
         <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-          {SiteConfig.navigationLinks.map((link) => (
+          {navigationLinks.map((link) => (
             <motion.div
               key={link.id}
               className={`hidden sm:block font-medium dark:text-gray-100  ${
@@ -95,7 +103,7 @@ const Navbar = ({
               whileHover="hover"
               onClick={() => setActiveLink(link.href)}
             >
-              <Link href={link.href}>{t(link.title)}</Link>
+              <Link href={link.href}>{link.title}</Link>
               <motion.div
                 className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
                   currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"

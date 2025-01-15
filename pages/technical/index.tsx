@@ -146,17 +146,41 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
-  const notionPostId = locale === "en" ? NOTION_POST_EN_ID : NOTION_POST_ID;
-  const response = await getDataBaseList({
-    pageId: notionPostId,
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // 获取中文文章
+  const zhResponse = await getDataBaseList({
+    pageId: NOTION_POST_ID,
     from: "post-index",
   });
 
+  // 获取英文文章
+  const enResponse = await getDataBaseList({
+    pageId: NOTION_POST_EN_ID,
+    from: "post-index",
+  });
+
+  // 根据当前语言决定显示顺序
+  const primaryPosts =
+    locale === "en" ? enResponse.allPages : zhResponse.allPages;
+  const secondaryPosts =
+    locale === "en" ? zhResponse.allPages : enResponse.allPages;
+
+  // 合并文章列表
+  const allPosts = [...primaryPosts, ...secondaryPosts];
+
+  // 合并并去重标签选项
+  const combinedTagOptions = [
+    ...(zhResponse.tagOptions || []),
+    ...(enResponse.tagOptions || []),
+  ];
+  const uniqueTagOptions = Array.from(
+    new Map(combinedTagOptions.map((tag) => [tag.id, tag])).values()
+  );
+
   return {
     props: {
-      posts: response.allPages,
-      tagOptions: response.tagOptions,
+      posts: allPosts,
+      tagOptions: uniqueTagOptions,
       ...(await serverSideTranslations(locale, ["common"])),
     },
     revalidate: 10,

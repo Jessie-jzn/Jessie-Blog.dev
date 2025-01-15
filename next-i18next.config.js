@@ -5,6 +5,7 @@ module.exports = {
     defaultLocale: "zh",
     locales: ["en", "zh"],
   },
+  defaultNS: "common",
   localePath: path.resolve("./public/locales"),
-  // react: { useSuspense: false },
+  react: { useSuspense: false },
 };

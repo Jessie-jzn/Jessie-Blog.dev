@@ -3,27 +3,44 @@ import { motion } from "framer-motion";
 import { NOTION_GUIDE_ID, NOTION_GUIDE_EN_ID } from "@/lib/constants";
 import Image from "next/image";
 import SiteConfig from "@/site.config";
-
 import * as Types from "@/lib/type";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
-import CardArticle from "@/components/CustomLayout/CardArticle";
 import Link from "next/link";
 import TravelListLayout from "@/components/layouts/TravelListLayout";
 import { useTranslation } from "next-i18next";
-export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
-  const notionPostId = locale === "en" ? NOTION_GUIDE_EN_ID : NOTION_GUIDE_ID;
-  const response = await getDataBaseList({
-    pageId: notionPostId,
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const zhResponse = await getDataBaseList({
+    pageId: NOTION_GUIDE_ID,
     from: "travel-index",
   });
 
+  const enResponse = await getDataBaseList({
+    pageId: NOTION_GUIDE_EN_ID,
+    from: "travel-index",
+  });
+
+  const primaryPosts =
+    locale === "en" ? enResponse.allPages : zhResponse.allPages;
+  const secondaryPosts =
+    locale === "en" ? zhResponse.allPages : enResponse.allPages;
+
+  const allPosts = [...primaryPosts, ...secondaryPosts];
+
+  const combinedTagOptions = [
+    ...(zhResponse.tagOptions || []),
+    ...(enResponse.tagOptions || []),
+  ];
+  const uniqueTagOptions = Array.from(
+    new Map(combinedTagOptions.map((tag) => [tag.id, tag])).values()
+  );
+
   return {
     props: {
-      posts: response.allPages,
-      tagOptions: response.tagOptions,
-      ...(await serverSideTranslations(locale, ["common"])),
+      posts: allPosts,
+      tagOptions: uniqueTagOptions,
+      ...(await serverSideTranslations(locale || "zh", ["common"])),
     },
     revalidate: 10,
   };
@@ -64,39 +81,36 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
 
   return (
     <>
-      {/* 新增的头部 */}
       <header
-        className="relative w-full h-[80vh] xs:h-[50vh] bg-cover bg-center p-8 pt-[190px]"
+        className="relative w-full h-[80vh] xs:h-[50vh] bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage: `url('${SiteConfig.imageDomainUrl}image6.jpg')`,
         }}
       >
-        {/* 左侧内容 */}
-        <div className="flex flex-col justify-center align-middle ml-12 text-center">
-          {/* 主标题 */}
-          <h2 className="text-6xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-            {t("travelTitle")}
+        <div className="flex flex-col items-center justify-center px-4">
+          <h2 className="text-6xl xs:text-xl font-extrabold text-white leading-tight mb-6 xs:mb-4 text-center">
+            {t("travel.title")}
           </h2>
-          <div className="text-3xl xs:text-2xl font-extrabold text-white leading-tight mb-6">
-            {t("travelDesc")}
+          <div className="text-3xl xs:text-sm font-extrabold text-white leading-tight mb-6 xs:mb-4 text-center">
+            {t("travel.description")}
           </div>
         </div>
       </header>
       <motion.div
-        className="px-8 xs:px-4 py-12 w-full bg-[#F9F7E8] dark:bg-gray-950 min-h-screen"
+        className="px-8 xs:px-4 py-12 xs:py-8 w-full bg-[#F9F7E8] dark:bg-gray-950 min-h-screen"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        <nav className="text-center w-full box-border mb-8 flex items-center overflow-x-auto overflow-y-hidden whitespace-nowrap">
+        <nav className="text-center w-full box-border mb-8 xs:mb-6 flex items-center overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide">
           <motion.div
-            className="text-lg font-semibold mx-4 cursor-pointer"
+            className="text-lg xs:text-base font-semibold mx-4 xs:mx-2 cursor-pointer"
             onClick={() =>
               handleChangeTab({
                 id: "All",
                 articles: posts,
                 count: posts?.length,
-                value: "全部",
+                value: t("travel.tabs.all"),
               })
             }
             variants={tabItemVariants}
@@ -104,25 +118,25 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
             animate={curTab === "All" ? "active" : "initial"}
             whileHover="hover"
           >
-            全部({posts?.length})
+            {t("travel.tabs.all")} ({posts?.length})
           </motion.div>
-          {tagOptions.map((t: Types.Tag) => (
+          {tagOptions?.map((tag: Types.Tag) => (
             <motion.div
-              key={t.id}
-              className="text-lg font-semibold mx-4 cursor-pointer"
-              onClick={() => handleChangeTab(t)}
+              key={tag.id}
+              className="text-lg xs:text-base font-semibold mx-4 xs:mx-2 cursor-pointer"
+              onClick={() => handleChangeTab(tag)}
               variants={tabItemVariants}
               initial="initial"
-              animate={curTab === t.id ? "active" : "initial"}
+              animate={curTab === tag.id ? "active" : "initial"}
               whileHover="hover"
             >
-              {t.name}({t.count})
+              {tag.name} ({tag.count})
             </motion.div>
           ))}
         </nav>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-2 xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 xs:gap-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -142,17 +156,19 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                     width={640}
                     height={360}
                     layout="responsive"
-                    quality={75} // 设置压缩质量，默认为75
+                    quality={75}
                     loading="lazy"
                     className="w-full h-48 object-cover"
                   />
                 </div>
-                <div className="p-4 xs:p-0">
-                  <div className="text-gray-500 mb-2">
+                <div className="p-4 xs:p-3">
+                  <div className="text-gray-500 xs:text-sm mb-2">
                     {post.lastEditedDate}
                   </div>
-                  <h2 className="text-xl font-bold xs:text-sm">{post.title}</h2>
-                  <div className="flex items-center">
+                  <h2 className="text-xl xs:text-base font-bold">
+                    {post.title}
+                  </h2>
+                  <div className="flex flex-wrap items-center">
                     {post.city?.map((s: string) => (
                       <h3
                         className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
@@ -170,8 +186,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                       </h3>
                     ))}
                   </div>
-
-                  <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-5 xs:hidden ">
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-5 xs:line-clamp-3 xs:text-sm">
                     {post.slug}
                   </p>
                 </div>

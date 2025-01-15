@@ -1,66 +1,133 @@
 {
-  "home": "Home",
-  "technical": "Technical",
-  "travel": "Travel",
-  "life": "Life",
-  "post": "Post",
-  "tags": "Tags",
-  "projects": "Projects",
-  "about": "About",
-  "all": "All",
-  "contact": "Contact Me",
-  "subscribe": "Subscribe",
-  "subscribeDesc": "Subscribe to receive notifications of my latest posts and unsubscribe at any time!",
-  "emailRequired": "Please enter your e-mail",
-  "subscriptionSuccess": "Subscription successful, thank you for subscribing!",
-  "subscriptionFailed": "Subscription failed, please try again!",
-  "learnMore": "Learn more",
-  "workWithMe": "Work With Me",
-  "authorDesc": "Passionate full-stack developer, entrepreneur and open source project author, and involved in several successful startup projects. Passionate about sharing technical insights, travel tips and life lessons, now lives in Shanghai, China and is active on GitHub and Twitter.",
-  "lastPost": "Latest Articles",
-  "featuredPost": "Featured Post",
-  "typedTexts": [
-    "I love coding 💻.",
-    "I enjoy playing 🎮.",
-    "Let's build something awesome! 🚀"
-  ],
-  "features": [
-    {
-      "title": "Technical Articles",
-      "href": "/technical",
-      "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis.",
-      "icon": "http://qiniu.jessieontheroad.com/image2.jpg"
-    },
-    {
-      "title": "Travel Guides",
-      "href": "/travel",
-      "description": "Comprehensive travel guides and tips.",
-      "icon": "http://qiniu.jessieontheroad.com/image4.jpg"
-    },
-    {
-      "title": "Life Reflections",
-      "href": "/life",
-      "description": "Personal life experiences and thoughts.",
-      "icon": "http://qiniu.jessieontheroad.com/image5.jpg"
+  "nav": {
+    "home": "Home",
+    "technical": "Technical",
+    "travel": "Travel",
+    "life": "Life",
+    "about": "About",
+    "projects": "Projects",
+    "tags": "Tags",
+    "all": "All",
+    "menu": {
+      "routes": {
+        "title": "Routes",
+        "classic": "Classic Routes",
+        "nature": "Nature Routes",
+        "family": "Family Tours",
+        "adventure": "Adventure Routes"
+      },
+      "guides": {
+        "title": "Travel Guides",
+        "city": "City Guides",
+        "food": "Food Guide",
+        "tips": "Travel Tips"
+      }
     }
-  ],
-  "faqs": [
-    {
-      "question": "What can you gain from this blog?",
-      "answer": "In this blog, I will share technical insights, travel guides, and life reflections. The technical sharing mainly includes front-end technologies such as Next.js, React, and Node.js, focusing on building efficient, beautiful, and user-friendly web applications. Travel guides will include detailed itineraries both domestic and international."
+  },
+  "home": {
+    "hero": {
+      "title": "Welcome to Jessie's World",
+      "subtitle": "May you travel the world and find the most beautiful scenery and stories"
     },
-    {
-      "question": "Why did I create this blog?",
-      "answer": "My passion for programming and technical sharing led me to create this blog. It is a platform where I can document my development journey, share coding tips, and provide in-depth guides. Through this blog, I hope to connect with developers, share valuable insights, and offer practical advice to help you improve your coding skills. I believe that technology can change the world and create a better future. I hope this blog serves as a source of inspiration and information for your programming journey."
+    "travel": {
+      "title": "Share Unique Travel Experiences",
+      "description": "Discover different landscapes, record wonderful moments during the journey"
     },
-    {
-      "question": "What tools are used for development?",
-      "answer": "Editor: Visual Studio Code, Version Control: Git & GitHub, Frameworks and Libraries: Next.js, React, Node.js, Tailwind CSS, Development Environment: Docker, Vercel"
+    "technical": {
+      "title": "Explore Latest Technologies",
+      "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis"
+    },
+    "travelGuide": {
+      "title": "Featured Travel Guides",
+      "subtitle": "Here are carefully selected travel guides and useful tips for you",
+      "viewMore": "View More"
+    },
+    "routes": {
+      "title": "Unique Travel Routes",
+      "subtitle": "Whether you're an adventurous backpacker or a comfort-seeking family traveler, we have suitable routes for you",
+      "classicCity": {
+        "title": "Classic City Tours",
+        "description": "Explore major cities around the world, experience unique urban culture and history"
+      },
+      "nature": {
+        "title": "Nature Routes",
+        "description": "If you love nature, these beautiful routes will show you the magnificence of mountains and lakes"
+      },
+      "family": {
+        "title": "Family Tours",
+        "description": "Routes designed for family travel, covering attractions and activities suitable for children"
+      },
+      "adventure": {
+        "title": "Adventure Routes",
+        "description": "Suitable for thrill-seekers and adventurers, experience different ways of traveling"
+      }
+    },
+    "gallery": {
+      "title": "Gallery",
+      "subtitle": "Sharing wonderful moments from my journeys",
+      "images": {
+        "sunset": "Sunset View",
+        "cityStreet": "City Street",
+        "beach": "Beach View",
+        "castle": "Castle View",
+        "nightView": "Night View",
+        "church": "Church View",
+        "market": "Market Street",
+        "mountain": "Mountain View"
+      }
+    },
+    "testimonials": {
+      "title": "We've helped hundreds of travelers document their amazing journeys",
+      "reviews": {
+        "1": {
+          "content": "I love Jessie's travel diary! It makes sharing my travel stories so easy!",
+          "author": "Chen Li"
+        },
+        "2": {
+          "content": "As a travel enthusiast, I'm glad to find such a platform to organize my travel guides.",
+          "author": "Zhang Wei"
+        },
+        "3": {
+          "content": "Jessie's travel diary allows me to easily record every journey and share with my friends!",
+          "author": "Li Hua"
+        }
+      }
     }
-  ],
-  "lastEdited": "LastEdited",
-  "newPostsNotification": "New posts notification",
-  "newPostsAvailable": "New posts are available on our blog!",
-  "travelTitle": "Travel Guide",
-  "travelDesc": "Help you effortlessly explore every destination with ease!"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "contact": "Contact Us",
+    "subscribe": "Subscribe",
+    "subscribeDesc": "Subscribe to receive notifications of my latest posts"
+  },
+  "travel": {
+    "title": "Super Practical Travel Guides",
+    "description": "Help you explore every destination with ease",
+    "hero": {
+      "title": "Explore Every Corner of the World",
+      "subtitle": "Capture every wonderful moment of your journey"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "routes": "Travel Routes",
+      "attractions": "Attractions",
+      "food": "Food Guide",
+      "tips": "Travel Tips"
+    },
+    "featured": {
+      "title": "Featured Content",
+      "viewAll": "View All"
+    },
+    "latest": {
+      "title": "Latest Guides",
+      "viewMore": "More Guides"
+    },
+    "tabs": {
+      "all": "All",
+      "routes": "Routes",
+      "attractions": "Attractions",
+      "food": "Food",
+      "tips": "Tips"
+    }
+  }
 }

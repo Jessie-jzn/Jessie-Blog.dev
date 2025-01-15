@@ -25,33 +25,78 @@ const SiteConfig = {
   navigationLinks: [
     {
       id: 1,
-      title: "home",
+      title: "nav.home",
       href: "/",
     },
     {
-      id: 3,
-      title: "travel",
+      id: 2,
+      title: "nav.travel",
       href: "/travel",
+      children: [
+        {
+          id: 21,
+          title: "nav.menu.routes.title",
+          href: "/travel/routes",
+          children: [
+            {
+              id: 211,
+              title: "nav.menu.routes.classic",
+              href: "/travel/routes/classic",
+            },
+            {
+              id: 212,
+              title: "nav.menu.routes.nature",
+              href: "/travel/routes/nature",
+            },
+            {
+              id: 213,
+              title: "nav.menu.routes.family",
+              href: "/travel/routes/family",
+            },
+            {
+              id: 214,
+              title: "nav.menu.routes.adventure",
+              href: "/travel/routes/adventure",
+            },
+          ],
+        },
+        {
+          id: 22,
+          title: "nav.menu.guides.title",
+          href: "/travel/guides",
+          children: [
+            {
+              id: 221,
+              title: "nav.menu.guides.city",
+              href: "/travel/guides/city",
+            },
+            {
+              id: 222,
+              title: "nav.menu.guides.food",
+              href: "/travel/guides/food",
+            },
+            {
+              id: 223,
+              title: "nav.menu.guides.tips",
+              href: "/travel/guides/tips",
+            },
+          ],
+        },
+      ],
     },
     {
-      id: 2,
-      title: "technical",
+      id: 3,
+      title: "nav.technical",
       href: "/technical",
     },
-
-    // {
-    //   id: 4,
-    //   title: "life",
-    //   href: "/life",
-    // },
-    // {
-    //   id: 4,
-    //   title: "tags",
-    //   href: "/tags",
-    // },
+    {
+      id: 4,
+      title: "nav.life",
+      href: "/life",
+    },
     {
       id: 5,
-      title: "about",
+      title: "nav.about",
       href: "/about",
     },
   ],

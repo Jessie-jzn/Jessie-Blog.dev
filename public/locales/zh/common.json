@@ -1,7 +1,5 @@
 {
-  "home": "首页",
   "technical": "技术文章",
-  "travel": "旅行攻略",
   "life": "生活感想",
   "post": "文章",
   "tags": "标签",
@@ -61,15 +59,30 @@
   "lastEdited": "最新编辑",
   "newPostsNotification": "新文章通知",
   "newPostsAvailable": "我们的博客有新文章啦！",
-  "travelTitle": "超实用的旅行攻略",
-  "travelDesc": "助你轻松畅游每一个目的地",
   "nav": {
     "home": "首页",
+    "technical": "技术文章",
     "travel": "旅行",
-    "travel.routes": "路线",
-    "travel.routes.classic": "经典路线",
-    "travel.routes.nature": "自然风光",
-    "travel.guides": "攻略"
+    "life": "生活",
+    "about": "关于",
+    "projects": "项目",
+    "tags": "标签",
+    "all": "全部",
+    "menu": {
+      "routes": {
+        "title": "路线攻略",
+        "classic": "经典路线",
+        "nature": "自然风光",
+        "family": "亲子游",
+        "adventure": "探险路线"
+      },
+      "guides": {
+        "title": "旅行攻略",
+        "city": "城市攻略",
+        "food": "美食指南",
+        "tips": "实用贴士"
+      }
+    }
   },
   "categories": {
     "routes": "路线攻略",
@@ -80,5 +93,116 @@
     "japan": "日本",
     "korea": "韩国",
     "thailand": "泰国"
+  },
+  "home": {
+    "hero": {
+      "title": "欢迎来到Jessie的世界",
+      "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
+    },
+    "travel": {
+      "title": "分享独特的旅行体验",
+      "description": "发现不一样的风景,记录旅途中的精彩瞬间"
+    },
+    "technical": {
+      "title": "探索最新的技术实现",
+      "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析"
+    },
+    "travelGuide": {
+      "title": "旅行攻略精选",
+      "subtitle": "这里是我为你精心挑选的旅行攻略和实用贴士",
+      "viewMore": "查看更多"
+    },
+    "routes": {
+      "title": "独特旅行路线推荐",
+      "subtitle": "无论你是喜欢冒险的背包客，还是追求舒适的家庭游客，这里都有合适的旅行路线推荐",
+      "classicCity": {
+        "title": "经典城市之旅",
+        "description": "探索世界各大经典城市，感受独特的城市文化和历史魅力，适合喜欢城市游的你"
+      },
+      "nature": {
+        "title": "自然风光路线",
+        "description": "如果你热爱大自然，这些绝美的自然风光路线将带你领略山川湖泊的壮丽，享受宁静的旅行体验"
+      },
+      "family": {
+        "title": "家庭亲子游",
+        "description": "为家庭旅行设计的亲子游路线，涵盖适合小朋友的景点和活动，让全家人都能享受快乐的时光"
+      },
+      "adventure": {
+        "title": "探险路线",
+        "description": "适合寻求刺激和冒险的旅行者，带你体验不一样的旅行方式"
+      }
+    },
+    "gallery": {
+      "title": "图册",
+      "subtitle": "分享我在旅途中的精彩瞬间",
+      "images": {
+        "sunset": "日落风景",
+        "cityStreet": "城市街景",
+        "beach": "海滩风景",
+        "castle": "古堡风景",
+        "nightView": "夜景",
+        "church": "教堂风景",
+        "market": "市场街景",
+        "mountain": "山景"
+      }
+    },
+    "testimonials": {
+      "title": "我们已经帮助数百位旅行者记录他们的精彩旅程",
+      "reviews": {
+        "1": {
+          "content": "我非常喜欢Jessie的旅行日记！它让我轻松分享我的旅行故事，真是太棒了！",
+          "author": "陈丽"
+        },
+        "2": {
+          "content": "作为一名旅行爱好者，我很高兴能找到这样一个平台来整理我的旅行攻略。",
+          "author": "张伟"
+        },
+        "3": {
+          "content": "Jessie的旅行日记让我能够轻松记录每一次旅行，分享给我的朋友们！",
+          "author": "李华"
+        }
+      }
+    }
+  },
+  "footer": {
+    "copyright": "版权所有",
+    "contact": "联系我们",
+    "subscribe": "订阅",
+    "subscribeDesc": "订阅我的文章，收到我的最新发布通知"
+  },
+  "travel": {
+    "title": "超实用的旅行攻略",
+    "description": "助你轻松畅游每一个目的地",
+    "hero": {
+      "title": "探索世界的每个角落",
+      "subtitle": "记录旅途中的每一个精彩瞬间"
+    },
+    "categories": {
+      "title": "分类浏览",
+      "routes": "路线攻略",
+      "attractions": "景点推荐",
+      "food": "美食指南",
+      "tips": "实用贴士"
+    },
+    "featured": {
+      "title": "精选内容",
+      "viewAll": "查看全部"
+    },
+    "latest": {
+      "title": "最新攻略",
+      "viewMore": "更多攻略"
+    },
+    "tabs": {
+      "all": "全部",
+      "routes": "路线",
+      "attractions": "景点",
+      "food": "美食",
+      "tips": "攻略"
+    },
+    "creative": {
+      "title": "创意无限",
+      "description": "如果你对任何创意领域感兴趣，不妨试试创建一个属于自己的智能体吧！",
+      "cta": "参加比赛，说不定下一个大奖得主就是你！"
+    }
   }
 }

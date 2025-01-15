@@ -6,7 +6,7 @@ import "react-notion-simplify/dist/styles/styles.css";
 import "../styles/notion.css";
 import "../styles/globals.css";
 
-import nextI18NextConfig from "../next-i18next.config";
+import nextI18NextConfig from "../next-i18next.config.js";
 import BaseLayout from "@/components/layouts/BaseLayout";
 // import CustomLayout from "@/components/CustomLayout/index";
 // import SiteConfig from "../site.config";

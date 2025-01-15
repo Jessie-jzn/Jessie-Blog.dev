@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 interface BaseLayoutProps {
   children: React.ReactNode;
-  headerProps?: any; // 可以传递给Header的props
+  headerProps?: any;
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {

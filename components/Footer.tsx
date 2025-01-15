@@ -1,9 +1,8 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import SiteConfig from "@/site.config";
 import { useRouter } from "next/router";
-
 import SocialContactIcon from "@/components/SocialContactIcon";
 import { useTranslation } from "next-i18next";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
@@ -17,41 +16,69 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
   const router = useRouter();
 
   return (
-    <div
-      className={`box-border flex flex-col p-10 items-center w-full border-[#E8E8EA] dark:border-zinc-900 dark:bg-gray-950 bg-gray-100 ${
+    <footer
+      className={`box-border w-full border-t border-gray-200 dark:border-zinc-800
+      dark:bg-gray-950 bg-gray-50 transition-colors duration-200 ${
         className || ""
       }`}
     >
-      {router.pathname !== "/" && (
-        <div className="flex flex-wrap justify-around w-full max-w-screen-xl px-4">
-          <div className="flex flex-col xs:max-w-xs mb-2 xs:mb-4">
-            <h2 className="text-xl lg:text-4xl font-bold">{t("about")}</h2>
-            <p className="mt-2 md:text-xl">{SiteConfig.description}</p>
-            <p className="mt-4 md:text-xl">
-              <strong>{t("contact")} :</strong> {SiteConfig.email}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          {/* About Section */}
+          <div className="space-y-4">
+            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
+              {t("about")}
+            </h2>
+            <p className="text-base lg:text-lg text-gray-600 dark:text-gray-300">
+              {SiteConfig.description}
             </p>
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold">{t("contact")}:</span>
+              <a
+                href={`mailto:${SiteConfig.email}`}
+                className="text-blue-600 dark:text-blue-400 hover:underline transition-colors"
+              >
+                {SiteConfig.email}
+              </a>
+            </div>
           </div>
-          <div className="flex flex-col mb-2 xs:mb-4">
-            <h2 className="text-xl lg:text-4xl font-bold">{t("subscribe")}</h2>
-            <p className="mt-2 text-sm">{t("subscribeDesc")}</p>
+
+          {/* Newsletter Section */}
+          <div className="space-y-4">
+            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
+              {t("subscribe")}
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-300">
+              {t("subscribeDesc")}
+            </p>
             <NewsletterSubscribe />
           </div>
         </div>
-      )}
-
-      <div className="mt-16 flex flex-col items-center">
-        <SocialContactIcon
-          prop={{ className: "mb-3 flex space-x-4", theme: "dark" }}
-        />
-        <div className="mb-2 flex space-x-2 text-sm">
-          © {new Date().getFullYear()}
-          {` • `} Built with {SiteConfig.author} &#128293;{" "}
-        </div>
-        <div className="mb-8 text-sm">
-          <Link href="/">{SiteConfig.title}</Link>
-        </div>
       </div>
-    </div>
+
+      {/* Footer Bottom */}
+
+      <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col items-center space-y-4">
+        <SocialContactIcon
+          prop={{
+            className: "flex space-x-4 mb-4",
+            theme: "dark",
+          }}
+        />
+        <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span>© {new Date().getFullYear()}</span>
+          <span>•</span>
+          <span>Built with {SiteConfig.author}</span>
+          <span className="animate-pulse">&#128293;</span>
+        </div>
+        <Link
+          href="/"
+          className="text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        >
+          {SiteConfig.title}
+        </Link>
+      </div>
+    </footer>
   );
 };
 

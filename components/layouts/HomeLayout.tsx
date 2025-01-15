@@ -1,12 +1,11 @@
 import Navbar from "@/components/Navbar";
 import BackToTop from "@/components/BackToTop";
-import Footer from "./Footer";
+import Footer from "@/components/Footer";
+import { useTranslation } from "next-i18next";
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+  const { t } = useTranslation("common");
+
   return (
     <div className="min-h-screen relative w-full bg-[#f7f7f7] dark:bg-gray-950">
       <Navbar isFull={true} currentTheme="dark" />
@@ -15,4 +14,6 @@ export default function HomeLayout({
       <BackToTop />
     </div>
   );
-}
+};
+
+export default HomeLayout;

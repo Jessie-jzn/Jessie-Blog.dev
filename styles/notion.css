@@ -178,13 +178,13 @@
 .notion-aside {
   margin-left: 50px;
 }
-.notion-aside-table-of-contents {
+/* .notion-aside-table-of-contents {
   background: white;
   border-radius: 8px;
   padding: 16px;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
+} */
 .notion-aside-table-of-contents-header {
   width: 100%;
   padding: 8px;
@@ -238,9 +238,9 @@
   .notion-search-button {
     display: none !important;
   }
-  .notion-table-of-contents {
+  /* .notion-table-of-contents {
     display: none;
-  }
+  } */
   .notion-page-has-cover.notion-page-has-icon.notion-page-has-text-icon {
     padding: 24px 4px;
     font-size: 16px;
