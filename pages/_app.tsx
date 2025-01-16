@@ -100,6 +100,20 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         crossOrigin="anonymous"
         strategy="afterInteractive" // 确保页面互动之后才加载广告脚本
       ></Script>
+      <Script
+        id="custom-script"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function () {
+                var script = document.createElement("script");
+                script.async = 1;
+                script.src = 'https://emrldtp.cc/MzMyNjk0.js?t=332694';
+                document.head.appendChild(script);
+            })();
+          `,
+        }}
+      />
       <ThemeProvider
         defaultTheme="system"
         enableSystem={true}
