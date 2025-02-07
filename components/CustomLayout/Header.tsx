@@ -52,13 +52,10 @@ const Header = ({ btnColor }: HeaderProp) => {
               className="h-16 w-16 rounded-full xs:h-8 xs:w-8"
             />
           </div>
-          {typeof headerTitle === "string" ? (
-            <div className="h-6 text-3xl font-bold xs:text-lg">
-              {headerTitle}
-            </div>
-          ) : (
-            headerTitle
-          )}
+
+          <div className="h-6 text-3xl font-bold text-gray-900 xs:text-lg dark:text-gray-100">
+            {headerTitle}
+          </div>
         </div>
       </Link>
 

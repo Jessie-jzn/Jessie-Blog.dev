@@ -92,6 +92,22 @@
           "author": "Li Hua"
         }
       }
+    },
+    "explore": {
+      "title": "Explore Our Content",
+      "subtitle": "Here, you can find various valuable information on technology and travel to inspire your creativity.",
+      "technical": {
+        "title": "Technical Sharing",
+        "description": "Share the latest technology trends and practical tips to help you advance in your programming journey."
+      },
+      "travel": {
+        "title": "Travel Guides",
+        "description": "Provide detailed travel guides and suggestions to make every trip enjoyable and rewarding."
+      },
+      "personal": {
+        "title": "Personal Reflections",
+        "description": "Record personal thoughts and insights, sharing experiences and growth in life and travel."
+      }
     }
   },
   "footer": {

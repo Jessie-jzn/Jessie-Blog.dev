@@ -141,6 +141,27 @@ const Home = ({ posts }: any) => {
     },
   ];
 
+  const exploreContent = [
+    {
+      title: t("home.explore.technical.title"),
+      description: t("home.explore.technical.description"),
+      image: "http://qiniu.jessieontheroad.com/image2.jpg",
+      href: "/technical",
+    },
+    {
+      title: t("home.explore.travel.title"),
+      description: t("home.explore.travel.description"),
+      image: "http://qiniu.jessieontheroad.com/image6.jpg",
+      href: "/travel",
+    },
+    {
+      title: t("home.explore.personal.title"),
+      description: t("home.explore.personal.description"),
+      image: "https://qiniu.jessieontheroad.com/IMG_1575.jpeg",
+      href: "/blog",
+    },
+  ];
+
   return (
     <div>
       <CommonSEO
@@ -150,6 +171,49 @@ const Home = ({ posts }: any) => {
 
       <main className="min-h-screen w-full mx-auto">
         <Carousel slides={carouselSlides} />
+
+        <section className="py-16 bg-white dark:bg-gray-900">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-8">
+              {t("home.explore.title")}
+            </h2>
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
+              {t("home.explore.subtitle")}
+            </p>
+
+            <div className="space-y-12 md:space-y-16">
+              {exploreContent.map((content, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col md:flex-row items-center gap-8 ${
+                    index % 2 === 1 ? "md:flex-row-reverse" : ""
+                  }`}
+                >
+                  <div className="w-full md:w-1/2">
+                    <Link href={content.href}>
+                      <div className="relative h-64 md:h-80 overflow-hidden rounded-lg">
+                        <Image
+                          src={content.image}
+                          alt={content.title}
+                          fill
+                          className="object-cover transition-transform duration-300 hover:scale-105"
+                        />
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="w-full md:w-1/2">
+                    <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                      {content.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-lg">
+                      {content.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4 flex flex-col justify-center items-center">

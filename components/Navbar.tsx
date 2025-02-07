@@ -70,7 +70,7 @@ const Navbar = ({
       className={`w-full p-8 z-[999] mx-auto ${
         isFull ? "absolute top-0 left-0 bg-fixed bg-transparent" : "relative"
       }
-        box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400
+        box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-slate-950
         ${className}
         `}
     >
@@ -91,17 +91,14 @@ const Navbar = ({
                 className="h-16 w-16 rounded-full xs:h-8 xs:w-8"
               />
             </div>
-            {typeof NavbarTitle === "string" ? (
-              <div
-                className={`text-3xl font-bold xs:text-xs dark:text-gray-100 ${
-                  currentTheme === "light" ? "text-gray-900" : "text-gray-100"
-                }`}
-              >
-                {NavbarTitle}
-              </div>
-            ) : (
-              NavbarTitle
-            )}
+
+            <div
+              className={`text-3xl font-bold xs:text-xs text-gray-900 dark:text-gray-100 ${
+                currentTheme === "light" ? "text-gray-900" : "text-gray-100"
+              }`}
+            >
+              {NavbarTitle}
+            </div>
           </div>
         </Link>
         <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
