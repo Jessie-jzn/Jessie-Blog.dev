@@ -181,11 +181,11 @@ const Home = ({ posts }: any) => {
               {t("home.explore.subtitle")}
             </p>
 
-            <div className="space-y-12 md:space-y-16">
+            <div className="space-y-8 md:space-y-12">
               {exploreContent.map((content, index) => (
                 <div
                   key={index}
-                  className={`flex flex-col md:flex-row items-center gap-8 ${
+                  className={`flex flex-col md:flex-row items-center gap-6 ${
                     index % 2 === 1 ? "md:flex-row-reverse" : ""
                   }`}
                 >
@@ -223,8 +223,8 @@ const Home = ({ posts }: any) => {
             <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
               {t("home.travelGuide.subtitle")}
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {posts.slice(0, 6).map((post: any) => (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {posts.slice(0, 8).map((post: any) => (
                 <div
                   key={post.id}
                   className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"

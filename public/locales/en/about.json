@@ -1,0 +1,64 @@
+{
+  "hero": {
+    "title": "Hi, I'm a Frontend Engineer who loves travel and photography",
+    "subtitle": "Currently on Working Holiday in Australia, sharing tech insights, travel stories, and photography works.",
+    "connect": "LET'S CONNECT"
+  },
+  "sections": {
+    "findHere": {
+      "title": "What you'll find here",
+      "tech": {
+        "title": "Tech Insights",
+        "desc": "Frontend development experiences, coding tutorials, and tech stack discussions."
+      },
+      "travel": {
+        "title": "Travel Stories",
+        "desc": "Detailed travel guides and personal adventures across Australia."
+      },
+      "photo": {
+        "title": "Photography",
+        "desc": "Portfolio showcasing landscapes, street scenes, and moments."
+      },
+      "whv": {
+        "title": "WHV Guide",
+        "desc": "Australian Working Holiday tips and experiences."
+      }
+    },
+    "techStack": {
+      "title": "Tech Stack & Tools",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Tools",
+      "photography": "Photography"
+    },
+    "location": {
+      "title": "Currently In Australia",
+      "desc": "Working Holiday Visa (Subclass 417) holder, currently exploring the East Coast while working as a remote frontend developer.",
+      "recent": "Recent Locations",
+      "next": "Next Destinations",
+      "cities": {
+        "sydney": "Sydney",
+        "goldCoast": "Gold Coast",
+        "melbourne": "Melbourne",
+        "byronBay": "Byron Bay",
+        "perth": "Perth",
+        "adelaide": "Adelaide",
+        "tasmania": "Tasmania",
+        "gbr": "Great Barrier Reef"
+      }
+    },
+    "connect": {
+      "title": "Let's Connect",
+      "desc": "Whether you're interested in frontend development, planning your own Working Holiday adventure, or just want to chat about photography, I'd love to connect!"
+    },
+    "philosophy": {
+      "title": "My Philosophy",
+      "slogan": "Code. Travel. Capture. Share. Inspire.",
+      "codeDesc": "As a frontend engineer, I believe in creating clean, efficient, and user-friendly web experiences that make a difference.",
+      "lifeDesc": "Life is about balance - between coding and adventure, between creating and experiencing, between work and exploration.",
+      "shareDesc": "Through my journey as a developer and traveler, I aim to inspire others to pursue their passions and embrace new experiences.",
+      "quote": "The world is a book and those who do not travel read only one page.",
+      "quoteAuthor": "— Saint Augustine"
+    }
+  }
+}

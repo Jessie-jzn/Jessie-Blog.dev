@@ -8,7 +8,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 module.exports = withBundleAnalyzer({
-  i18n,
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh"],
+  },
   swcMinify: true, // 启用 SWC 最小化
   env: {
     TRANSLATE_BAIDU_APPID: process.env.TRANSLATE_BAIDU_APPID,
