@@ -1,4 +1,8 @@
 {
+  "hero": {
+    "title": "Welcome to Jessie's World",
+    "subtitle": "May you travel the world and find the most beautiful scenery and stories"
+  },
   "nav": {
     "home": "Home",
     "technical": "Technical",
@@ -24,92 +28,7 @@
       }
     }
   },
-  "home": {
-    "hero": {
-      "title": "Welcome to Jessie's World",
-      "subtitle": "May you travel the world and find the most beautiful scenery and stories"
-    },
-    "travel": {
-      "title": "Share Unique Travel Experiences",
-      "description": "Discover different landscapes, record wonderful moments during the journey"
-    },
-    "technical": {
-      "title": "Explore Latest Technologies",
-      "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis"
-    },
-    "travelGuide": {
-      "title": "Featured Travel Guides",
-      "subtitle": "Here are carefully selected travel guides and useful tips for you",
-      "viewMore": "View More"
-    },
-    "routes": {
-      "title": "Unique Travel Routes",
-      "subtitle": "Whether you're an adventurous backpacker or a comfort-seeking family traveler, we have suitable routes for you",
-      "classicCity": {
-        "title": "Classic City Tours",
-        "description": "Explore major cities around the world, experience unique urban culture and history"
-      },
-      "nature": {
-        "title": "Nature Routes",
-        "description": "If you love nature, these beautiful routes will show you the magnificence of mountains and lakes"
-      },
-      "family": {
-        "title": "Family Tours",
-        "description": "Routes designed for family travel, covering attractions and activities suitable for children"
-      },
-      "adventure": {
-        "title": "Adventure Routes",
-        "description": "Suitable for thrill-seekers and adventurers, experience different ways of traveling"
-      }
-    },
-    "gallery": {
-      "title": "Gallery",
-      "subtitle": "Sharing wonderful moments from my journeys",
-      "images": {
-        "sunset": "Sunset View",
-        "cityStreet": "City Street",
-        "beach": "Beach View",
-        "castle": "Castle View",
-        "nightView": "Night View",
-        "church": "Church View",
-        "market": "Market Street",
-        "mountain": "Mountain View"
-      }
-    },
-    "testimonials": {
-      "title": "We've helped hundreds of travelers document their amazing journeys",
-      "reviews": {
-        "1": {
-          "content": "I love Jessie's travel diary! It makes sharing my travel stories so easy!",
-          "author": "Chen Li"
-        },
-        "2": {
-          "content": "As a travel enthusiast, I'm glad to find such a platform to organize my travel guides.",
-          "author": "Zhang Wei"
-        },
-        "3": {
-          "content": "Jessie's travel diary allows me to easily record every journey and share with my friends!",
-          "author": "Li Hua"
-        }
-      }
-    },
-    "explore": {
-      "title": "Explore Our Content",
-      "subtitle": "Here, you can find various valuable information on technology and travel to inspire your creativity.",
-      "technical": {
-        "title": "Technical Sharing",
-        "description": "Share the latest technology trends and practical tips to help you advance in your programming journey."
-      },
-      "travel": {
-        "title": "Travel Guides",
-        "description": "Provide detailed travel guides and suggestions to make every trip enjoyable and rewarding."
-      },
-      "personal": {
-        "title": "Personal Reflections",
-        "description": "Record personal thoughts and insights, sharing experiences and growth in life and travel."
-      }
-    }
-  },
+
   "footer": {
     "about": "About",
     "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",

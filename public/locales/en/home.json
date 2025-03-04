@@ -1,0 +1,107 @@
+{
+  "hero": {
+    "title": "Welcome to Jessie's World",
+    "subtitle": "May you travel the world and find the most beautiful scenery and stories"
+  },
+  "travel": {
+    "title": "Share Unique Travel Experiences",
+    "description": "Discover different landscapes, record wonderful moments during the journey"
+  },
+  "technical": {
+    "title": "Explore Latest Technologies",
+    "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis"
+  },
+  "feature": {
+    "title": "Explore the world freely, embrace romance in everyday life."
+  },
+  "featuredPosts": {
+    "title": "Women Wandering the World Series",
+    "subtitle": "Exploring Stories and Experiences",
+    "viewAll": "VIEW ALL"
+  },
+  "explore": {
+    "title": "Most Popular",
+    "subtitle": "Discover more interesting stories and experiences",
+    "viewMore": "View More",
+    "readMore": "Read More",
+    "categories": {
+      "technical": "TECH",
+      "travel": "TRAVEL",
+      "personal": "LIFE"
+    },
+    "technical": {
+      "title": "Technical Insights",
+      "description": "Sharing programming experience and digital nomad work style"
+    },
+    "travel": {
+      "title": "Travel Stories",
+      "description": "Recording observations from around the world"
+    },
+    "personal": {
+      "title": "Life Essays",
+      "description": "Sharing personal growth and life insights"
+    },
+    "whver": {
+      "title": "Australia Working Holiday",
+      "description": "Sharing WHV visa application and life experience"
+    },
+    "viewAll": "VIEW ALL"
+  },
+  "travelGuide": {
+    "title": "Travel Guides",
+    "subtitle": "Selected destination guides and practical advice",
+    "viewMore": "View More Guides"
+  },
+  "routes": {
+    "title": "Featured Routes",
+    "subtitle": "Customized itineraries for different travel styles",
+    "classicCity": {
+      "title": "Classic Cities",
+      "description": "Explore the cultural landscape of world-famous cities"
+    },
+    "nature": {
+      "title": "Natural Scenery",
+      "description": "Get close to nature, feel the beauty of Earth"
+    },
+    "family": {
+      "title": "Family Tours",
+      "description": "Warm routes suitable for family trips"
+    },
+    "adventure": {
+      "title": "Adventure Journey",
+      "description": "Challenge yourself, explore the unknown"
+    }
+  },
+  "gallery": {
+    "title": "Travel Gallery",
+    "subtitle": "Capturing wonderful moments through the lens",
+    "images": {
+      "sunset": "Sunset View",
+      "cityStreet": "City Street",
+      "beach": "Beach Scene",
+      "castle": "Castle Architecture",
+      "nightView": "City Night View",
+      "church": "Church Building",
+      "market": "Market Scene",
+      "mountain": "Mountain View"
+    }
+  },
+  "testimonials": {
+    "title": "Traveler Sharing",
+    "reviews": {
+      "1": {
+        "content": "The travel advice here has made my journey more colorful, thank you for sharing!",
+        "author": "Sarah"
+      },
+      "2": {
+        "content": "As a solo traveler, I found lots of practical advice and encouragement here.",
+        "author": "Emma"
+      },
+      "3": {
+        "content": "Not just a travel guide, but a warm travel community.",
+        "author": "Linda"
+      }
+    }
+  },
+  "allCategories": "All Categories"
+}

@@ -10,43 +10,61 @@ import {
 import pMap from "p-map";
 
 // import * as types from './types';
+
+/**
+ * 签名URL请求的接口定义
+ */
 export interface SignedUrlRequest {
-  permissionRecord: PermissionRecord;
-  url: string;
-}
-
-export interface PermissionRecord {
-  table: string;
-  id: notion.ID;
-}
-
-export interface SignedUrlResponse {
-  signedUrls: string[];
+  permissionRecord: PermissionRecord; // 权限记录
+  url: string; // 需要签名的URL
 }
 
 /**
- * Main Notion API client.
+ * 权限记录的接口定义
+ */
+export interface PermissionRecord {
+  table: string; // 表名
+  id: notion.ID; // Notion ID
+}
+
+/**
+ * 签名URL响应的接口定义
+ */
+export interface SignedUrlResponse {
+  signedUrls: string[]; // 签名后的URL数组
+}
+
+/**
+ * Notion API 的主要客户端类
  */
 export class NotionAPI {
-  private readonly _apiBaseUrl: string;
-  private readonly _authToken?: string;
-  private readonly _activeUser?: string;
-  private readonly _userTimeZone: string;
-  private readonly _databaseId?: string; // 添加数据库ID属性
+  private readonly _apiBaseUrl: string; // Notion API的基础URL
+  private readonly _authToken?: string; // 认证令牌
+  private readonly _activeUser?: string; // 活动用户
+  private readonly _userTimeZone: string; // 用户时区
+  private readonly _databaseId?: string; // 数据库ID
 
+  /**
+   * 构造函数
+   * @param apiBaseUrl - Notion API的基础URL
+   * @param authToken - 认证令牌
+   * @param activeUser - 活动用户
+   * @param userTimeZone - 用户时区
+   * @param databaseId - 数据库ID
+   */
   constructor({
     apiBaseUrl = "https://www.notion.so/api/v3",
     authToken,
     activeUser,
     userTimeZone = "America/New_York",
-    databaseId, // 添加数据库ID参数
+    databaseId,
   }: {
     apiBaseUrl?: string;
     authToken?: string;
     userLocale?: string;
     userTimeZone?: string;
     activeUser?: string;
-    databaseId?: string; // 添加到类型定义
+    databaseId?: string;
   } = {}) {
     this._apiBaseUrl = apiBaseUrl;
     this._authToken = authToken;
@@ -56,10 +74,16 @@ export class NotionAPI {
   }
 
   /**
-   * // 获取页面的函数
-   * @param pageId
-   * @param param1
-   * @returns
+   * 获取完整的页面数据
+   * @param pageId - 页面ID
+   * @param concurrency - 并发请求数
+   * @param fetchMissingBlocks - 是否获取缺失的块
+   * @param fetchCollections - 是否获取集合数据
+   * @param signFileUrls - 是否签名文件URL
+   * @param chunkLimit - 每次获取的块数限制
+   * @param chunkNumber - 块的起始编号
+   * @param gotOptions - got请求的选项
+   * @returns 返回扩展的记录映射
    */
   public async getPage(
     pageId: string,
@@ -163,6 +187,10 @@ export class NotionAPI {
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value;
 
+          console.log("collectionId", collectionId);
+          console.log("collectionViewId", collectionViewId);
+          console.log("collectionView", collectionView);
+
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
@@ -232,6 +260,12 @@ export class NotionAPI {
     return recordMap;
   }
 
+  /**
+   * 为记录映射添加签名URL
+   * @param recordMap - 记录映射
+   * @param contentBlockIds - 内容块ID数组
+   * @param gotOptions - got请求的选项
+   */
   public async addSignedUrls({
     recordMap,
     contentBlockIds,
@@ -302,16 +336,14 @@ export class NotionAPI {
       }
     }
   }
+
   /**
-   * Fetches raw page data from Notion.
-   *
-   * @param pageId - The ID of the Notion page to fetch.
-   * @param options - Additional options for the request.
-   * @param options.chunkLimit - The number of content chunks to fetch per request (default: 100).
-   * @param options.chunkNumber - The chunk number to start fetching from (default: 0).
-   * @param options.gotOptions - Additional options to pass to the got request.
-   * @returns The raw page data from Notion.
-   * @throws Will throw an error if the pageId is invalid.
+   * 获取原始页面数据
+   * @param pageId - 页面ID
+   * @param chunkLimit - 每次获取的块数限制
+   * @param chunkNumber - 块的起始编号
+   * @param gotOptions - got请求的选项
+   * @returns 返回页面块数据
    */
   public async getPageRaw(
     pageId: string,
@@ -347,12 +379,16 @@ export class NotionAPI {
   }
 
   /**
-   * 获取数据库id
-   * @param collectionId 集合ID
-   * @param collectionViewId 集合视图ID
-   * @param collectionView 集合视图对象
-   * @param param3
-   * @returns
+   * 获取集合数据
+   * @param collectionId - 集合ID
+   * @param collectionViewId - 集合视图ID
+   * @param collectionView - 集合视图对象
+   * @param limit - 结果数量限制
+   * @param searchQuery - 搜索查询
+   * @param userTimeZone - 用户时区
+   * @param loadContentCover - 是否加载内容封面
+   * @param gotOptions - got请求的选项
+   * @returns 返回集合实例数据
    */
   public async getCollectionData(
     collectionId: string,
@@ -375,48 +411,56 @@ export class NotionAPI {
     } = {}
   ) {
     const type = collectionView?.type;
+    // 检查是否为看板视图类型
     const isBoardType = type === "board";
+    // 获取分组依据：看板视图使用board_columns_by，其他视图使用collection_group_by
     const groupBy = isBoardType
       ? collectionView?.format?.board_columns_by
       : collectionView?.format?.collection_group_by;
 
-    // 处理过滤器
+    // 初始化过滤器数组
     let filters = [];
+
+    // 处理属性过滤器 (Property Filters)
+    // 这些是在Notion界面上通过"Filter"按钮添加的过滤条件
     if (collectionView?.format?.property_filters) {
       filters = collectionView.format?.property_filters.map(
         (filterObj: any) => {
-          //get the inner filter
           return {
-            filter: filterObj?.filter?.filter,
-            property: filterObj?.filter?.property,
+            filter: filterObj?.filter?.filter, // 过滤条件（例如：contains, does_not_contain等）
+            property: filterObj?.filter?.property, // 要过滤的属性名
           };
         }
       );
     }
 
-    // 处理公式过滤器
+    // 处理高级过滤器 (Advanced Filters)
+    // 这些通常是通过API或高级视图设置添加的过滤条件
     if (collectionView?.query2?.filter?.filters) {
       filters.push(...collectionView.query2.filter.filters);
     }
 
+    // 配置数据加载器
     let loader: any = {
       type: "reducer",
       reducers: {
         collection_group_results: {
           type: "results",
-          limit,
-          loadContentCover,
+          limit, // 结果数量限制
+          loadContentCover, // 是否加载封面图片
         },
       },
-      sort: [],
+      sort: [], // 排序条件
       ...collectionView?.query2,
+      // 组合所有过滤条件
       filter: {
-        filters: filters,
-        operator: "and",
+        filters: filters, // 过滤条件数组
+        operator: "and", // 使用AND操作符组合所有过滤条件
       },
-      searchQuery,
-      userTimeZone,
+      searchQuery, // 搜索关键词
+      userTimeZone, // 用户时区
     };
+
     // 处理分组
     if (groupBy) {
       // 获取分组信息，可能来自 board_columns 或 collection_groups
@@ -564,6 +608,12 @@ export class NotionAPI {
     });
   }
 
+  /**
+   * 获取用户信息
+   * @param userIds - 用户ID数组
+   * @param gotOptions - got请求的选项
+   * @returns 返回用户记录值
+   */
   public async getUsers(
     userIds: string[],
     gotOptions?: OptionsOfJSONResponseBody
@@ -577,6 +627,12 @@ export class NotionAPI {
     });
   }
 
+  /**
+   * 获取块数据
+   * @param blockIds - 块ID数组
+   * @param gotOptions - got请求的选项
+   * @returns 返回页面块数据
+   */
   public async getBlocks(
     blockIds: string[],
     gotOptions?: OptionsOfJSONResponseBody
@@ -595,6 +651,12 @@ export class NotionAPI {
     });
   }
 
+  /**
+   * 获取签名文件URL
+   * @param urls - 需要签名的URL请求数组
+   * @param gotOptions - got请求的选项
+   * @returns 返回签名后的URL响应
+   */
   public async getSignedFileUrls(
     urls: SignedUrlRequest[],
     gotOptions?: OptionsOfJSONResponseBody
@@ -608,6 +670,12 @@ export class NotionAPI {
     });
   }
 
+  /**
+   * 搜索Notion内容
+   * @param params - 搜索参数
+   * @param gotOptions - got请求的选项
+   * @returns 返回搜索结果
+   */
   public async search(
     params: notion.SearchParams,
     gotOptions?: OptionsOfJSONResponseBody
@@ -645,14 +713,12 @@ export class NotionAPI {
   }
 
   /**
-   * Generic fetch method to make API requests to Notion.
-   *
-   * @param params - Parameters for the fetch request.
-   * @param params.endpoint - The API endpoint to hit.
-   * @param params.body - The request body.
-   * @param params.gotOptions - Additional options to pass to the got request.
-   * @param params.headers - Additional headers for the request.
-   * @returns The response from the Notion API.
+   * 通用的API请求方法
+   * @param endpoint - API端点
+   * @param body - 请求体
+   * @param gotOptions - got请求的选项
+   * @param headers - 自定义请求头
+   * @returns 返回API响应数据
    */
   public async fetch<T>({
     endpoint,
@@ -689,5 +755,4 @@ export class NotionAPI {
       })
       .json();
   }
-
 }

@@ -182,8 +182,6 @@ const NotionPage: React.FC<NotionPageProps> = ({
     [relatedPosts]
   );
 
-  console.log("recordMap", recordMap);
-
   return (
     <>
       <BlogSEO

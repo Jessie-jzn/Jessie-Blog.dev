@@ -1,4 +1,9 @@
 {
+  "hero": {
+    "title": "欢迎来到Jessie的世界",
+    "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
+  },
+  "viewAll": "查看全部",
   "technical": "技术文章",
   "life": "生活感想",
   "post": "文章",
@@ -27,19 +32,19 @@
       "title": "技术文章",
       "href": "/technical",
       "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。",
-      "icon": "http://qiniu.jessieontheroad.com/image2.jpg"
+      "icon": "https://qiniu.jessieontheroad.com/image2.jpg"
     },
     {
       "title": "旅行攻略",
       "href": "/travel",
       "description": "全面的旅行指南和建议。",
-      "icon": "http://qiniu.jessieontheroad.com/image4.jpg"
+      "icon": "https://qiniu.jessieontheroad.com/image4.jpg"
     },
     {
       "title": "生活感想",
       "href": "/life",
       "description": "个人的生活经历和思考。",
-      "icon": "http://qiniu.jessieontheroad.com/image5.jpg"
+      "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
     }
   ],
   "faqs": [
@@ -93,92 +98,6 @@
     "japan": "日本",
     "korea": "韩国",
     "thailand": "泰国"
-  },
-  "home": {
-    "hero": {
-      "title": "欢迎来到Jessie的世界",
-      "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
-    },
-    "travel": {
-      "title": "分享独特的旅行体验",
-      "description": "发现不一样的风景,记录旅途中的精彩瞬间"
-    },
-    "technical": {
-      "title": "探索最新的技术实现",
-      "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析"
-    },
-    "travelGuide": {
-      "title": "旅行攻略精选",
-      "subtitle": "这里是我为你精心挑选的旅行攻略和实用贴士",
-      "viewMore": "查看更多"
-    },
-    "routes": {
-      "title": "独特旅行路线推荐",
-      "subtitle": "无论你是喜欢冒险的背包客，还是追求舒适的家庭游客，这里都有合适的旅行路线推荐",
-      "classicCity": {
-        "title": "经典城市之旅",
-        "description": "探索世界各大经典城市，感受独特的城市文化和历史魅力，适合喜欢城市游的你"
-      },
-      "nature": {
-        "title": "自然风光路线",
-        "description": "如果你热爱大自然，这些绝美的自然风光路线将带你领略山川湖泊的壮丽，享受宁静的旅行体验"
-      },
-      "family": {
-        "title": "家庭亲子游",
-        "description": "为家庭旅行设计的亲子游路线，涵盖适合小朋友的景点和活动，让全家人都能享受快乐的时光"
-      },
-      "adventure": {
-        "title": "探险路线",
-        "description": "适合寻求刺激和冒险的旅行者，带你体验不一样的旅行方式"
-      }
-    },
-    "gallery": {
-      "title": "图册",
-      "subtitle": "分享我在旅途中的精彩瞬间",
-      "images": {
-        "sunset": "日落风景",
-        "cityStreet": "城市街景",
-        "beach": "海滩风景",
-        "castle": "古堡风景",
-        "nightView": "夜景",
-        "church": "教堂风景",
-        "market": "市场街景",
-        "mountain": "山景"
-      }
-    },
-    "testimonials": {
-      "title": "我们已经帮助数百位旅行者记录他们的精彩旅程",
-      "reviews": {
-        "1": {
-          "content": "我非常喜欢Jessie的旅行日记！它让我轻松分享我的旅行故事，真是太棒了！",
-          "author": "陈丽"
-        },
-        "2": {
-          "content": "作为一名旅行爱好者，我很高兴能找到这样一个平台来整理我的旅行攻略。",
-          "author": "张伟"
-        },
-        "3": {
-          "content": "Jessie的旅行日记让我能够轻松记录每一次旅行，分享给我的朋友们！",
-          "author": "李华"
-        }
-      }
-    },
-    "explore": {
-      "title": "探索我们的内容",
-      "subtitle": "在这里，您可以找到各种有价值的技术与旅行信息，启发您的灵感",
-      "technical": {
-        "title": "技术分享",
-        "description": "分享最新的技术趋势与实用技巧，帮助您在编程道路上不断前行"
-      },
-      "travel": {
-        "title": "旅行攻略",
-        "description": "提供详尽的旅行攻略与建议，让您的每一次出行都充满乐趣与收获"
-      },
-      "personal": {
-        "title": "数字游民的生活",
-        "description": "揭示数字游民如何在旅行中保持高效工作与生活的平衡"
-      }
-    }
   },
   "footer": {
     "about": "关于",

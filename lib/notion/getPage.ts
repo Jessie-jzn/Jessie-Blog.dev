@@ -24,7 +24,7 @@ const getPageWithRetry = async (
     try {
       const start = Date.now();
       const pageData = await notionService.getPage(pageId);
-      console.log("pageData", pageData);
+
       const end = Date.now();
       console.log("[API<<--响应]", `耗时:${end - start}ms - from:${from}`);
       return pageData;

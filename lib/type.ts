@@ -29,8 +29,8 @@ export interface Post {
   id: string;
   type?: "Post";
   status?: "Published";
-  tags?: string[];
-  title?: string;
+  tags: string[];
+  title: string;
   slug?: string;
   category?: string;
   comment?: string;
@@ -40,8 +40,8 @@ export interface Post {
   lastEditedDay?: string; // 格式化的日期字符串
   fullWidth?: boolean;
   pageIcon?: string; // 图标
-  pageCover?: string; // 封面图像 URL
-  pageCoverThumbnail?: string; // 封面缩略图 URL
+  pageCover: string; // 封面图像 URL
+  pageCoverThumbnail: string; // 封面缩略图 URL
   ext?: Record<string, any>; // 扩展属性，可以是任意对象
   tagItems?: Array<{
     id: string; // 假设 tagItems 数组中的每个对象有 id

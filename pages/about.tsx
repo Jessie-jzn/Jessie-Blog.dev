@@ -2,9 +2,6 @@ import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useQiniuUrls } from "../hooks/useQiniuUrls";
-import { QiniuImageKeys } from "../constants/images";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -16,10 +13,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const About = () => {
   const { t } = useTranslation("about");
-  const { urls, loading } = useQiniuUrls([
-    QiniuImageKeys.about.profile,
-    ...Object.values(QiniuImageKeys.about.gallery),
-  ]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
@@ -249,22 +242,16 @@ const About = () => {
         </h2>
         <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-12">
           <div className="w-full md:w-1/2">
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 aspect-square">
-              {[1, 2, 3, 4].map((index) => (
-                <div
-                  key={index}
-                  className="relative overflow-hidden rounded-lg h-36 sm:h-48 md:h-auto"
-                >
-                  <Image
-                    src={`https://qiniu.jessieontheroad.com/IMG_0482.jpeg`}
-                    alt={`Philosophy Image ${index}`}
-                    fill
-                    className="object-cover hover:scale-110 transition-transform duration-300"
-                    sizes="(max-width: 640px) 150px, (max-width: 768px) 200px, 250px"
-                    priority={index === 1}
-                  />
-                </div>
-              ))}
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg shadow-lg">
+              <Image
+                src="/images/telecommuting.png"
+                alt="Philosophy Image"
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                quality={90}
+              />
             </div>
           </div>
 

@@ -1,0 +1,109 @@
+{
+  "hero": {
+    "title": "欢迎来到Jessie的世界",
+    "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
+  },
+  "travel": {
+    "title": "分享独特的旅行体验",
+    "description": "发现不一样的风景,记录旅途中的精彩瞬间"
+  },
+  "technical": {
+    "title": "探索最新的技术实现",
+    "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析"
+  },
+  "feature": {
+    "title": "去世界撒野，在生活里浪漫"
+  },
+
+  "featuredPosts": {
+    "title": "在世界撒野的女性系列",
+    "subtitle": "探索世界的故事与见闻",
+    "viewAll": "查看全部"
+  },
+  "explore": {
+    "title": "最受欢迎",
+    "subtitle": "发现更多有趣的故事和经历",
+    "viewMore": "查看更多",
+    "readMore": "阅读更多",
+    "categories": {
+      "technical": "技术",
+      "travel": "旅行",
+      "personal": "生活"
+    },
+    "technical": {
+      "title": "技术分享",
+      "description": "分享编程经验与数字游民的工作方式"
+    },
+    "travel": {
+      "title": "旅行见闻",
+      "description": "记录在世界各地的所见所闻"
+    },
+    "personal": {
+      "title": "生活随笔",
+      "description": "分享个人成长与生活感悟"
+    },
+    "whver": {
+      "title": "澳洲打工度假",
+      "description": "分享澳洲WHV签证申请与生活经历"
+    },
+    "label": "发现",
+    "viewAll": "查看全部"
+  },
+  "travelGuide": {
+    "title": "边走边记录",
+    "subtitle": "最实用的旅行建议 & 经验分享",
+    "viewMore": "查看更多攻略"
+  },
+  "routes": {
+    "title": "自由行不迷路",
+    "subtitle": "为不同风格旅行者定制行程",
+    "classicCity": {
+      "title": "经典城市",
+      "description": "探索世界著名城市的人文风景"
+    },
+    "nature": {
+      "title": "自然风光",
+      "description": "亲近大自然，感受地球的壮美"
+    },
+    "family": {
+      "title": "亲子游览",
+      "description": "适合全家出行的温馨路线"
+    },
+    "adventure": {
+      "title": "探险之旅",
+      "description": "挑战自我，探索未知"
+    }
+  },
+  "gallery": {
+    "title": "镜头下的世界",
+    "subtitle": "捕捉旅途中的每一个美好瞬间",
+    "images": {
+      "sunset": "日落风景",
+      "cityStreet": "城市街景",
+      "beach": "海滩风光",
+      "castle": "古堡建筑",
+      "nightView": "城市夜景",
+      "church": "教堂建筑",
+      "market": "市集风情",
+      "mountain": "山脉风光"
+    }
+  },
+  "testimonials": {
+    "title": "旅行，不只是短暂的逃离，而是更好的归来",
+    "reviews": {
+      "1": {
+        "content": "这里的旅行建议让我的旅程变得更加丰富多彩，感谢分享！",
+        "author": "Sarah"
+      },
+      "2": {
+        "content": "作为一个独立旅行者，在这里找到了很多实用的建议和鼓励。",
+        "author": "Emma"
+      },
+      "3": {
+        "content": "不仅是旅行指南，更是一个充满温度的旅行社区。",
+        "author": "Linda"
+      }
+    }
+  },
+  "allCategories": "所有分类"
+}
