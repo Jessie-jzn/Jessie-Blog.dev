@@ -187,10 +187,6 @@ export class NotionAPI {
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value;
 
-          console.log("collectionId", collectionId);
-          console.log("collectionViewId", collectionViewId);
-          console.log("collectionView", collectionView);
-
           try {
             const collectionData = await this.getCollectionData(
               collectionId,

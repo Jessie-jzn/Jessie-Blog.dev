@@ -97,3 +97,12 @@ export const getDatabaseId = (category: string) => {
   const found = entries.find(([_, value]) => value === category);
   return found ? found[0] : undefined;
 };
+
+/**
+ * 是否可迭代
+ * @param {*} obj
+ * @returns
+ */
+export const isIterable = (obj: any) => {
+  return obj != null && typeof obj[Symbol.iterator] === "function";
+};

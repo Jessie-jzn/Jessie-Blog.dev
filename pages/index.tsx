@@ -4,7 +4,7 @@ import { NOTION_HOME_ID } from "@/lib/constants";
 import SiteConfig from "@/site.config";
 import HomeLayout from "@/components/layouts/HomeLayout";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import { NOTION_GUIDE_ID, NOTION_POST_EN_ID } from "@/lib/constants";
+import { NOTION_GUIDE_ID, NOTION_POST_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { CommonSEO } from "@/components/SEO";
 import { useTranslation } from "next-i18next";
@@ -18,104 +18,46 @@ import { useEffect } from "react";
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let posts;
-  const notionPostId = NOTION_POST_EN_ID;
+  let technicalPosts = [];
+  let travelPosts = [];
 
-  // if (!SiteConfig.useCustomHomeLayout) {
-  //   posts = await notionService.getPage(NOTION_HOME_ID);
-  // } else {
-  //   const response = await getDataBaseList({
-  //     pageId: notionPostId,
-  //     from: "home-index",
-  //   });
-  //   posts = response.allPages?.slice(0, 15) || [];
-  // }
-  const result = await notionService.getFilteredDatabaseList({
-    databaseId: NOTION_POST_EN_ID,
-    viewId: "2854f2276e33476ab81b80b1ec908031", // 从URL的v=参数获取
-    filters: [
-      {
-        property: "状态",
-        operator: "enum_is",
-        value: "进行中",
-      },
-    ],
-    sorts: [
-      {
-        property: "创建时间",
-        direction: "descending",
-      },
-    ],
-    groupBy: "状态", // 可选
-    limit: 100, // 可选
-  });
-  console.log("resultresultresultresult", result);
-  debugger;
+  if (!SiteConfig.useCustomHomeLayout) {
+    posts = await notionService.getPage(NOTION_HOME_ID);
+  } else {
+    const response = await getDataBaseList({
+      pageId: NOTION_POST_ID,
+      from: "home-index",
+    });
+    // console.log("responseresponseresponseresponseresponse", response);
+    posts = response.allPages?.slice(0, 15) || [];
+
+    const technicalCategory = response.categoryOptions?.find((item) =>
+      locale === "en"
+        ? item.name === "technical-en"
+        : item.name === "technical-zh"
+    );
+    const travelCategory = response.categoryOptions?.find((item) =>
+      locale === "en" ? item.name === "travel-en" : item.name === "travel-zh"
+    );
+    technicalPosts = technicalCategory
+      ? technicalCategory.articles.slice(0, 15)
+      : [];
+    travelPosts = travelCategory ? travelCategory.articles.slice(0, 15) : [];
+    // console.log("postpostspostspostss", travelCategory);
+  }
 
   return {
     props: {
       posts,
+      technicalPosts,
+      travelPosts,
       ...(await serverSideTranslations(locale || "zh", ["common", "home"])),
     },
     revalidate: 10,
   };
 };
-const Home = ({ posts }: any) => {
+const Home = ({ posts, technicalPosts, travelPosts }: any) => {
   const { t } = useTranslation("home" || "common");
-
-  // 获取文章列表
-
-  // 处理分类变化
-  // const handleCategoryChange = (category: string) => {
-  //   setSelectedCategory(category);
-  //   const filters = [];
-
-  //   if (category) {
-  //     filters.push({
-  //       property: "category",
-  //       operator: "string_is",
-  //       value: category,
-  //     });
-  //   }
-
-  //   if (searchQuery) {
-  //     filters.push({
-  //       property: "title",
-  //       operator: "string_contains",
-  //       value: searchQuery,
-  //     });
-  //   }
-
-  //   fetchPosts(filters);
-  // };
-
-  // 处理搜索
-  // const handleSearch = (query: string) => {
-  //   setSearchQuery(query);
-  //   const filters = [];
-
-  //   if (query) {
-  //     filters.push({
-  //       property: "title",
-  //       operator: "string_contains",
-  //       value: query,
-  //     });
-  //   }
-
-  //   if (selectedCategory) {
-  //     filters.push({
-  //       property: "category",
-  //       operator: "string_is",
-  //       value: selectedCategory,
-  //     });
-  //   }
-
-  //   fetchPosts(filters);
-  // };
-
-  // 初始加载
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const galleryImages = [
     {
@@ -297,7 +239,7 @@ const Home = ({ posts }: any) => {
             {/* 内容网格布局 */}
             <div className="grid grid-cols-4 gap-4">
               {/* 四列网格布局，间距为 4 */}
-              {posts.map((post: any) => (
+              {travelPosts.map((post: any) => (
                 <Link key={post.id} href={`/post/${post.id}`}>
                   {/* 卡片容器 */}
                   <div className="group">
@@ -384,7 +326,7 @@ const Home = ({ posts }: any) => {
               </div>
 
               <div className="lg:col-span-5 space-y-6">
-                {posts.slice(1, 5).map((post: any) => (
+                {travelPosts.slice(1, 5).map((post: any) => (
                   <Link key={post.id} href={`/post/${post.id}`}>
                     <div className="flex gap-6 group p-2 -mx-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                       <div className="relative w-36 h-28 flex-shrink-0 overflow-hidden rounded-lg">

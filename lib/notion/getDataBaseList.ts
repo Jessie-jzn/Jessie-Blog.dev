@@ -7,6 +7,7 @@ import { idToUuid } from "@/lib/notion-utils";
 import SiteConfig from "../../site.config";
 
 import * as Types from "@/lib/type";
+import { getAllCategories } from "./getAllCategories";
 
 /**
  * 获取数据库数据
@@ -110,15 +111,21 @@ export default async function getDataBaseList({
     return post && (post.status === "Published" || post.status === "P");
   });
 
+  // 所有分类
+  const categoryOptions = getAllCategories({
+    allPages,
+    categoryOptions: getCategoryOptions(schema),
+  });
+
   // 所有标签
   const tagOptions =
     getAllTagsList({
-      allPages,
+      allPages: allPages as unknown as readonly Types.Post[],
       tagOptions: getTagOptions(schema),
     }) || [];
 
   // 返回包含所有页面、标签选项和页面ID的对象
-  return { allPages, tagOptions, pageIds };
+  return { allPages, ...categoryOptions, tagOptions, pageIds };
 }
 
 /**
@@ -135,3 +142,16 @@ export const getTagOptions = (schema: Types.SchemaProp) => {
 
   return tagSchema?.options || [];
 };
+
+/**
+ * 获取分类选项
+ * @param schema
+ * @returns {{}|*|*[]}
+ */
+function getCategoryOptions(schema: Types.SchemaProp) {
+  if (!schema) return {};
+  const categorySchema = Object.values(schema).find(
+    (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.category
+  ) as any;
+  return categorySchema?.options || [];
+}
