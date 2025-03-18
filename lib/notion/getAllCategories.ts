@@ -1,4 +1,5 @@
 import { isIterable } from "@/lib/util";
+import * as Types from "@/lib/type";
 
 /**
  * 获取所有文章的分类
@@ -8,24 +9,14 @@ import { isIterable } from "@/lib/util";
  * @returns {Promise<Array<{ id: string, name: string, color: string, count: number, articles: Array<any> }>>} - 返回一个分类对象数组，每个对象包含 `id`、`name`、`color`、`count` 和 `articles` 字段。
  */
 
-interface Category {
-  id: string;
-  name?: string;
-  value?: string;
-  color: string;
-  count: number;
-  articles: Array<any>;
-}
 // 提取所有文章的分类信息并构建分类到文章的映射
 
 export function getAllCategories({
   allPages,
   categoryOptions,
-  sliceCount = 0,
 }: {
   allPages: any[];
-  categoryOptions: Category[];
-  sliceCount?: number;
+  categoryOptions: Types.Category[];
 }) {
   // 仅筛选已发布的文章
   const allPosts = allPages.filter(
@@ -34,10 +25,14 @@ export function getAllCategories({
       (page.status === "Published" || page.status === "P")
   );
   if (!allPosts || !categoryOptions) {
-    return [];
+    // 按照数量排序并限制返回结果的数量
+    return {
+      categoryMap: {},
+      categoryList: [],
+    };
   }
 
-  const categoryMap: Record<string, Category> = {};
+  const categoryMap: Record<string, Types.Category> = {};
 
   // 预处理 categoryOptions 为一个 Map，提高查找效率
   const categoryMapLookup = new Map(categoryOptions.map((c) => [c.value, c]));
@@ -66,18 +61,11 @@ export function getAllCategories({
     });
   });
 
-  const list: Category[] = Object.values(categoryMap);
+  const list: Types.Category[] = Object.values(categoryMap);
 
   // 按照数量排序并限制返回结果的数量
-  if (sliceCount && sliceCount > 0) {
-    return {
-      categoryMap: list.slice(0, sliceCount),
-      categoryList: list.slice(0, sliceCount),
-    };
-  } else {
-    return {
-      categoryMap,
-      categoryList: list,
-    };
-  }
+  return {
+    categoryMap: categoryMap,
+    categoryList: list,
+  };
 }

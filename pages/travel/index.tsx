@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { motion } from "framer-motion";
-import { NOTION_GUIDE_ID, NOTION_GUIDE_EN_ID } from "@/lib/constants";
+import { NOTION_POST_ID } from "@/lib/constants";
 import Image from "next/image";
 import SiteConfig from "@/site.config";
 import * as Types from "@/lib/type";
@@ -10,32 +10,32 @@ import { useState } from "react";
 import Link from "next/link";
 import TravelListLayout from "@/components/layouts/TravelListLayout";
 import { useTranslation } from "next-i18next";
+import { processTags } from "@/lib/util";
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const zhResponse = await getDataBaseList({
-    pageId: NOTION_GUIDE_ID,
-    from: "travel-index",
+  const response = await getDataBaseList({
+    pageId: NOTION_POST_ID,
+    from: "home-index",
+    filter: (post: any) =>
+      post.category === "travel-en" || post.category === "travel-zh",
   });
+  // 根据当前语言决定显示顺序
+  const primaryKey = locale === "en" ? "travel-en" : "travel-zh";
+  const secondaryKey = locale === "en" ? "travel-zh" : "travel-en";
 
-  const enResponse = await getDataBaseList({
-    pageId: NOTION_GUIDE_EN_ID,
-    from: "travel-index",
-  });
+  const primaryPosts = response.categoryMap?.[primaryKey]?.articles || [];
+  const secondaryPosts = response.categoryMap?.[secondaryKey]?.articles || [];
 
-  const primaryPosts =
-    locale === "en" ? enResponse.allPages : zhResponse.allPages || [];
-  const secondaryPosts =
-    locale === "en" ? zhResponse.allPages : enResponse.allPages || [];
+  // 合并文章列表
+  const allPosts = [...primaryPosts, ...secondaryPosts];
 
-  const allPosts = [...(primaryPosts || []), ...(secondaryPosts || [])];
+  // 使用封装的函数处理标签
+  const tagMap = processTags(response.tagOptions || []);
 
-  const combinedTagOptions = [
-    ...(zhResponse.tagOptions || []),
-    ...(enResponse.tagOptions || []),
-  ];
-  const uniqueTagOptions = Array.from(
-    new Map(combinedTagOptions.map((tag) => [tag.id, tag])).values()
-  );
+  // 转换回数组形式
+  const uniqueTagOptions = Array.from(tagMap.values());
 
+  console.log("uniqueTagOptions", response.tagOptions);
   return {
     props: {
       posts: allPosts,
@@ -177,7 +177,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                         {s}
                       </h3>
                     ))}
-                    {post.sorts.map((s: string) => (
+                    {post.sorts?.map((s: string) => (
                       <h3
                         className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
                         key={s}

@@ -1,5 +1,4 @@
 import * as Types from "@/lib/type";
-import { isIterable } from "@/lib/util";
 
 /**
  * 获取所有文章的标签列表
@@ -9,41 +8,33 @@ import { isIterable } from "@/lib/util";
  * @returns 标签列表
  */
 export default function getAllTagsList({
-  allPages,
-  sliceCount = 0,
+  allPages: allPosts,
   tagOptions,
+  sliceCount = 0,
 }: {
   allPages: ReadonlyArray<Types.Post>;
-  sliceCount?: number;
   tagOptions: ReadonlyArray<Types.Tag>;
+  sliceCount?: number;
 }): Types.Tag[] {
-  // 筛选所有已发布文章
-  const allPosts = allPages.filter(
-    (page) =>
-      page.type === "Post" &&
-      (page.status === "Published" || page.status === "P")
-  );
+  if (!allPosts.length || !tagOptions.length) return [];
 
-  if (allPosts.length === 0 || tagOptions.length === 0) return [];
-
-  // 1️构建 tag 到文章的映射表（使用 Map 提高查询效率）
+  // 1️使用 Map 构建标签到文章的映射
   const tagArticleMap = new Map<string, Types.Post[]>();
 
   allPosts.forEach((post) => {
     post.tags.forEach((tag) => {
-      const articles = tagArticleMap.get(tag) ?? [];
-      articles.push(post);
-      tagArticleMap.set(tag, articles);
+      if (!tagArticleMap.has(tag)) {
+        tagArticleMap.set(tag, []);
+      }
+      tagArticleMap.get(tag)!.push(post); // 使用 `!` 断言，确保一定存在
     });
   });
 
-  // 2️ 仅遍历存在于 tagArticleMap 的标签，减少无效计算
-  const tagList: Types.Tag[] = [];
-
-  for (const tagOption of tagOptions) {
+  // 2️ 直接使用 `reduce` 构建 `tagList`
+  const tagList = tagOptions.reduce<Types.Tag[]>((list, tagOption) => {
     const articles = tagArticleMap.get(tagOption.value);
     if (articles) {
-      tagList.push({
+      list.push({
         id: tagOption.id,
         name: tagOption.value,
         color: tagOption.color,
@@ -52,7 +43,8 @@ export default function getAllTagsList({
         articles,
       });
     }
-  }
+    return list;
+  }, []);
 
   // 3️返回截取后的标签列表
   return sliceCount > 0 ? tagList.slice(0, sliceCount) : tagList;

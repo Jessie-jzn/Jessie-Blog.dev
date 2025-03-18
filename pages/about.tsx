@@ -244,7 +244,7 @@ const About = () => {
           <div className="w-full md:w-1/2">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg shadow-lg">
               <Image
-                src="/images/telecommuting.png"
+                src="https://qiniu.jessieontheroad.com/icon/Telecommuting-cuate.png"
                 alt="Philosophy Image"
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-300"

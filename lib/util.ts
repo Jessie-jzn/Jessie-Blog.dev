@@ -106,3 +106,40 @@ export const getDatabaseId = (category: string) => {
 export const isIterable = (obj: any) => {
   return obj != null && typeof obj[Symbol.iterator] === "function";
 };
+
+export const processTags = (
+  tagOptions: any[]
+): Map<string, { id: string; name: string; articles: any[] }> => {
+  const tagMap = new Map<
+    string,
+    { id: string; name: string; articles: any[] }
+  >();
+
+  for (const tag of tagOptions || []) {
+    const existingTag = tagMap.get(tag.id);
+    const newArticles = tag.articles || [];
+
+    if (existingTag) {
+      // 如果标签已存在，合并文章并去重
+      const articlesMap = new Map(
+        existingTag.articles.map((article: any) => [article.id, article])
+      );
+
+      // 添加新文章，如果 ID 已存在会自动覆盖
+      newArticles.forEach((article: any) => {
+        articlesMap.set(article.id, article);
+      });
+
+      // 更新文章列表
+      existingTag.articles = Array.from(articlesMap.values());
+    } else {
+      // 如果是新标签，直接添加
+      tagMap.set(tag.id, {
+        ...tag,
+        articles: newArticles,
+      });
+    }
+  }
+
+  return tagMap;
+};

@@ -4,8 +4,7 @@ import getBlockInBatches from "./getBlockInBatches";
 import getPageProperties from "./getPageProperties";
 import getAllTagsList from "./getAllTagsList";
 import { idToUuid } from "@/lib/notion-utils";
-import SiteConfig from "../../site.config";
-
+import SiteConfig from "@/site.config";
 import * as Types from "@/lib/type";
 import { getAllCategories } from "./getAllCategories";
 
@@ -18,8 +17,18 @@ import { getAllCategories } from "./getAllCategories";
 export default async function getDataBaseList({
   pageId,
   from,
+  filter,
 }: Types.NotionPageParamsProp) {
   console.log("[Fetching Data]", pageId, from);
+  // 初始化 allPages、categoryOptions、tagOptions 和 pageIds
+  let allPages = []; // 示例初始化
+  let categoryOptions: Record<string, Types.Category | any> = {
+    categoryMap: {}, // 示例初始化
+    categoryList: [], // 示例初始化
+  };
+  let tagOptions = []; // 示例初始化
+  let pageIds: string[] = []; // 示例初始化
+
   // 获取页面记录映射
   const pageRecordMap = await getPage({ pageId, from });
 
@@ -54,7 +63,7 @@ export default async function getDataBaseList({
   // 获取视图ID和页面ID
   const viewIds = rawMetadata?.view_ids;
   const collectionData = [];
-  const pageIds = getAllPageIds(
+  pageIds = getAllPageIds(
     collectionQuery,
     collectionId,
     collectionView,
@@ -101,7 +110,7 @@ export default async function getDataBaseList({
   let postCount = 0;
 
   // 查找所有的Post和Page
-  const allPages = collectionData.filter((post) => {
+  allPages = collectionData.filter((post) => {
     if (
       post?.type === "Post" &&
       (post.status === "Published" || post.status === "P")
@@ -111,21 +120,32 @@ export default async function getDataBaseList({
     return post && (post.status === "Published" || post.status === "P");
   });
 
+  // 应用传入的过滤器
+  if (filter) {
+    allPages = allPages.filter(filter);
+  }
+
   // 所有分类
-  const categoryOptions = getAllCategories({
+  categoryOptions = getAllCategories({
     allPages,
     categoryOptions: getCategoryOptions(schema),
   });
 
   // 所有标签
-  const tagOptions =
+  tagOptions =
     getAllTagsList({
       allPages: allPages as unknown as readonly Types.Post[],
       tagOptions: getTagOptions(schema),
     }) || [];
 
   // 返回包含所有页面、标签选项和页面ID的对象
-  return { allPages, ...categoryOptions, tagOptions, pageIds };
+  return {
+    allPages,
+    categoryMap: categoryOptions?.categoryMap,
+    categoryList: categoryOptions?.categoryList,
+    tagOptions,
+    pageIds,
+  };
 }
 
 /**

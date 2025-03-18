@@ -93,7 +93,7 @@ const Navbar = ({
             </div>
 
             <div
-              className={`text-3xl font-bold xs:text-xs text-gray-900 dark:text-gray-100 ${
+              className={`text-3xl font-bold xs:text-xs text-gray-100 xs:text-gray-900 dark:text-gray-100 ${
                 currentTheme === "light" ? "text-gray-900" : "text-gray-100"
               }`}
             >

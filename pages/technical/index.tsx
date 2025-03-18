@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CardChapterList from "@/components/CustomLayout/CardChapterList";
 import PostListLayout from "@/components/layouts/PostListLayout";
 import dynamic from "next/dynamic";
+import { processTags } from "@/lib/util";
 import * as Types from "@/lib/type";
 
 // Dynamically import sidebar component
@@ -84,22 +85,53 @@ type CategoryItem = {
   articles: Types.Post[];
 };
 
-// 主页面组件
-const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
-  const allTagArticles = useMemo<CategoryItem[]>(() => {
-    // 收集所有文章并去重
-    const allArticlesMap = new Map();
-    tagOptions.forEach((tag) => {
-      (tag.articles || []).forEach((article) => {
-        allArticlesMap.set(article.id, article);
-      });
-    });
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const response = await getDataBaseList({
+    pageId: NOTION_POST_ID,
+    from: "home-index",
+    filter: (post: any) =>
+      post.category === "technical-en" || post.category === "technical-zh",
+  });
+  // 根据当前语言决定显示顺序
+  const primaryKey = locale === "en" ? "technical-en" : "technical-zh";
+  const secondaryKey = locale === "en" ? "technical-zh" : "technical-en";
 
+  const primaryPosts = response.categoryMap?.[primaryKey]?.articles || [];
+  const secondaryPosts = response.categoryMap?.[secondaryKey]?.articles || [];
+
+  // 合并文章列表
+  const allPosts = [...primaryPosts, ...secondaryPosts];
+
+  // 使用封装的函数处理标签
+  const tagMap = processTags(response.tagOptions || []);
+
+  // 转换回数组形式
+  const uniqueTagOptions = Array.from(tagMap.values());
+
+  return {
+    props: {
+      posts: allPosts,
+      tagOptions: uniqueTagOptions,
+      ...(await serverSideTranslations(locale || "zh", ["common"])),
+    },
+    revalidate: 10,
+  };
+};
+
+// 主页面组件
+const PostListPage = ({
+  posts,
+  tagOptions,
+}: {
+  posts: Types.Post[];
+  tagOptions: Types.Tag[];
+}) => {
+  const allTagArticles = useMemo<CategoryItem[]>(() => {
     return [
       {
         id: "all",
         name: "全部",
-        articles: Array.from(allArticlesMap.values()),
+        articles: posts,
       },
       ...tagOptions.map((tag) => ({
         id: tag.id,
@@ -107,7 +139,7 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
         articles: tag.articles || [],
       })),
     ];
-  }, [tagOptions]);
+  }, [posts, tagOptions]);
 
   const [curCategoryItem, setCurCategoryItem] = useState<CategoryItem>(
     allTagArticles[0]
@@ -155,85 +187,6 @@ const PostListPage = ({ tagOptions }: { tagOptions: Types.Tag[] }) => {
       </div>
     </div>
   );
-};
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // 获取中文文章
-  const zhResponse = await getDataBaseList({
-    pageId: NOTION_POST_ID,
-    from: "post-index",
-  });
-
-  // 获取英文文章
-  const enResponse = await getDataBaseList({
-    pageId: NOTION_POST_EN_ID,
-    from: "post-index",
-  });
-
-  // 根据当前语言决定显示顺序
-  const primaryPosts =
-    locale === "en" ? enResponse.allPages : zhResponse.allPages;
-  const secondaryPosts =
-    locale === "en" ? zhResponse.allPages : enResponse.allPages;
-
-  // 合并文章列表
-  const allPosts = [...(primaryPosts || []), ...(secondaryPosts || [])];
-
-  // 合并标签选项和其对应的文章
-  const tagMap = new Map();
-
-  // 处理中文标签和文章
-  (zhResponse.tagOptions || []).forEach((tag) => {
-    tagMap.set(tag.id, {
-      id: tag.id,
-      name: tag.name,
-      articles: tag.articles || [],
-    });
-  });
-
-  // 合并英文标签和文章
-  (enResponse.tagOptions || []).forEach((tag) => {
-    if (tagMap.has(tag.id)) {
-      // 如果标签已存在，合并文章并去重
-      const existingTag = tagMap.get(tag.id);
-      const newArticles = tag.articles || [];
-
-      // 使用 Map 去重，以文章 ID 为键
-      const articlesMap = new Map();
-
-      // 先添加已有的文章
-      existingTag.articles.forEach((article: { id: any }) => {
-        articlesMap.set(article.id, article);
-      });
-
-      // 添加新文章，如果 ID 已存在会自动覆盖
-      newArticles.forEach((article) => {
-        articlesMap.set(article.id, article);
-      });
-
-      // 更新文章列表
-      existingTag.articles = Array.from(articlesMap.values());
-    } else {
-      // 如果是新标签，直接添加
-      tagMap.set(tag.id, {
-        id: tag.id,
-        name: tag.name,
-        articles: tag.articles || [],
-      });
-    }
-  });
-
-  // 转换回数组形式
-  const uniqueTagOptions = Array.from(tagMap.values());
-
-  return {
-    props: {
-      posts: allPosts,
-      tagOptions: uniqueTagOptions,
-      ...(await serverSideTranslations(locale || "zh", ["common"])),
-    },
-    revalidate: 10,
-  };
 };
 
 PostListPage.getLayout = (page: React.ReactElement) => {

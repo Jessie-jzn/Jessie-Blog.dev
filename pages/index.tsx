@@ -4,7 +4,7 @@ import { NOTION_HOME_ID } from "@/lib/constants";
 import SiteConfig from "@/site.config";
 import HomeLayout from "@/components/layouts/HomeLayout";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import { NOTION_GUIDE_ID, NOTION_POST_ID } from "@/lib/constants";
+import { NOTION_POST_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { CommonSEO } from "@/components/SEO";
 import { useTranslation } from "next-i18next";
@@ -13,7 +13,6 @@ import Link from "next/link";
 import { getProxiedImageUrl } from "@/utils/imageHelper";
 import Carousel from "@/components/Carousel";
 import * as Types from "@/lib/type";
-import { useEffect } from "react";
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -28,22 +27,15 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       pageId: NOTION_POST_ID,
       from: "home-index",
     });
-    // console.log("responseresponseresponseresponseresponse", response);
-    posts = response.allPages?.slice(0, 15) || [];
 
-    const technicalCategory = response.categoryOptions?.find((item) =>
-      locale === "en"
-        ? item.name === "technical-en"
-        : item.name === "technical-zh"
-    );
-    const travelCategory = response.categoryOptions?.find((item) =>
-      locale === "en" ? item.name === "travel-en" : item.name === "travel-zh"
-    );
-    technicalPosts = technicalCategory
-      ? technicalCategory.articles.slice(0, 15)
-      : [];
-    travelPosts = travelCategory ? travelCategory.articles.slice(0, 15) : [];
-    // console.log("postpostspostspostss", travelCategory);
+    posts = response?.allPages?.slice(0, 15) || [];
+    const technicalKey = locale === "en" ? "technical-en" : "technical-zh";
+    const travelKey = locale === "en" ? "travel-en" : "travel-zh";
+
+    technicalPosts =
+      response.categoryMap?.[technicalKey]?.articles.slice(0, 15) || [];
+    travelPosts =
+      response.categoryMap?.[travelKey]?.articles.slice(0, 15) || [];
   }
 
   return {
@@ -239,7 +231,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
             {/* 内容网格布局 */}
             <div className="grid grid-cols-4 gap-4">
               {/* 四列网格布局，间距为 4 */}
-              {travelPosts.map((post: any) => (
+              {exploreContent.map((post: any) => (
                 <Link key={post.id} href={`/post/${post.id}`}>
                   {/* 卡片容器 */}
                   <div className="group">
@@ -294,11 +286,14 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
-                <Link href={`/post/${posts[0]?.id}`} className="group block">
+                <Link
+                  href={`/post/${travelPosts[0]?.id}`}
+                  className="group block"
+                >
                   <div className="relative h-[500px] rounded-xl overflow-hidden">
                     <Image
-                      src={posts[0]?.pageCoverThumbnail}
-                      alt={posts[0]?.title}
+                      src={travelPosts[0]?.pageCoverThumbnail}
+                      alt={travelPosts[0]?.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       priority
@@ -307,18 +302,18 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                     <div className="absolute bottom-0 left-0 right-0 p-8">
                       <div className="mb-3">
                         <span className="inline-block px-3 py-1 text-xs font-medium text-white bg-[#62BFAD] rounded-full">
-                          {posts[0]?.category}
+                          {travelPosts[0]?.tags}
                         </span>
                       </div>
                       <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#62BFAD] transition-colors">
-                        {posts[0]?.title}
+                        {travelPosts[0]?.title}
                       </h3>
                       <p className="text-gray-200 mb-4 line-clamp-2">
-                        {posts[0]?.description}
+                        {travelPosts[0]?.description}
                       </p>
                       <div className="flex items-center text-gray-300 text-sm">
                         <span className="inline-block w-1 h-1 rounded-full bg-gray-300 mr-2" />
-                        {posts[0]?.lastEditedDate}
+                        {travelPosts[0]?.lastEditedDate}
                       </div>
                     </div>
                   </div>
@@ -340,7 +335,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       <div className="flex-grow py-1">
                         <div className="mb-2">
                           <span className="text-xs font-medium text-[#62BFAD]">
-                            {post.category}
+                            {post.tags}
                           </span>
                         </div>
                         <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-[#62BFAD] transition-colors line-clamp-2">

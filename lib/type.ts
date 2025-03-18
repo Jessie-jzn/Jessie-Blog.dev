@@ -132,6 +132,7 @@ export interface SearchParams {
 export interface NotionPageParamsProp {
   pageId: string;
   from: string;
+  filter?: any;
 }
 
 export interface SchemaProp {
@@ -187,4 +188,13 @@ export interface PostData {
   pageCoverThumbnail: string; // 页面封面缩略图 URL
   ext: Record<string, any>; // 扩展字段，允许附加任意扩展数据
   tagItems: TagItem[]; // 详细的标签数组，包含名称和颜色
+}
+
+export interface Category {
+  id: string;
+  name?: string;
+  value?: string;
+  color: string;
+  count: number;
+  articles: Array<any>;
 }
