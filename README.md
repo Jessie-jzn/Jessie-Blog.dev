@@ -22,7 +22,7 @@
 
 ## 📸 Preview / 预览
 
-<a href="https://www.jessieontheroad.com"><img src="https://raw.githubusercontent.com/Jessie-jzn/Jessie-Blog.dev/public/images/website.png" alt="Blog Preview" /></a>
+<a href="https://www.jessieontheroad.com"><img src="https://github.com/Jessie-jzn/Jessie-Blog.dev/blob/main/public/images/website.png" alt="Blog Preview" /></a>
 
 ## ✨ Features / 特性
 
