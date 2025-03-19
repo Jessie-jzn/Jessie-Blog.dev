@@ -59,6 +59,17 @@
       "shareDesc": "Through my journey as a developer and traveler, I aim to inspire others to pursue their passions and embrace new experiences.",
       "quote": "The world is a book and those who do not travel read only one page.",
       "quoteAuthor": "— Saint Augustine"
+    },
+    "journey": {
+      "title": "My Journey So Far",
+      "description": "Started as a frontend developer, I've always been passionate about creating beautiful and functional web experiences. Along the way, I discovered my love for travel and photography, which brought me to Australia on a Working Holiday visa.",
+      "background": {
+        "title": "Professional Background",
+        "experience": "Frontend Engineer with 5+ years experience",
+        "skills": "Specialized in React, TypeScript, and Modern Web Technologies",
+        "photography": "Amateur Photographer focusing on Travel and Landscape",
+        "whv": "Current Australian WHV Holder"
+      }
     }
   }
 }

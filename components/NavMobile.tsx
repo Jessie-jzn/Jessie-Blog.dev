@@ -42,13 +42,13 @@ const NavMobile = () => {
         </svg>
       </button>
       <div
-        className={`fixed left-0 top-0 z-[201] h-full w-full transform bg-white opacity-95 duration-300 ease-in-out dark:bg-gray-950 dark:opacity-[0.98] ${
+        className={`fixed left-0 top-0 z-[999] h-full w-full transform bg-white opacity-95 duration-300 ease-in-out dark:bg-gray-950 dark:opacity-[0.98] ${
           navShow ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex justify-end">
           <button
-            className="mr-8 mt-11 h-8 w-8"
+            className="mr-8 mt-8 h-8 w-8"
             aria-label="Toggle Menu"
             onClick={onToggleNav}
           >
@@ -66,7 +66,7 @@ const NavMobile = () => {
             </svg>
           </button>
         </div>
-        <nav className="fixed mt-8 h-full">
+        <nav className="mt-8">
           {SiteConfig.navigationLinks?.map((link: any) => (
             <div key={link.title} className="px-12 py-4">
               <Link

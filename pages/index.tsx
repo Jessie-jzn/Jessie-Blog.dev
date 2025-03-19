@@ -48,6 +48,53 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     revalidate: 10,
   };
 };
+
+// Add type definition for the SubTitleRender props
+interface SubTitleProps {
+  title: string;
+  subtitle: string;
+  readMoreLink?: string; // Optional link for the "Read More" button
+  readMoreText?: string; // Optional custom text for the button
+}
+
+// Update the SubTitleRender component with proper typing
+const SubTitleRender = ({
+  title,
+  subtitle,
+  readMoreLink = "/blog", // Default to /blog if not specified
+}: SubTitleProps) => {
+  const { t } = useTranslation("home");
+
+  return (
+    <div className="flex items-center justify-between mb-12">
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          {title}
+        </h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">{subtitle}</p>
+      </div>
+      <Link href={readMoreLink}>
+        <button className="group inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full hover:bg-[#62BFAD] hover:text-white transition-all duration-300 text-sm">
+          <span className="font-medium">{t("explore.readMore")}</span>
+          <svg
+            className="w-3.5 h-3.5 transform transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </button>
+      </Link>
+    </div>
+  );
+};
+
 const Home = ({ posts, technicalPosts, travelPosts }: any) => {
   const { t } = useTranslation("home" || "common");
 
@@ -181,41 +228,6 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
     },
   ];
 
-  const SubTitleRender = (title: string, subtitle: string) => {
-    return (
-      <div className="flex items-center justify-between mb-12">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            {title}
-          </h2>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">{subtitle}</p>
-        </div>
-        {/* <Link href="/blog" className="hidden md:block">
-      <button className="px-6 py-2.5 border border-gray-300 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-        {t("featuredPosts.viewAll", "VIEW ALL")}
-      </button>
-    </Link> */}
-        <Link href="/blog">
-          <button className="group inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full hover:bg-[#62BFAD] hover:text-white transition-all duration-300 text-sm">
-            <span className="font-medium">{t("explore.readMore")}</span>
-            <svg
-              className="w-3.5 h-3.5 transform transition-transform group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </button>
-        </Link>
-      </div>
-    );
-  };
   return (
     <div>
       <CommonSEO
@@ -231,8 +243,8 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
             {/* 内容网格布局 */}
             <div className="grid grid-cols-4 gap-4">
               {/* 四列网格布局，间距为 4 */}
-              {exploreContent.map((post: any) => (
-                <Link key={post.id} href={`/post/${post.id}`}>
+              {exploreContent.map((post) => (
+                <Link key={post.href} href={post.href}>
                   {/* 卡片容器 */}
                   <div className="group">
                     {/* 使用 group 类来控制子元素的hover效果 */}
@@ -246,7 +258,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" // 响应式图片尺寸
                       />
                       {/* 视频播放图标（如果是视频的话） */}
-                      {post.isVideo && (
+                      {/* {post?.type === 'video' && (
                         <div className="absolute inset-0 flex items-center justify-center">
                           <div className="w-7 h-7 rounded-full bg-black/50 flex items-center justify-center">
                             <svg
@@ -258,7 +270,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                             </svg>
                           </div>
                         </div>
-                      )}
+                      )} */}
                     </div>
                     {/* 文字内容区域 */}
                     <>
@@ -279,10 +291,11 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
         </section>
         <section className="py-16 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4">
-            {SubTitleRender(
-              t("featuredPosts.title", "在世界游荡的女性系列"),
-              t("featuredPosts.subtitle", "探索世界的故事与见闻")
-            )}
+            {SubTitleRender({
+              title: t("featuredPosts.title"),
+              subtitle: t("featuredPosts.subtitle"),
+              readMoreLink: "/blog",
+            })}
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
@@ -356,10 +369,11 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
 
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
-            {SubTitleRender(
-              t("travelGuide.title", "边走边记录"),
-              t("travelGuide.subtitle", "最实用的旅行建议 & 经验分享")
-            )}
+            {SubTitleRender({
+              title: t("travelGuide.title"),
+              subtitle: t("travelGuide.subtitle"),
+              readMoreLink: "/travelGuide",
+            })}
 
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {posts.slice(0, 8).map((post: Types.Post) => (
@@ -408,10 +422,11 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
 
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
-            {SubTitleRender(
-              t("routes.title", "自由行不迷路"),
-              t("routes.subtitle", "为不同风格旅行者定制行程")
-            )}
+            {SubTitleRender({
+              title: t("routes.title"),
+              subtitle: t("routes.subtitle"),
+              readMoreLink: "/routes",
+            })}
 
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {routeCards.map((card, index) => (
@@ -487,10 +502,11 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
             {/* 标题区域 */}
-            {SubTitleRender(
-              t("gallery.title", "镜头下的世界"),
-              t("gallery.subtitle", "捕捉旅途中的每一个美好瞬间")
-            )}
+            {SubTitleRender({
+              title: t("gallery.title"),
+              subtitle: t("gallery.subtitle"),
+              readMoreLink: "/gallery",
+            })}
 
             {/* 图片网格 */}
             <div className="grid grid-cols-12 gap-3">

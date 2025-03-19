@@ -69,6 +69,7 @@ module.exports = {
         },
       },
       animation: {
+        "pulse-slow": "pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         wave: "wave-animation 2.5s linear infinite",
         "music-bar-1": "music-bar-1 .8s linear infinite",
         "music-bar-2": "music-bar-2 .8s linear infinite",

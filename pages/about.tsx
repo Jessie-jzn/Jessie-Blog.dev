@@ -134,39 +134,26 @@ const About = () => {
       {/* Journey Section */}
       <div className="mb-12 sm:mb-20">
         <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center md:text-left">
-          My Journey So Far:
+          {t("sections.journey.title")}
         </h2>
         <div className="space-y-6 sm:space-y-8">
           <div>
             <p className="text-base sm:text-lg text-gray-700">
-              Started as a frontend developer, I&apos;ve always been passionate
-              about creating beautiful and functional web experiences. Along the
-              way, I discovered my love for travel and photography, which
-              brought me to Australia on a Working Holiday visa.
+              {t("sections.journey.description")}
             </p>
           </div>
 
           <div>
             <h3 className="text-xl sm:text-2xl font-semibold mb-4">
-              Professional Background:
+              {t("sections.journey.background.title")}
             </h3>
             <ul className="space-y-3 text-base sm:text-lg text-gray-700">
-              <li className="flex items-center">
-                <span className="w-4 h-4 bg-black rounded-full mr-3"></span>
-                Frontend Engineer with 5+ years experience
-              </li>
-              <li className="flex items-center">
-                <span className="w-4 h-4 bg-black rounded-full mr-3"></span>
-                Specialized in React, TypeScript, and Modern Web Technologies
-              </li>
-              <li className="flex items-center">
-                <span className="w-4 h-4 bg-black rounded-full mr-3"></span>
-                Amateur Photographer focusing on Travel and Landscape
-              </li>
-              <li className="flex items-center">
-                <span className="w-4 h-4 bg-black rounded-full mr-3"></span>
-                Current Australian WHV Holder
-              </li>
+              {["experience", "skills", "photography", "whv"].map((item) => (
+                <li key={item} className="flex items-center">
+                  <span className="w-4 h-4 bg-black rounded-full mr-3"></span>
+                  {t(`sections.journey.background.${item}`)}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

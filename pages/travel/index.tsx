@@ -82,16 +82,17 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
   return (
     <>
       <header
-        className="relative w-full h-[80vh] xs:h-[50vh] bg-cover bg-center flex items-center justify-center"
+        className="relative w-full h-[70vh] xs:h-[40vh] bg-cover bg-center flex items-center justify-center"
         style={{
-          backgroundImage: `url('${SiteConfig.imageDomainUrl}image6.jpg')`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('${SiteConfig.imageDomainUrl}image6.jpg')`,
+          backgroundPosition: "center 30%",
         }}
       >
-        <div className="flex flex-col items-center justify-center px-4">
-          <h2 className="text-6xl xs:text-xl font-extrabold text-white leading-tight mb-6 xs:mb-4 text-center">
+        <div className="flex flex-col items-center justify-center px-4 space-y-4 xs:space-y-2">
+          <h2 className="text-5xl xs:text-2xl font-bold text-white leading-tight text-center tracking-wide">
             {t("travel.title")}
           </h2>
-          <div className="text-3xl xs:text-sm font-extrabold text-white leading-tight mb-6 xs:mb-4 text-center">
+          <div className="text-2xl xs:text-sm font-medium text-white/90 leading-relaxed text-center max-w-2xl">
             {t("travel.description")}
           </div>
         </div>
@@ -136,7 +137,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         </nav>
 
         <motion.div
-          className="grid grid-cols-2 xs:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 xs:gap-4"
+          className="grid grid-cols-2 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 xs:gap-4"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -165,28 +166,22 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                   <div className="text-gray-500 xs:text-sm mb-2">
                     {post.lastEditedDate}
                   </div>
-                  <h2 className="text-xl xs:text-base font-bold">
+                  <h2 className="text-base xs:text-sm font-bold line-clamp-2">
                     {post.title}
                   </h2>
                   <div className="flex flex-wrap items-center">
-                    {post.city?.map((s: string) => (
-                      <h3
-                        className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
-                        key={s}
-                      >
-                        {s}
-                      </h3>
-                    ))}
-                    {post.sorts?.map((s: string) => (
-                      <h3
-                        className="text-xs font-mono mt-2 mr-2 bg-[#62BFAD] px-1 rounded-sm h-4"
-                        key={s}
-                      >
-                        {s}
-                      </h3>
-                    ))}
+                    {[...(post.city || []), ...(post.sorts || [])].map(
+                      (tag) => (
+                        <span
+                          key={tag}
+                          className="px-1.5 py-0.5 text-xs bg-[#62BFAD]/10 text-[#62BFAD] rounded-sm"
+                        >
+                          {tag}
+                        </span>
+                      )
+                    )}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-5 xs:line-clamp-3 xs:text-sm">
+                  <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-5 xs:line-clamp-3 text-sm xs:text-xs">
                     {post.slug}
                   </p>
                 </div>

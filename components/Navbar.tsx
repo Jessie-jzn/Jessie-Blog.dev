@@ -145,14 +145,9 @@ const Navbar = ({
             <LanguageSwitch btnColor={btnColor} />
           </motion.div>
 
-          <motion.div
-            initial="initial"
-            whileHover="hover"
-            variants={menuItemVariants}
-            className="cursor-pointer xs:block hidden"
-          >
+          <div className="cursor-pointer block sm:hidden">
             <NavMobile />
-          </motion.div>
+          </div>
           <Analytics />
           <SpeedInsights />
         </div>
