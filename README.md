@@ -43,7 +43,7 @@
 - **Deployment:** [Vercel](https://vercel.com/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
 
-[![Next][Next.js]][Next-url] [![MDX]][MDX-url] [![Vercel]][Vercel-url] [![React]][React-url] [![Typescript]][Typescript-url] [![Tailwind CSS]][Tailwind CSS-url]
+[![Next][Next.js]][Next-url] [![MDX][MDX]][MDX-url] [![Vercel][Vercel]][Vercel-url] [![React][React]][React-url] [![Typescript][Typescript]][Typescript-url] [![Tailwind CSS][Tailwind CSS]][Tailwind CSS-url]
 
 ## 🚀 Roadmap / 开发计划
 
@@ -91,3 +91,18 @@ Project Link / 项目链接: [https://github.com/Jessie-jzn/Jessie-Blog.dev](htt
 ---
 
 <p align="center">Copyright © 2024 - Jessie</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[Typescript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
+[Typescript-url]: https://www.typescriptlang.org/
+[Tailwind CSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind CSS-url]: https://tailwindcss.com/
+[MDX]: https://img.shields.io/badge/MDX-000000?style=for-the-badge&logo=mdx&logoColor=white
+[MDX-url]: https://mdxjs.com/
+[React]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vercel]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
