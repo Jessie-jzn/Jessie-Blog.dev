@@ -1,7 +1,7 @@
 <h1 align="center">Jessie's Blog</h1>
-<p align="center"><i>Explore a blend of technical articles, travel guides, and personal reflections. 
+<p align="center"><i>A personal blog featuring technical articles, travel guides, and life reflections.
 <br>
-探索技术文章、旅行攻略和个人感想的融合。</i></p>
+一个融合技术文章、旅行攻略和生活感悟的个人博客。</i></p>
 
 <div align="center">
     <a href="https://github.com/Jessie-jzn/Next-Notion-Blog/stargazers"><img src="https://img.shields.io/github/stars/Jessie-jzn/Next-Notion-Blog" alt="Stars Badge"/></a>
@@ -11,78 +11,83 @@
     <a href="https://github.com/Jessie-jzn/Next-Notion-Blog/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Jessie-jzn/Next-Notion-Blog?color=2b9348"></a>
     <a href="https://github.com/Jessie-jzn/Next-Notion-Blog/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Jessie-jzn/Next-Notion-Blog?color=2b9348" alt="License Badge"/></a>
 </div>
+
+<p align="center">
+    <a href="https://www.jessieontheroad.com/">Live Demo</a>
+    ·
+    <a href="https://github.com/Jessie-jzn/Jessie-Blog.dev/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Jessie-jzn/Jessie-Blog.dev/issues">Request Feature</a>
+</p>
+
+## 📸 Preview / 预览
+
+<a href="https://next-notion-blog-jessie-jzns-projects.vercel.app/"><img src="https://raw.githubusercontent.com/Jessie-jzn/Jessie-Blog.dev/main/public/images/website.png" alt="Blog Preview" /></a>
+
+## ✨ Features / 特性
+
+- 📝 Notion as CMS / 使用 Notion 作为内容管理系统
+- 🌍 Multilingual Support (English & Chinese) / 多语言支持（英文和中文）
+- 🎨 Tailwind CSS for Styling / 使用 Tailwind CSS 构建界面
+- 📊 Analytics Integration / 集成数据统计分析
+- 🔍 SEO Optimized / SEO 优化
+- 📱 Responsive Design / 响应式设计
+- 📧 Newsletter Subscription / 邮件订阅功能
+- 🏷️ Category & Tag System / 分类和标签系统
+
+## 🛠️ Tech Stack / 技术栈
+
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Content Management:** [Notion API](https://developers.notion.com)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+
+[![Next][Next.js]][Next-url] [![MDX]][MDX-url] [![Vercel]][Vercel-url] [![React]][React-url] [![Typescript]][Typescript-url] [![Tailwind CSS]][Tailwind CSS-url]
+
+## 🚀 Roadmap / 开发计划
+
+### Completed / 已完成
+
+- [x] Basic UI implementation / 基础 UI 实现
+- [x] Notion API integration / Notion API 接入
+- [x] Analytics integration / 数据统计集成
+- [x] SEO optimization / SEO 优化
+- [x] Environment separation / 环境区分
+- [x] Newsletter subscription / 邮件订阅
+- [x] Category and tag system / 分类和标签系统
+
+### In Progress / 进行中
+
+- [ ] Search and filter functionality / 搜索和过滤功能
+- [ ] Photography section / 摄影版块
+- [ ] Media optimization / 多媒体优化
+- [ ] User authentication / 用户认证系统
+- [ ] Comments system / 评论系统
+- [ ] Social sharing / 社交分享功能
+
+## 🤝 Contributing / 贡献
+
+Contributions are always welcome! / 欢迎贡献！
+
+1. Fork the Project / 复刻项目
+2. Create your Feature Branch / 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes / 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch / 推送到分支 (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request / 开启拉取请求
+
+## 📝 License / 许可
+
+Distributed under the MIT License. See `LICENSE` for more information.
 <br>
-<p align="center"><i>Enjoy the project? Please visit our <a href="https://www.jessieontheroad.com/">Website</a> 
-<br>
-喜欢这个项目吗？请访问我们的网站 <a href="https://www.jessieontheroad.com/">Website</a></i></p>
-<br>
+基于 MIT 许可证开源。查看 `LICENSE` 获取更多信息。
 
-## Website / 网站
+## 📬 Contact / 联系
 
-<a href="https://next-notion-blog-jessie-jzns-projects.vercel.app/"><img src="https://raw.githubusercontent.com/Jessie-jzn/Jessie-Blog.dev/main/public/images/website.png" alt="TravelGuide Explorer Website" /></a>
+Jessie - znjessie858@gmail.com
 
-## Tech Stack / 技术栈
-
-This project is hosted on [Vercel](https://vercel.com/), built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/) using **Tailwind Nextjs Starter Blog**.
-<br>
-本项目托管在 [Vercel](https://vercel.com/)，使用 [Next.js](https://nextjs.org/) 和 [Tailwind CSS](https://tailwindcss.com/) 构建，基于 **Tailwind Nextjs Starter Blog**。
-
-[![Next][Next.js]][Next-url] [![MDX][MDX]][MDX-url] [![Vercel][Vercel]][Vercel-url] [![React][React]][React-url] [![Typescript][Typescript]][Typescript-url] [![Tailwind CSS][Tailwind CSS]][Tailwind CSS-url]
-
-Inspired by travel blogs and the need for comprehensive guides, this project aims to provide an intuitive and visually appealing platform for travelers. It also includes technical articles and personal reflections.
-<br>
-受旅游博客和综合旅游指南需求的启发，本项目旨在为旅行者提供一个直观且视觉美观的平台。同时还包括技术文章和个人感想。
-
-Some major features include: / 主要功能包括：
-
-- 🌍 In-depth guides for various destinations / 各种目的地的详细指南
-- 🧳 Travel preparation and packing tips / 旅行准备和打包的建议
-- 📅 Travel itineraries and suggestions / 旅游行程和建议
-- 📝 User-contributed reviews and recommendations / 用户贡献的评论和推荐
-- 🌐 Multi-language support for global accessibility / 全球可访问的多语言支持
-- 💻 Technical articles and insights on front-end development / 前端开发的技术文章和见解
-
-## 项目 TODO
-
-- [x] 各页面 UI
-- [x] 接入 NOTION 借口
-- [x] 统计和分析：提供网站访问量、文章阅读量、用户行为等统计数据
-- [x] SEO 优化：提供 SEO 优化功能，自定义文章的标题、描述和关键词，增加搜索引擎曝光率
-- [x] 区分正式、测试环境
-- [ ] 搜索和过滤：提供搜索功能，读者可以根据关键词查找旅行文章。提供按目的地、旅行类型、日期等过滤文章的选项。
-- [x] 订阅和通知：读者可以订阅博客，通过邮箱接收新文章通知。
-- [ ] tab 新增摄影图像
-- [ ] 多媒体支持：提供图片和视频的优化和压缩功能，提高页面加载速度。
-- [x] 分类和标签：可以为文章添加分类和标签，方便读者根据目的地、旅行类型（如冒险、休闲、美食等）和关键词查找内容
-- [ ] 用户注册和登录：允许用户通过邮箱或社交媒体账号（如 Google、Facebook）注册和登录，以便于他们订阅博客、发表评论和互动
-- [ ] 评论和互动：读者可以对文章发表评论，和其他读者互动
-- [ ] 社交分享：读者可以将文章分享到社交媒体平台（如 Facebook、Twitter、Instagram 等）
-- [x] 联系表单：提供联系表单，读者可以通过表单与博主联系，提出问题或建议
-
-## Show Your Support / 表示支持
-
-If you find this project helpful, please give it a ⭐
-<br>
-如果您觉得这个项目有帮助，请给它一个 ⭐
+Project Link / 项目链接: [https://github.com/Jessie-jzn/Jessie-Blog.dev](https://github.com/Jessie-jzn/Jessie-Blog.dev)
 
 ---
 
-<p align="center"><b>Copyright © 2024 - Jessie </p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[Typescript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
-[Typescript-url]: https://www.typescriptlang.org/
-[Tailwind CSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
-[Tailwind CSS-url]: https://tailwindcss.com/
-[MDX]: https://img.shields.io/badge/MDX-000000?style=for-the-badge&logo=mdx&logoColor=white
-[MDX-url]: https://mdxjs.com/
-[React]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vercel]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
-[Vercel-url]: https://vercel.com/
-
-
+<p align="center">Copyright © 2024 - Jessie</p>
