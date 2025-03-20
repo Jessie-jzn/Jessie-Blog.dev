@@ -10,7 +10,7 @@ export default function TravelListLayout({
     <div className="min-h-screen relative w-full bg-white dark:bg-gray-950">
       <Navbar isFull={true} />
       <main className="w-full">{children}</main>
-      <Footer className="bg-yellow-50" />
+      <Footer className="#F9F7E8" />
     </div>
   );
 }

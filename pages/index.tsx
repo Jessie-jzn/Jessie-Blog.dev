@@ -13,6 +13,7 @@ import Link from "next/link";
 import { getProxiedImageUrl } from "@/utils/imageHelper";
 import Carousel from "@/components/Carousel";
 import * as Types from "@/lib/type";
+import { motion } from "framer-motion";
 
 const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -236,74 +237,97 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
       />
 
       <main className="min-h-screen w-full mx-auto">
-        <Carousel slides={carouselSlides} />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <Carousel slides={carouselSlides} />
+        </motion.div>
 
-        <section className="py-8 bg-white dark:bg-gray-900">
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="py-8 bg-white dark:bg-gray-900"
+        >
           <div className="container mx-auto px-4">
-            {/* 内容网格布局 */}
             <div className="grid grid-cols-4 gap-4">
-              {/* 四列网格布局，间距为 4 */}
-              {exploreContent.map((post) => (
-                <Link key={post.href} href={post.href}>
-                  {/* 卡片容器 */}
-                  <div className="group">
-                    {/* 使用 group 类来控制子元素的hover效果 */}
-                    {/* 图片容器 */}
-                    <div className="relative w-full h-32 mb-3 overflow-hidden rounded-lg bg-gray-100">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill // 填充父容器
-                        className="object-cover" // 保持图片比例并填充容器
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" // 响应式图片尺寸
-                      />
-                      {/* 视频播放图标（如果是视频的话） */}
-                      {/* {post?.type === 'video' && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-7 h-7 rounded-full bg-black/50 flex items-center justify-center">
-                            <svg
-                              className="w-3.5 h-3.5 text-white"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M8 5v14l11-7z" />
-                            </svg>
-                          </div>
-                        </div>
-                      )} */}
-                    </div>
-                    {/* 文字内容区域 */}
-                    <>
-                      {/* 标题 */}
+              {exploreContent.map((post, index) => (
+                <motion.div
+                  key={post.href}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Link href={post.href}>
+                    <div className="group">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="relative w-full h-32 mb-3 overflow-hidden rounded-lg bg-gray-100"
+                      >
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        />
+                      </motion.div>
                       <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2 leading-snug group-hover:text-[#62BFAD] transition-colors">
                         {post.title}
                       </h3>
-                      {/* 描述文本 */}
                       <div className="flex items-center gap-2 text-xs text-gray-500">
                         <span>{post.description}</span>
                       </div>
-                    </>
-                  </div>
-                </Link>
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
-        <section className="py-16 bg-white dark:bg-gray-900">
+        </motion.section>
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="py-16 bg-white dark:bg-gray-900"
+        >
           <div className="container mx-auto px-4">
-            {SubTitleRender({
-              title: t("featuredPosts.title"),
-              subtitle: t("featuredPosts.subtitle"),
-              readMoreLink: "/blog",
-            })}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              {SubTitleRender({
+                title: t("featuredPosts.title"),
+                subtitle: t("featuredPosts.subtitle"),
+                readMoreLink: "/blog",
+              })}
+            </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-7">
+              <motion.div
+                className="lg:col-span-7"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
                 <Link
                   href={`/post/${travelPosts[0]?.id}`}
                   className="group block"
                 >
-                  <div className="relative h-[500px] rounded-xl overflow-hidden">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="relative h-[500px] rounded-xl overflow-hidden"
+                  >
                     <Image
                       src={travelPosts[0]?.pageCoverThumbnail}
                       alt={travelPosts[0]?.title}
@@ -329,43 +353,61 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                         {travelPosts[0]?.lastEditedDate}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </Link>
-              </div>
+              </motion.div>
 
-              <div className="lg:col-span-5 space-y-6">
-                {travelPosts.slice(1, 5).map((post: any) => (
-                  <Link key={post.id} href={`/post/${post.id}`}>
-                    <div className="flex gap-6 group p-2 -mx-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                      <div className="relative w-36 h-28 flex-shrink-0 overflow-hidden rounded-lg">
-                        <Image
-                          src={post.pageCoverThumbnail}
-                          alt={post.title}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="flex-grow py-1">
-                        <div className="mb-2">
-                          <span className="text-xs font-medium text-[#62BFAD]">
-                            {post.tags}
-                          </span>
+              <motion.div
+                className="lg:col-span-5 space-y-6"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                {travelPosts.slice(1, 5).map((post: any, index: number) => (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <Link href={`/post/${post.id}`}>
+                      <motion.div
+                        whileHover={{ scale: 1.03, x: 10 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                        className="flex gap-6 group p-2 -mx-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                      >
+                        <div className="relative w-36 h-28 flex-shrink-0 overflow-hidden rounded-lg">
+                          <Image
+                            src={post.pageCoverThumbnail}
+                            alt={post.title}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
                         </div>
-                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-[#62BFAD] transition-colors line-clamp-2">
-                          {post.title}
-                        </h3>
-                        <div className="flex items-center text-sm text-gray-500 mt-2">
-                          <span className="inline-block w-1 h-1 rounded-full bg-gray-400 mr-2" />
-                          {post.lastEditedDate}
+                        <div className="flex-grow py-1">
+                          <div className="mb-2">
+                            <span className="text-xs font-medium text-[#62BFAD]">
+                              {post.tags}
+                            </span>
+                          </div>
+                          <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-[#62BFAD] transition-colors line-clamp-2">
+                            {post.title}
+                          </h3>
+                          <div className="flex items-center text-sm text-gray-500 mt-2">
+                            <span className="inline-block w-1 h-1 rounded-full bg-gray-400 mr-2" />
+                            {post.lastEditedDate}
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </Link>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         <section className="py-16 bg-gray-50 dark:bg-gray-950">
           <div className="container mx-auto px-4">
@@ -499,25 +541,45 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
           </div>
         </section>
 
-        <section className="py-16 bg-gray-50 dark:bg-gray-950">
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="py-16 bg-gray-50 dark:bg-gray-950"
+        >
           <div className="container mx-auto px-4">
-            {/* 标题区域 */}
-            {SubTitleRender({
-              title: t("gallery.title"),
-              subtitle: t("gallery.subtitle"),
-              readMoreLink: "/gallery",
-            })}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              {SubTitleRender({
+                title: t("gallery.title"),
+                subtitle: t("gallery.subtitle"),
+                readMoreLink: "/gallery",
+              })}
+            </motion.div>
 
-            {/* 图片网格 */}
             <div className="grid grid-cols-12 gap-3">
-              {/* 第一列 - 大图 */}
-              <div className="col-span-6 h-[400px]">
-                <div className="group relative h-full overflow-hidden rounded-lg">
+              <motion.div
+                className="col-span-6 h-[400px]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="group relative h-full overflow-hidden rounded-lg"
+                >
                   <Image
                     src={getProxiedImageUrl(galleryImages[0].url)}
                     alt={galleryImages[0].alt}
                     fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                     priority
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
@@ -527,82 +589,45 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       {galleryImages[0].alt}
                     </span>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              {/* 第二列 - 2张小图垂直排列 */}
-              <div className="col-span-3 space-y-3">
-                {[1, 3].map((index) => (
-                  <div
-                    key={index}
-                    className="group relative h-[196px] overflow-hidden rounded-lg"
-                  >
-                    <Image
-                      src={getProxiedImageUrl(galleryImages[index].url)}
-                      alt={galleryImages[index].alt}
-                      fill
-                      className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      priority={index === 1}
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-white text-sm font-medium">
-                        {galleryImages[index].alt}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 第三列 - 2张小图垂直排列 */}
-              <div className="col-span-3 space-y-3">
-                {[2, 4].map((index) => (
-                  <div
-                    key={index}
-                    className="group relative h-[196px] overflow-hidden rounded-lg"
-                  >
-                    <Image
-                      src={getProxiedImageUrl(galleryImages[index].url)}
-                      alt={galleryImages[index].alt}
-                      fill
-                      className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-white text-sm font-medium">
-                        {galleryImages[index].alt}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* 下面一行的图片 */}
-              {galleryImages.slice(5).map((image, index) => (
-                <div
-                  key={index + 5}
-                  className="col-span-4 group relative h-[180px] overflow-hidden rounded-lg"
+              {[1, 2].map((colIndex) => (
+                <motion.div
+                  key={colIndex}
+                  className="col-span-3 space-y-3"
+                  initial={{ opacity: 0, x: 30 * colIndex }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: colIndex * 0.2 }}
                 >
-                  <Image
-                    src={getProxiedImageUrl(image.url)}
-                    alt={image.alt}
-                    fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    sizes="(max-width: 768px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-sm font-medium">
-                      {image.alt}
-                    </span>
-                  </div>
-                </div>
+                  {[colIndex * 2 - 1, colIndex * 2].map((imgIndex) => (
+                    <motion.div
+                      key={imgIndex}
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className="group relative h-[196px] overflow-hidden rounded-lg"
+                    >
+                      <Image
+                        src={getProxiedImageUrl(galleryImages[imgIndex].url)}
+                        alt={galleryImages[imgIndex].alt}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-white text-sm font-medium">
+                          {galleryImages[imgIndex].alt}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
 
         <section className="py-16 bg-white dark:bg-gray-950">
           <div className="container mx-auto px-4">
