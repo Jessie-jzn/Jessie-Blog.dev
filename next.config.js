@@ -7,10 +7,14 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-module.exports = withBundleAnalyzer({
+const nextConfig = withBundleAnalyzer({
+  reactStrictMode: true,
+  images: {
+    domains: ["qiniu.jessieontheroad.com"],
+  },
   i18n: {
-    defaultLocale: "en",
-    locales: ["en", "zh"],
+    locales: ["zh", "en"],
+    defaultLocale: "zh",
   },
   swcMinify: true, // 启用 SWC 最小化
   env: {
@@ -128,3 +132,5 @@ module.exports = withBundleAnalyzer({
     port: 3000,
   },
 });
+
+module.exports = nextConfig;
