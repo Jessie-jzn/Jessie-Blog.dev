@@ -11,6 +11,51 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     domains: ["qiniu.jessieontheroad.com"],
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.wp.**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.nextjswp.**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.githubusercontent.**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.aglty.**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.notion.**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.jessieontheroad.**",
+      },
+      {
+        protocol: "https",
+        hostname: "qiniu.jessieontheroad.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.dropbox.**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "3000",
+        pathname: "/**",
+      },
+    ],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   i18n: {
     locales: ["zh", "en"],
@@ -71,66 +116,6 @@ const nextConfig = withBundleAnalyzer({
     },
   },
   staticPageGenerationTimeout: 60,
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.wp.**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.nextjswp.**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.githubusercontent.**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.aglty.**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.notion.**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.jessieontheroad.**",
-      },
-      {
-        protocol: "https",
-        hostname: "qiniu.jessieontheroad.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.dropbox.**",
-      },
-      {
-        protocol: "http",
-        hostname: "127.0.0.1",
-        port: "3000",
-        pathname: "/**",
-      },
-    ],
-    domains: [
-      "localhost",
-      "127.0.0.1",
-      "www.jessieontheroad.com",
-      "jessie-blog.vercel.app", // 如果部署在 Vercel 上
-      "qiniu.jessieontheroad.com",
-      "images.unsplash.com",
-      "prod-files-secure.s3.us-west-2.amazonaws.com",
-    ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-  },
-  devServer: {
-    host: "127.0.0.1",
-    port: 3000,
-  },
 });
 
 module.exports = nextConfig;
