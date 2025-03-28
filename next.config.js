@@ -1,11 +1,21 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
+const fs = require("fs");
 const { i18n } = require("./next-i18next.config");
 const isProd = process.env.NODE_ENV === "production";
 // 打包时是否分析代码
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
+
+const apiKey = process.env.INDEXNOW_API_KEY;
+if (apiKey) {
+  const keyFilePath = path.join(__dirname, "public", `${apiKey}.txt`);
+  if (!fs.existsSync(keyFilePath)) {
+    fs.writeFileSync(keyFilePath, apiKey, "utf8");
+    console.log(`IndexNow key file created at: ${keyFilePath}`);
+  }
+}
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
