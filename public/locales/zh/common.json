@@ -4,7 +4,7 @@
     "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
   },
   "viewAll": "查看全部",
-  "technical": "技术文章",
+
   "life": "生活感想",
   "post": "文章",
   "tags": "标签",
@@ -146,5 +146,10 @@
   },
   "common": {
     "explore": "立刻探索"
+  },
+  "technical": {
+    "title": "技术文章",
+    "href": "/technical",
+    "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。"
   }
 }

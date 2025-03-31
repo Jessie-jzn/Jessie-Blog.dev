@@ -9,7 +9,8 @@ import PostListLayout from "@/components/layouts/PostListLayout";
 import dynamic from "next/dynamic";
 import { processTags } from "@/lib/util";
 import * as Types from "@/lib/type";
-
+import { CommonSEO } from "@/components/SEO";
+import { useTranslation } from "next-i18next";
 // Dynamically import sidebar component
 const Sidebar = dynamic(() => import("@/components/Sidebar"), {
   ssr: false,
@@ -126,6 +127,7 @@ const PostListPage = ({
   posts: Types.Post[];
   tagOptions: Types.Tag[];
 }) => {
+  const { t } = useTranslation("common");
   const allTagArticles = useMemo<CategoryItem[]>(() => {
     return [
       {
@@ -150,42 +152,48 @@ const PostListPage = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900/70 flex items-center flex-col min-h-screen">
-      {/* 分类导航栏 - 优化移动端显示 */}
-      <nav className="w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
-        <div className="mx-auto">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 sm:space-x-6 overflow-x-auto px-2 sm:px-4 py-2 sm:py-3 no-scrollbar">
-              <AnimatePresence>
-                {allTagArticles.map((category: CategoryItem) => (
-                  <CategoryTab
-                    key={category.id}
-                    category={category}
-                    isActive={curCategoryItem.id === category.id}
-                    onClick={() => handleChangeCategory(category)}
-                  />
-                ))}
-              </AnimatePresence>
+    <>
+      <CommonSEO
+        title={t("technical.title", { ns: "common" })}
+        description={t("travel.description", { ns: "common" })}
+      />
+      <div className="bg-white dark:bg-gray-900/70 flex items-center flex-col min-h-screen">
+        {/* 分类导航栏 - 优化移动端显示 */}
+        <nav className="w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
+          <div className="mx-auto">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 sm:space-x-6 overflow-x-auto px-2 sm:px-4 py-2 sm:py-3 no-scrollbar">
+                <AnimatePresence>
+                  {allTagArticles.map((category: CategoryItem) => (
+                    <CategoryTab
+                      key={category.id}
+                      category={category}
+                      isActive={curCategoryItem.id === category.id}
+                      onClick={() => handleChangeCategory(category)}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* 主要内容区域 - 优化间距和布局 */}
-      <div className="w-full max-w-screen-xl mx-auto px-2 sm:px-4">
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-          {/* 文章列表 */}
-          <div className="flex-1 min-h-screen pt-2 sm:pt-4 md:pt-8">
-            <ArticleList articles={curCategoryItem.articles} />
+        {/* 主要内容区域 - 优化间距和布局 */}
+        <div className="w-full max-w-screen-xl mx-auto px-2 sm:px-4">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+            {/* 文章列表 */}
+            <div className="flex-1 min-h-screen pt-2 sm:pt-4 md:pt-8">
+              <ArticleList articles={curCategoryItem.articles} />
+            </div>
+
+            {/* 右侧边栏 - 保持在大屏幕显示 */}
+            <aside className="hidden md:block w-80 pt-8 sticky top-[120px]">
+              <Sidebar />
+            </aside>
           </div>
-
-          {/* 右侧边栏 - 保持在大屏幕显示 */}
-          <aside className="hidden md:block w-80 pt-8 sticky top-[120px]">
-            <Sidebar />
-          </aside>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

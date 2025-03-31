@@ -97,7 +97,7 @@ const SubTitleRender = ({
 };
 
 const Home = ({ posts, technicalPosts, travelPosts }: any) => {
-  const { t } = useTranslation("home" || "common");
+  const { t } = useTranslation(["home", "common"]);
 
   const galleryImages = [
     {

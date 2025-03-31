@@ -53,7 +53,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         {/* DNS 预取 */}
         <meta
           name="google-adsense-account"
-          content="ca-pub-9533100025276131" // Google AdSense 账户信息
+          content={process.env.NEXT_PUBLIC_ADSENSE_ID} // Google AdSense 账户信息
         ></meta>
         <meta name="msapplication-TileColor" content="#000000" />{" "}
         {/* Windows 瓷砖颜色 */}
@@ -100,7 +100,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       ></Script>
       <Script
         async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9533100025276131`} // 加载 Google AdSense 脚本
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`} // 加载 Google AdSense 脚本
         crossOrigin="anonymous"
         strategy="afterInteractive" // 确保页面互动之后才加载广告脚本
       ></Script>
