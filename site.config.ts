@@ -111,6 +111,8 @@ const SiteConfig = {
   // github: 'Jessie-jzn',
   facebook: "https://facebook.com/100093684045138",
   github: "https://github.com/Jessie-jzn",
+  xiaohongshu:
+    "https://www.xiaohongshu.com/user/profile/589b257e6a6a693355986f61", // 替换为实际链接
 
   // 默认 notion 图标和封面图像，以实现全站一致性（可选）
   // default notion icon and cover images for site-wide consistency (optional)

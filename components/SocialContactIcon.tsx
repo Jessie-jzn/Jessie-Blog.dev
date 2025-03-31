@@ -47,6 +47,12 @@ const SocialContactIcon = ({ prop }: any) => {
         size={6}
         theme={prop?.theme}
       />
+      <SocialIcon
+        kind="xiaohongshu"
+        href={SiteConfig.xiaohongshu}
+        size={6}
+        theme={prop?.theme}
+      />
     </div>
   );
 };

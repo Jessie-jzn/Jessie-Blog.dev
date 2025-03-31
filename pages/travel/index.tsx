@@ -138,6 +138,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         title={t("travel.title", { ns: "common" })}
         description={t("travel.description", { ns: "common" })}
       />
+
       <motion.div
         initial="initial"
         animate="animate"

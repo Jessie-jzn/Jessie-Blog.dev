@@ -43,7 +43,7 @@
 - **Deployment:** [Vercel](https://vercel.com/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
 
-[![Next][Next.js]][Next-url] [![MDX][MDX]][MDX-url] [![Vercel][Vercel]][Vercel-url] [![React][React]][React-url] [![Typescript][Typescript]][Typescript-url] [![Tailwind CSS][Tailwind CSS]][Tailwind CSS-url]
+[![Next][Next.js]][Next-url] [![MDX]][MDX-url] [![Vercel]][Vercel-url] [![React]][React-url] [![Typescript]][Typescript-url] [![Tailwind CSS]][Tailwind CSS-url]
 
 ## 🚀 Roadmap / 开发计划
 
@@ -56,6 +56,7 @@
 - [x] Environment separation / 环境区分
 - [x] Newsletter subscription / 邮件订阅
 - [x] Category and tag system / 分类和标签系统
+- [x] Social sharing / 社交分享功能
 
 ### In Progress / 进行中
 
@@ -64,7 +65,6 @@
 - [ ] Media optimization / 多媒体优化
 - [ ] User authentication / 用户认证系统
 - [ ] Comments system / 评论系统
-- [ ] Social sharing / 社交分享功能
 
 ## 🤝 Contributing / 贡献
 
