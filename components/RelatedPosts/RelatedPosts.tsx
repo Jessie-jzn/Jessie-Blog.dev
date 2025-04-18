@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface RelatedPost {
   id: string;
@@ -10,8 +10,7 @@ interface RelatedPostsProps {
   posts: RelatedPost[];
 }
 
-const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts}) => {
-
+const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts }) => {
   return (
     <div className="w-64 hidden md:block">
       <div className="sticky top-24">

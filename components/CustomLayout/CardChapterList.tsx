@@ -29,7 +29,7 @@ const CardChapterList: React.FC<CardChapterListProps> = ({
             {article.title}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
-            {article.slug}
+            {article.summarize}
           </p>
           <div className="flex items-center text-sm text-gray-500">
             <span>{article.publishDay}</span>
@@ -46,7 +46,7 @@ const CardChapterList: React.FC<CardChapterListProps> = ({
           <div className="flex-shrink-0 ml-4">
             <Image
               src={article.pageCoverThumbnail}
-              alt={article.title || ''}
+              alt={article.title || ""}
               width={120}
               height={80}
               className="object-cover rounded-lg w-24 h-16 md:w-32 md:h-20"

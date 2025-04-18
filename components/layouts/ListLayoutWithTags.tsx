@@ -25,7 +25,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
     return posts.filter((post) => {
       const searchContent = [
         post.title,
-        post.slug,
+        post.summarize,
         post.tags?.join(" ") || "",
       ].join(" ");
 
@@ -109,7 +109,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
             <ul>
               {!filteredBlogPosts.length && "No posts found."}
               {displayPosts?.map((post: Types.Post) => {
-                const { id, title, slug, tags, lastEditedDate } = post;
+                const { id, title, summarize, tags, lastEditedDate } = post;
                 return (
                   <li key={id} className="py-4">
                     <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
@@ -143,7 +143,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {slug}
+                          {summarize}
                         </div>
                       </div>
                     </article>

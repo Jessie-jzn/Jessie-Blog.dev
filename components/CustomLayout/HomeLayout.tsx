@@ -237,7 +237,7 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                     id={p.id}
                     imageSrc={p.pageCoverThumbnail}
                     title={p.title}
-                    description={p.slug}
+                    description={p.summarize}
                   />
                 </motion.div>
               ))}

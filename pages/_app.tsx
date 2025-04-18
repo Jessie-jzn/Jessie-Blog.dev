@@ -119,6 +119,23 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         }}
       />
       <Script
+        id="custom-script-2"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function () {
+                var script = document.createElement("script");
+                script.async = 1;
+                script.src = 'https://emrldtp.cc/MzMyNjk0.js?t=332694';
+                document.head.appendChild(script);
+            })();
+          `,
+        }}
+        data-noptimize="1"
+        data-cfasync="false"
+        data-wpfc-render="false"
+      />
+      <Script
         async
         strategy="afterInteractive"
         crossOrigin="anonymous"

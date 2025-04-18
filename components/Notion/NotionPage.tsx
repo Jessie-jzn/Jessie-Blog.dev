@@ -186,7 +186,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
     <>
       <BlogSEO
         title={postData?.title}
-        description={postData?.slug || SiteConfig.description}
+        description={postData?.summarize || SiteConfig.description}
         createdTime={postData?.lastEditedDay || new Date()}
         lastEditTime={postData?.lastEditedDate || new Date()}
         image={postData?.pageCover || SiteConfig.defaultPageCover}

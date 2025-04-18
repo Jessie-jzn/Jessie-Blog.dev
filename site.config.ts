@@ -168,7 +168,7 @@ const SiteConfig = {
     summary: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SUMMARY || "summary",
 
     // 自定义链接字段
-    slug: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SLUG || "slug",
+    summarize: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SUMMARIZE || "summarize",
 
     // 分类字段
     category: process.env.NEXT_PUBLIC_NOTION_PROPERTY_CATEGORY || "category",

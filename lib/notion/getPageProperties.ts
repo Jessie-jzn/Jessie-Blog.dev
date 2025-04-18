@@ -110,6 +110,7 @@ const getPageProperties = async (
   properties.status = properties.status?.[0] || "";
   properties.category = properties.category?.[0] || "";
   properties.comment = properties.comment?.[0] || "";
+  properties.id = properties.id;
 
   // 映射值：用户个性化 type 和 status 字段的下拉框选项，在此映射回代码的英文标识
   mapProperties(properties);
@@ -140,6 +141,7 @@ const getPageProperties = async (
         color: tagOptions?.find((t) => t.value === tag)?.color || "",
       };
     }) || [];
+  properties.slug = properties.slug;
 
   delete properties.content;
   return properties;

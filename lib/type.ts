@@ -2,7 +2,7 @@ import { ExtendedRecordMap, Block } from "notion-types";
 
 export interface MenuItem {
   id: number;
-  slug?: string;
+  summarize?: string;
   title: string;
   url: string;
 }
@@ -31,7 +31,7 @@ export interface Post {
   status?: "Published";
   tags: string[];
   title: string;
-  slug?: string;
+  summarize?: string;
   category?: string;
   comment?: string;
   publishDate?: number; // 以时间戳表示
@@ -43,6 +43,7 @@ export interface Post {
   pageCover: string; // 封面图像 URL
   pageCoverThumbnail: string; // 封面缩略图 URL
   ext?: Record<string, any>; // 扩展属性，可以是任意对象
+  slug?: string; // Added slug property
   tagItems?: Array<{
     id: string; // 假设 tagItems 数组中的每个对象有 id
     name: string; // 假设每个 tagItems 对象有 name
@@ -171,7 +172,7 @@ interface TagItem {
 export interface PostData {
   id: string; // 文章的唯一 ID
   keywords: string; // 关键字，用于 SEO
-  slug: string; // 文章简介或页面 URL 描述
+  summarize: string; // 文章简介或页面 URL 描述
   type: "Post" | "Page"; // 文章类型，可以是 Post 或 Page
   status: "Published" | "Draft"; // 文章状态，已发布或草稿
   tags: string[]; // 文章标签，字符串数组

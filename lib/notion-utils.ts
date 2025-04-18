@@ -1,6 +1,11 @@
 import SiteConfig from "@/site.config";
 import { defaultMapImageUrl } from "react-notion-x";
-import { Block, ExtendedRecordMap, Decoration, FormattedDate } from "notion-types";
+import {
+  Block,
+  ExtendedRecordMap,
+  Decoration,
+  FormattedDate,
+} from "notion-types";
 
 /**
  * 映射图片 URL
@@ -55,18 +60,23 @@ export const mapPageUrl =
       // 获取页面所属的数据库 ID
       const databaseId = block?.parent_id;
       // 查找数据库对应的路由前缀
-      const routePrefix = databaseId ? (SiteConfig.databaseMapping[databaseId] || '') : '';
+      const routePrefix = databaseId
+        ? SiteConfig.databaseMapping[databaseId] || ""
+        : "";
 
       // 根据是否有路由前缀生成不同的 URL
       if (routePrefix) {
-        return createUrl(`/${routePrefix}/post/${canonicalPageId}`, searchParams);
+        return createUrl(
+          `/${routePrefix}/post/${canonicalPageId}`,
+          searchParams
+        );
       } else {
         return createUrl(`/post/${canonicalPageId}`, searchParams);
       }
     }
-    
+
     // 如果无法解析页面 ID，返回空字符串
-    return '';
+    return "";
   };
 
 /**
@@ -110,8 +120,8 @@ export const getCanonicalPageIdImpl = (
 
   if (block) {
     const slug =
-      (getPageProperty('slug', block, recordMap) as string | null) ||
-      (getPageProperty('Slug', block, recordMap) as string | null) ||
+      (getPageProperty("slug", block, recordMap) as string | null) ||
+      (getPageProperty("slug", block, recordMap) as string | null) ||
       normalizeTitle(getBlockTitle(block, recordMap));
 
     if (slug) {
@@ -133,18 +143,18 @@ export const getCanonicalPageIdImpl = (
  * @returns {string} 规范化后的标题字符串
  */
 export const normalizeTitle = (title?: string | null): string => {
-  return (title || '')
-    .replace(/ /g, '-')
+  return (title || "")
+    .replace(/ /g, "-")
     .replace(
       /[^a-zA-Z0-9-\u4e00-\u9FFF\u3041-\u3096\u30A1-\u30FC\u3000-\u303F]/g,
-      ''
+      ""
     )
-    .replace(/--/g, '-')
-    .replace(/-$/, '')
-    .replace(/-/, '')
+    .replace(/--/g, "-")
+    .replace(/-$/, "")
+    .replace(/-/, "")
     .trim()
-    .toLowerCase()
-}
+    .toLowerCase();
+};
 
 /**
  * 获取块的标题
@@ -155,25 +165,25 @@ export const normalizeTitle = (title?: string | null): string => {
  */
 export function getBlockTitle(block: Block, recordMap: ExtendedRecordMap) {
   if (block.properties?.title) {
-    return getTextContent(block.properties.title)
+    return getTextContent(block.properties.title);
   }
 
   if (
-    block.type === 'collection_view_page' ||
-    block.type === 'collection_view'
+    block.type === "collection_view_page" ||
+    block.type === "collection_view"
   ) {
-    const collectionId = getBlockCollectionId(block, recordMap)
+    const collectionId = getBlockCollectionId(block, recordMap);
 
     if (collectionId) {
-      const collection = recordMap.collection[collectionId]?.value
+      const collection = recordMap.collection[collectionId]?.value;
 
       if (collection) {
-        return getTextContent(collection.name)
+        return getTextContent(collection.name);
       }
     }
   }
 
-  return ''
+  return "";
 }
 
 /**
@@ -189,22 +199,22 @@ export function getBlockCollectionId(
 ): string | null {
   const collectionId =
     (block as any).collection_id ||
-    (block as any).format?.collection_pointer?.id
+    (block as any).format?.collection_pointer?.id;
 
   if (collectionId) {
-    return collectionId
+    return collectionId;
   }
 
-  const collectionViewId = (block as any)?.view_ids?.[0]
+  const collectionViewId = (block as any)?.view_ids?.[0];
   if (collectionViewId) {
-    const collectionView = recordMap.collection_view?.[collectionViewId]?.value
+    const collectionView = recordMap.collection_view?.[collectionViewId]?.value;
     if (collectionView) {
-      const collectionId = collectionView.format?.collection_pointer?.id
-      return collectionId
+      const collectionId = collectionView.format?.collection_pointer?.id;
+      return collectionId;
     }
   }
 
-  return null
+  return null;
 }
 
 /**
@@ -215,19 +225,19 @@ export function getBlockCollectionId(
  */
 export const getTextContent = (text?: Decoration[]): string => {
   if (!text) {
-    return ''
+    return "";
   } else if (Array.isArray(text)) {
     return (
       text?.reduce(
         (prev, current) =>
-          prev + (current[0] !== '⁍' && current[0] !== '‣' ? current[0] : ''),
-        ''
-      ) ?? ''
-    )
+          prev + (current[0] !== "⁍" && current[0] !== "‣" ? current[0] : ""),
+        ""
+      ) ?? ""
+    );
   } else {
-    return text
+    return text;
   }
-}
+};
 
 /**
  * 获取页面属性
@@ -239,7 +249,7 @@ export const getTextContent = (text?: Decoration[]): string => {
  */
 export function getPageProperty<
   T = string | number | boolean | string[] | number[]
->(propertyName: string, block: Block, recordMap: ExtendedRecordMap): T
+>(propertyName: string, block: Block, recordMap: ExtendedRecordMap): T;
 export function getPageProperty(
   propertyName: string,
   block: Block,
@@ -267,16 +277,16 @@ export function getPageProperty(
 
       // 根据属性类型处理不同的值
       switch (type) {
-        case 'created_time':
+        case "created_time":
           return block.created_time;
-        case 'multi_select':
-          return content.split(',');
-        case 'date':
+        case "multi_select":
+          return content.split(",");
+        case "date":
           // 处理日期类型的属性
           return handleDateProperty(block.properties[propertyId]);
-        case 'checkbox':
-          return content == 'Yes';
-        case 'last_edited_time':
+        case "checkbox":
+          return content == "Yes";
+        case "last_edited_time":
           return block.last_edited_time;
         default:
           return content;
@@ -297,20 +307,24 @@ export function getPageProperty(
 function handleDateProperty(property: any) {
   const formatDate = property[0][1][0][1];
   switch (formatDate.type) {
-    case 'datetime':
-      return new Date(`${formatDate.start_date} ${formatDate.start_time}`).getTime();
-    case 'date':
+    case "datetime":
+      return new Date(
+        `${formatDate.start_date} ${formatDate.start_time}`
+      ).getTime();
+    case "date":
       return new Date(formatDate.start_date).getTime();
-    case 'datetimerange':
+    case "datetimerange":
       const { start_date, start_time, end_date, end_time } = formatDate;
       return [
         new Date(`${start_date} ${start_time}`).getTime(),
-        new Date(`${end_date} ${end_time}`).getTime()
+        new Date(`${end_date} ${end_time}`).getTime(),
       ];
-    case 'daterange':
+    case "daterange":
       return [
-        formatDate.start_date ? new Date(formatDate.start_date).getTime() : null,
-        formatDate.end_date ? new Date(formatDate.end_date).getTime() : null
+        formatDate.start_date
+          ? new Date(formatDate.start_date).getTime()
+          : null,
+        formatDate.end_date ? new Date(formatDate.end_date).getTime() : null,
       ];
     default:
       console.warn(`Unexpected date format type: ${formatDate.type}`);
@@ -329,60 +343,60 @@ export const getPageContentBlockIds = (
   recordMap: ExtendedRecordMap,
   blockId?: string
 ): string[] => {
-  const rootBlockId = blockId || Object.keys(recordMap.block)[0]
-  const contentBlockIds = new Set<string>()
-  
+  const rootBlockId = blockId || Object.keys(recordMap.block)[0];
+  const contentBlockIds = new Set<string>();
+
   function addContentBlocks(blockId: string) {
-    if (contentBlockIds.has(blockId)) return
-    contentBlockIds.add(blockId)
-  
-    const block = recordMap.block[blockId]?.value
-    if (!block) return
-  
-    const { content, type, properties, format } = block
+    if (contentBlockIds.has(blockId)) return;
+    contentBlockIds.add(blockId);
+
+    const block = recordMap.block[blockId]?.value;
+    if (!block) return;
+
+    const { content, type, properties, format } = block;
     if (properties) {
       for (const key of Object.keys(properties)) {
-        const p = properties[key]
+        const p = properties[key];
         p.map((d: any) => {
-          const value = d?.[0]?.[1]?.[0]
-          if (value?.[0] === 'p' && value[1]) {
-            addContentBlocks(value[1])
+          const value = d?.[0]?.[1]?.[0];
+          if (value?.[0] === "p" && value[1]) {
+            addContentBlocks(value[1]);
           }
-        })
-  
-        const value = p?.[0]?.[1]?.[0]
-  
-        if (value?.[0] === 'p' && value[1]) {
-          addContentBlocks(value[1])
+        });
+
+        const value = p?.[0]?.[1]?.[0];
+
+        if (value?.[0] === "p" && value[1]) {
+          addContentBlocks(value[1]);
         }
       }
     }
-  
+
     if (format) {
-      const referenceId = format.transclusion_reference_pointer?.id
+      const referenceId = format.transclusion_reference_pointer?.id;
       if (referenceId) {
-        addContentBlocks(referenceId)
+        addContentBlocks(referenceId);
       }
     }
-  
+
     if (!content || !Array.isArray(content)) {
-      return
+      return;
     }
-  
+
     if (blockId !== rootBlockId) {
-      if (type === 'page' || type === 'collection_view_page') {
-        return
+      if (type === "page" || type === "collection_view_page") {
+        return;
       }
     }
-  
+
     for (const blockId of content) {
-      addContentBlocks(blockId)
+      addContentBlocks(blockId);
     }
   }
-  
-  addContentBlocks(rootBlockId)
-  return Array.from(contentBlockIds)
-}
+
+  addContentBlocks(rootBlockId);
+  return Array.from(contentBlockIds);
+};
 
 /**
  * 获取日期值
@@ -392,20 +406,20 @@ export const getPageContentBlockIds = (
  */
 export const getDateValue = (prop: any[]): FormattedDate | null => {
   if (prop && Array.isArray(prop)) {
-    if (prop[0] === 'd') {
-      return prop[1]
+    if (prop[0] === "d") {
+      return prop[1];
     } else {
       for (const v of prop) {
-        const value = getDateValue(v)
+        const value = getDateValue(v);
         if (value) {
-          return value
+          return value;
         }
       }
     }
   }
-  
-  return null
-}
+
+  return null;
+};
 /**
  * 解析页面 ID
  * 将输入的 ID 解析为 Notion 页面的标准 ID 格式
@@ -415,60 +429,61 @@ export const getDateValue = (prop: any[]): FormattedDate | null => {
  * @returns {string | null} 解析后的页面 ID，如果无法解析则返回 null
  */
 export const parsePageId = (
-  id: string | null = '',
+  id: string | null = "",
   { uuid = true }: { uuid?: boolean } = {}
 ) => {
   // 如果输入为空，直接返回 null
   if (!id) {
-    return null
+    return null;
   }
 
   // 移除 URL 中的查询参数
-  id = id.split('?')[0]
-  
+  id = id.split("?")[0];
+
   // 匹配 32 位十六进制字符串（不带连字符的 UUID）
-  const match = id.match(/\b([a-f0-9]{32})\b/)
+  const match = id.match(/\b([a-f0-9]{32})\b/);
 
   if (match) {
     // 如果匹配成功，根据 uuid 选项决定是否转换为带连字符的 UUID 格式
-    return uuid ? idToUuid(match[1]) : match[1]
+    return uuid ? idToUuid(match[1]) : match[1];
   }
 
   // 匹配标准的 UUID 格式（带连字符）
-  const match2 = id.match(/\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/)
+  const match2 = id.match(
+    /\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/
+  );
   if (match2) {
     // 如果匹配成功，根据 uuid 选项决定是否保留连字符
-    return uuid ? match2[1] : match2[1].replace(/-/g, '')
+    return uuid ? match2[1] : match2[1].replace(/-/g, "");
   }
 
-
   // 如果都不匹配，返回 null
-  return null
-}
+  return null;
+};
 
 /**
  * 将不带连字符的 ID 转换为 UUID 格式
  * @param {string} id - 输入的 32 位十六进制字符串
  * @returns {string} UUID 格式的字符串
  */
-export const idToUuid = (id = ''): string => {
+export const idToUuid = (id = ""): string => {
   // 如果输入不是 32 位，直接返回原字符串
-//   if (id.length !== 32) {
-//     return id;
-//   }
+  //   if (id.length !== 32) {
+  //     return id;
+  //   }
   // 将 32 位字符串分割并用连字符连接，形成标准 UUID 格式
   return [
     id.slice(0, 8),
     id.slice(8, 12),
     id.slice(12, 16),
     id.slice(16, 20),
-    id.slice(20)
-  ].join('-');
-}
+    id.slice(20),
+  ].join("-");
+};
 
 /**
  * 将 UUID 格式转换为不带连字符的 ID
  * @param {string} uuid - UUID 格式的字符串
  * @returns {string} 不带连字符的 32 位十六进制字符串
  */
-export const uuidToId = (uuid: string) => uuid.replace(/-/g, '')
+export const uuidToId = (uuid: string) => uuid.replace(/-/g, "");

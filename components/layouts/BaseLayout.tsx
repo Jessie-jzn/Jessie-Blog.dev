@@ -18,7 +18,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
       <Navbar isFull={false} />
       <main className="flex-grow">{children}</main>
       <Footer />
-      <div className="fixed left-4 top-1/3 z-50">
+      <div className="fixed left-4 top-1/3 z-50 xs:hidden">
         <ShareButtons
           url={SiteConfig.siteUrl}
           title={t("site.title")}

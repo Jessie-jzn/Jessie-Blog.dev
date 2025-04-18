@@ -41,8 +41,12 @@ export default async function getDataBaseList({
   pageId = idToUuid(pageId);
   let block = pageRecordMap.block || {};
 
+  // console.log("pageRecordMap", pageRecordMap);
+  // console.log("block", block);
+
   // 获取原始元数据
   const rawMetadata = block[pageId]?.value;
+  // console.log("rawMetadata", rawMetadata);
 
   // Check Type Page-Database和Inline-Database
   // if (
@@ -93,6 +97,8 @@ export default async function getDataBaseList({
   const fetchedBlocks = await getBlockInBatches(blockIdsNeedFetch);
   block = Object.assign({}, block, fetchedBlocks);
 
+  const slugMap: Record<string, string> = {}; // 新增 slug 映射
+
   // 获取每篇文章基础数据
   for (let i = 0; i < pageIds.length; i++) {
     const id = pageIds[i];
@@ -103,6 +109,12 @@ export default async function getDataBaseList({
 
     if (properties) {
       collectionData.push(properties);
+      // console.log("propertiespropertiespropertiesproperties", properties);
+      // 如果存在 slug，则添加到映射中
+      // console.log("properties.slug", properties.slug);
+      if (properties.slug) {
+        slugMap[properties.slug] = id;
+      }
     }
   }
 
@@ -138,13 +150,21 @@ export default async function getDataBaseList({
       tagOptions: getTagOptions(schema),
     }) || [];
 
+  const latestPosts = getLatestPosts({
+    allPages: allPages as Types.Post[],
+    from,
+    latestPostCount: 6,
+  });
+
   // 返回包含所有页面、标签选项和页面ID的对象
   return {
     allPages,
+    latestPosts,
     categoryMap: categoryOptions?.categoryMap,
     categoryList: categoryOptions?.categoryList,
     tagOptions,
     pageIds,
+    slugMap, // 返回 slug 映射
   };
 }
 
@@ -174,4 +194,33 @@ function getCategoryOptions(schema: Types.SchemaProp) {
     (e) => e.name === SiteConfig.NOTION_PROPERTY_NAME.category
   ) as any;
   return categorySchema?.options || [];
+}
+
+/**
+ * 获取最新文章，根据最后修改时间倒序排列
+ * @param {Object} param0 - 参数对象
+ * @param {Array} param0.allPages - 所有页面数据
+ * @param {string} param0.from - 来源标识
+ * @param {number} param0.latestPostCount - 最新文章数量
+ * @returns {Array} - 最新文章列表
+ */
+interface GetLatestPostsParams {
+  allPages: Types.Post[];
+  from: string;
+  latestPostCount: number;
+}
+
+function getLatestPosts({
+  allPages = [],
+  from,
+  latestPostCount,
+}: GetLatestPostsParams) {
+  return allPages
+    .filter((page) => page.type === "Post" && page.status === "Published")
+    .sort((a, b) => {
+      const dateA = new Date(a.lastEditedDate ?? a.publishDate ?? 0).getTime();
+      const dateB = new Date(b.lastEditedDate ?? b.publishDate ?? 0).getTime();
+      return dateB - dateA;
+    })
+    .slice(0, latestPostCount);
 }

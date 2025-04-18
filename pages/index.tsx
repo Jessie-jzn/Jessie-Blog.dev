@@ -448,7 +448,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       </h5>
 
                       <p className="text-xs xs:hidden text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
-                        {post.slug}
+                        {post.summarize}
                       </p>
 
                       <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">

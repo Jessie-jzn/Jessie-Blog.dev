@@ -30,6 +30,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   // 合并文章列表
   const allPosts = [...primaryPosts, ...secondaryPosts];
 
+  // console.log("allPosts", allPosts);
+
   // 使用封装的函数处理标签
   const tagMap = processTags(response.tagOptions || []);
 
@@ -50,8 +52,6 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
   const { t } = useTranslation("common");
   const [curTab, setCurTab] = useState("All");
   const [postList, setPostList] = useState(posts);
-
-  const category = "travel";
 
   // 更新动画变体
   const pageVariants = {
@@ -293,7 +293,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                 layout
                 custom={index}
               >
-                <Link href={`${category}/${post.id}`}>
+                <Link href={`${post?.category}/${post?.slug || post.id}`}>
                   <div className="group relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-[#F9F7E8] dark:border-white/5">
                     <div className="relative overflow-hidden aspect-[3/2]">
                       <Image
@@ -330,7 +330,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                       </div>
 
                       <p className="text-sm xs:text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
-                        {post.slug}
+                        {post.summarize}
                       </p>
 
                       <div className="flex items-center text-[#62BFAD] text-sm xs:text-xs font-medium group-hover:translate-x-2 transition-transform">

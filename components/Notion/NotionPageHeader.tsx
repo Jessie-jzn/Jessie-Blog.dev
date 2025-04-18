@@ -39,7 +39,10 @@ const NotionPageHeader = ({ block }: any) => {
       // 添加文章标题
       pathArray.push({
         href: router.asPath,
-        label: block.properties?.title?.[0]?.[0] || t("post"),
+        label:
+          block.properties?.title?.[1]?.[0] ||
+          block.properties?.title?.[0]?.[0] ||
+          t("post"),
       });
 
       setBreadcrumbs(pathArray);
