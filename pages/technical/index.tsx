@@ -64,13 +64,8 @@ const ArticleList = React.memo(({ articles }: { articles: Types.Post[] }) => {
         transition={{ duration: 0.3 }}
         className="space-y-4"
       >
-        {articles.map((article: any, index: number) => (
-          <CardChapterList
-            article={article}
-            index={index}
-            key={article.id}
-            category="technical"
-          />
+        {articles.map((article: any) => (
+          <CardChapterList article={article} key={article.id} />
         ))}
       </motion.div>
     </AnimatePresence>

@@ -6,17 +6,14 @@ import { motion } from "framer-motion";
 
 interface CardChapterListProps {
   article: Types.Post;
-  index: number;
-  category: string;
+  index?: number;
+  category?: string;
 }
 
-const CardChapterList: React.FC<CardChapterListProps> = ({
-  article,
-  index,
-  category,
-}) => {
+const CardChapterList: React.FC<CardChapterListProps> = ({ article }) => {
+  console.log("article", article);
   return (
-    <Link href={`/${category}/${article.id}`}>
+    <Link href={`${article?.category}/${article?.slug || article.id}`}>
       <motion.article
         className="flex items-start py-4 hover:bg-gray-50 border-b border-gray-100 dark:border-gray-800"
         initial={{ x: -50, opacity: 0 }}

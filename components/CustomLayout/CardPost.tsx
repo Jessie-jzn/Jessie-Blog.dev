@@ -24,7 +24,7 @@ const CardPost = ({
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={
-              imageSrc 
+              imageSrc
                 ? `/api/image-proxy?url=${encodeURIComponent(imageSrc)}`
                 : "/images/default.webp"
             }
@@ -45,11 +45,11 @@ const CardPost = ({
               </>
             )}
           </div>
-          
+
           <h3 className="text-xl font-medium line-clamp-2 text-gray-900 dark:text-gray-100">
             {title}
           </h3>
-          
+
           <p className="text-base text-gray-600 dark:text-gray-400 line-clamp-2">
             {description}
           </p>

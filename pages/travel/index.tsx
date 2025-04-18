@@ -198,38 +198,6 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
               {t("travel.description")}
             </motion.div>
           </motion.div>
-
-          {/* 更新波浪效果 */}
-          {/* <div className="absolute bottom-0 left-0 right-0 h-24 overflow-hidden">
-            <svg
-              viewBox="0 0 1440 350"
-              className="absolute bottom-0 w-full"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <linearGradient id="waveGradient" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(249, 247, 232, 0.9)" />
-                  <stop offset="100%" stopColor="#F9F7E8" />
-                </linearGradient>
-              </defs>
-              <motion.path
-                fill="url(#waveGradient)"
-                className="dark:fill-gray-950/95"
-                animate={{
-                  d: [
-                    "M0,224L60,218.7C120,213,240,203,360,213.3C480,224,600,256,720,266.7C840,277,960,267,1080,250.7C1200,235,1320,213,1380,202.7L1440,192L1440,350L0,350Z",
-                    "M0,256L60,250C120,244,240,228,360,224C480,220,600,228,720,232C840,236,960,236,1080,224C1200,212,1320,192,1380,176L1440,160L1440,350L0,350Z",
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                }}
-              />
-            </svg>
-          </div> */}
         </motion.header>
 
         <motion.div className="relative px-8 xs:px-4 py-16 xs:py-8 w-full min-h-screen">

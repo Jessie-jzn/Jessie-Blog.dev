@@ -50,15 +50,25 @@ const Navbar = ({
   const isActiveLink = useCallback(
     (href: string): boolean => {
       if (href === "/") {
-        return router.pathname === "/";
+        return router.asPath === "/";
       }
+      // 对于其他导航链接，检查是否匹配路径或其子路径
+      const basePath = href.replace(/^\/|\/$/g, ""); // 移除首尾的斜杠
+      const currentPath = router.asPath.replace(/^\/|\/$/g, ""); // 移除首尾的斜杠
+
+      // 检查是否匹配以下情况：
+      // 1. 精确匹配（如 /travel）
+      // 2. 子路径匹配（如 /travel/xxx）
+      // 3. 带语言后缀的匹配（如 /travel-zh）
+      // 4. 带语言后缀的子路径匹配（如 /travel-zh/xxx）
       return (
-        router.pathname === href ||
-        (router.pathname.startsWith(href) &&
-          router.pathname[href.length] === "/")
+        currentPath === basePath ||
+        currentPath.startsWith(`${basePath}/`) ||
+        currentPath.startsWith(`${basePath}-`) ||
+        currentPath.includes(`/${basePath}-`)
       );
     },
-    [router.pathname]
+    [router]
   );
 
   useEffect(() => {

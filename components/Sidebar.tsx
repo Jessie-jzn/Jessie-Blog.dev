@@ -25,7 +25,7 @@ const Sidebar = () => {
         </p>
 
         {/* 统计信息 */}
-        <div className="flex justify-center gap-4 mt-3">
+        <div className="flex justify-center gap-4 mt-3 mb-3">
           <div className="text-center">
             <div className="text-lg font-semibold text-gray-900">120</div>
             <div className="text-xs text-gray-500">文章</div>
@@ -39,7 +39,7 @@ const Sidebar = () => {
             <div className="text-xs text-gray-500">订阅</div>
           </div>
         </div>
-        <SocialContactIcon />
+        {/* <SocialContactIcon /> */}
         <NewsletterSubscribe />
       </div>
     </div>
