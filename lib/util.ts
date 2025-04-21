@@ -107,12 +107,17 @@ export const isIterable = (obj: any) => {
   return obj != null && typeof obj[Symbol.iterator] === "function";
 };
 
+// 处理标签映射：合并相同标签、去重文章，同时为前端展示补充字段（返回 Map）
 export const processTags = (
   tagOptions: any[]
-): Map<string, { id: string; name: string; articles: any[] }> => {
+): Map<
+  string,
+  { id: string; name: string; articles: any[]; count: number; value: string }
+> => {
+  // 创建一个 Map，以标签 id 为 key，用于去重和聚合
   const tagMap = new Map<
     string,
-    { id: string; name: string; articles: any[] }
+    { id: string; name: string; articles: any[]; count: number; value: string }
   >();
 
   for (const tag of tagOptions || []) {
@@ -120,23 +125,29 @@ export const processTags = (
     const newArticles = tag.articles || [];
 
     if (existingTag) {
-      // 如果标签已存在，合并文章并去重
+      // 合并已有文章并去重
       const articlesMap = new Map(
         existingTag.articles.map((article: any) => [article.id, article])
       );
 
-      // 添加新文章，如果 ID 已存在会自动覆盖
       newArticles.forEach((article: any) => {
         articlesMap.set(article.id, article);
       });
 
-      // 更新文章列表
-      existingTag.articles = Array.from(articlesMap.values());
+      const mergedArticles = Array.from(articlesMap.values());
+
+      // 更新已有标签信息，包括 count 和 value
+      existingTag.articles = mergedArticles;
+      existingTag.count = mergedArticles.length;
+      existingTag.value = existingTag.name;
     } else {
-      // 如果是新标签，直接添加
+      // 新标签，直接添加，同时初始化 count 和 value 字段
       tagMap.set(tag.id, {
-        ...tag,
+        id: tag.id,
+        name: tag.name,
         articles: newArticles,
+        count: newArticles.length, // 文章数量
+        value: tag.name, // 用于前端展示的值
       });
     }
   }

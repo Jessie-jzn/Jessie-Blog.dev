@@ -1,4 +1,5 @@
-<h1 align="center">Jessie's Blog</h1>
+# Jessie's Blog
+
 <p align="center"><i>A personal blog featuring technical articles, travel guides, and life reflections.
 <br>
 一个融合技术文章、旅行攻略和生活感悟的个人博客。</i></p>
@@ -26,22 +27,49 @@
 
 ## ✨ Features / 特性
 
+### Content Management / 内容管理
+
 - 📝 Notion as CMS / 使用 Notion 作为内容管理系统
+- 📚 Rich Text Support / 富文本支持
+- 🏷️ Category & Tag System / 分类和标签系统
+- 🔄 Real-time Content Updates / 实时内容更新
+
+### User Experience / 用户体验
+
 - 🌍 Multilingual Support (English & Chinese) / 多语言支持（英文和中文）
+- 📱 Responsive Design / 响应式设计
+- 🔍 Advanced Search / 高级搜索
+- 📊 Reading Progress / 阅读进度
+
+### Technical Features / 技术特性
+
 - 🎨 Tailwind CSS for Styling / 使用 Tailwind CSS 构建界面
 - 📊 Analytics Integration / 集成数据统计分析
 - 🔍 SEO Optimized / SEO 优化
-- 📱 Responsive Design / 响应式设计
 - 📧 Newsletter Subscription / 邮件订阅功能
-- 🏷️ Category & Tag System / 分类和标签系统
+- 🔒 Secure Authentication / 安全认证
 
 ## 🛠️ Tech Stack / 技术栈
 
+### Frontend / 前端
+
 - **Framework:** [Next.js](https://nextjs.org/)
-- **Content Management:** [Notion API](https://developers.notion.com)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Deployment:** [Vercel](https://vercel.com/)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **UI Components:** [Headless UI](https://headlessui.com/)
+
+### Backend / 后端
+
+- **API:** [Notion API](https://developers.notion.com)
+- **Authentication:** [NextAuth.js](https://next-auth.js.org/)
+- **Database:** [Notion Database](https://www.notion.so/product/database)
+
+### Deployment & Tools / 部署和工具
+
+- **Hosting:** [Vercel](https://vercel.com/)
+- **Analytics:** [Vercel Analytics](https://vercel.com/analytics)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Version Control:** [Git](https://git-scm.com/)
 
 [![Next][Next.js]][Next-url] [![MDX]][MDX-url] [![Vercel]][Vercel-url] [![React]][React-url] [![Typescript]][Typescript-url] [![Tailwind CSS]][Tailwind CSS-url]
 
@@ -57,6 +85,8 @@
 - [x] Newsletter subscription / 邮件订阅
 - [x] Category and tag system / 分类和标签系统
 - [x] Social sharing / 社交分享功能
+- [x] Dark mode support / 深色模式支持
+- [x] Performance optimization / 性能优化
 
 ### In Progress / 进行中
 
@@ -65,6 +95,67 @@
 - [ ] Media optimization / 多媒体优化
 - [ ] User authentication / 用户认证系统
 - [ ] Comments system / 评论系统
+- [ ] Content caching / 内容缓存
+- [ ] Progressive Web App / 渐进式 Web 应用
+
+### Planned / 计划中
+
+- [ ] Internationalization improvements / 国际化改进
+- [ ] Content recommendations / 内容推荐
+- [ ] Newsletter customization / 邮件订阅定制
+- [ ] API documentation / API 文档
+- [ ] Mobile app / 移动应用
+
+## 🏗️ Project Structure / 项目结构
+
+```
+jessie-blog.dev/
+├── components/         # React components
+├── lib/               # Utility functions and configurations
+├── pages/             # Next.js pages
+├── public/            # Static assets
+├── styles/            # Global styles
+└── types/             # TypeScript type definitions
+```
+
+## 🚀 Getting Started / 快速开始
+
+### Prerequisites / 前提条件
+
+- Node.js 18.x or later
+- npm or yarn
+- Notion API key
+
+### Installation / 安装
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/Jessie-jzn/Jessie-Blog.dev.git
+cd Jessie-Blog.dev
+```
+
+2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+4. Start the development server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
 
 ## 🤝 Contributing / 贡献
 

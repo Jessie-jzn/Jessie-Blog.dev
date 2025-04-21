@@ -4,45 +4,27 @@ import { NOTION_POST_ID } from "@/lib/constants";
 import Image from "next/image";
 import SiteConfig from "@/site.config";
 import * as Types from "@/lib/type";
-import getDataBaseList from "@/lib/notion/getDataBaseList";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import getLocalizedCategoryPosts from "@/lib/notion/getLocalizedCategoryPosts";
 import { useState } from "react";
 import Link from "next/link";
 import TravelListLayout from "@/components/layouts/TravelListLayout";
 import { useTranslation } from "next-i18next";
-import { processTags } from "@/lib/util";
 import { CommonSEO } from "@/components/SEO";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const response = await getDataBaseList({
+export const getStaticProps: GetStaticProps = async ({ locale = "zh" }) => {
+  const { posts, tagOptions, translations } = await getLocalizedCategoryPosts({
+    locale,
     pageId: NOTION_POST_ID,
-    from: "home-index",
-    filter: (post: any) =>
-      post.category === "travel-en" || post.category === "travel-zh",
+    from: "travel-index",
+    categories: ["travel-en", "travel-zh"],
+    useCache: true,
   });
-  // 根据当前语言决定显示顺序
-  const primaryKey = locale === "en" ? "travel-en" : "travel-zh";
-  const secondaryKey = locale === "en" ? "travel-zh" : "travel-en";
-
-  const primaryPosts = response.categoryMap?.[primaryKey]?.articles || [];
-  const secondaryPosts = response.categoryMap?.[secondaryKey]?.articles || [];
-
-  // 合并文章列表
-  const allPosts = [...primaryPosts, ...secondaryPosts];
-
-  // console.log("allPosts", allPosts);
-
-  // 使用封装的函数处理标签
-  const tagMap = processTags(response.tagOptions || []);
-
-  // 转换回数组形式
-  const uniqueTagOptions = Array.from(tagMap.values());
 
   return {
     props: {
-      posts: allPosts,
-      tagOptions: uniqueTagOptions,
-      ...(await serverSideTranslations(locale || "zh", ["common"])),
+      posts,
+      tagOptions,
+      ...translations,
     },
     revalidate: 10,
   };
@@ -58,36 +40,6 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
-  };
-
-  const headerVariants = {
-    initial: { opacity: 0, y: -50 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const tabItemVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    hover: {
-      scale: 1.05,
-      color: "#62BFAD",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-      },
-    },
-    active: {
-      scale: 1.1,
-      color: "#62BFAD",
-      textShadow: "0 0 8px rgba(98, 191, 173, 0.3)",
-    },
   };
 
   const cardVariants = {

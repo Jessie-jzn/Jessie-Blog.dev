@@ -1,13 +1,11 @@
 import { GetStaticProps } from "next";
-import React, { memo, useState, useCallback, useMemo } from "react";
-import { NOTION_POST_ID, NOTION_POST_EN_ID } from "@/lib/constants";
-import getDataBaseList from "@/lib/notion/getDataBaseList";
+import React, { useState, useMemo } from "react";
+import { NOTION_POST_ID } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CardChapterList from "@/components/CustomLayout/CardChapterList";
+import getLocalizedCategoryPosts from "@/lib/notion/getLocalizedCategoryPosts";
 import PostListLayout from "@/components/layouts/PostListLayout";
 import dynamic from "next/dynamic";
-import { processTags } from "@/lib/util";
 import * as Types from "@/lib/type";
 import { CommonSEO } from "@/components/SEO";
 import { useTranslation } from "next-i18next";
@@ -81,34 +79,20 @@ type CategoryItem = {
   articles: Types.Post[];
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const response = await getDataBaseList({
+export const getStaticProps: GetStaticProps = async ({ locale = "zh" }) => {
+  const { posts, tagOptions, translations } = await getLocalizedCategoryPosts({
+    locale,
     pageId: NOTION_POST_ID,
-    from: "home-index",
-    filter: (post: any) =>
-      post.category === "technical-en" || post.category === "technical-zh",
+    from: "technical-index",
+    categories: ["technical-en", "technical-zh"],
+    useCache: true,
   });
-  // 根据当前语言决定显示顺序
-  const primaryKey = locale === "en" ? "technical-en" : "technical-zh";
-  const secondaryKey = locale === "en" ? "technical-zh" : "technical-en";
-
-  const primaryPosts = response.categoryMap?.[primaryKey]?.articles || [];
-  const secondaryPosts = response.categoryMap?.[secondaryKey]?.articles || [];
-
-  // 合并文章列表
-  const allPosts = [...primaryPosts, ...secondaryPosts];
-
-  // 使用封装的函数处理标签
-  const tagMap = processTags(response.tagOptions || []);
-
-  // 转换回数组形式
-  const uniqueTagOptions = Array.from(tagMap.values());
 
   return {
     props: {
-      posts: allPosts,
-      tagOptions: uniqueTagOptions,
-      ...(await serverSideTranslations(locale || "zh", ["common"])),
+      posts,
+      tagOptions,
+      ...translations,
     },
     revalidate: 10,
   };

@@ -283,7 +283,7 @@ const About = () => {
         </div>
 
         {/* Connect Section */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8">
             {t("sections.connect.title")}
           </h2>
@@ -301,7 +301,7 @@ const About = () => {
               </a>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Notion Content */}
         {/* <div className="prose max-w-none">
