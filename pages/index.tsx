@@ -99,17 +99,6 @@ const SubTitleRender = ({
 const Home = ({ posts, technicalPosts, travelPosts }: any) => {
   const { t } = useTranslation(["home", "common"]);
 
-  // 确保日期格式一致
-  const formatDate = (dateString: string | undefined) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
   const galleryImages = [
     {
       url: "https://qiniu.jessieontheroad.com/IMG_0482.jpeg",
@@ -361,7 +350,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       </p>
                       <div className="flex items-center text-gray-300 text-sm">
                         <span className="inline-block w-1 h-1 rounded-full bg-gray-300 mr-2" />
-                        {formatDate(travelPosts[0]?.lastEditedDate)}
+                        {travelPosts[0]?.lastEditedDate}
                       </div>
                     </div>
                   </motion.div>
@@ -369,7 +358,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
               </motion.div>
 
               <motion.div
-                className="lg:col-span-5 space-y-6"
+                className="lg:col-span-5 space-y-4"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -387,17 +376,14 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       <motion.div
                         whileHover={{ scale: 1.03, x: 10 }}
                         transition={{ type: "spring", stiffness: 400 }}
-                        className="flex gap-6 group p-2 -mx-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                        className="flex gap-5 group -mx-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                       >
                         <div className="relative w-36 h-28 flex-shrink-0 overflow-hidden rounded-lg">
                           <Image
                             src={post.pageCoverThumbnail}
                             alt={post.title}
                             fill
-                            className="object-cover transform group-hover:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                            loading="lazy"
-                            quality={75}
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
                         <div className="flex-grow py-1">
@@ -411,7 +397,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                           </h3>
                           <div className="flex items-center text-sm text-gray-500 mt-2">
                             <span className="inline-block w-1 h-1 rounded-full bg-gray-400 mr-2" />
-                            {formatDate(post.lastEditedDate)}
+                            {post.lastEditedDate}
                           </div>
                         </div>
                       </motion.div>
@@ -446,8 +432,6 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                         fill
                         className="object-cover transform group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        loading="lazy"
-                        quality={75}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
@@ -468,7 +452,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                       </p>
 
                       <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                        <span>{formatDate(post.lastEditedDate)}</span>
+                        <span>{post.lastEditedDate}</span>
                       </div>
                     </div>
                   </div>
@@ -580,7 +564,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
 
             <div className="grid grid-cols-12 gap-3">
               <motion.div
-                className="col-span-6"
+                className="col-span-6 h-[400px]"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -589,7 +573,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="group relative h-[400px] overflow-hidden rounded-lg xs:h-[200px]"
+                  className="group relative h-full overflow-hidden rounded-lg"
                 >
                   <Image
                     src={getProxiedImageUrl(galleryImages[0].url)}
@@ -600,7 +584,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 hidden md:flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="text-white text-sm font-medium">
                       {galleryImages[0].alt}
                     </span>
@@ -608,19 +592,21 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                 </motion.div>
               </motion.div>
 
-              <div className="col-span-7 grid grid-cols-2 gap-3">
-                {[1, 2, 3, 4].map((imgIndex) => (
-                  <motion.div
-                    key={imgIndex}
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: imgIndex * 0.1 }}
-                  >
+              {[1, 2].map((colIndex) => (
+                <motion.div
+                  key={colIndex}
+                  className="col-span-3 space-y-3"
+                  initial={{ opacity: 0, x: 30 * colIndex }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: colIndex * 0.2 }}
+                >
+                  {[colIndex * 2 - 1, colIndex * 2].map((imgIndex) => (
                     <motion.div
+                      key={imgIndex}
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ type: "spring", stiffness: 300 }}
-                      className="group relative h-[150px] overflow-hidden rounded-lg"
+                      className="group relative h-[196px] overflow-hidden rounded-lg"
                     >
                       <Image
                         src={getProxiedImageUrl(galleryImages[imgIndex].url)}
@@ -630,15 +616,15 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute inset-0 hidden md:flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 hidden md:flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span className="text-white text-sm font-medium">
                           {galleryImages[imgIndex].alt}
                         </span>
                       </div>
                     </motion.div>
-                  </motion.div>
-                ))}
-              </div>
+                  ))}
+                </motion.div>
+              ))}
             </div>
           </div>
         </motion.section>
