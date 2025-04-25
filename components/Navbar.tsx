@@ -37,6 +37,14 @@ const Navbar = ({
       { id: "travel", href: "/travel", title: t("nav.travel") },
       { id: "life", href: "/life", title: t("nav.life") },
       { id: "about", href: "/about", title: t("nav.about") },
+      {
+        id: "tools",
+        href: "/tools",
+        title: t("nav.tools.title"),
+        children: [
+          { id: "resume", href: "/tools/resume", title: t("nav.tools.resume") },
+        ],
+      },
     ],
     [t]
   ); // 只依赖 t 函数
@@ -115,25 +123,52 @@ const Navbar = ({
           {navigationLinks.map((link) => (
             <motion.div
               key={link.id}
-              className={`hidden sm:block font-medium dark:text-gray-100 relative ${
+              className={`relative group hidden sm:block font-medium dark:text-gray-100 ${
                 currentTheme === "light" ? "text-gray-900" : "text-gray-100"
               }`}
               variants={menuItemVariants}
               initial="initial"
-              animate={isActiveLink(link.href) ? "active" : "initial"}
+              animate={isActiveLink(link.href || "") ? "active" : "initial"}
               whileHover="hover"
             >
-              <Link href={link.href}>{link.title}</Link>
-              <motion.div
-                className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
-                  currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
-                }`}
-                initial={{ scaleX: 0 }}
-                animate={{
-                  scaleX: isActiveLink(link.href) ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-              />
+              {/* 一级菜单标题 */}
+              {link.children ? (
+                <span className="cursor-default">{link.title}</span> // 不跳转
+              ) : (
+                <Link href={link.href}>{link.title}</Link>
+              )}
+
+              {/* 下划线动画 */}
+              {!link.children && (
+                <motion.div
+                  className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
+                    currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
+                  }`}
+                  initial={{ scaleX: 0 }}
+                  animate={{
+                    scaleX: isActiveLink(link.href || "") ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+
+              {/* 二级菜单 */}
+              {link.children && (
+                <div className="absolute top-full left-0 bg-white text-gray-900 dark:text-gray-100  dark:bg-slate-900 shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-200 ease-in-out z-50">
+                  <ul className="min-w-[160px] py-2 px-0">
+                    {link.children.map((child) => (
+                      <li key={child.id}>
+                        <Link
+                          href={child.href}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-800 text-sm"
+                        >
+                          {child.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </motion.div>
           ))}
 

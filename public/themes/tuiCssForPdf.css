@@ -1,0 +1,27 @@
+@import "../styles/markdown.css";
+@import "../styles/markdown-tui.css";
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+  color-adjust: exact !important;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1000px;
+  margin: 60px auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #2e2e2e;
+  background-color: #fff;
+  padding: 24px;
+  word-wrap: break-word;
+}
+h1,
+h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}

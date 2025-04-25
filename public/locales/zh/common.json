@@ -10,6 +10,7 @@
   "tags": "标签",
   "projects": "项目",
   "about": "关于我",
+  "resume": "简历导出",
   "all": "全部",
   "contact": "联系",
   "subscribe": "订阅",
@@ -66,10 +67,14 @@
   "newPostsAvailable": "我们的博客有新文章啦！",
   "nav": {
     "home": "首页",
-    "technical": "技术文章",
+    "technical": "技术",
     "travel": "旅行",
     "life": "生活",
     "about": "关于",
+    "tools": {
+      "title": "工具",
+      "resume": "简历导出"
+    },
     "projects": "项目",
     "tags": "标签",
     "all": "全部",
@@ -86,6 +91,9 @@
         "city": "城市攻略",
         "food": "美食指南",
         "tips": "实用贴士"
+      },
+      "tools": {
+        "title": "工具"
       }
     }
   },
@@ -151,5 +159,12 @@
     "title": "技术文章",
     "href": "/technical",
     "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。"
+  },
+  "markdown_to_pdf": {
+    "title": "Markdown转PDF",
+    "input": "输入Markdown",
+    "preview": "预览",
+    "export": "导出PDF",
+    "placeholder": "在此输入Markdown文本..."
   }
 }

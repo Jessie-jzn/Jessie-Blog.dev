@@ -1,0 +1,78 @@
+.tuiCssForEditor {
+  .markdown-body {
+    font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #2e2e2e;
+    background-color: #fff;
+    padding: 24px;
+    word-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  p {
+    margin: 4px 0;
+  }
+
+  ul,
+  ol {
+    margin: 4px 0 4px 20px;
+    padding-left: 16px;
+  }
+
+  li {
+    margin-bottom: 2px;
+  }
+
+  code {
+    background-color: #f6f8fa;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #e83e8c;
+  }
+
+  pre {
+    background-color: #f6f8fa;
+    padding: 8px 12px;
+    overflow: auto;
+    font-size: 13px;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+
+  a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  hr {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid #eaecef;
+  }
+
+  blockquote {
+    margin: 8px 0;
+    padding-left: 12px;
+    border-left: 4px solid #dfe2e5;
+    color: #6a737d;
+    font-style: italic;
+  }
+}

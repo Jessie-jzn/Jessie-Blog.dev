@@ -99,6 +99,18 @@ const SiteConfig = {
       title: "nav.about",
       href: "/about",
     },
+    {
+      id: 6,
+      title: "nav.tools.title",
+      href: "/tools",
+      children: [
+        {
+          id: 21,
+          title: "nav.tools.resume",
+          href: "/tools/resume",
+        },
+      ],
+    },
   ],
   // 社交媒体地址（可选）
   // social (optional)

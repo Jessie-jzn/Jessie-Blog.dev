@@ -9,6 +9,10 @@
     "travel": "Travel",
     "life": "Life",
     "about": "About",
+    "Tools": {
+      "title": "Tools",
+      "resume": "Resume"
+    },
     "projects": "Projects",
     "tags": "Tags",
     "all": "All",
@@ -25,7 +29,8 @@
         "city": "City Guides",
         "food": "Food Guide",
         "tips": "Travel Tips"
-      }
+      },
+      "tools": "Tools"
     }
   },
 
@@ -71,5 +76,12 @@
   },
   "common": {
     "explore": "Explore Now"
+  },
+  "markdown_to_pdf": {
+    "title": "Markdown to PDF",
+    "input": "Input Markdown",
+    "preview": "Preview",
+    "export": "Export PDF",
+    "placeholder": "Enter your markdown here..."
   }
 }

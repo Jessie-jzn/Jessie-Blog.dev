@@ -48,6 +48,10 @@
 - 🔍 SEO Optimized / SEO 优化
 - 📧 Newsletter Subscription / 邮件订阅功能
 - 🔒 Secure Authentication / 安全认证
+- 支持导航栏的二级菜单渲染。
+- Markdown 简历编辑器：
+  - 支持主题切换（`tui` 和 `github`）。
+  - 导出 PDF 功能，样式随主题动态更新。
 
 ## 🛠️ Tech Stack / 技术栈
 

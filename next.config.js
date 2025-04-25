@@ -19,6 +19,7 @@ if (apiKey) {
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
+  // transpilePackages: ["@uiw/react-md-editor", "@uiw/react-markdown-preview"],
   images: {
     domains: ["qiniu.jessieontheroad.com"],
     unoptimized: true,

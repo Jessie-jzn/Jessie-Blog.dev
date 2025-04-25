@@ -5,6 +5,12 @@ import "react-notion-simplify/dist/themes/prism-theme.css"; // 导入 Prism 主�
 import "react-notion-simplify/dist/styles/styles.css"; // 导入 Notion 简化样式
 import "../styles/notion.css"; // 导入自定义 Notion 样式
 import "../styles/globals.css"; // 导入全局样式
+import "react-markdown-editor-lite/lib/index.css";
+
+// 导入主题样式
+import "../styles/markdown.css"; // 导入自定义 Markdown 样式
+import "../styles/markdown-tui.css"; // 导入自定义 Markdown 样式
+import "../styles/markdown-github.css"; // 导入自定义 Markdown 样式
 
 import nextI18NextConfig from "../next-i18next.config.js"; // 导入国际化配置
 import BaseLayout from "@/components/layouts/BaseLayout"; // 导入基础布局组件
