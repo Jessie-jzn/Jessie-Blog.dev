@@ -10,7 +10,10 @@ const NOTION_POST_EN_ID = process.env.NOTION_POST_EN_ID as string; // post-en
 const NOTION_GUIDE_ID = process.env.NOTION_GUIDE_ID as string; // 旅行攻略
 const NOTION_GUIDE_EN_ID = process.env.NOTION_GUIDE_EN_ID as string; // 旅行攻略
 const NOTION_NOTIFICATIONS_ID = process.env.NOTION_NOTIFICATIONS_ID as string; // 用户订阅数据库
-const NOTION_COUNTRY_ID = process.env.NOTION_COUNTRY_ID as string;
+const COMMENT_REPO_URL = process.env.COMMENT_REPO_URL as string;
+const COMMENT_REPO_NAME = process.env.COMMENT_REPO_NAME as string;
+const COMMENT_CATEGORY_ID = process.env.COMMENT_CATEGORY_ID as string;
+const COMMENT_REPO_ID = process.env.COMMENT_REPO_ID as string;
 
 /**翻译 */
 /**baidu */
@@ -34,7 +37,10 @@ export {
   NOTION_PUBLIC_MENU,
   NOTION_HOME_ID,
   PREVIEW_IMAGES_ENABLED,
-  NOTION_COUNTRY_ID,
+  COMMENT_CATEGORY_ID,
+  COMMENT_REPO_URL,
+  COMMENT_REPO_ID,
+  COMMENT_REPO_NAME,
   NOTION_GUIDE_ID,
   NOTION_GUIDE_EN_ID,
   NOTION_POST_ID,

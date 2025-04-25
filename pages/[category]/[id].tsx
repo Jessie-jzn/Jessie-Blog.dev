@@ -9,6 +9,8 @@ import * as Type from "@/lib/type";
 import { ExtendedRecordMap } from "notion-types";
 import { getRelatedPosts } from "@/lib/services/RelatedPostsService";
 import { NOTION_POST_ID } from "@/lib/constants";
+import GiscusComments from '@/components/GiscusComments'
+
 const notionService = new NotionService();
 
 interface StaticProps {
@@ -169,11 +171,17 @@ const RenderPost: React.FC<RenderPostProps> = ({
   relatedPosts,
 }) => {
   return (
-    <NotionPage
-      recordMap={recordMap}
-      postData={postData}
-      relatedPosts={relatedPosts}
-    />
+    <div className="prose mx-auto">
+      <NotionPage
+        recordMap={recordMap}
+        postData={postData}
+        relatedPosts={relatedPosts}
+      />
+      <div className="mx-10 xs:mx-0 px-16 mb-10 xs:px-4">
+        <GiscusComments />
+      </div>
+    </div>
+
   );
 };
 

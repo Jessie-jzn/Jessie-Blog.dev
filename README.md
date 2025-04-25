@@ -91,6 +91,8 @@
 - [x] Social sharing / 社交分享功能
 - [x] Dark mode support / 深色模式支持
 - [x] Performance optimization / 性能优化
+- [x] Internationalization improvements / 国际化改进
+- [x] Progressive Web App / 渐进式 Web 应用
 
 ### In Progress / 进行中
 
@@ -100,11 +102,9 @@
 - [ ] User authentication / 用户认证系统
 - [ ] Comments system / 评论系统
 - [ ] Content caching / 内容缓存
-- [ ] Progressive Web App / 渐进式 Web 应用
 
 ### Planned / 计划中
 
-- [ ] Internationalization improvements / 国际化改进
 - [ ] Content recommendations / 内容推荐
 - [ ] Newsletter customization / 邮件订阅定制
 - [ ] API documentation / API 文档
