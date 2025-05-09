@@ -43,7 +43,7 @@
     "node-fetch": "^3.3.2",
     "notion-types": "^6.16.0",
     "notion-utils": "^6.16.0",
-    "openai": "^4.89.1",
+    "openai": "^4.97.0",
     "p-map": "^7.0.2",
     "print-js": "^1.6.0",
     "prismjs": "^1.29.0",

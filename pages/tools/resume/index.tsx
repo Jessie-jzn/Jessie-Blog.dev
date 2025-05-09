@@ -30,7 +30,8 @@ const themes = {
 export default function MarkdownResume() {
   // Markdown 文本内容
   const [markdown, setMarkdown] = useState("");
-
+  const [jobTitle, setJobTitle] = useState('');
+  const [loading, setLoading] = useState(false);
   // 当前主题
   const [theme, setTheme] = useState<keyof typeof themes>(
     themes.github.name as keyof typeof themes
@@ -95,6 +96,17 @@ export default function MarkdownResume() {
       targetStyles: ["*"],
       documentTitle: "&nbsp",
     });
+  };
+
+  const handleGenerate = async () => {
+    setLoading(true);
+    const res = await fetch('/api/ai-generate', {
+      method: 'POST',
+      body: JSON.stringify({ jobTitle }),
+    });
+    const data = await res.json();
+    setMarkdown(prev => prev + '\n\n' + data.content);
+    setLoading(false);
   };
 
   return (

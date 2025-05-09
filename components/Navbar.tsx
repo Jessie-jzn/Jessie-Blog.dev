@@ -35,6 +35,7 @@ const Navbar = ({
       { id: "home", href: "/", title: t("nav.home") },
       { id: "technical", href: "/technical", title: t("nav.technical") },
       { id: "travel", href: "/travel", title: t("nav.travel") },
+      { id: "whver", href: "/whver", title: t("nav.whver") },
       { id: "life", href: "/life", title: t("nav.life") },
       { id: "about", href: "/about", title: t("nav.about") },
       {
@@ -85,9 +86,8 @@ const Navbar = ({
 
   return (
     <div
-      className={`w-full p-8 z-[999] mx-auto ${
-        isFull ? "absolute top-0 left-0 bg-fixed bg-transparent" : "relative"
-      }
+      className={`w-full p-8 z-[999] mx-auto ${isFull ? "absolute top-0 left-0 bg-fixed bg-transparent" : "relative"
+        }
         box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-slate-950
         ${className}
         `}
@@ -111,9 +111,8 @@ const Navbar = ({
             </div>
 
             <div
-              className={`text-3xl font-bold xs:text-xs text-gray-100 xs:text-gray-900 dark:text-gray-100 ${
-                currentTheme === "light" ? "text-gray-900" : "text-gray-100"
-              }`}
+              className={`text-3xl font-bold xs:text-xs text-gray-100 xs:text-gray-900 dark:text-gray-100 ${currentTheme === "light" ? "text-gray-900" : "text-gray-100"
+                }`}
             >
               {NavbarTitle}
             </div>
@@ -123,9 +122,8 @@ const Navbar = ({
           {navigationLinks.map((link) => (
             <motion.div
               key={link.id}
-              className={`relative group hidden sm:block font-medium dark:text-gray-100 ${
-                currentTheme === "light" ? "text-gray-900" : "text-gray-100"
-              }`}
+              className={`relative group hidden sm:block font-medium dark:text-gray-100 ${currentTheme === "light" ? "text-gray-900" : "text-gray-100"
+                }`}
               variants={menuItemVariants}
               initial="initial"
               animate={isActiveLink(link.href || "") ? "active" : "initial"}
@@ -141,9 +139,8 @@ const Navbar = ({
               {/* 下划线动画 */}
               {!link.children && (
                 <motion.div
-                  className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
-                    currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
-                  }`}
+                  className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${currentTheme === "light" ? "bg-slate-950" : "bg-slate-50"
+                    }`}
                   initial={{ scaleX: 0 }}
                   animate={{
                     scaleX: isActiveLink(link.href || "") ? 1 : 0,

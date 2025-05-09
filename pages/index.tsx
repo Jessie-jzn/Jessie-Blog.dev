@@ -225,7 +225,7 @@ const Home = ({ posts, technicalPosts, travelPosts }: any) => {
       title: t("explore.whver.title"), // WHV经历标题
       description: t("explore.whver.description"), // WHV经历描述
       image: "https://qiniu.jessieontheroad.com/icon/v1052-075.jpg", // WHV相关图片
-      href: "/about", // 链接到博客列表页
+      href: "/whver", // 链接到博客列表页
     },
   ];
 

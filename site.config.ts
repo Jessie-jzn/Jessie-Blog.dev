@@ -96,16 +96,21 @@ const SiteConfig = {
     },
     {
       id: 5,
+      title: "nav.whver",
+      href: "/whver",
+    },
+    {
+      id: 6,
       title: "nav.about",
       href: "/about",
     },
     {
-      id: 6,
+      id: 7,
       title: "nav.tools.title",
       href: "/tools",
       children: [
         {
-          id: 21,
+          id: 71,
           title: "nav.tools.resume",
           href: "/tools/resume",
         },

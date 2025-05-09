@@ -46,6 +46,12 @@
       "href": "/life",
       "description": "个人的生活经历和思考。",
       "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
+    },
+    {
+      "title": "打工度假",
+      "href": "/whver",
+      "description": "澳洲打工度假的攻略和生活体验",
+      "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
     }
   ],
   "faqs": [
@@ -70,6 +76,7 @@
     "technical": "技术",
     "travel": "旅行",
     "life": "生活",
+    "whver": "打工度假",
     "about": "关于",
     "tools": {
       "title": "工具",
