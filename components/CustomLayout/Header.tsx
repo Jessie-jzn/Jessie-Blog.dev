@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import SiteConfig from "@/site.config";
-import dynamic from "next/dynamic";
-import Image from "next/image"; // 确保使用 Next.js 的 Image 组件
-import { motion } from "framer-motion";
-import { useTranslation } from "next-i18next";
-import { Analytics } from "@vercel/analytics/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import SiteConfig from '@/site.config';
+import dynamic from 'next/dynamic';
+import Image from 'next/image'; // 确保使用 Next.js 的 Image 组件
+import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next';
+import { Analytics } from '@vercel/analytics/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const NavMobile = dynamic(() => import("@/components/NavMobile"));
-const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
-const LanguageSwitch = dynamic(() => import("@/components/LanguageSwitch"));
+const NavMobile = dynamic(() => import('@/components/NavMobile'));
+const ThemeSwitch = dynamic(() => import('@/components/ThemeSwitch'));
+const LanguageSwitch = dynamic(() => import('@/components/LanguageSwitch'));
 
 interface HeaderProp {
   btnColor?: string;
 }
 
 const Header = ({ btnColor }: HeaderProp) => {
-  const { t } = useTranslation("common");
-  const [activeLink, setActiveLink] = useState<string>("/");
+  const { t } = useTranslation('common');
+  const [activeLink, setActiveLink] = useState<string>('/');
   const [headerTitle, setHeaderTitle] = useState<string | undefined>(undefined);
 
   const router = useRouter();
@@ -35,44 +35,49 @@ const Header = ({ btnColor }: HeaderProp) => {
   }, [router.pathname]);
 
   return (
-    <header className="fixed flex items-center justify-between top-0 right-0 w-full p-14 z-[999] h-[192px] box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400">
-      <Link href="/" aria-label={headerTitle}>
-        <div className="flex items-center justify-between">
-          <div className="mr-3">
-            <Image
-              src={
-                `${SiteConfig.imageDomainUrl}/avatar.png` ||
-                "https://www.dropbox.com/scl/fi/w25dass9uvsie54sp61gp/avatar.png?rlkey=822a5h3lo1jh120dr0q53i9zg&st=rzw9h6j0&dl=0"
-              }
-              alt="avatar"
+    <header className='fixed flex items-center justify-between top-0 right-0 w-full p-14 z-[999] h-[192px] box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-gray-400'>
+      <Link href='/' aria-label={headerTitle}>
+        <div className='flex items-center justify-between'>
+          <div className='mr-3'>
+            {/* <Image
+              src='https://img.jessieontheroad.com/avatar.png'
+              alt='avatar'
               width={192} // 根据需要调整大小
               height={192}
-              quality={75} // 设置压缩质量，默认为75
-              priority // 提升优先级，优先加载重要图片
-              className="h-16 w-16 rounded-full xs:h-8 xs:w-8"
+              // quality={75} // 设置压缩质量，默认为75
+              // priority // 提升优先级，优先加载重要图片
+              // className='h-16 w-16 rounded-full xs:h-8 xs:w-8'
+            /> */}
+            <Image
+              src='https://img.jessieontheroad.com/avatar.png'
+              alt='avatar'
+              width={192}
+              height={192}
+              className='rounded-full' // 建议加上样式，否则可能是方形的
+              unoptimized={true} // ✅ 加上这一行！
             />
           </div>
 
-          <div className="h-6 text-3xl font-bold text-gray-900 xs:text-lg dark:text-gray-100">
+          <div className='h-6 text-3xl font-bold text-gray-900 xs:text-lg dark:text-gray-100'>
             {headerTitle}
           </div>
         </div>
       </Link>
 
-      <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
+      <div className='flex items-center space-x-4 leading-5 sm:space-x-6'>
         {SiteConfig.navigationLinks.map((link) => (
           <motion.div
             key={link.id}
-            className="hidden sm:block font-medium text-gray-950 dark:text-gray-100"
+            className='hidden sm:block font-medium text-gray-950 dark:text-gray-100'
             variants={menuItemVariants}
-            initial="initial"
-            animate={activeLink === link.href ? "active" : "initial"}
-            whileHover="hover"
+            initial='initial'
+            animate={activeLink === link.href ? 'active' : 'initial'}
+            whileHover='hover'
             onClick={() => setActiveLink(link.href)}
           >
             <Link href={link.href}>{t(link.title)}</Link>
             <motion.div
-              className="absolute bottom-[-6px] left-0 right-0 h-[1px] bg-slate-950"
+              className='absolute bottom-[-6px] left-0 right-0 h-[1px] bg-slate-950'
               variants={{
                 initial: { scaleX: 0, originX: 0 },
                 hover: { scaleX: 1, originX: 0, transition: { duration: 0.3 } },
@@ -87,28 +92,28 @@ const Header = ({ btnColor }: HeaderProp) => {
         ))}
 
         <motion.div
-          initial="initial"
-          whileHover="hover"
+          initial='initial'
+          whileHover='hover'
           variants={menuItemVariants}
-          className="cursor-pointer"
+          className='cursor-pointer'
         >
           <ThemeSwitch />
         </motion.div>
 
         <motion.div
-          initial="initial"
-          whileHover="hover"
+          initial='initial'
+          whileHover='hover'
           variants={menuItemVariants}
-          className="cursor-pointer"
+          className='cursor-pointer'
         >
           <LanguageSwitch btnColor={btnColor} />
         </motion.div>
 
         <motion.div
-          initial="initial"
-          whileHover="hover"
+          initial='initial'
+          whileHover='hover'
           variants={menuItemVariants}
-          className="cursor-pointer"
+          className='cursor-pointer'
         >
           <NavMobile />
         </motion.div>

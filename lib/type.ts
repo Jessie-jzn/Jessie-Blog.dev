@@ -1,4 +1,4 @@
-import { ExtendedRecordMap, Block } from "notion-types";
+import { ExtendedRecordMap, Block } from 'notion-types';
 
 export interface MenuItem {
   id: number;
@@ -27,12 +27,12 @@ export interface PageError {
 // }
 export interface Post {
   id: string;
-  type?: "Post";
-  status?: "Published";
+  type?: 'Post';
+  status?: 'Published';
   tags: string[];
   title: string;
   summarize?: string;
-  category?: string;
+  category?: string | '';
   comment?: string;
   publishDate?: number; // 以时间戳表示
   publishDay?: string; // 格式化的日期字符串
@@ -173,8 +173,8 @@ export interface PostData {
   id: string; // 文章的唯一 ID
   keywords: string; // 关键字，用于 SEO
   summarize: string; // 文章简介或页面 URL 描述
-  type: "Post" | "Page"; // 文章类型，可以是 Post 或 Page
-  status: "Published" | "Draft"; // 文章状态，已发布或草稿
+  type: 'Post' | 'Page'; // 文章类型，可以是 Post 或 Page
+  status: 'Published' | 'Draft'; // 文章状态，已发布或草稿
   tags: string[]; // 文章标签，字符串数组
   title: string; // 文章标题
   category: string; // 文章类别，可能为空

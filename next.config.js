@@ -1,18 +1,18 @@
 /** @type {import('next').NextConfig} */
-const path = require("path");
-const fs = require("fs");
-const { i18n } = require("./next-i18next.config");
-const isProd = process.env.NODE_ENV === "production";
+const path = require('path');
+const fs = require('fs');
+const { i18n } = require('./next-i18next.config');
+const isProd = process.env.NODE_ENV === 'production';
 // 打包时是否分析代码
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 });
 
 const apiKey = process.env.INDEXNOW_API_KEY;
 if (apiKey) {
-  const keyFilePath = path.join(__dirname, "public", `${apiKey}.txt`);
+  const keyFilePath = path.join(__dirname, 'public', `${apiKey}.txt`);
   if (!fs.existsSync(keyFilePath)) {
-    fs.writeFileSync(keyFilePath, apiKey, "utf8");
+    fs.writeFileSync(keyFilePath, apiKey, 'utf8');
     console.log(`IndexNow key file created at: ${keyFilePath}`);
   }
 }
@@ -21,56 +21,56 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   // transpilePackages: ["@uiw/react-md-editor", "@uiw/react-markdown-preview"],
   images: {
-    domains: ["qiniu.jessieontheroad.com"],
+    domains: ['qiniu.jessieontheroad.com'],
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "*.wp.**",
+        protocol: 'https',
+        hostname: '*.wp.**',
       },
       {
-        protocol: "https",
-        hostname: "*.nextjswp.**",
+        protocol: 'https',
+        hostname: '*.nextjswp.**',
       },
       {
-        protocol: "https",
-        hostname: "*.githubusercontent.**",
+        protocol: 'https',
+        hostname: '*.githubusercontent.**',
       },
       {
-        protocol: "https",
-        hostname: "*.aglty.**",
+        protocol: 'https',
+        hostname: '*.aglty.**',
       },
       {
-        protocol: "https",
-        hostname: "*.notion.**",
+        protocol: 'https',
+        hostname: '*.notion.**',
       },
       {
-        protocol: "https",
-        hostname: "*.jessieontheroad.**",
+        protocol: 'https',
+        hostname: '*.jessieontheroad.**',
       },
       {
-        protocol: "https",
-        hostname: "qiniu.jessieontheroad.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'img.jessieontheroad.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "*.dropbox.**",
+        protocol: 'https',
+        hostname: '*.dropbox.**',
       },
       {
-        protocol: "http",
-        hostname: "127.0.0.1",
-        port: "3000",
-        pathname: "/**",
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '3000',
+        pathname: '/**',
       },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   i18n: {
-    locales: ["zh", "en"],
-    defaultLocale: "zh",
+    locales: ['zh', 'en'],
+    defaultLocale: 'zh',
   },
   swcMinify: true, // 启用 SWC 最小化
   env: {
@@ -80,11 +80,11 @@ const nextConfig = withBundleAnalyzer({
 
   webpack: (config, { isServer }) => {
     // 添加别名配置
-    config.resolve.alias["@"] = path.resolve(__dirname);
+    config.resolve.alias['@'] = path.resolve(__dirname);
 
     // 针对服务端和客户端的不同配置
     if (isServer) {
-      config.resolve.alias["@"] = path.resolve(__dirname);
+      config.resolve.alias['@'] = path.resolve(__dirname);
       config.resolve.fallback = {
         fs: false, // 禁用 Node.js 的 fs 模块（因为它在浏览器中无效）
       };
@@ -95,11 +95,11 @@ const nextConfig = withBundleAnalyzer({
     }
     config.module.rules.push({
       test: /\.txt$/,
-      use: "raw-loader",
+      use: 'raw-loader',
     });
     config.module.rules.push({
       test: /\.xml$/,
-      use: "raw-loader",
+      use: 'raw-loader',
     });
 
     return config;
@@ -109,8 +109,8 @@ const nextConfig = withBundleAnalyzer({
     return [
       // 伪静态重写
       {
-        source: "/:path*.html",
-        destination: "/:path*",
+        source: '/:path*.html',
+        destination: '/:path*',
       },
     ];
     // return [

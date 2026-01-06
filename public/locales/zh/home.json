@@ -14,6 +14,10 @@
   "feature": {
     "title": "去世界撒野，在生活里浪漫"
   },
+  "whver": {
+    "title": "澳洲WHV全攻略",
+    "description": "从签证申请到落地生存，一站式指南"
+  },
 
   "featuredPosts": {
     "title": "在世界撒野系列",
@@ -35,6 +39,10 @@
       "title": "技术分享",
       "description": "分享编程经验与数字游民的工作方式"
     },
+    "whver": {
+      "title": "澳洲WHV全攻略",
+      "description": "从签证申请到落地生存，一站式指南"
+    },
     "travel": {
       "title": "旅行见闻",
       "description": "记录在世界各地的所见所闻"
@@ -43,10 +51,7 @@
       "title": "生活随笔",
       "description": "分享个人成长与生活感悟"
     },
-    "whver": {
-      "title": "澳洲打工度假",
-      "description": "分享澳洲WHV签证申请与生活经历"
-    },
+
     "label": "发现",
     "viewAll": "查看全部"
   },
