@@ -51,7 +51,7 @@ const TopicHeader = () => (
         transition={{ delay: 0.2 }}
         className='max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400'
       >
-        从签证申请到落地生存，从农场集签到城市打工。这里记录了我作为 WHVer
+        从签证申请到落地生存，从农场集签到城市打工。这里记录了我作为 whv
         在澳洲的真实体验与避坑指南。
       </motion.p>
     </div>
@@ -165,7 +165,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'zh' }) => {
   };
 };
 
-const Whver = ({ posts }: any) => {
+const whv = ({ posts }: any) => {
   const { t } = useTranslation('common');
 
   return (
@@ -322,4 +322,4 @@ const Whver = ({ posts }: any) => {
   );
 };
 
-export default Whver;
+export default whv;

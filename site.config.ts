@@ -96,8 +96,8 @@ const SiteConfig = {
     },
     {
       id: 5,
-      title: 'nav.whver',
-      href: '/whver',
+      title: 'nav.whv',
+      href: '/whv',
     },
     {
       id: 6,

@@ -39,7 +39,7 @@
   border-radius: none;
 }
 .notion-page-has-cover.notion-page-has-icon.notion-page-has-text-icon {
-  padding: 48px;
+  padding: 64px;
 }
 
 .index-page {
@@ -242,8 +242,14 @@
     display: none;
   } */
   .notion-page-has-cover.notion-page-has-icon.notion-page-has-text-icon {
-    padding: 24px 4px;
+    padding: 24px 24px;
     font-size: 16px;
+  }
+
+  .notion-title {
+    display: block;
+    text-align: center;
+    font-size: 24px;
   }
 }
 

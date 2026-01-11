@@ -14,7 +14,7 @@
   "feature": {
     "title": "去世界撒野，在生活里浪漫"
   },
-  "whver": {
+  "whv": {
     "title": "澳洲WHV全攻略",
     "description": "从签证申请到落地生存，一站式指南"
   },
@@ -33,13 +33,13 @@
       "technical": "技术",
       "travel": "旅行",
       "personal": "生活",
-      "whver": "澳洲打工度假"
+      "whv": "澳洲打工度假"
     },
     "technical": {
       "title": "技术分享",
       "description": "分享编程经验与数字游民的工作方式"
     },
-    "whver": {
+    "whv": {
       "title": "澳洲WHV全攻略",
       "description": "从签证申请到落地生存，一站式指南"
     },

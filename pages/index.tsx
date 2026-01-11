@@ -75,8 +75,8 @@ const Home = ({ whvPosts, travelPosts }: any) => {
     },
     {
       image: 'https://img.jessieontheroad.com/image4.jpg',
-      title: t('whver.title'),
-      description: t('whver.description'),
+      title: t('whv.title'),
+      description: t('whv.description'),
       href: '/whv',
     },
     {

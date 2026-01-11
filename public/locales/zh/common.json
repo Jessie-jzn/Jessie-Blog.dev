@@ -49,7 +49,7 @@
     },
     {
       "title": "澳洲WHV全攻略",
-      "href": "/whver",
+      "href": "/whv",
       "description": "从签证申请到落地生存，一站式指南",
       "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
     }
@@ -76,7 +76,7 @@
     "technical": "技术",
     "travel": "旅行",
     "life": "生活",
-    "whver": "打工度假",
+    "whv": "打工度假",
     "about": "关于",
     "tools": {
       "title": "工具",
