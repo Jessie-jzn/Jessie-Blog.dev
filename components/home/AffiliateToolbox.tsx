@@ -6,7 +6,7 @@ const AffiliateToolbox = () => {
       name: '跨境汇款',
       desc: 'Wise首汇免费',
       icon: '💸',
-      link: 'https://wise.com/invite/...',
+      link: 'https://wise.prf.hn/click/camref:1110lvJeI',
       color: 'bg-blue-50 text-blue-600 hover:bg-blue-100',
     },
     {
@@ -25,7 +25,7 @@ const AffiliateToolbox = () => {
     },
     {
       name: '住宿预订',
-      desc: 'Booking返利',
+      desc: 'Booking',
       icon: '🏨',
       link: '#',
       color: 'bg-orange-50 text-orange-600 hover:bg-orange-100',

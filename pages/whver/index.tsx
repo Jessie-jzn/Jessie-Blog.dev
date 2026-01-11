@@ -165,7 +165,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'zh' }) => {
   };
 };
 
-const whv = ({ posts }: any) => {
+const WhvListPage = ({ posts }: any) => {
   const { t } = useTranslation('common');
 
   return (
@@ -322,4 +322,4 @@ const whv = ({ posts }: any) => {
   );
 };
 
-export default whv;
+export default WhvListPage;
