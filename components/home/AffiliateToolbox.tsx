@@ -6,7 +6,7 @@ const AffiliateToolbox = () => {
       name: '跨境汇款',
       desc: 'Wise首汇免费',
       icon: '💸',
-      link: 'https://wise.prf.hn/click/camref:1110lvJeI',
+      link: 'https://wise.prf.hn/l/LAR8QdR/',
       color: 'bg-blue-50 text-blue-600 hover:bg-blue-100',
     },
     {
@@ -20,14 +20,14 @@ const AffiliateToolbox = () => {
       name: '澳洲流量',
       desc: 'eSIM立减$3',
       icon: '📲',
-      link: '#',
+      link: 'https://wise.prf.hn/l/LAR8QdR/',
       color: 'bg-purple-50 text-purple-600 hover:bg-purple-100',
     },
     {
       name: '住宿预订',
       desc: 'Booking',
       icon: '🏨',
-      link: '#',
+      link: 'https://wise.prf.hn/l/LAR8QdR/',
       color: 'bg-orange-50 text-orange-600 hover:bg-orange-100',
     },
   ];
