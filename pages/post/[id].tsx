@@ -1,14 +1,14 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import NotionService from "@/lib/notion/NotionServer";
-import { Post } from "@/lib/type";
+import { GetStaticPaths, GetStaticProps } from 'next';
+import NotionService from '@/lib/notion/NotionServer';
+import { Post } from '@/lib/type';
 // import * as API from '@/lib/api/guide';
-import { NOTION_POST_ID } from "@/lib/constants";
-import getDataBaseList from "@/lib/notion/getDataBaseList";
+import { NOTION_POST_ID } from '@/lib/constants';
+import getDataBaseList from '@/lib/notion/getDataBaseList';
 
-import React from "react";
-import NotionPage from "@/components/Notion/NotionPage";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import PostDetailLayout from "@/components/layouts/PostDetailLayout";
+import React from 'react';
+import NotionPage from '@/components/Notion/NotionPage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import PostDetailLayout from '@/components/layouts/PostDetailLayout';
 
 const notionService = new NotionService();
 
@@ -22,16 +22,17 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       post: post,
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
-    revalidate: 100,
+    // 每 1 小时（3600秒）在后台重新抓取一次数据，更新图片签名
+    revalidate: 3600,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getDataBaseList({
     pageId: NOTION_POST_ID,
-    from: "post-id",
+    from: 'post-id',
   });
 
   const paths = (posts.pageIds as any).map((post: any) => ({

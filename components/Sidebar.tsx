@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import SiteConfig from '@/site.config';
-import SocialContactIcon from '@/components/SocialContactIcon';
 import NewsletterSubscribe from '@/components/NewsletterSubscribe';
 
 const Sidebar = () => {

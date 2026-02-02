@@ -64,10 +64,18 @@ const nextConfig = withBundleAnalyzer({
         port: '3000',
         pathname: '/**',
       },
+      { protocol: 'https', hostname: 'www.notion.so' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 's3.us-west-2.amazonaws.com' },
+      {
+        protocol: 'https',
+        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
+      },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+
   i18n: {
     locales: ['zh', 'en'],
     defaultLocale: 'zh',

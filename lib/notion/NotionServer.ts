@@ -1,18 +1,35 @@
-import { NotionAPI } from "./NotionAPI";
-import { NOTION_TOKEN } from "@/lib/constants";
-import { getBlockCollectionId } from "@/lib/notion-utils";
+import { NotionAPI } from './NotionAPI';
+import { NOTION_TOKEN } from '@/lib/constants';
+import { getBlockCollectionId } from '@/lib/notion-utils';
 if (!NOTION_TOKEN) {
-  throw new Error("NOTION_TOKEN is not defined");
+  throw new Error('NOTION_TOKEN is not defined');
 }
 
 class NotionServer {
+  private static instance: NotionServer;
   private notionAPI: NotionAPI;
-
   constructor() {
     this.notionAPI = new NotionAPI({
       apiBaseUrl: process.env.NOTION_API_BASE_URL,
+      authToken: process.env.NOTION_API_KEY,
+      // 增加超时配置，防止 Notion 接口响应慢导致页面挂起
+      gotOptions: {
+        timeout: { request: 10000 },
+      },
     });
   }
+  public static getInstance(): NotionServer {
+    if (!NotionServer.instance) {
+      NotionServer.instance = new NotionServer();
+    }
+    return NotionServer.instance;
+  }
+  // constructor() {
+  //   this.notionAPI = new NotionAPI({
+  //     apiBaseUrl: process.env.NOTION_API_BASE_URL,
+  //     authToken: process.env.NOTION_API_KEY || process.env.NOTION_API_KEY,
+  //   });
+  // }
   /**
    * 获取指定页面的内容
    * @param pageId - 页面 ID
@@ -33,8 +50,8 @@ class NotionServer {
 
       return page;
     } catch (error: any) {
-      console.error("Error fetching page:", error.body || error);
-      throw new Error("Failed to fetch page");
+      console.error('Error fetching page:', error.body || error);
+      throw new Error('Failed to fetch page');
     }
   }
   /**
@@ -48,8 +65,8 @@ class NotionServer {
 
       return page;
     } catch (error: any) {
-      console.error("Error fetching page:", error.body || error);
-      throw new Error("Failed to fetch page");
+      console.error('Error fetching page:', error.body || error);
+      throw new Error('Failed to fetch page');
     }
   }
   /**
@@ -63,8 +80,8 @@ class NotionServer {
 
       return page;
     } catch (error: any) {
-      console.error("Error fetching page:", error.body || error);
-      throw new Error("Failed to fetch page");
+      console.error('Error fetching page:', error.body || error);
+      throw new Error('Failed to fetch page');
     }
   }
   async getPageRaw(pageId: string) {
@@ -73,8 +90,8 @@ class NotionServer {
 
       return page;
     } catch (error: any) {
-      console.error("Error fetching page:", error.body || error);
-      throw new Error("Failed to fetch page");
+      console.error('Error fetching page:', error.body || error);
+      throw new Error('Failed to fetch page');
     }
   }
   async getBlocks(blockIds: string[], gotOptions?: any) {
@@ -83,8 +100,8 @@ class NotionServer {
 
       return page;
     } catch (error: any) {
-      console.error("Error fetching page:", error.body || error);
-      throw new Error("Failed to fetch page");
+      console.error('Error fetching page:', error.body || error);
+      throw new Error('Failed to fetch page');
     }
   }
 

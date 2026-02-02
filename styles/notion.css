@@ -480,3 +480,81 @@
 .notion-equation.notion-equation-block {
   align-items: center;
 }
+
+/* 核心容器自适应 */
+.notion {
+  @apply w-full max-w-7xl mx-auto; /* 限制正文最大宽度，避免大屏图片横跨全屏 */
+}
+
+/* 强制图片 block 占满容器宽度 */
+.notion :global(.notion-image) {
+  @apply w-full !important;
+  @apply flex justify-center my-6;
+}
+
+/* 适配不同显示器的图片大小 */
+.notion :global(.notion-image-inset) {
+  @apply rounded-xl shadow-md border border-gray-100;
+  max-width: 100%;
+}
+
+/* 移动端适配：缩小间距 */
+@media (max-width: 640px) {
+  .notion :global(.notion-image) {
+    @apply my-4;
+  }
+}
+
+/* 图片描述文字样式 */
+.notion :global(.notion-asset-caption) {
+  @apply text-center text-sm text-gray-400 mt-2 font-light;
+}
+
+/* 1. 修正全局盒子模型，这是防止溢出的“根治”药方 */
+.notion-custom-container {
+  margin: 10px 0;
+}
+.notion-custom-container *,
+.notion-custom-container *::before,
+.notion-custom-container *::after {
+  box-sizing: border-box;
+}
+
+/* 2. 让多列布局具备弹性 */
+.notion-custom-container .notion-row {
+  display: flex;
+  overflow: hidden; /* 确保内容不溢出 */
+  gap: 12px; /* 使用 gap 代替 margin/padding 占位 */
+}
+
+/* 3. 解决列撑破容器的关键 */
+.notion-custom-container .notion-column {
+  min-width: 0; /* 允许列缩小到小于其内容宽度 */
+  flex-shrink: 1; /* 允许在空间不足时收缩 */
+}
+
+/* 4. 图片自适应 */
+.notion-custom-container .notion-asset-wrapper img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 针对带侧边栏的页面结构 */
+.notion-custom-container .notion-page-content-has-aside {
+  display: flex;
+  flex-wrap: nowrap; /* PC端强制不换行 */
+  align-items: flex-start;
+}
+
+.notion-custom-container .notion-page-content-inner {
+  flex: 1;
+  min-width: 0; /* 这里的 0 是不让主内容撑开的核心 */
+}
+
+@media (max-width: 900px) {
+  /* 当屏幕较窄时，Aside 自动变成垂直堆叠，不再挤占横向空间 */
+  .notion-custom-container .notion-page-content-has-aside {
+    flex-direction: column;
+  }
+}

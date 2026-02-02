@@ -1,11 +1,11 @@
-import SiteConfig from "@/site.config";
-import { defaultMapImageUrl } from "react-notion-x";
+import SiteConfig from '@/site.config';
+
 import {
   Block,
   ExtendedRecordMap,
   Decoration,
   FormattedDate,
-} from "notion-types";
+} from 'notion-types';
 
 /**
  * 映射图片 URL
@@ -15,14 +15,34 @@ import {
  * @returns {string} 映射后的图片 URL
  */
 export const mapImageUrl = (url: string, block: Block) => {
-  if (
-    url === SiteConfig.defaultPageCover ||
-    url === SiteConfig.defaultPageIcon
-  ) {
-    return url;
+  if (!url) return '';
+
+  // 1. 如果是这种奇怪的 attachment 格式
+  if (url.startsWith('attachment:')) {
+    // 强制转换为 Notion 官方代理路径
+    // 注意：这需要 block.id 存在
+    const table = block.parent_table || 'block';
+    return `https://www.notion.so/image/${encodeURIComponent(
+      url
+    )}?table=${table}&id=${block.id}&cache=v2`;
   }
 
-  return defaultMapImageUrl(url, block);
+  // 2. 已经是签名链接则直接返回
+  if (url.includes('X-Amz-Signature')) return url;
+
+  // 3. 处理普通内部路径
+  if (url.startsWith('/image')) {
+    return `https://www.notion.so${url}`;
+  }
+
+  // 4. 针对 s3 链接但没签名的（也就是你之前遇到的情况）
+  if (url.includes('amazonaws.com')) {
+    return `https://www.notion.so/image/${encodeURIComponent(
+      url
+    )}?table=block&id=${block.id}`;
+  }
+
+  return url;
 };
 
 /**
@@ -33,7 +53,7 @@ export const mapImageUrl = (url: string, block: Block) => {
  * @returns {string} 完整的 URL 字符串
  */
 const createUrl = (path: string, searchParams: URLSearchParams) => {
-  return [path, searchParams.toString()].filter(Boolean).join("?");
+  return [path, searchParams.toString()].filter(Boolean).join('?');
 };
 
 /**
@@ -45,13 +65,13 @@ const createUrl = (path: string, searchParams: URLSearchParams) => {
  */
 export const mapPageUrl =
   (recordMap: ExtendedRecordMap, searchParams: URLSearchParams) =>
-  (pageId = ""): string => {
+  (pageId = ''): string => {
     // 解析页面 ID，获取 UUID 格式
     const pageUuid = parsePageId(pageId, { uuid: true });
 
     // 如果是根页面，返回首页 URL
     if (pageUuid && uuidToId(pageUuid) === SiteConfig.Notion_ROOT_PAGE_Id) {
-      return createUrl("/", searchParams);
+      return createUrl('/', searchParams);
     } else if (pageUuid) {
       // 获取规范的页面 ID
       const canonicalPageId = getCanonicalPageId(pageUuid, recordMap);
@@ -61,8 +81,8 @@ export const mapPageUrl =
       const databaseId = block?.parent_id;
       // 查找数据库对应的路由前缀
       const routePrefix = databaseId
-        ? SiteConfig.databaseMapping[databaseId] || ""
-        : "";
+        ? SiteConfig.databaseMapping[databaseId] || ''
+        : '';
 
       // 根据是否有路由前缀生成不同的 URL
       if (routePrefix) {
@@ -76,7 +96,7 @@ export const mapPageUrl =
     }
 
     // 如果无法解析页面 ID，返回空字符串
-    return "";
+    return '';
   };
 
 /**
@@ -120,8 +140,8 @@ export const getCanonicalPageIdImpl = (
 
   if (block) {
     const slug =
-      (getPageProperty("slug", block, recordMap) as string | null) ||
-      (getPageProperty("slug", block, recordMap) as string | null) ||
+      (getPageProperty('slug', block, recordMap) as string | null) ||
+      (getPageProperty('slug', block, recordMap) as string | null) ||
       normalizeTitle(getBlockTitle(block, recordMap));
 
     if (slug) {
@@ -143,15 +163,15 @@ export const getCanonicalPageIdImpl = (
  * @returns {string} 规范化后的标题字符串
  */
 export const normalizeTitle = (title?: string | null): string => {
-  return (title || "")
-    .replace(/ /g, "-")
+  return (title || '')
+    .replace(/ /g, '-')
     .replace(
       /[^a-zA-Z0-9-\u4e00-\u9FFF\u3041-\u3096\u30A1-\u30FC\u3000-\u303F]/g,
-      ""
+      ''
     )
-    .replace(/--/g, "-")
-    .replace(/-$/, "")
-    .replace(/-/, "")
+    .replace(/--/g, '-')
+    .replace(/-$/, '')
+    .replace(/-/, '')
     .trim()
     .toLowerCase();
 };
@@ -169,8 +189,8 @@ export function getBlockTitle(block: Block, recordMap: ExtendedRecordMap) {
   }
 
   if (
-    block.type === "collection_view_page" ||
-    block.type === "collection_view"
+    block.type === 'collection_view_page' ||
+    block.type === 'collection_view'
   ) {
     const collectionId = getBlockCollectionId(block, recordMap);
 
@@ -183,7 +203,7 @@ export function getBlockTitle(block: Block, recordMap: ExtendedRecordMap) {
     }
   }
 
-  return "";
+  return '';
 }
 
 /**
@@ -225,14 +245,14 @@ export function getBlockCollectionId(
  */
 export const getTextContent = (text?: Decoration[]): string => {
   if (!text) {
-    return "";
+    return '';
   } else if (Array.isArray(text)) {
     return (
       text?.reduce(
         (prev, current) =>
-          prev + (current[0] !== "⁍" && current[0] !== "‣" ? current[0] : ""),
-        ""
-      ) ?? ""
+          prev + (current[0] !== '⁍' && current[0] !== '‣' ? current[0] : ''),
+        ''
+      ) ?? ''
     );
   } else {
     return text;
@@ -277,16 +297,16 @@ export function getPageProperty(
 
       // 根据属性类型处理不同的值
       switch (type) {
-        case "created_time":
+        case 'created_time':
           return block.created_time;
-        case "multi_select":
-          return content.split(",");
-        case "date":
+        case 'multi_select':
+          return content.split(',');
+        case 'date':
           // 处理日期类型的属性
           return handleDateProperty(block.properties[propertyId]);
-        case "checkbox":
-          return content == "Yes";
-        case "last_edited_time":
+        case 'checkbox':
+          return content == 'Yes';
+        case 'last_edited_time':
           return block.last_edited_time;
         default:
           return content;
@@ -307,19 +327,19 @@ export function getPageProperty(
 function handleDateProperty(property: any) {
   const formatDate = property[0][1][0][1];
   switch (formatDate.type) {
-    case "datetime":
+    case 'datetime':
       return new Date(
         `${formatDate.start_date} ${formatDate.start_time}`
       ).getTime();
-    case "date":
+    case 'date':
       return new Date(formatDate.start_date).getTime();
-    case "datetimerange":
+    case 'datetimerange':
       const { start_date, start_time, end_date, end_time } = formatDate;
       return [
         new Date(`${start_date} ${start_time}`).getTime(),
         new Date(`${end_date} ${end_time}`).getTime(),
       ];
-    case "daterange":
+    case 'daterange':
       return [
         formatDate.start_date
           ? new Date(formatDate.start_date).getTime()
@@ -359,14 +379,14 @@ export const getPageContentBlockIds = (
         const p = properties[key];
         p.map((d: any) => {
           const value = d?.[0]?.[1]?.[0];
-          if (value?.[0] === "p" && value[1]) {
+          if (value?.[0] === 'p' && value[1]) {
             addContentBlocks(value[1]);
           }
         });
 
         const value = p?.[0]?.[1]?.[0];
 
-        if (value?.[0] === "p" && value[1]) {
+        if (value?.[0] === 'p' && value[1]) {
           addContentBlocks(value[1]);
         }
       }
@@ -384,7 +404,7 @@ export const getPageContentBlockIds = (
     }
 
     if (blockId !== rootBlockId) {
-      if (type === "page" || type === "collection_view_page") {
+      if (type === 'page' || type === 'collection_view_page') {
         return;
       }
     }
@@ -406,7 +426,7 @@ export const getPageContentBlockIds = (
  */
 export const getDateValue = (prop: any[]): FormattedDate | null => {
   if (prop && Array.isArray(prop)) {
-    if (prop[0] === "d") {
+    if (prop[0] === 'd') {
       return prop[1];
     } else {
       for (const v of prop) {
@@ -429,7 +449,7 @@ export const getDateValue = (prop: any[]): FormattedDate | null => {
  * @returns {string | null} 解析后的页面 ID，如果无法解析则返回 null
  */
 export const parsePageId = (
-  id: string | null = "",
+  id: string | null = '',
   { uuid = true }: { uuid?: boolean } = {}
 ) => {
   // 如果输入为空，直接返回 null
@@ -438,7 +458,7 @@ export const parsePageId = (
   }
 
   // 移除 URL 中的查询参数
-  id = id.split("?")[0];
+  id = id.split('?')[0];
 
   // 匹配 32 位十六进制字符串（不带连字符的 UUID）
   const match = id.match(/\b([a-f0-9]{32})\b/);
@@ -454,7 +474,7 @@ export const parsePageId = (
   );
   if (match2) {
     // 如果匹配成功，根据 uuid 选项决定是否保留连字符
-    return uuid ? match2[1] : match2[1].replace(/-/g, "");
+    return uuid ? match2[1] : match2[1].replace(/-/g, '');
   }
 
   // 如果都不匹配，返回 null
@@ -466,7 +486,7 @@ export const parsePageId = (
  * @param {string} id - 输入的 32 位十六进制字符串
  * @returns {string} UUID 格式的字符串
  */
-export const idToUuid = (id = ""): string => {
+export const idToUuid = (id = ''): string => {
   // 如果输入不是 32 位，直接返回原字符串
   //   if (id.length !== 32) {
   //     return id;
@@ -478,7 +498,7 @@ export const idToUuid = (id = ""): string => {
     id.slice(12, 16),
     id.slice(16, 20),
     id.slice(20),
-  ].join("-");
+  ].join('-');
 };
 
 /**
@@ -486,4 +506,4 @@ export const idToUuid = (id = ""): string => {
  * @param {string} uuid - UUID 格式的字符串
  * @returns {string} 不带连字符的 32 位十六进制字符串
  */
-export const uuidToId = (uuid: string) => uuid.replace(/-/g, "");
+export const uuidToId = (uuid: string) => uuid.replace(/-/g, '');
