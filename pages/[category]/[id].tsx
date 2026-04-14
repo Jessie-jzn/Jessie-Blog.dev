@@ -3,7 +3,6 @@ import NotionService from "@/lib/notion/NotionServer";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import getSinglePostData from "@/lib/notion/getSinglePostData";
 import React from "react";
-import { useRouter } from "next/router";
 import NotionPage from "@/components/Notion/NotionPage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import * as Type from "@/lib/type";
