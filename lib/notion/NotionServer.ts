@@ -1,40 +1,51 @@
 import { NotionAPI } from './NotionAPI';
+import { Client } from '@notionhq/client';
+import { NotionCompatAPI } from 'notion-compat';
 import { NOTION_TOKEN } from '@/lib/constants';
 import { getBlockCollectionId } from '@/lib/notion-utils';
+
 if (!NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN is not defined');
 }
 
+/**
+ * 是否优先使用官方 API（notion-compat）来获取页面正文。
+ * - 默认 true：走官方 blocks.children.list → 转 ExtendedRecordMap，数据干净、block.id 保证存在
+ * - 设为 "false"：回退到旧版 www.notion.so/api/v3（NotionAPI），速度快但数据偶有脏块
+ */
+const USE_OFFICIAL_PAGE_API =
+  process.env.USE_OFFICIAL_PAGE_API !== 'false';
+
 class NotionServer {
   private static instance: NotionServer;
+
+  /** 旧版非官方 API（api/v3），仍用于 getBlocks / getPageRaw / getCollectionData / search 等 */
   private notionAPI: NotionAPI;
+
+  /** 官方兼容层：@notionhq/client → notion-compat → ExtendedRecordMap */
+  private notionCompat: NotionCompatAPI;
+
   constructor() {
     this.notionAPI = new NotionAPI({
       apiBaseUrl: process.env.NOTION_API_BASE_URL,
       authToken: process.env.NOTION_API_KEY,
-      // 增加超时配置，防止 Notion 接口响应慢导致页面挂起
       gotOptions: {
         timeout: { request: 10000 },
       },
     });
+
+    this.notionCompat = new NotionCompatAPI(
+      new Client({ auth: NOTION_TOKEN })
+    );
   }
+
   public static getInstance(): NotionServer {
     if (!NotionServer.instance) {
       NotionServer.instance = new NotionServer();
     }
     return NotionServer.instance;
   }
-  // constructor() {
-  //   this.notionAPI = new NotionAPI({
-  //     apiBaseUrl: process.env.NOTION_API_BASE_URL,
-  //     authToken: process.env.NOTION_API_KEY || process.env.NOTION_API_KEY,
-  //   });
-  // }
-  /**
-   * 获取指定页面的内容
-   * @param pageId - 页面 ID
-   * @returns Promise<PageObjectResponse>
-   */
+
   async getCollectionData(params: any) {
     try {
       params = {
@@ -47,25 +58,41 @@ class NotionServer {
         params.collectionViewId,
         params.collectionView
       );
-
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
-      throw new Error('Failed to fetch page');
+      console.error('Error fetching collection data:', error.body || error);
+      throw new Error('Failed to fetch collection data');
     }
   }
+
   /**
-   * 获取指定页面的内容
-   * @param pageId - 页面 ID
-   * @returns Promise<PageObjectResponse>
+   * 获取页面正文的 ExtendedRecordMap（供 react-notion-x 渲染）。
+   *
+   * 优先走官方 API（notion-compat）：
+   * - 用 blocks.children.list 递归拉取所有子块
+   * - 通过 convertPage 转为 ExtendedRecordMap
+   * - 数据干净、block.id 一定存在，不会再有 "Cannot read properties of undefined" 错误
+   *
+   * 如果官方 API 失败（例如 Integration 没有访问权限），自动回退到旧版 api/v3。
    */
   async getPage(pageId: string) {
+    if (USE_OFFICIAL_PAGE_API) {
+      try {
+        const recordMap = await this.notionCompat.getPage(pageId);
+        return recordMap;
+      } catch (error: any) {
+        console.warn(
+          '[NotionServer.getPage] 官方 API 失败，回退到 legacy api/v3:',
+          error.message || error
+        );
+      }
+    }
+
     try {
       const page = await this.notionAPI.getPage(pageId);
-
       return page;
     } catch (error: any) {
-      console.error('Error fetching page:', error.body || error);
+      console.error('Error fetching page (legacy):', error.body || error);
       throw new Error('Failed to fetch page');
     }
   }

@@ -136,7 +136,6 @@ const NotionPage: React.FC<NotionPageProps> = ({
   const router = useRouter();
   const { locale } = router;
 
-  // 添加错误处理和重定向逻辑
   useEffect(() => {
     if (!recordMap || !recordMap.block) {
       console.warn('Page not found, redirecting to home...');
@@ -145,8 +144,20 @@ const NotionPage: React.FC<NotionPageProps> = ({
     }
   }, [recordMap, router]);
 
-  const keys = Object.keys(recordMap?.block || {});
-  const block = recordMap?.block?.[keys[0]]?.value;
+  // 官方 API（notion-compat）返回的 block 保证有 id；
+  // 若 fallback 到旧版 api/v3，仍可能有 value.id 缺失的 block，用 key 补齐。
+  const safeRecordMap = useMemo(() => {
+    if (!recordMap?.block) return recordMap;
+    for (const [key, entry] of Object.entries(recordMap.block)) {
+      if (entry?.value && !entry.value.id) {
+        entry.value.id = key;
+      }
+    }
+    return recordMap;
+  }, [recordMap]);
+
+  const keys = Object.keys(safeRecordMap?.block || {});
+  const block = safeRecordMap?.block?.[keys[0]]?.value;
 
   const isBlogPost =
     block?.type === 'page' && block?.parent_table === 'collection';
@@ -155,10 +166,9 @@ const NotionPage: React.FC<NotionPageProps> = ({
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {};
-
     const searchParams = new URLSearchParams(params);
-    return mapPageUrl(recordMap, searchParams);
-  }, [recordMap]);
+    return mapPageUrl(safeRecordMap, searchParams);
+  }, [safeRecordMap]);
 
   const components = useMemo(
     () => ({
@@ -205,12 +215,12 @@ const NotionPage: React.FC<NotionPageProps> = ({
         <NotionRenderer
           bodyClassName={styles.notion}
           components={components as Partial<NotionComponents>}
-          recordMap={recordMap}
+          recordMap={safeRecordMap}
           isShowingSearch={false}
           onHideSearch={() => {}}
           rootDomain={SiteConfig.domain}
           fullPage={true}
-          previewImages={!!recordMap?.preview_images}
+          previewImages={!!safeRecordMap?.preview_images}
           showCollectionViewDropdown={false}
           showTableOfContents={showTableOfContents}
           minTableOfContentsItems={minTableOfContentsItems}

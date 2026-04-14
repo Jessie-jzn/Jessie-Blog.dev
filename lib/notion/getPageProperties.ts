@@ -14,7 +14,8 @@ interface Schema {
   };
 }
 
-interface TagOption {
+/** 与 collection schema 里 tags 列的 options 项一致，供 getTagOptions / getPageProperties 共用 */
+export interface TagOption {
   value: string;
   color: string;
 }
@@ -141,7 +142,7 @@ const getPageProperties = async (
         color: tagOptions?.find((t) => t.value === tag)?.color || "",
       };
     }) || [];
-  properties.slug = properties.slug;
+  properties.slug = properties.slug ?? "";
 
   delete properties.content;
   return properties;
@@ -176,7 +177,8 @@ interface MapProperties {
  * 映射用户自定义表头
  * @param {Properties} properties - 页面属性对象
  */
-const mapProperties = (properties: MapProperties): void => {
+/** 导出供 mapOfficialDatabasePage 复用：将 Notion 下拉选项映射为站内 Post/Page 等类型 */
+export const mapProperties = (properties: MapProperties): void => {
   if (properties?.type === SiteConfig.NOTION_PROPERTY_NAME.type_post) {
     properties.type = "Post";
   } else if (properties?.type === SiteConfig.NOTION_PROPERTY_NAME.type_page) {

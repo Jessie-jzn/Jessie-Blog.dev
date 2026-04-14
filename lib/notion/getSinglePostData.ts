@@ -1,6 +1,10 @@
+/**
+ * 单篇元数据（标题、标签等）仍从非官方 recordMap 的 block + schema 解析；
+ * getTagOptions 抽到 notionSchemaOptions，与列表是否走官方 API 无关。
+ */
 import getBlockInBatches from "./getBlockInBatches";
 import getPageProperties from "./getPageProperties";
-import { getTagOptions } from "./getDataBaseList";
+import { getTagOptions } from "./notionSchemaOptions";
 
 /**
  * 通过 pageId 获取单篇文章内容

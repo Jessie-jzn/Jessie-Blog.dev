@@ -9,6 +9,20 @@ const NOTION_POST_ID = process.env.NOTION_POST_ID as string; // post
 const NOTION_POST_EN_ID = process.env.NOTION_POST_EN_ID as string; // post-en
 const NOTION_GUIDE_ID = process.env.NOTION_GUIDE_ID as string; // 旅行攻略
 const NOTION_GUIDE_EN_ID = process.env.NOTION_GUIDE_EN_ID as string; // 旅行攻略
+/**
+ * 官方 Integration（@notionhq/client）用的「数据库」UUID。
+ * 在 Notion 打开目标数据库 → 右上角 ⋮ → Copy link，从 URL 取 32 位 id（可带连字符）。
+ * 须与 NOTION_POST_ID 在 officialDatabaseId 中配对；未配置时列表自动回退到旧版 api/v3。
+ */
+const NOTION_POST_DATABASE_ID = process.env.NOTION_POST_DATABASE_ID as
+  | string
+  | undefined;
+/**
+ * 旅行攻略等第二套库的 database_id，与 NOTION_GUIDE_ID 成对；用法同 NOTION_POST_DATABASE_ID。
+ */
+const NOTION_GUIDE_DATABASE_ID = process.env.NOTION_GUIDE_DATABASE_ID as
+  | string
+  | undefined;
 const NOTION_NOTIFICATIONS_ID = process.env.NOTION_NOTIFICATIONS_ID as string; // 用户订阅数据库
 const COMMENT_REPO_URL = process.env.COMMENT_REPO_URL as string;
 const COMMENT_REPO_NAME = process.env.COMMENT_REPO_NAME as string;
@@ -43,6 +57,8 @@ export {
   COMMENT_REPO_NAME,
   NOTION_GUIDE_ID,
   NOTION_GUIDE_EN_ID,
+  NOTION_POST_DATABASE_ID,
+  NOTION_GUIDE_DATABASE_ID,
   NOTION_POST_ID,
   NOTION_POST_EN_ID,
   NOTION_ROOT_ID,

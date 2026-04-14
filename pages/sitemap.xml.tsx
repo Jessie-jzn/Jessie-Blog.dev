@@ -1,3 +1,6 @@
+/**
+ * SSR sitemap 页面：数据源与 api/sitemap.xml 一致，使用 getDataBaseList 返回的 Post[]。
+ */
 import { GetServerSideProps } from "next";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_POST_ID } from "@/lib/constants";
@@ -9,17 +12,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       pageId: NOTION_POST_ID,
       from: "sitemap",
     });
-    const posts =
-      response?.allPages?.map((page) => ({
-        ...page,
-        tags: page.properties.Tags.select.options.map(
-          (option: { text: { content: [{ text: { content: string } }] } }) =>
-            option.text.content[0].text.content
-        ),
-        title: page.properties.Name.title[0].text.content[0].text.content,
-        pageCover: page.properties.PageCover.files[0].file_url,
-        pageCoverThumbnail: page.properties.PageCover.files[0].file_url,
-      })) || [];
+    const posts = response?.allPages ?? [];
     const sitemap = generateSitemapXML(posts);
 
     res.setHeader("Content-Type", "application/xml");

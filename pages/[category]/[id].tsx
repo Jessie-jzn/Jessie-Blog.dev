@@ -3,6 +3,7 @@ import NotionService from "@/lib/notion/NotionServer";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import getSinglePostData from "@/lib/notion/getSinglePostData";
 import React from "react";
+import { useRouter } from "next/router";
 import NotionPage from "@/components/Notion/NotionPage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import * as Type from "@/lib/type";
@@ -33,60 +34,107 @@ export const getStaticProps: GetStaticProps<
 
   try {
     const { id: slug } = params;
+    const databaseId = NOTION_POST_ID;
 
-    const databaseId = NOTION_POST_ID; // 使用默认的 databaseId
-    console.log("databaseId", databaseId);
-    console.log("slug", slug);
-
-    // 获取数据库和短链接映射
-    const { slugMap } = await getDataBaseList({
+    // 拉取数据库列表：同时得到 slugMap、allPages 和 schema 相关数据
+    const dbResult = await getDataBaseList({
       pageId: databaseId,
       from: "post-id",
     });
+    const { slugMap, allPages = [] } = dbResult;
 
-    console.log("slugMap:", slugMap); // 添加日志查看 slugMap
-
-    let resolvedPostId = slug;
-
-    // 如果是短链接，映射为实际的 postId
-    resolvedPostId = slugMap?.[slug] ?? "";
-
+    // slug → 实际 pageId
+    const resolvedPostId = slugMap?.[slug] ?? "";
     if (!resolvedPostId) {
-      return { notFound: true }; // 如果找不到对应的 postId，则返回 404
+      console.warn(`[getStaticProps] slug "${slug}" 未找到对应 pageId`);
+      return { notFound: true };
     }
 
-    // 查询实际的页面数据
+    // 查询页面正文（ExtendedRecordMap），供 react-notion-x 渲染
     const recordMap = await notionService.getPage(resolvedPostId);
     if (!recordMap) {
       return { notFound: true };
     }
 
-    const collection =
-      (Object.values(recordMap.collection)[0] as any)?.value || {};
-    const schema = collection?.schema;
-    const block = recordMap.block[resolvedPostId]?.value;
+    // ---- postData 获取策略 ----
+    // 优先从 allPages 中按 id 查找（官方 API 已包含完整元数据），
+    // 避免依赖 recordMap.collection（notion-compat 不返回 collection）。
+    let postData: any = null;
 
-    // 并行获取数据
-    const [postData, relatedArticles] = await Promise.all([
-      getSinglePostData(resolvedPostId, block, schema),
-      getRelatedPosts(resolvedPostId, databaseId, block, schema),
-    ]);
+    const matchedPost = allPages.find(
+      (p) => p.id.replace(/-/g, "") === resolvedPostId.replace(/-/g, "")
+    );
+
+    if (matchedPost) {
+      // allPages 里的 Post 已包含 title / tags / slug / category 等，直接用
+      postData = {
+        id: matchedPost.id,
+        title: matchedPost.title ?? "",
+        keywords: "",
+        summarize: matchedPost.summarize ?? "",
+        type: matchedPost.type === "Post" ? "Post" : "Page",
+        status: matchedPost.status === "Published" ? "Published" : "Draft",
+        tags: matchedPost.tags ?? [],
+        category: matchedPost.category ?? "",
+        comment: matchedPost.comment ?? "",
+        publishDate: matchedPost.publishDate ?? 0,
+        publishDay: matchedPost.publishDay ?? "",
+        lastEditedDate: matchedPost.lastEditedDate ?? "",
+        lastEditedDay: matchedPost.lastEditedDay ?? "",
+        fullWidth: matchedPost.fullWidth ?? false,
+        pageIcon: matchedPost.pageIcon ?? "",
+        pageCover: matchedPost.pageCover ?? "",
+        pageCoverThumbnail: matchedPost.pageCoverThumbnail ?? "",
+        ext: matchedPost.ext ?? {},
+        tagItems: (matchedPost.tagItems ?? []) as unknown as { name: string; color: string }[],
+        slug: matchedPost.slug ?? "",
+      };
+    } else {
+      // 兜底：如果 allPages 中找不到（理论上不应发生），尝试从 recordMap 解析
+      const collection =
+        (Object.values(recordMap.collection ?? {})[0] as any)?.value || {};
+      const schema = collection?.schema;
+
+      let block = recordMap.block[resolvedPostId]?.value;
+      if (!block) {
+        const normalized = resolvedPostId.replace(/-/g, "");
+        for (const [key, entry] of Object.entries(recordMap.block)) {
+          if (key.replace(/-/g, "") === normalized && (entry as any)?.value) {
+            block = (entry as any).value;
+            break;
+          }
+        }
+      }
+
+      if (block && schema) {
+        postData = await getSinglePostData(resolvedPostId, block, schema);
+      }
+    }
 
     if (!postData) {
+      console.warn(`[getStaticProps] 无法获取 postData, slug="${slug}"`);
       return { notFound: true };
     }
+
+    // 获取相关文章
+    const relatedArticles = await getRelatedPosts(
+      resolvedPostId,
+      databaseId,
+      null,
+      null
+    );
 
     return {
       props: {
         recordMap,
         postData,
-        relatedPosts: relatedArticles,
+        relatedPosts: relatedArticles ?? [],
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 100,
     };
   } catch (error) {
-    console.error("Error in getStaticProps:", error); // 打印详细错误信息
+    console.error("Error in getStaticProps:", error);
     return { notFound: true };
   }
 };
@@ -170,6 +218,12 @@ const RenderPost: React.FC<RenderPostProps> = ({
   postData,
   relatedPosts,
 }) => {
+  const router = useRouter();
+
+  if (router.isFallback || !recordMap) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   return (
     <div className="prose mx-auto">
       <NotionPage
@@ -181,7 +235,6 @@ const RenderPost: React.FC<RenderPostProps> = ({
         <GiscusComments />
       </div>
     </div>
-
   );
 };
 

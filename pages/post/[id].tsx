@@ -1,11 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import NotionService from '@/lib/notion/NotionServer';
-import { Post } from '@/lib/type';
-// import * as API from '@/lib/api/guide';
 import { NOTION_POST_ID } from '@/lib/constants';
 import getDataBaseList from '@/lib/notion/getDataBaseList';
 
 import React from 'react';
+import { useRouter } from 'next/router';
 import NotionPage from '@/components/Notion/NotionPage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import PostDetailLayout from '@/components/layouts/PostDetailLayout';
@@ -17,14 +16,14 @@ export const getStaticProps: GetStaticProps = async ({
   locale,
 }: any) => {
   const postId = params?.id as string;
+  console.log("postId", postId);
   const post = await notionService.getPage(postId);
 
   return {
     props: {
-      post: post,
+      post: post ?? null,
       ...(await serverSideTranslations(locale, ['common'])),
     },
-    // 每 1 小时（3600秒）在后台重新抓取一次数据，更新图片签名
     revalidate: 3600,
   };
 };
@@ -35,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     from: 'post-id',
   });
 
-  const paths = (posts.pageIds as any).map((post: any) => ({
+  const paths = (posts.pageIds ?? []).map((post: any) => ({
     params: { id: post },
   }));
 
@@ -46,6 +45,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const PostDetail = ({ post }: any): React.JSX.Element => {
+  const router = useRouter();
+
+  if (router.isFallback || !post) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   return (
     <>
       <NotionPage recordMap={post} />

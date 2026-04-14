@@ -1,42 +1,69 @@
+/**
+ * 相关文章：依赖 getDataBaseList 提供的 allPages（现已支持官方 databases.query）。
+ * 直接从 allPages 中查找当前文章的 tags，按标签匹配推荐相关文章。
+ * 不再依赖 getSinglePostData / block / schema，兼容官方 API 路径。
+ */
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import getSinglePostData from "@/lib/notion/getSinglePostData";
 import * as Types from "@/lib/type";
 
 export async function getRelatedPosts(
   postId: string,
   databaseId: string,
-  block?: any,
-  schema?: any
+  _block?: any,
+  _schema?: any
 ): Promise<Types.PostData[]> {
   try {
-    // 获取当前文章数据
-    const postData = await getSinglePostData(postId, block, schema);
-    if (!postData?.tags?.length) {
-      return [];
-    }
-
-    const firstTag = postData.tags[0];
-    
-    // 获取数据库中的所有文章
     const { allPages } = await getDataBaseList({
       pageId: databaseId,
       from: "related-posts",
     });
 
-    if (!allPages) {
+    if (!allPages?.length) {
       return [];
     }
 
-    // 过滤相关文章
-    return allPages
-      .filter((post): post is Types.PostData => {
-        return (
-          post?.id !== postId && 
-          post?.tags?.some((tag: string) => tag === firstTag)
-        );
+    // 从 allPages 查找当前文章，取 tags
+    const normalizedId = postId.replace(/-/g, "");
+    const currentPost = allPages.find(
+      (p) => p.id.replace(/-/g, "") === normalizedId
+    );
+
+    if (!currentPost?.tags?.length) {
+      return [];
+    }
+
+    const firstTag = currentPost.tags[0];
+
+    const related = allPages.filter(
+      (post) =>
+        post.id.replace(/-/g, "") !== normalizedId &&
+        Boolean(post.tags?.some((tag: string) => tag === firstTag))
+    );
+
+    return related.slice(0, 5).map(
+      (post): Types.PostData => ({
+        id: post.id,
+        keywords: "",
+        summarize: post.summarize ?? "",
+        type: post.type === "Post" ? "Post" : "Page",
+        status: "Published",
+        tags: post.tags ?? [],
+        title: post.title,
+        category: post.category ?? "",
+        comment: post.comment ?? "",
+        publishDate: post.publishDate ?? 0,
+        publishDay: post.publishDay ?? "",
+        lastEditedDate: post.lastEditedDate ?? "",
+        lastEditedDay: post.lastEditedDay ?? "",
+        fullWidth: post.fullWidth ?? false,
+        pageIcon: post.pageIcon ?? "",
+        pageCover: post.pageCover,
+        pageCoverThumbnail: post.pageCoverThumbnail,
+        ext: post.ext ?? {},
+        tagItems:
+          (post.tagItems as unknown as Types.PostData["tagItems"]) ?? [],
       })
-      .slice(0, 5);
-      
+    );
   } catch (error) {
     console.error("Error getting related posts:", error);
     return [];

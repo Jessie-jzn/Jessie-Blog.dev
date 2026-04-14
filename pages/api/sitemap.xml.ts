@@ -1,3 +1,6 @@
+/**
+ * 动态 sitemap API：文章列表来自 getDataBaseList（Post 已含 title/slug 等），勿再访问不存在的 page.properties。
+ */
 import { NextApiRequest, NextApiResponse } from "next";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_POST_ID } from "@/lib/constants";
@@ -14,18 +17,8 @@ export default async function handler(
       from: "sitemap",
     });
 
-    // 处理文章数据
-    const posts =
-      response?.allPages?.map((page) => ({
-        ...page,
-        tags: page.properties.Tags.select.options.map(
-          (option: { text: { content: [{ text: { content: string } }] } }) =>
-            option.text.content[0].text.content
-        ),
-        title: page.properties.Name.title[0].text.content[0].text.content,
-        pageCover: page.properties.PageCover.files[0].file_url,
-        pageCoverThumbnail: page.properties.PageCover.files[0].file_url,
-      })) || [];
+    // allPages 已是 getDataBaseList 映射后的 Post（title/tags/pageCover 等），无需再读 properties.*
+    const posts = response?.allPages ?? [];
 
     // 生成站点地图
     const sitemap = generateSitemapXML(posts);

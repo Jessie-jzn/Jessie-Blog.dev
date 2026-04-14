@@ -136,6 +136,19 @@ export interface NotionPageParamsProp {
   filter?: any;
 }
 
+/**
+ * getDataBaseList（含官方 / legacy）返回结构，便于 hooks 与页面正确推断 categoryMap 索引类型。
+ */
+export interface GetDataBaseListResult {
+  allPages?: Post[];
+  latestPosts?: Post[];
+  categoryMap?: Record<string, Category>;
+  categoryList?: Category[];
+  tagOptions?: Tag[];
+  pageIds?: string[];
+  slugMap?: Record<string, string>;
+}
+
 export interface SchemaProp {
   [key: string]: {
     type: string;

@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import { NOTION_POST_ID } from '@/lib/constants';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
 import getLocalizedCategoryPosts from '@/lib/notion/getLocalizedCategoryPosts';
@@ -25,37 +26,43 @@ const itemVariants = {
   },
 };
 
-// --- 新增：专题页头部组件 (Guide Header) ---
-const TopicHeader = () => (
-  <div className='relative py-16 md:py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden'>
-    <div className='absolute inset-0 opacity-10 dark:opacity-20 pattern-grid-lg text-[#62BFAD]' />
-    <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
-      <motion.span
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className='inline-block py-1 px-3 rounded-full bg-[#62BFAD]/10 text-[#62BFAD] text-sm font-bold tracking-wider mb-4'
-      >
-        ULTIMATE GUIDE
-      </motion.span>
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className='text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4'
-      >
-        澳洲打工度假 <span className='text-[#62BFAD]'>WHV</span> 全攻略
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className='max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400'
-      >
-        从签证申请到落地生存，从农场集签到城市打工。这里记录了我作为 whv
-        在澳洲的真实体验与避坑指南。
-      </motion.p>
-    </div>
-  </div>
+// --- 专题页头部组件 ---
+// framer-motion 的 initial/animate 在 SSR 时会对文本节点做双重渲染导致 hydration mismatch，
+// 用 dynamic + ssr:false 让整个头部只在客户端渲染，避免 "ULTIMATEULTIMATE GUIDEGUIDE" 问题。
+const TopicHeader = dynamic(
+  () =>
+    Promise.resolve(() => (
+      <div className='relative py-16 md:py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden'>
+        <div className='absolute inset-0 opacity-10 dark:opacity-20 pattern-grid-lg text-[#62BFAD]' />
+        <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className='inline-block py-1 px-3 rounded-full bg-[#62BFAD]/10 text-[#62BFAD] text-sm font-bold tracking-wider mb-4'
+          >
+            ULTIMATE GUIDE
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className='text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4'
+          >
+            澳洲打工度假 <span className='text-[#62BFAD]'>WHV</span> 全攻略
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className='max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400'
+          >
+            从签证申请到落地生存，从农场集签到城市打工。这里记录了我作为 whv
+            在澳洲的真实体验与避坑指南。
+          </motion.p>
+        </div>
+      </div>
+    )),
+  { ssr: false }
 );
 
 // --- 新增：阶段导航 (Roadmap Navigation) ---
