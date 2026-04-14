@@ -16,7 +16,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar isFull={false} />
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow pt-20 xs:pt-14">{children}</main>
       <Footer />
       <div className="fixed left-4 top-1/3 z-50 xs:hidden">
         <ShareButtons

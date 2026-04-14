@@ -13,14 +13,14 @@ const AffiliateToolbox = () => {
       name: 'WHV保险',
       desc: '澳洲保险对比',
       icon: '🛡️',
-      link: '/insurance-guide',
+      link: '/whv-zh//australia-health-insurance-guide-whv-comparison/',
       color: 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100',
     },
     {
-      name: '澳洲流量',
-      desc: 'eSIM立减$3',
+      name: '澳洲电话卡',
+      desc: '新人立减$20',
       icon: '📲',
-      link: 'https://wise.prf.hn/l/LAR8QdR/',
+      link: '/whv-zh/australia-sim-card-guide/',
       color: 'bg-purple-50 text-purple-600 hover:bg-purple-100',
     },
     {

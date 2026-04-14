@@ -10,7 +10,7 @@ import { Block, ExtendedRecordMap } from 'notion-types';
 import * as Types from '@/lib/type';
 import styles from './styles.module.css';
 import NotionPropertyValue from './NotionPropertyValue';
-import NotionPageHeader from './NotionPageHeader';
+import { Breadcrumbs } from './NotionPageHeader';
 import NotionPageAside from './NotionPageAside';
 import Sidebar from '@/components/Sidebar';
 
@@ -189,7 +189,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
       //   Pdf,
       Modal,
       //   Tweet,
-      Header: NotionPageHeader,
+      Header: () => null,
       propertyLastEditedTimeValue,
       propertyDateValue,
       propertyCreatedTimeValue,
@@ -211,6 +211,9 @@ const NotionPage: React.FC<NotionPageProps> = ({
         image={postData?.pageCover || SiteConfig.defaultPageCover}
         keywords={postData?.keywords}
       />
+      <div className="max-w-screen-xl mx-auto px-6 xs:px-3">
+        <Breadcrumbs postData={postData} />
+      </div>
       <div className={`styles.notion-custom-container`}>
         <NotionRenderer
           bodyClassName={styles.notion}

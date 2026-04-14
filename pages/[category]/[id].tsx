@@ -11,6 +11,7 @@ import { ExtendedRecordMap } from "notion-types";
 import { getRelatedPosts } from "@/lib/services/RelatedPostsService";
 import { NOTION_POST_ID } from "@/lib/constants";
 import GiscusComments from '@/components/GiscusComments'
+import PostDetailLayout from '@/components/layouts/PostDetailLayout'
 
 const notionService = new NotionService();
 
@@ -40,11 +41,8 @@ export const getStaticProps: GetStaticProps<
     });
     const { slugMap, allPages = [] } = dbResult;
 
-    // rawId 可能是 slug（短链接）也可能是原始 pageId
-    // 优先从 slugMap 查找；找不到时把 rawId 本身当作 pageId
     let resolvedPostId = slugMap?.[rawId] ?? "";
     if (!resolvedPostId) {
-      // rawId 就是 pageId 本身——在 allPages 里按 id 匹配确认它有效
       const normalizedRaw = rawId.replace(/-/g, "");
       const directMatch = allPages.find(
         (p) => p.id.replace(/-/g, "") === normalizedRaw
@@ -57,23 +55,20 @@ export const getStaticProps: GetStaticProps<
       }
     }
 
-    // 查询页面正文（ExtendedRecordMap），供 react-notion-x 渲染
+    // getPage 是唯一的网络请求，相关文章直接从 allPages 内存计算，无需并行
     const recordMap = await notionService.getPage(resolvedPostId);
     if (!recordMap) {
       return { notFound: true };
     }
 
-    // ---- postData 获取策略 ----
-    // 优先从 allPages 中按 id 查找（官方 API 已包含完整元数据），
-    // 避免依赖 recordMap.collection（notion-compat 不返回 collection）。
-    let postData: any = null;
+    const relatedArticles = getRelatedPosts(resolvedPostId, allPages);
 
+    let postData: any = null;
     const matchedPost = allPages.find(
       (p) => p.id.replace(/-/g, "") === resolvedPostId.replace(/-/g, "")
     );
 
     if (matchedPost) {
-      // allPages 里的 Post 已包含 title / tags / slug / category 等，直接用
       postData = {
         id: matchedPost.id,
         title: matchedPost.title ?? "",
@@ -97,7 +92,6 @@ export const getStaticProps: GetStaticProps<
         slug: matchedPost.slug ?? "",
       };
     } else {
-      // 兜底：如果 allPages 中找不到（理论上不应发生），尝试从 recordMap 解析
       const collection =
         (Object.values(recordMap.collection ?? {})[0] as any)?.value || {};
       const schema = collection?.schema;
@@ -122,14 +116,6 @@ export const getStaticProps: GetStaticProps<
       console.warn(`[getStaticProps] 无法获取 postData, id="${rawId}"`);
       return { notFound: true };
     }
-
-    // 获取相关文章
-    const relatedArticles = await getRelatedPosts(
-      resolvedPostId,
-      databaseId,
-      null,
-      null
-    );
 
     return {
       props: {
@@ -174,7 +160,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: 'blocking',
   };
 };
 
@@ -189,12 +175,6 @@ const RenderPost: React.FC<RenderPostProps> = ({
   postData,
   relatedPosts,
 }) => {
-  const router = useRouter();
-
-  if (router.isFallback || !recordMap) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-
   return (
     <div className="prose mx-auto">
       <NotionPage
@@ -207,6 +187,10 @@ const RenderPost: React.FC<RenderPostProps> = ({
       </div>
     </div>
   );
+};
+
+(RenderPost as any).getLayout = (page: React.ReactElement) => {
+  return <PostDetailLayout>{page}</PostDetailLayout>;
 };
 
 export default RenderPost;

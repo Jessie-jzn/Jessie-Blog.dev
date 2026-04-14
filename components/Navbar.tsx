@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import SiteConfig from '@/site.config';
 import dynamic from 'next/dynamic';
-import Image from 'next/image'; // 确保使用 Next.js 的 Image 组件
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link';
@@ -15,8 +15,8 @@ const LanguageSwitch = dynamic(() => import('@/components/LanguageSwitch'));
 
 interface NavbarProp {
   btnColor?: string;
-  className?: string; // 添加 style 属性
-  isFull?: boolean; // 是否是沉浸式头部
+  className?: string;
+  isFull?: boolean;
   currentTheme?: 'light' | 'dark';
 }
 
@@ -24,11 +24,20 @@ const Navbar = ({
   btnColor,
   className,
   currentTheme = 'light',
-  isFull = true,
+  isFull = false,
 }: NavbarProp) => {
   const { t } = useTranslation('common');
   const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
   const router = useRouter();
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!isFull) return;
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isFull]);
 
   const navigationLinks = useMemo(
     () => [
@@ -48,7 +57,7 @@ const Navbar = ({
       },
     ],
     [t]
-  ); // 只依赖 t 函数
+  );
 
   const menuItemVariants = {
     initial: { opacity: 1, y: 0 },
@@ -61,15 +70,8 @@ const Navbar = ({
       if (href === '/') {
         return router.asPath === '/';
       }
-      // 对于其他导航链接，检查是否匹配路径或其子路径
-      const basePath = href.replace(/^\/|\/$/g, ''); // 移除首尾的斜杠
-      const currentPath = router.asPath.replace(/^\/|\/$/g, ''); // 移除首尾的斜杠
-
-      // 检查是否匹配以下情况：
-      // 1. 精确匹配（如 /travel）
-      // 2. 子路径匹配（如 /travel/xxx）
-      // 3. 带语言后缀的匹配（如 /travel-zh）
-      // 4. 带语言后缀的子路径匹配（如 /travel-zh/xxx）
+      const basePath = href.replace(/^\/|\/$/g, '');
+      const currentPath = router.asPath.replace(/^\/|\/$/g, '');
       return (
         currentPath === basePath ||
         currentPath.startsWith(`${basePath}/`) ||
@@ -84,64 +86,76 @@ const Navbar = ({
     setNavbarTitle(SiteConfig.headerTitle);
   }, []);
 
+  const showSolidBg = !isFull || scrolled;
+
+  // 滚动后统一用深色文字；未滚动的沉浸式模式跟随 currentTheme
+  const textColor = showSolidBg
+    ? 'text-gray-900 dark:text-gray-100'
+    : currentTheme === 'dark'
+      ? 'text-gray-100'
+      : 'text-gray-900';
+
+  const underlineColor = showSolidBg
+    ? 'bg-slate-950 dark:bg-slate-50'
+    : currentTheme === 'dark'
+      ? 'bg-slate-50'
+      : 'bg-slate-950';
+
   return (
-    <div
-      className={`w-full p-8 z-[999] mx-auto ${
-        isFull ? 'absolute top-0 left-0 bg-fixed bg-transparent' : 'relative'
-      }
-        box-border xs:bg-white xs:p-2 xs:h-[52px] dark:xs:bg-slate-950
-        ${className}
-        `}
+    <motion.div
+      initial={false}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className={[
+        'fixed top-0 left-0 w-full z-[999]',
+        'transition-colors duration-300',
+        showSolidBg
+          ? 'bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-sm'
+          : 'bg-transparent',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
-      <div className='max-w-screen-xl mx-auto flex items-center justify-between px-4'>
+      <div className='max-w-screen-xl mx-auto flex items-center justify-between px-6 py-3 xs:px-3 xs:py-2'>
         <Link href='/' aria-label={NavbarTitle}>
-          <div className='flex items-center justify-center'>
+          <div className='flex items-center'>
             <div className='mr-3'>
               <Image
-                src={`https://img.jessieontheroad.com/avatar.png`}
+                src='https://img.jessieontheroad.com/avatar.png'
                 alt='avatar'
-                width={192} // 根据需要调整大小
+                width={192}
                 height={192}
-                quality={75} // 设置压缩质量，默认为75
-                priority // 提升优先级，优先加载重要图片
-                className='h-16 w-16 rounded-full xs:h-8 xs:w-8'
+                quality={75}
+                priority
+                className='h-10 w-10 rounded-full xs:h-8 xs:w-8'
               />
             </div>
-
-            <div
-              className={`text-3xl font-bold xs:text-xs text-gray-100 xs:text-gray-900 dark:text-gray-100 ${
-                currentTheme === 'light' ? 'text-gray-900' : 'text-gray-100'
-              }`}
-            >
+            <div className={`text-xl font-bold xs:text-sm ${textColor}`}>
               {NavbarTitle}
             </div>
           </div>
         </Link>
-        <div className='flex items-center space-x-4 leading-5 sm:space-x-6'>
+
+        <div className='flex items-center space-x-5 leading-5 sm:space-x-6'>
           {navigationLinks.map((link) => (
             <motion.div
               key={link.id}
-              className={`relative group hidden sm:block font-medium dark:text-gray-100 ${
-                currentTheme === 'light' ? 'text-gray-900' : 'text-gray-100'
-              }`}
+              className={`relative group hidden sm:block font-medium text-sm ${textColor}`}
               variants={menuItemVariants}
               initial='initial'
               animate={isActiveLink(link.href || '') ? 'active' : 'initial'}
               whileHover='hover'
             >
-              {/* 一级菜单标题 */}
               {link.children ? (
-                <span className='cursor-default'>{link.title}</span> // 不跳转
+                <span className='cursor-default'>{link.title}</span>
               ) : (
                 <Link href={link.href}>{link.title}</Link>
               )}
 
-              {/* 下划线动画 */}
               {!link.children && (
                 <motion.div
-                  className={`absolute bottom-[-6px] left-0 right-0 h-[1px] dark:bg-slate-50 ${
-                    currentTheme === 'light' ? 'bg-slate-950' : 'bg-slate-50'
-                  }`}
+                  className={`absolute bottom-[-4px] left-0 right-0 h-[2px] rounded ${underlineColor}`}
                   initial={{ scaleX: 0 }}
                   animate={{
                     scaleX: isActiveLink(link.href || '') ? 1 : 0,
@@ -150,9 +164,8 @@ const Navbar = ({
                 />
               )}
 
-              {/* 二级菜单 */}
               {link.children && (
-                <div className='absolute top-full left-0 bg-white text-gray-900 dark:text-gray-100  dark:bg-slate-900 shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-200 ease-in-out z-50'>
+                <div className='absolute top-full left-0 mt-1 bg-white text-gray-900 dark:text-gray-100 dark:bg-slate-900 shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-200 ease-in-out z-50'>
                   <ul className='min-w-[160px] py-2 px-0'>
                     {link.children.map((child) => (
                       <li key={child.id}>
@@ -195,7 +208,7 @@ const Navbar = ({
           <SpeedInsights />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
