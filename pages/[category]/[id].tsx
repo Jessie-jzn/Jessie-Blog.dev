@@ -26,28 +26,35 @@ export const getStaticProps: GetStaticProps<
   any,
   { category: string; id: string }
 > = async ({ params, locale }) => {
-  console.log("params", params);
-
   if (!params) {
     return { notFound: true };
   }
 
   try {
-    const { id: slug } = params;
+    const { id: rawId } = params;
     const databaseId = NOTION_POST_ID;
 
-    // 拉取数据库列表：同时得到 slugMap、allPages 和 schema 相关数据
     const dbResult = await getDataBaseList({
       pageId: databaseId,
       from: "post-id",
     });
     const { slugMap, allPages = [] } = dbResult;
 
-    // slug → 实际 pageId
-    const resolvedPostId = slugMap?.[slug] ?? "";
+    // rawId 可能是 slug（短链接）也可能是原始 pageId
+    // 优先从 slugMap 查找；找不到时把 rawId 本身当作 pageId
+    let resolvedPostId = slugMap?.[rawId] ?? "";
     if (!resolvedPostId) {
-      console.warn(`[getStaticProps] slug "${slug}" 未找到对应 pageId`);
-      return { notFound: true };
+      // rawId 就是 pageId 本身——在 allPages 里按 id 匹配确认它有效
+      const normalizedRaw = rawId.replace(/-/g, "");
+      const directMatch = allPages.find(
+        (p) => p.id.replace(/-/g, "") === normalizedRaw
+      );
+      if (directMatch) {
+        resolvedPostId = directMatch.id;
+      } else {
+        console.warn(`[getStaticProps] "${rawId}" 既不是有效 slug 也不是已知 pageId`);
+        return { notFound: true };
+      }
     }
 
     // 查询页面正文（ExtendedRecordMap），供 react-notion-x 渲染
@@ -112,7 +119,7 @@ export const getStaticProps: GetStaticProps<
     }
 
     if (!postData) {
-      console.warn(`[getStaticProps] 无法获取 postData, slug="${slug}"`);
+      console.warn(`[getStaticProps] 无法获取 postData, id="${rawId}"`);
       return { notFound: true };
     }
 
@@ -140,70 +147,34 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths: { params: { category: string; id: string } }[] = [];
-
-  const databaseId = NOTION_POST_ID; // 使用默认的 databaseId
-  const {
-    pageIds = [],
-    slugMap,
-    categoryMap,
-  } = await getDataBaseList({
+  const databaseId = NOTION_POST_ID;
+  const { categoryMap } = await getDataBaseList({
     pageId: databaseId,
     from: "post-id",
   });
 
-  // 为每个分类下的文章添加路径
+  // 用 Set 去重，避免 slug 和 pageId 重复生成导致 build 时 API 调用翻倍
+  const seen = new Set<string>();
+  const paths: { params: { category: string; id: string } }[] = [];
+
   if (categoryMap) {
     Object.entries(categoryMap).forEach(([category, data]: [string, any]) => {
       const articles = data.articles || [];
       articles.forEach((article: any) => {
-        // 如果文章有 slug，使用 slug 作为 id
-        if (article.slug) {
-          paths.push({
-            params: { category, id: article.slug },
-          });
+        // 有 slug 优先用 slug，否则用 pageId
+        const id = article.slug || article.id;
+        const key = `${category}/${id}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          paths.push({ params: { category, id } });
         }
-        // 同时添加文章 ID 作为备选路径
-        paths.push({
-          params: { category, id: article.id },
-        });
-      });
-    });
-  }
-
-  // 为每个短链接添加路径
-  if (slugMap) {
-    Object.entries(slugMap).forEach(([slug, postId]: [string, string]) => {
-      // 查找文章所属的分类
-      const articleCategory =
-        Object.entries(categoryMap || {}).find(([_, data]: [string, any]) =>
-          data.articles?.some((article: any) => article.id === postId)
-        )?.[0] || "default";
-
-      paths.push({
-        params: { category: articleCategory, id: slug },
-      });
-    });
-  }
-
-  // 为每个页面 ID 添加路径
-  if (pageIds) {
-    pageIds.forEach((postId: string) => {
-      // 查找文章所属的分类
-      const articleCategory =
-        Object.entries(categoryMap || {}).find(([_, data]: [string, any]) =>
-          data.articles?.some((article: any) => article.id === postId)
-        )?.[0] || "default";
-
-      paths.push({
-        params: { category: articleCategory, id: postId },
       });
     });
   }
 
   return {
     paths,
-    fallback: true, // 使用 true 以便支持增量静态生成
+    fallback: true,
   };
 };
 
