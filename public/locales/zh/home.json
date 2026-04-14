@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "欢迎来到Jessie的世界",
-    "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
+    "title": "写代码，也在路上",
+    "subtitle": "一个前端工程师的澳洲 WHV 旅行 & 技术博客"
   },
   "travel": {
     "title": "分享独特的旅行体验",
@@ -9,90 +9,33 @@
   },
   "technical": {
     "title": "探索最新的技术实现",
-    "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析"
-  },
-  "feature": {
-    "title": "去世界撒野，在生活里浪漫"
+    "description": "涵盖广泛的技术主题，从基础知识到高级应用"
   },
   "whv": {
     "title": "澳洲WHV全攻略",
     "description": "从签证申请到落地生存，一站式指南"
   },
-
-  "featuredPosts": {
-    "title": "在世界撒野系列",
-    "subtitle": "探索世界的故事与见闻",
+  "feature": {
+    "title": "去世界撒野，在生活里浪漫"
+  },
+  "sections": {
+    "latest": "最新内容",
+    "whv": "WHV & 打工度假",
+    "travel": "旅行攻略",
     "viewAll": "查看全部"
   },
+  "toolkit": {
+    "title": "WHV 实用工具",
+    "subtitle": "省钱指南"
+  },
   "explore": {
-    "title": "最受欢迎",
-    "subtitle": "发现更多有趣的故事和经历",
-    "viewMore": "查看更多",
     "readMore": "更多",
-    "categories": {
-      "technical": "技术",
-      "travel": "旅行",
-      "personal": "生活",
-      "whv": "澳洲打工度假"
-    },
-    "technical": {
-      "title": "技术分享",
-      "description": "分享编程经验与数字游民的工作方式"
-    },
-    "whv": {
-      "title": "澳洲WHV全攻略",
-      "description": "从签证申请到落地生存，一站式指南"
-    },
-    "travel": {
-      "title": "旅行见闻",
-      "description": "记录在世界各地的所见所闻"
-    },
-    "personal": {
-      "title": "生活随笔",
-      "description": "分享个人成长与生活感悟"
-    },
-
-    "label": "发现",
+    "viewMore": "查看更多",
     "viewAll": "查看全部"
   },
   "travelGuide": {
     "title": "边走边记录",
-    "subtitle": "最实用的旅行建议 & 经验分享",
-    "viewMore": "查看更多攻略"
-  },
-  "routes": {
-    "title": "自由行不迷路",
-    "subtitle": "为不同风格旅行者定制行程",
-    "classicCity": {
-      "title": "经典城市",
-      "description": "探索世界著名城市的人文风景"
-    },
-    "nature": {
-      "title": "自然风光",
-      "description": "亲近大自然，感受地球的壮美"
-    },
-    "family": {
-      "title": "亲子游览",
-      "description": "适合全家出行的温馨路线"
-    },
-    "adventure": {
-      "title": "探险之旅",
-      "description": "挑战自我，探索未知"
-    }
-  },
-  "gallery": {
-    "title": "镜头下的世界",
-    "subtitle": "捕捉旅途中的每一个美好瞬间",
-    "images": {
-      "sunset": "日落风景",
-      "cityStreet": "城市街景",
-      "beach": "海滩风光",
-      "castle": "古堡建筑",
-      "nightView": "城市夜景",
-      "church": "教堂建筑",
-      "market": "市集风情",
-      "mountain": "山脉风光"
-    }
+    "subtitle": "最实用的旅行建议 & 经验分享"
   },
   "testimonials": {
     "title": "旅行，不只是短暂的逃离，而是更好的归来",
@@ -111,5 +54,17 @@
       }
     }
   },
-  "allCategories": "所有分类"
+  "allCategories": "所有分类",
+  "routes": {
+    "title": "自由行不迷路",
+    "subtitle": "为不同风格旅行者定制行程",
+    "classicCity": { "title": "经典城市", "description": "探索世界著名城市的人文风景" },
+    "nature": { "title": "自然风光", "description": "亲近大自然，感受地球的壮美" },
+    "family": { "title": "亲子游览", "description": "适合全家出行的温馨路线" },
+    "adventure": { "title": "探险之旅", "description": "挑战自我，探索未知" }
+  },
+  "gallery": {
+    "title": "镜头下的世界",
+    "subtitle": "捕捉旅途中的每一个美好瞬间"
+  }
 }

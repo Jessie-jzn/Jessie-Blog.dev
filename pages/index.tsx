@@ -144,13 +144,13 @@ const Home = ({ whvPosts, travelPosts }: any) => {
         <TravelGuideSection posts={travelPosts} />
 
         {/* 6. 路线推荐 */}
-        <RouteSection />
+        {/* <RouteSection /> */}
 
         {/* 7. 视觉画廊 */}
-        <GallerySection />
+        {/* <GallerySection /> */}
 
         {/* 8. 用户评价 */}
-        <TestimonialSection />
+        {/* <TestimonialSection />/ */}
       </main>
     </div>
   );

@@ -8,9 +8,9 @@ export default function TravelListLayout({
 }) {
   return (
     <div className="min-h-screen relative w-full bg-white dark:bg-gray-950">
-      <Navbar isFull={true} />
+      <Navbar isFull={true} currentTheme="dark" />
       <main className="w-full">{children}</main>
-      <Footer className="#F9F7E8" />
+      <Footer />
     </div>
   );
 }

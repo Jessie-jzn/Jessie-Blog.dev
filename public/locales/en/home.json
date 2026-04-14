@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Welcome to Jessie's World",
-    "subtitle": "May you travel the world and find the most beautiful scenery and stories"
+    "title": "Code & Wander",
+    "subtitle": "A frontend engineer's WHV travel & tech blog from Australia"
   },
   "travel": {
     "title": "Share Unique Travel Experiences",
@@ -9,82 +9,33 @@
   },
   "technical": {
     "title": "Explore Latest Technologies",
-    "description": "Covering a wide range of technical topics, from basics to advanced applications, with detailed tutorials and in-depth analysis"
+    "description": "Covering a wide range of technical topics, from basics to advanced applications"
+  },
+  "whv": {
+    "title": "Australia WHV Guide",
+    "description": "From visa application to settling in, a one-stop guide"
   },
   "feature": {
     "title": "Explore the world freely, embrace romance in everyday life."
   },
-  "featuredPosts": {
-    "title": "Women Wandering the World Series",
-    "subtitle": "Exploring Stories and Experiences",
-    "viewAll": "VIEW ALL"
+  "sections": {
+    "latest": "Latest",
+    "whv": "WHV & Working Holiday",
+    "travel": "Travel Guides",
+    "viewAll": "View All"
+  },
+  "toolkit": {
+    "title": "WHV Toolkit",
+    "subtitle": "Money-saving guide"
   },
   "explore": {
-    "title": "Most Popular",
-    "subtitle": "Discover more interesting stories and experiences",
+    "readMore": "More",
     "viewMore": "View More",
-    "readMore": "Read More",
-    "categories": {
-      "technical": "TECH",
-      "travel": "TRAVEL",
-      "personal": "LIFE"
-    },
-    "technical": {
-      "title": "Technical Insights",
-      "description": "Sharing programming experience and digital nomad work style"
-    },
-    "travel": {
-      "title": "Travel Stories",
-      "description": "Recording observations from around the world"
-    },
-    "personal": {
-      "title": "Life Essays",
-      "description": "Sharing personal growth and life insights"
-    },
-    "whv": {
-      "title": "Australia Working Holiday",
-      "description": "Sharing WHV visa application and life experience"
-    },
-    "viewAll": "VIEW ALL"
+    "viewAll": "View All"
   },
   "travelGuide": {
     "title": "Travel Guides",
-    "subtitle": "Selected destination guides and practical advice",
-    "viewMore": "View More Guides"
-  },
-  "routes": {
-    "title": "Featured Routes",
-    "subtitle": "Customized itineraries for different travel styles",
-    "classicCity": {
-      "title": "Classic Cities",
-      "description": "Explore the cultural landscape of world-famous cities"
-    },
-    "nature": {
-      "title": "Natural Scenery",
-      "description": "Get close to nature, feel the beauty of Earth"
-    },
-    "family": {
-      "title": "Family Tours",
-      "description": "Warm routes suitable for family trips"
-    },
-    "adventure": {
-      "title": "Adventure Journey",
-      "description": "Challenge yourself, explore the unknown"
-    }
-  },
-  "gallery": {
-    "title": "Travel Gallery",
-    "subtitle": "Capturing wonderful moments through the lens",
-    "images": {
-      "sunset": "Sunset View",
-      "cityStreet": "City Street",
-      "beach": "Beach Scene",
-      "castle": "Castle Architecture",
-      "nightView": "City Night View",
-      "church": "Church Building",
-      "market": "Market Scene",
-      "mountain": "Mountain View"
-    }
+    "subtitle": "Selected destination guides and practical advice"
   },
   "testimonials": {
     "title": "Traveler Sharing",
@@ -103,5 +54,17 @@
       }
     }
   },
-  "allCategories": "All Categories"
+  "allCategories": "All Categories",
+  "routes": {
+    "title": "Featured Routes",
+    "subtitle": "Customized itineraries for different travel styles",
+    "classicCity": { "title": "Classic Cities", "description": "Explore the cultural landscape of world-famous cities" },
+    "nature": { "title": "Natural Scenery", "description": "Get close to nature, feel the beauty of Earth" },
+    "family": { "title": "Family Tours", "description": "Warm routes suitable for family trips" },
+    "adventure": { "title": "Adventure Journey", "description": "Challenge yourself, explore the unknown" }
+  },
+  "gallery": {
+    "title": "Travel Gallery",
+    "subtitle": "Capturing wonderful moments through the lens"
+  }
 }

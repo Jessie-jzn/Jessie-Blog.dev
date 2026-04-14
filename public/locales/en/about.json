@@ -1,27 +1,28 @@
 {
   "hero": {
-    "title": "Hi, I'm a Frontend Engineer who loves travel and photography",
-    "subtitle": "Currently on Working Holiday in Australia, sharing tech insights, travel stories, and photography works.",
-    "connect": "LET'S CONNECT"
+    "title": "Hi, I'm Jessie",
+    "subtitle": "A developer who also takes life seriously.",
+    "connect": "Let's Connect"
   },
   "sections": {
+    "story": {
+      "title": "About Me",
+      "p1": "7 years in frontend — from jQuery to React to Next.js. Somewhere along the way, I realized that writing code is just part of the job. Life is the bigger question.",
+      "p2": "Right now I'm on a Working Holiday in Australia. Some days I'm debugging architecture, other days I'm figuring out where to find penguins. And sometimes, I'm just wondering what comes next."
+    },
     "findHere": {
-      "title": "What you'll find here",
-      "tech": {
-        "title": "Tech Insights",
-        "desc": "Frontend development experiences, coding tutorials, and tech stack discussions."
-      },
+      "title": "This blog documents three things",
       "travel": {
-        "title": "Travel Stories",
-        "desc": "Detailed travel guides and personal adventures across Australia."
+        "title": "🧭 Travel & WHV",
+        "desc": "Places I've been, mistakes I've made, real experiences"
       },
-      "photo": {
-        "title": "Photography",
-        "desc": "Portfolio showcasing landscapes, street scenes, and moments."
+      "tech": {
+        "title": "💻 Tech",
+        "desc": "Frontend dev, project practice, and exploring AI"
       },
-      "whv": {
-        "title": "WHV Guide",
-        "desc": "Australian Working Holiday tips and experiences."
+      "life": {
+        "title": "🌱 Life",
+        "desc": "Imperfect but honest reflections"
       }
     },
     "techStack": {
@@ -29,13 +30,24 @@
       "frontend": "Frontend",
       "backend": "Backend",
       "tools": "Tools",
-      "photography": "Photography"
+      "exploring": "Exploring"
+    },
+    "journey": {
+      "title": "My Journey",
+      "description": "I'm not great at grand speeches. I write code, and I'm also running away from it. 7 years in frontend, from jQuery to React, and now looking toward AI. Tech changes, people change.",
+      "background": {
+        "title": "Key Milestones",
+        "experience": "7 years as a frontend engineer, from jQuery era to modern frameworks",
+        "skills": "Specialized in React, TypeScript, Next.js and modern web tech",
+        "ai": "Currently exploring AI, looking for what's next in tech",
+        "whv": "On an Australian WHV, working and traveling"
+      }
     },
     "location": {
-      "title": "Currently In Australia",
-      "desc": "Working Holiday Visa (Subclass 417) holder, currently exploring the East Coast while working as a remote frontend developer.",
-      "recent": "Recent Locations",
-      "next": "Next Destinations",
+      "title": "Currently in Australia",
+      "desc": "This year on WHV in Australia, I've been working, traveling, and rethinking what work and life really mean.",
+      "recent": "Places I've been",
+      "next": "Want to visit",
       "cities": {
         "sydney": "Sydney",
         "goldCoast": "Gold Coast",
@@ -47,29 +59,13 @@
         "gbr": "Great Barrier Reef"
       }
     },
-    "connect": {
-      "title": "Let's Connect",
-      "desc": "Whether you're interested in frontend development, planning your own Working Holiday adventure, or just want to chat about photography, I'd love to connect!"
-    },
     "philosophy": {
-      "title": "My Philosophy",
-      "slogan": "Code. Travel. Capture. Share. Inspire.",
-      "codeDesc": "As a frontend engineer, I believe in creating clean, efficient, and user-friendly web experiences that make a difference.",
-      "lifeDesc": "Life is about balance - between coding and adventure, between creating and experiencing, between work and exploration.",
-      "shareDesc": "Through my journey as a developer and traveler, I aim to inspire others to pursue their passions and embrace new experiences.",
+      "title": "One Last Thing",
+      "slogan": "I hope something here finds you at the right moment.",
+      "codeDesc": "No perfect guides here, no success stories — just the roads I've walked, the pits I've fallen into, and some half-formed thoughts.",
+      "lifeDesc": "If you're also looking for direction, maybe we're on the same path.",
       "quote": "The world is a book and those who do not travel read only one page.",
       "quoteAuthor": "— Saint Augustine"
-    },
-    "journey": {
-      "title": "My Journey So Far",
-      "description": "Started as a frontend developer, I've always been passionate about creating beautiful and functional web experiences. Along the way, I discovered my love for travel and photography, which brought me to Australia on a Working Holiday visa.",
-      "background": {
-        "title": "Professional Background",
-        "experience": "Frontend Engineer with 5+ years experience",
-        "skills": "Specialized in React, TypeScript, and Modern Web Technologies",
-        "photography": "Amateur Photographer focusing on Travel and Landscape",
-        "whv": "Current Australian WHV Holder"
-      }
     }
   }
 }

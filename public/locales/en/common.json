@@ -3,14 +3,33 @@
     "title": "Welcome to Jessie's World",
     "subtitle": "May you travel the world and find the most beautiful scenery and stories"
   },
+  "viewAll": "View All",
+  "life": "Life",
+  "post": "Posts",
+  "tags": "Tags",
+  "projects": "Projects",
+  "about": "About",
+  "resume": "Resume",
+  "all": "All",
+  "contact": "Contact",
+  "subscribe": "Subscribe",
+  "subscribeDesc": "Subscribe to get notified of new posts. Unsubscribe anytime!",
+  "emailRequired": "Please enter your email 📮",
+  "subscriptionSuccess": "Subscribed successfully!",
+  "subscriptionFailed": "Subscription failed, please try again!",
+  "learnMore": "Learn More",
+  "workWithMe": "About Me",
+  "lastPost": "Latest Posts",
+  "featuredPost": "Featured Posts",
+  "lastEdited": "Last Edited",
   "nav": {
     "home": "Home",
     "technical": "Technical",
     "travel": "Travel",
     "life": "Life",
-    "whv": "Whv",
+    "whv": "WHV",
     "about": "About",
-    "Tools": {
+    "tools": {
       "title": "Tools",
       "resume": "Resume"
     },
@@ -31,7 +50,9 @@
         "food": "Food Guide",
         "tips": "Travel Tips"
       },
-      "tools": "Tools"
+      "tools": {
+        "title": "Tools"
+      }
     }
   },
 
