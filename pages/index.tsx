@@ -41,12 +41,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
           (p.category || '').toLowerCase().includes('whv') ||
           (p.category || '').toLowerCase().includes('job')
       )
-      .slice(0, 6);
+      .slice(0, 12);
     travelPosts = posts
       .filter((p: Types.Post) =>
         (p.category || '').toLowerCase().includes('travel')
       )
-      .slice(0, 6);
+      .slice(0, 12);
 
     if (whvPosts.length === 0) whvPosts = posts.slice(0, 4);
     if (travelPosts.length === 0) travelPosts = posts.slice(0, 8);
