@@ -68,9 +68,9 @@ const TopicHeader = dynamic(
 // --- 新增：阶段导航 (Roadmap Navigation) ---
 const RoadmapNav = () => {
   const steps = [
-    { title: '行前准备', icon: '✈️', desc: '签证/行李/机票', link: '#' }, // 实际使用时可链接到 specific tag
-    { title: '落地生存', icon: '🐨', desc: '税号/银行卡/租房', link: '#' },
-    { title: '工作攻略', icon: '💼', desc: '农场/肉厂/酒店', link: '#' },
+    { title: '行前准备', icon: '✈️', desc: '签证/行李/机票', link: '/whv-zh/australia-whv-462-visa-guide/' }, // 实际使用时可链接到 specific tag
+    { title: '落地生存', icon: '🐨', desc: '税号/银行卡/租房', link: '/whv-zh/australia-health-insurance-guide-whv-comparison/' },
+    { title: '工作攻略', icon: '💼', desc: '农场/肉厂/酒店', link: '/whv-zh/whv-australia-job-offer-collect-visa/' },
     { title: '离澳退税', icon: '💰', desc: 'Super/退税流程', link: '#' },
   ];
 
@@ -78,9 +78,10 @@ const RoadmapNav = () => {
     <div className='max-w-7xl mx-auto px-4 -mt-8 relative z-10'>
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
         {steps.map((step, idx) => (
-          <motion.div
+          <a
             key={idx}
-            whileHover={{ y: -5 }}
+            href={step.link}
+            target='_blank'
             className='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 text-center cursor-pointer'
           >
             <div className='text-3xl mb-2'>{step.icon}</div>
@@ -88,7 +89,7 @@ const RoadmapNav = () => {
               {step.title}
             </div>
             <div className='text-xs text-gray-500'>{step.desc}</div>
-          </motion.div>
+          </a>
         ))}
       </div>
     </div>
