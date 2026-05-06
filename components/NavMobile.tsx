@@ -32,7 +32,7 @@ const NavMobile = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 dark:text-gray-100"
+          className="h-8 w-8 text-neutral-900 dark:text-neutral-100"
         >
           <path
             fillRule="evenodd"
@@ -42,7 +42,7 @@ const NavMobile = () => {
         </svg>
       </button>
       <div
-        className={`fixed left-0 top-0 z-[999] h-full w-full transform bg-white opacity-95 duration-300 ease-in-out dark:bg-gray-950 dark:opacity-[0.98] ${
+        className={`fixed left-0 top-0 z-[999] h-full w-full transform bg-white/94 dark:bg-neutral-950/96 backdrop-blur-xl duration-300 ease-in-out ${
           navShow ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -56,7 +56,7 @@ const NavMobile = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="text-gray-900 dark:text-gray-100"
+              className="text-neutral-900 dark:text-neutral-100"
             >
               <path
                 fillRule="evenodd"
@@ -71,7 +71,7 @@ const NavMobile = () => {
             <div key={link.title} className="px-12 py-4">
               <Link
                 href={link.href}
-                className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
+                className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
                 onClick={onToggleNav}
               >
                 {t(link.title)}

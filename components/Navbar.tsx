@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import SiteConfig from '@/site.config';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link';
@@ -20,6 +19,8 @@ interface NavbarProp {
   currentTheme?: 'light' | 'dark';
 }
 
+type NavLink = { id: string; href: string; title: string };
+
 const Navbar = ({
   btnColor,
   className,
@@ -27,7 +28,7 @@ const Navbar = ({
   isFull = false,
 }: NavbarProp) => {
   const { t } = useTranslation('common');
-  const [NavbarTitle, setNavbarTitle] = useState<string | undefined>(undefined);
+  const NavbarTitle = t('site.title');
   const router = useRouter();
 
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +40,7 @@ const Navbar = ({
     return () => window.removeEventListener('scroll', onScroll);
   }, [isFull]);
 
-  const navigationLinks = useMemo(
+  const navigationLinks = useMemo<NavLink[]>(
     () => [
       { id: 'home', href: '/', title: t('nav.home') },
       { id: 'travel', href: '/travel', title: t('nav.travel') },
@@ -47,14 +48,6 @@ const Navbar = ({
       { id: 'life', href: '/life', title: t('nav.life') },
       { id: 'technical', href: '/technical', title: t('nav.technical') },
       { id: 'about', href: '/about', title: t('nav.about') },
-      {
-        id: 'tools',
-        href: '/tools',
-        title: t('nav.tools.title'),
-        children: [
-          { id: 'resume', href: '/tools/resume', title: t('nav.tools.resume') },
-        ],
-      },
     ],
     [t]
   );
@@ -82,10 +75,6 @@ const Navbar = ({
     [router]
   );
 
-  useEffect(() => {
-    setNavbarTitle(SiteConfig.headerTitle);
-  }, []);
-
   const showSolidBg = !isFull || scrolled;
 
   // 滚动后统一用深色文字；未滚动的沉浸式模式跟随 currentTheme
@@ -110,14 +99,14 @@ const Navbar = ({
         'fixed top-0 left-0 w-full z-[999]',
         'transition-colors duration-300',
         showSolidBg
-          ? 'bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-sm'
+          ? 'bg-white/80 dark:bg-neutral-950/88 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.06] shadow-[0_1px_0_rgba(0,0,0,0.03)]'
           : 'bg-transparent',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      <div className='max-w-screen-xl mx-auto flex items-center justify-between px-6 py-3 xs:px-3 xs:py-2'>
+      <div className='max-w-6xl mx-auto flex items-center justify-between px-5 sm:px-6 py-3 xs:px-3 xs:py-2'>
         <Link href='/' aria-label={NavbarTitle}>
           <div className='flex items-center'>
             <div className='mr-3'>
@@ -131,7 +120,9 @@ const Navbar = ({
                 className='h-10 w-10 rounded-full xs:h-8 xs:w-8'
               />
             </div>
-            <div className={`text-xl font-bold xs:text-sm ${textColor}`}>
+            <div
+              className={`text-lg sm:text-xl font-semibold tracking-tight xs:text-sm ${textColor}`}
+            >
               {NavbarTitle}
             </div>
           </div>
@@ -147,39 +138,16 @@ const Navbar = ({
               animate={isActiveLink(link.href || '') ? 'active' : 'initial'}
               whileHover='hover'
             >
-              {link.children ? (
-                <span className='cursor-default'>{link.title}</span>
-              ) : (
-                <Link href={link.href}>{link.title}</Link>
-              )}
+              <Link href={link.href}>{link.title}</Link>
 
-              {!link.children && (
-                <motion.div
-                  className={`absolute bottom-[-4px] left-0 right-0 h-[2px] rounded ${underlineColor}`}
-                  initial={{ scaleX: 0 }}
-                  animate={{
-                    scaleX: isActiveLink(link.href || '') ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-
-              {link.children && (
-                <div className='absolute top-full left-0 mt-1 bg-white text-gray-900 dark:text-gray-100 dark:bg-slate-900 shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-200 ease-in-out z-50'>
-                  <ul className='min-w-[160px] py-2 px-0'>
-                    {link.children.map((child) => (
-                      <li key={child.id}>
-                        <Link
-                          href={child.href}
-                          className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-800 text-sm'
-                        >
-                          {child.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <motion.div
+                className={`absolute bottom-[-4px] left-0 right-0 h-[2px] rounded ${underlineColor}`}
+                initial={{ scaleX: 0 }}
+                animate={{
+                  scaleX: isActiveLink(link.href || '') ? 1 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+              />
             </motion.div>
           ))}
 

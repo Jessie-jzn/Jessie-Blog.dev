@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       post: post ?? null,
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
     },
     revalidate: 3600,
   };

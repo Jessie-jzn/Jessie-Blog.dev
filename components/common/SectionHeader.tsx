@@ -3,41 +3,71 @@ import { useTranslation } from 'next-i18next';
 
 interface Props {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   readMoreLink?: string;
+  /** 编辑推荐区左上角小标签，如 whv / travel */
+  editorialKicker?: string;
+  /** 首页编辑推荐风：无主色竖条，字重更轻 */
+  variant?: 'default' | 'editorial';
 }
 
-const SectionHeader = ({ title, subtitle, readMoreLink = '/blog' }: Props) => {
+const SectionHeader = ({
+  title,
+  subtitle,
+  readMoreLink = '/blog',
+  editorialKicker = 'feed',
+  variant = 'default',
+}: Props) => {
   const { t } = useTranslation('home');
 
+  if (variant === 'editorial') {
+    return (
+      <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5'>
+        <div className='max-w-xl'>
+          <p className='inline-flex w-fit rounded-full bg-stone-100 dark:bg-neutral-800/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-300 mb-4'>
+            {editorialKicker}
+          </p>
+          <h2 className='text-[1.4rem] md:text-2xl font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white'>
+            {title}
+          </h2>
+          {subtitle ? (
+            <p className='mt-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed'>
+              {subtitle}
+            </p>
+          ) : null}
+        </div>
+        {readMoreLink ? (
+          <Link
+            href={readMoreLink}
+            className='shrink-0 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[#62BFAD] transition-colors underline-offset-[6px] hover:underline decoration-[#62BFAD]/40'
+          >
+            {t('explore.viewAll')} →
+          </Link>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
-    <div className='flex items-center justify-between mb-8 md:mb-12'>
-      <div>
-        <h2 className='text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 border-l-4 border-[#62BFAD] pl-4'>
+    <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-5 mb-8 md:mb-10'>
+      <div className='max-w-xl'>
+        <h2 className='text-[1.35rem] md:text-2xl font-semibold tracking-[-0.02em] text-neutral-950 dark:text-white'>
           {title}
         </h2>
-        <div className='mt-2 pl-4 text-sm md:text-base text-gray-600 dark:text-gray-400'>
-          {subtitle}
-        </div>
+        {subtitle ? (
+          <p className='mt-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed'>
+            {subtitle}
+          </p>
+        ) : null}
       </div>
-      <Link href={readMoreLink}>
-        <button className='hidden md:inline-flex group items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full hover:bg-[#62BFAD] hover:text-white transition-all duration-300 text-sm'>
-          <span className='font-medium'>{t('explore.readMore')}</span>
-          <svg
-            className='w-3.5 h-3.5 transform transition-transform group-hover:translate-x-1'
-            fill='none'
-            stroke='currentColor'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M17 8l4 4m0 0l-4 4m4-4H3'
-            />
-          </svg>
-        </button>
-      </Link>
+      {readMoreLink ? (
+        <Link
+          href={readMoreLink}
+          className='hidden md:inline-flex shrink-0 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[#62BFAD] transition-colors underline-offset-[6px] hover:underline decoration-[#62BFAD]/40'
+        >
+          {t('explore.readMore')} →
+        </Link>
+      ) : null}
     </div>
   );
 };

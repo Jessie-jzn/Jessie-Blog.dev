@@ -2,19 +2,19 @@
 const SiteConfig = {
   // 网站基础信息（必填）
   // basic site info (required)
-  title: "Jessie's Blog",
+  title: 'Jessie on the road',
   author: 'Jessie', // 作者姓名
   summary: '记录技术与日常感想', // 作者简介
 
   fullName: 'Jessie Chen',
-  headerTitle: "Jessie's Blog",
+  headerTitle: 'Jessie on the road',
   description:
     'My desire to practice my skills and share my acquired knowledge fuels my endeavors.',
-  language: 'zh', // 中文：zh 英文：en
+  language: 'en', // 站点默认文案语言（与 Next defaultLocale 一致）
   siteLogo: 'https://img.jessieontheroad.com/avatar.png',
   socialBanner: '/static/images/projects/karhdo-blog.png',
   theme: 'system',
-  locale: 'zh',
+  locale: 'en',
   // siteUrl: 'www.jessieontheroad.com',
   siteUrl: 'https://www.jessieontheroad.com',
   domain: 'jessieontheroad.com',
@@ -103,18 +103,6 @@ const SiteConfig = {
       id: 6,
       title: 'nav.about',
       href: '/about',
-    },
-    {
-      id: 7,
-      title: 'nav.tools.title',
-      href: '/tools',
-      children: [
-        {
-          id: 71,
-          title: 'nav.tools.resume',
-          href: '/tools/resume',
-        },
-      ],
     },
   ],
   // 社交媒体地址（可选）

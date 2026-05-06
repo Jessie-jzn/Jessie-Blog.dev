@@ -34,7 +34,7 @@ const RouteSection = () => {
   ];
 
   return (
-    <section className='py-16 bg-white dark:bg-gray-950'>
+    <section className='py-14 bg-canvas dark:bg-neutral-950'>
       <div className='container mx-auto px-4'>
         <SectionHeader
           title={t('routes.title')}

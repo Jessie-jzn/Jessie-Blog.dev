@@ -17,6 +17,7 @@ import Sidebar from '@/components/Sidebar';
 import { BlogSEO } from '@/components/SEO';
 import { mapPageUrl, mapImageUrl } from '@/lib/notion-utils';
 import AdSense from '@/components/AdSense';
+import PostEngagementBar from '@/components/stats/PostEngagementBar';
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -159,6 +160,13 @@ const NotionPage: React.FC<NotionPageProps> = ({
   const keys = Object.keys(safeRecordMap?.block || {});
   const block = safeRecordMap?.block?.[keys[0]]?.value;
 
+  const statsPostId = React.useMemo(() => {
+    if (postData?.id) return String(postData.id).replace(/-/g, '');
+    if (block?.id) return String(block.id).replace(/-/g, '');
+    const k = Object.keys(safeRecordMap?.block || {})[0];
+    return k ? String(k).replace(/-/g, '') : '';
+  }, [postData?.id, block?.id, safeRecordMap]);
+
   const isBlogPost =
     block?.type === 'page' && block?.parent_table === 'collection';
 
@@ -213,6 +221,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
       />
       <div className="max-w-screen-xl mx-auto px-6 xs:px-3">
         <Breadcrumbs postData={postData} />
+        {statsPostId ? <PostEngagementBar postId={statsPostId} /> : null}
       </div>
       <div className={`styles.notion-custom-container`}>
         <NotionRenderer

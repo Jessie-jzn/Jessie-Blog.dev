@@ -18,8 +18,8 @@ interface HeaderProp {
 
 const Header = ({ btnColor }: HeaderProp) => {
   const { t } = useTranslation('common');
+  const headerTitle = t('site.title');
   const [activeLink, setActiveLink] = useState<string>('/');
-  const [headerTitle, setHeaderTitle] = useState<string | undefined>(undefined);
 
   const router = useRouter();
 
@@ -31,7 +31,6 @@ const Header = ({ btnColor }: HeaderProp) => {
 
   useEffect(() => {
     setActiveLink(router.pathname);
-    setHeaderTitle(SiteConfig.headerTitle); // 确保在客户端设置标题
   }, [router.pathname]);
 
   return (

@@ -49,27 +49,25 @@ const NewsletterSubscribe: React.FC = () => {
           ref={emailRef}
           placeholder="Email address"
           disabled={isSubmitting}
-          className="min-w-0 flex-auto appearance-none rounded-lg border border-zinc-900/10 
-          bg-white/80 px-3 py-2 text-sm md:text-base shadow-sm shadow-zinc-800/5 
-          placeholder:text-zinc-400 
-          focus:border-blue-500/80 focus:outline-none focus:ring-4 focus:ring-blue-500/10 
-          dark:border-zinc-700/80 dark:bg-zinc-800/20 dark:text-zinc-200 
-          dark:placeholder:text-zinc-500 
-          dark:focus:border-blue-400/80 dark:focus:ring-blue-400/10
+          className="min-w-0 flex-auto appearance-none rounded-full border border-black/[0.08]
+          bg-white/85 px-4 py-2.5 text-sm shadow-sm placeholder:text-neutral-400
+          focus:border-[#62BFAD]/50 focus:outline-none focus:ring-2 focus:ring-[#62BFAD]/15
+          dark:border-white/10 dark:bg-neutral-900/50 dark:text-neutral-100
+          dark:placeholder:text-neutral-500
+          dark:focus:border-[#62BFAD]/40 dark:focus:ring-[#62BFAD]/15
           backdrop-blur-sm transition-all duration-300
-          group-hover/form:shadow-md group-hover/form:border-zinc-900/20 
-          dark:group-hover/form:border-zinc-700/60"
+          group-hover/form:border-black/[0.12] dark:group-hover/form:border-white/15"
         />
         <button
-          className="inline-flex items-center gap-2 justify-center rounded-lg 
-          py-2 px-4 text-sm md:text-base font-medium
+          className="inline-flex items-center gap-2 justify-center rounded-full
+          py-2.5 px-5 text-sm font-semibold tracking-tight
           outline-offset-2 transition-all duration-300 active:transition-none
-          bg-zinc-800/90 text-zinc-100 shadow-sm
-          hover:bg-zinc-700 hover:shadow-md hover:-translate-y-0.5
-          active:bg-zinc-800 active:text-zinc-100/70 
-          dark:bg-zinc-700/90 dark:hover:bg-zinc-600 
-          dark:active:bg-zinc-700 dark:active:text-zinc-100/70 
-          sm:ml-4 flex-none backdrop-blur-sm w-full sm:w-auto"
+          bg-neutral-900 text-white shadow-sm
+          hover:bg-neutral-800
+          active:bg-neutral-900 active:opacity-90
+          dark:bg-white dark:text-neutral-900 dark:hover:bg-stone-100
+          dark:active:bg-white
+          sm:ml-3 flex-none backdrop-blur-sm w-full sm:w-auto"
           type="submit"
           disabled={isSubmitting}
         >

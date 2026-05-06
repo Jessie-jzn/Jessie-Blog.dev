@@ -9,7 +9,7 @@ import * as Type from "@/lib/type";
 import { ExtendedRecordMap } from "notion-types";
 import { getRelatedPosts } from "@/lib/services/RelatedPostsService";
 import { NOTION_POST_ID } from "@/lib/constants";
-import GiscusComments from '@/components/GiscusComments'
+import BlogComments from '@/components/BlogComments';
 import PostDetailLayout from '@/components/layouts/PostDetailLayout'
 
 const notionService = new NotionService();
@@ -182,7 +182,10 @@ const RenderPost: React.FC<RenderPostProps> = ({
         relatedPosts={relatedPosts}
       />
       <div className="mx-10 xs:mx-0 px-16 mb-10 xs:px-4">
-        <GiscusComments />
+        <BlogComments
+          pageId={postData.id.replace(/-/g, '')}
+          pageTitle={postData.title || ''}
+        />
       </div>
     </div>
   );

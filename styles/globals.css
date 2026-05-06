@@ -46,7 +46,13 @@ body {
   font-family: "Space Grotesk", sans-serif;
 }
 
-/* 添加以下样式 */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
 html,
 body {
   overflow-x: hidden;

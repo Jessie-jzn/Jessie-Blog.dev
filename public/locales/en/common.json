@@ -1,4 +1,17 @@
 {
+  "site": {
+    "title": "Jessie on the road",
+    "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors."
+  },
+  "comments": {
+    "title": "Comments",
+    "notConfigured": "Comments are disabled. Set NEXT_PUBLIC_CUSDIS_APP_ID (free at cusdis.com)."
+  },
+  "stats": {
+    "reads": "{{countDisplay}} reads",
+    "subscribersBlog": "{{countDisplay}} readers subscribed by email",
+    "subscribersFoot": "{{countDisplay}} readers are on the email list"
+  },
   "hero": {
     "title": "Welcome to Jessie's World",
     "subtitle": "May you travel the world and find the most beautiful scenery and stories"
@@ -55,7 +68,6 @@
       }
     }
   },
-
   "footer": {
     "about": "About",
     "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",

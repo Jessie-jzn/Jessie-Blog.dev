@@ -32,29 +32,29 @@ const itemVariants = {
 const TopicHeader = dynamic(
   () =>
     Promise.resolve(() => (
-      <div className='relative py-16 md:py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden'>
-        <div className='absolute inset-0 opacity-10 dark:opacity-20 pattern-grid-lg text-[#62BFAD]' />
-        <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+      <div className='relative py-12 md:py-16 px-4'>
+        <div className='relative max-w-3xl mx-auto text-center'>
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className='inline-block py-1 px-3 rounded-full bg-[#62BFAD]/10 text-[#62BFAD] text-sm font-bold tracking-wider mb-4'
+            className='inline-flex items-center px-3 py-1 rounded-full bg-white/80 dark:bg-neutral-900/80 ring-1 ring-black/[0.06] dark:ring-white/[0.08] text-[10px] font-semibold uppercase tracking-[0.14em] text-[#4a9e8f] dark:text-[#62BFAD] mb-5'
           >
-            ULTIMATE GUIDE
+            WHV Guide
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className='text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4'
+            className='text-[1.75rem] md:text-[2.25rem] font-semibold tracking-[-0.03em] text-neutral-950 dark:text-white leading-snug mb-4'
           >
-            澳洲打工度假 <span className='text-[#62BFAD]'>WHV</span> 全攻略
+            澳洲打工度假{' '}
+            <span className='text-[#62BFAD]'>WHV</span> 全攻略
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className='max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400'
+            className='max-w-xl mx-auto text-[15px] text-neutral-600 dark:text-neutral-400 leading-relaxed'
           >
             从签证申请到落地生存，从农场集签到城市打工。这里记录了我作为 whv
             在澳洲的真实体验与避坑指南。
@@ -75,20 +75,23 @@ const RoadmapNav = () => {
   ];
 
   return (
-    <div className='max-w-7xl mx-auto px-4 -mt-8 relative z-10'>
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+    <div className='max-w-6xl mx-auto px-4 sm:px-5 -mt-4 relative z-10'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3'>
         {steps.map((step, idx) => (
           <a
             key={idx}
             href={step.link}
             target='_blank'
-            className='bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 text-center cursor-pointer'
+            rel='noreferrer'
+            className='bg-white/90 dark:bg-neutral-900/75 backdrop-blur-sm p-4 md:p-5 rounded-2xl ring-1 ring-black/[0.05] dark:ring-white/[0.08] text-center transition-all duration-300 hover:ring-[#62BFAD]/35 hover:bg-white dark:hover:bg-neutral-900'
           >
-            <div className='text-3xl mb-2'>{step.icon}</div>
-            <div className='font-bold text-gray-900 dark:text-gray-100'>
+            <div className='text-2xl md:text-3xl mb-2 opacity-95'>{step.icon}</div>
+            <div className='text-[13px] font-semibold tracking-tight text-neutral-900 dark:text-white'>
               {step.title}
             </div>
-            <div className='text-xs text-gray-500'>{step.desc}</div>
+            <div className='text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5'>
+              {step.desc}
+            </div>
           </a>
         ))}
       </div>
@@ -98,10 +101,10 @@ const RoadmapNav = () => {
 
 // --- 新增：高佣金工具条 (Monetization) ---
 const ToolsBar = () => (
-  <div className='max-w-7xl mx-auto px-4 mt-8 mb-12'>
-    <div className='bg-[#62BFAD]/5 border border-[#62BFAD]/20 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4'>
+  <div className='max-w-6xl mx-auto px-4 sm:px-5 mt-8 mb-10'>
+    <div className='bg-[#62BFAD]/[0.07] dark:bg-[#62BFAD]/10 ring-1 ring-[#62BFAD]/25 dark:ring-[#62BFAD]/30 rounded-[1.25rem] p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 backdrop-blur-sm'>
       <div className='flex items-center gap-3'>
-        <div className='p-2 bg-[#62BFAD] text-white rounded-lg'>
+        <div className='p-2.5 bg-[#62BFAD] text-white rounded-xl'>
           <svg
             className='w-6 h-6'
             fill='none'
@@ -117,29 +120,31 @@ const ToolsBar = () => (
           </svg>
         </div>
         <div>
-          <h3 className='font-bold text-gray-900 dark:text-gray-100'>
+          <h3 className='font-semibold tracking-tight text-neutral-900 dark:text-white'>
             WHV 新手必备工具箱
           </h3>
-          <p className='text-sm text-gray-500'>汇款、保险、电话卡省钱渠道</p>
+          <p className='text-sm text-neutral-500 dark:text-neutral-400'>
+            汇款、保险、电话卡省钱渠道
+          </p>
         </div>
       </div>
       <div className='flex gap-3'>
         {/* 替换为你的真实链接 */}
         <a
           href='#'
-          className='px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-lg shadow-sm hover:text-[#62BFAD] transition-colors'
+          className='px-4 py-2 bg-white/95 dark:bg-neutral-800/90 text-sm font-medium rounded-full ring-1 ring-black/[0.06] dark:ring-white/10 hover:text-[#62BFAD] transition-colors'
         >
           Wise 汇款
         </a>
         <a
           href='#'
-          className='px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-lg shadow-sm hover:text-[#62BFAD] transition-colors'
+          className='px-4 py-2 bg-white/95 dark:bg-neutral-800/90 text-sm font-medium rounded-full ring-1 ring-black/[0.06] dark:ring-white/10 hover:text-[#62BFAD] transition-colors'
         >
           保险对比
         </a>
         <a
           href='#'
-          className='px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-lg shadow-sm hover:text-[#62BFAD] transition-colors'
+          className='px-4 py-2 bg-white/95 dark:bg-neutral-800/90 text-sm font-medium rounded-full ring-1 ring-black/[0.06] dark:ring-white/10 hover:text-[#62BFAD] transition-colors'
         >
           eSIM 优惠
         </a>
@@ -150,12 +155,12 @@ const ToolsBar = () => (
 
 // --- 广告位 ---
 const AdPlaceHolder = () => (
-  <div className='w-full h-24 bg-gray-100 dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center text-gray-400 text-sm my-8'>
+  <div className='w-full min-h-[5.5rem] bg-white/40 dark:bg-neutral-900/40 rounded-2xl border border-dashed border-black/[0.08] dark:border-white/[0.1] flex items-center justify-center text-neutral-400 text-sm my-8'>
     <AdBanner />
   </div>
 );
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'zh' }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   const { posts, translations } = await getLocalizedCategoryPosts({
     locale,
     pageId: NOTION_POST_ID,
@@ -177,7 +182,7 @@ const WhvListPage = ({ posts }: any) => {
   const { t } = useTranslation('common');
 
   return (
-    <div className='min-h-screen bg-white dark:bg-gray-950 pb-20'>
+    <div className='pb-16 sm:pb-20'>
       {/* 1. 专题头部 */}
       <TopicHeader />
 
@@ -187,15 +192,15 @@ const WhvListPage = ({ posts }: any) => {
       {/* 3. 变现工具条 */}
       <ToolsBar />
 
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='flex flex-col lg:flex-row gap-12'>
+      <div className='max-w-6xl mx-auto px-4 sm:px-5'>
+        <div className='flex flex-col lg:flex-row gap-10 lg:gap-12'>
           {/* 左侧：主要内容流 */}
           <div className='lg:w-2/3'>
-            <div className='flex items-center justify-between mb-8 border-b border-gray-100 dark:border-gray-800 pb-4'>
-              <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100'>
+            <div className='flex items-center justify-between mb-8 border-b border-black/[0.06] dark:border-white/[0.08] pb-4'>
+              <h2 className='text-xl md:text-[1.35rem] font-semibold tracking-tight text-neutral-950 dark:text-white'>
                 最新文章
               </h2>
-              <span className='text-sm text-gray-500'>
+              <span className='text-[13px] text-neutral-500 dark:text-neutral-400'>
                 共 {posts?.length || 0} 篇攻略
               </span>
             </div>
@@ -216,7 +221,7 @@ const WhvListPage = ({ posts }: any) => {
 
                     <motion.div variants={itemVariants} className='group'>
                       <Link href={`${post?.category}/${post?.slug || post.id}`}>
-                        <div className='bg-white dark:bg-gray-900 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row h-full md:h-52'>
+                        <div className='bg-white/95 dark:bg-neutral-900/75 rounded-[1.25rem] overflow-hidden hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.12)] transition-all duration-300 ring-1 ring-black/[0.05] dark:ring-white/[0.08] flex flex-col md:flex-row h-full md:h-52'>
                           {/* 图片区域 - 移动端在上，桌面端在左 */}
                           <div className='w-full md:w-52 h-48 md:h-full relative flex-shrink-0 overflow-hidden'>
                             <Image
@@ -234,19 +239,19 @@ const WhvListPage = ({ posts }: any) => {
                           </div>
 
                           {/* 内容区域 */}
-                          <div className='p-6 flex flex-col flex-grow justify-between'>
+                          <div className='p-5 md:p-6 flex flex-col flex-grow justify-between'>
                             <div>
-                              <div className='flex items-center gap-2 text-xs text-gray-500 mb-2'>
+                              <div className='flex items-center gap-2 text-[11px] text-neutral-500 dark:text-neutral-400 mb-2'>
                                 <time dateTime={post.lastEditedDate}>
                                   {post.lastEditedDate}
                                 </time>
                                 <span>•</span>
                                 <span>{post.pageIcon || '📄'}</span>
                               </div>
-                              <h3 className='text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-[#62BFAD] transition-colors line-clamp-2'>
+                              <h3 className='text-base md:text-lg font-semibold tracking-tight text-neutral-900 dark:text-white mb-2 group-hover:text-[#62BFAD] transition-colors line-clamp-2'>
                                 {post.title}
                               </h3>
-                              <p className='text-gray-600 dark:text-gray-400 text-sm line-clamp-2 font-light'>
+                              <p className='text-neutral-600 dark:text-neutral-400 text-[13px] line-clamp-2 leading-relaxed'>
                                 {post.summarize}
                               </p>
                             </div>
@@ -259,7 +264,7 @@ const WhvListPage = ({ posts }: any) => {
                                   .map((tag: string) => (
                                     <span
                                       key={tag}
-                                      className='text-xs bg-gray-50 dark:bg-gray-800 text-gray-500 px-2 py-1 rounded border border-gray-100 dark:border-gray-700'
+                                      className='text-[10px] bg-stone-50 dark:bg-neutral-800/90 text-neutral-500 dark:text-neutral-400 px-2 py-1 rounded-full ring-1 ring-black/[0.04] dark:ring-white/[0.08]'
                                     >
                                       #{tag}
                                     </span>
@@ -282,7 +287,7 @@ const WhvListPage = ({ posts }: any) => {
           {/* 右侧：侧边栏 (Sidebar) - 适合放个人简介和广告 */}
           <div className='lg:w-1/3 space-y-8'>
             {/* 个人简介卡片 */}
-            <div className='bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 sticky top-24'>
+            <div className='bg-white/90 dark:bg-neutral-900/75 backdrop-blur-sm p-6 rounded-[1.25rem] ring-1 ring-black/[0.05] dark:ring-white/[0.08] sticky top-24'>
               <div className='w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 bg-gray-200 relative'>
                 <Image
                   src='https://img.jessieontheroad.com/avatar.png'
@@ -291,23 +296,23 @@ const WhvListPage = ({ posts }: any) => {
                   className='object-cover'
                 />
               </div>
-              <h3 className='text-center font-bold text-lg mb-2'>
+              <h3 className='text-center font-semibold tracking-tight text-lg mb-2 text-neutral-900 dark:text-white'>
                 About Jessie
               </h3>
-              <p className='text-center text-sm text-gray-500 mb-6'>
+              <p className='text-center text-[13px] text-neutral-500 dark:text-neutral-400 mb-6 leading-relaxed'>
                 澳洲 WHV
                 二年级生。分享打工度假干货、公路旅行路线和数字游民生活。
               </p>
               <div className='grid grid-cols-2 gap-2'>
                 <a
                   href='https://www.xiaohongshu.com/user/profile/589b257e6a6a693355986f61'
-                  className='block py-2 text-center bg-[#62BFAD] text-white rounded-lg text-sm font-bold hover:bg-[#52a896] transition-colors'
+                  className='block py-2.5 text-center bg-[#62BFAD] text-white rounded-full text-sm font-semibold hover:bg-[#52a896] transition-colors'
                 >
                   小红书
                 </a>
                 <a
                   href='https://www.instagram.com/jessi_e5166/'
-                  className='block py-2 text-center bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg text-sm font-bold hover:bg-gray-200 transition-colors'
+                  className='block py-2.5 text-center bg-stone-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 rounded-full text-sm font-semibold hover:bg-stone-200 dark:hover:bg-neutral-700 transition-colors'
                 >
                   Instagram
                 </a>

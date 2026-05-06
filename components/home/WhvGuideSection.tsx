@@ -1,82 +1,90 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import type { ReactNode } from 'react';
+import { useTranslation } from 'next-i18next';
 import SectionHeader from '@/components/common/SectionHeader';
+import GuidePostCards from '@/components/home/GuidePostCards';
+import HomePageSection from '@/components/home/HomePageSection';
 import * as Types from '@/lib/type';
+
 const whvSteps = [
   {
-    title: '行前准备',
+    title: '行前',
     icon: '✈️',
     link: '/tag/preparation',
-    desc: '签证/行李',
+    desc: '签证',
   },
-  { title: '落地生存', icon: '🇦🇺', link: '/tag/landing', desc: '办卡/税号' },
-  { title: '工作攻略', icon: '💼', link: '/tag/jobs', desc: '农场/肉厂' },
-  { title: '离澳退税', icon: '💰', link: '/tag/tax', desc: 'Super/退税' },
+  { title: '落地', icon: '🇦🇺', link: '/tag/landing', desc: '卡 / 税号' },
+  { title: '工作', icon: '💼', link: '/tag/jobs', desc: '求职' },
+  { title: '离境', icon: '💰', link: '/tag/tax', desc: '退税' },
 ];
 
-const WhvGuideSection = ({ posts }: { posts: Types.Post[] }) => {
+interface WhvGuideSectionProps {
+  posts: Types.Post[];
+  sectionId?: string;
+  title?: string;
+  subtitle?: string;
+  editorialKicker?: string;
+  intro?: ReactNode;
+}
+
+const WhvGuideSection = ({
+  posts,
+  sectionId = 'whv-guides',
+  title,
+  subtitle,
+  editorialKicker,
+  intro,
+}: WhvGuideSectionProps) => {
+  const { t, i18n } = useTranslation('home');
+
+  const ttl = title ?? t('landing.whv.title');
+  const sub = subtitle ?? t('landing.whv.subtitle');
+  const kicker = editorialKicker ?? t('landing.whv.kicker');
+  const defaultIntro = (
+    <p>{t('landing.whv.intro')}</p>
+  );
+
+  const stepTitles =
+    i18n.language === 'en'
+      ? ['Prep', 'Landing', 'Jobs', 'Exit']
+      : whvSteps.map((s) => s.title);
+  const stepDescs =
+    i18n.language === 'en'
+      ? ['Visa', 'Cards / TFN', 'Finding work', 'Tax / depart']
+      : whvSteps.map((s) => s.desc);
+
   return (
-    <section className='py-4 container mx-auto px-4'>
-      <SectionHeader
-        title='WHV 打工度假指南'
-        subtitle='最新工作资讯与生存干货'
-        readMoreLink='/whv'
-      />
-      {/* 步骤导航 Icons */}
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
+    <HomePageSection id={sectionId} aria-label={t('landing.aria.whv')}>
+      <div className='border-b border-neutral-100 dark:border-white/[0.07] pb-8 md:pb-10 mb-8 md:mb-10'>
+        <SectionHeader
+          variant='editorial'
+          editorialKicker={kicker}
+          title={ttl}
+          subtitle={sub}
+          readMoreLink='/whv'
+        />
+      </div>
+
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-4 mb-10 md:mb-12'>
         {whvSteps.map((step, i) => (
           <Link key={i} href={step.link} className='group'>
-            <div className='bg-gray-50 dark:bg-gray-900 rounded-2xl p-5 text-center hover:bg-[#62BFAD]/10 hover:shadow-md transition-all border border-transparent hover:border-[#62BFAD]/30'>
-              <div className='text-3xl mb-3 transform group-hover:scale-110 transition-transform'>
+            <div className='h-full rounded-2xl bg-stone-50 dark:bg-neutral-800/60 px-2 py-3.5 md:py-5 text-center transition-all duration-300 group-hover:bg-[#62BFAD]/12 group-hover:ring-2 group-hover:ring-[#62BFAD]/35 dark:group-hover:bg-[#62BFAD]/15'>
+              <div className='text-lg md:text-2xl mb-1 md:mb-2 opacity-95'>
                 {step.icon}
               </div>
-              <h3 className='font-bold text-gray-900 dark:text-white mb-1'>
-                {step.title}
+              <h3 className='text-[11px] md:text-xs font-semibold text-neutral-900 dark:text-white'>
+                {stepTitles[i] ?? step.title}
               </h3>
-              <div className='text-xs text-gray-500'>{step.desc}</div>
+              <div className='text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5'>
+                {stepDescs[i]}
+              </div>
             </div>
           </Link>
         ))}
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {posts.map((post) => (
-          <Link
-            key={post.id}
-            href={`/post/${post.id}`}
-            className='group h-full'
-          >
-            <div className='flex flex-col h-full bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-800'>
-              <div className='relative h-48 overflow-hidden'>
-                <Image
-                  src={post.pageCoverThumbnail}
-                  alt={post.title}
-                  fill
-                  className='object-cover group-hover:scale-105 transition-transform duration-500'
-                />
-                <div className='absolute top-3 left-3'>
-                  <span className='px-2 py-1 bg-black/60 backdrop-blur-md text-white text-xs rounded-md font-medium'>
-                    {post.tags?.[0] || '干货'}
-                  </span>
-                </div>
-              </div>
-              <div className='p-5 flex-1 flex flex-col'>
-                <h3 className='text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 line-clamp-2 group-hover:text-[#62BFAD] transition-colors'>
-                  {post.title}
-                </h3>
-                <div className='text-sm text-gray-500 line-clamp-2 mb-4 flex-1'>
-                  {post.summarize}
-                </div>
-                <div className='flex items-center justify-between text-xs text-gray-400 mt-auto pt-4 border-t border-gray-100 dark:border-gray-800'>
-                  <span>📅 {post.lastEditedDate}</span>
-                  <span className='text-[#62BFAD] font-medium'>阅读全文 →</span>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
+      <GuidePostCards posts={posts} />
+    </HomePageSection>
   );
 };
 

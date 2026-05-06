@@ -53,7 +53,7 @@ const contentVariants = {
   },
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = "zh" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
   const { posts, translations } = await getLocalizedCategoryPosts({
     locale,
     pageId: NOTION_POST_ID,
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = "zh" }) => {
 
 const Post = ({ posts }: any) => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="max-w-6xl mx-auto px-4 sm:px-5 py-14 sm:py-16">
       <div className="space-y-12">
         {posts?.map((post: any, index: number) => (
           <motion.div
@@ -86,7 +86,7 @@ const Post = ({ posts }: any) => {
             className="group"
           >
             <Link href={`${post?.category}/${post?.slug || post.id}`}>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-black/[0.03] dark:border-white/[0.03] hover:border-black/[0.07] dark:hover:border-white/[0.07] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500">
+              <div className="bg-white/95 dark:bg-neutral-900/70 rounded-[1.25rem] overflow-hidden ring-1 ring-black/[0.05] dark:ring-white/[0.08] hover:ring-black/[0.1] hover:shadow-[0_12px_40px_-14px_rgba(0,0,0,0.1)] transition-all duration-500">
                 <div className="flex flex-col md:flex-row md:items-center">
                   <motion.div
                     className="p-8 flex-1 space-y-4"

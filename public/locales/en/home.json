@@ -1,4 +1,96 @@
 {
+  "landing": {
+    "seoTitle": "Jessie on the road",
+    "seoDescription": "Former dev in China inbound trip planning stuff. Lodging trains pay apps SIMs pacing. AU WHV year on file too. Shoot me an email.",
+    "hero": {
+      "badge": "ENFJ · dev · AU WHV · China inbound focus",
+      "headline": [
+        "Hey, I'm Jessie.",
+        "Mostly I help folks prep travel into mainland China."
+      ],
+      "paragraphs": [
+        "Used to write front end. Did a gap year WHV in Australia. Now I geek out wiring real trips for visitors: routing, sleeps, Alipay, WeChat, rideshare, SIM quirks, pacing that does not wreck your first week.",
+        "Site stays drafty on purpose. I'd rather revise old posts than fake I never flubbed anything.",
+        "Email anytime I usually ping back fast. Aus and stray trip notes live below mainland China pulls the busiest mail lately."
+      ],
+      "primaryMailSubject": "Quick China trip question",
+      "primaryCta": "Hit my inbox",
+      "secondaryCta": "What I do",
+      "servicesAnchor": "#services",
+      "mailHint": "",
+      "mailTemplate": "How many people:\nRough dates:\nCities curious about:\nBudget ballpark loose ok:\nAnything else:"
+    },
+    "persona": {
+      "sectionEyebrow": "Tone / site map",
+      "p1": "I write chunky posts because unpacking trip anxiety in small steps beats hiding it in pretty quotes.",
+      "p2": "You will see half baked lines patched when facts move. Showing the glitch beats polishing it sterile.",
+      "p3": "Skim deep or bounce early both cool.",
+      "aside": "Scroll for China scribbles plus Aus WHV. Services hover near footer email still beats guessing."
+    },
+    "travelSection": {
+      "kicker": "02 · notes",
+      "title": "Field notes",
+      "subtitle": "China heavy, Aus and stray hops mixed in. Browse free ping me once dates settle.",
+      "introLine1": "Main city writeups smashed with sidebar hops so you see how I stack trips mentally.",
+      "introLine2Before": "Peek read only until ",
+      "introStrong": "headcount and dates settle",
+      "introLine2After": " then hit my inbox we sketch a sane draft before you slam buy buttons."
+    },
+    "services": {
+      "sectionLabel": "03",
+      "title": "What I help with lately",
+      "blocks": [
+        {
+          "heading": "1) China inbound",
+          "items": ["Map routes sleeps transit minus heroic mileage","Talk thru pay apps rideshare SIM quirks plus humane pacing"]
+        },
+        {
+          "heading": "2) Side hops off China",
+          "items": ["Double check Indo AU NZ legs that braid into mainland windows","Tone down flaky promo pings clogging your inbox"]
+        },
+        {
+          "heading": "3) Gut check pings",
+          "items": ["Unclear if mainland fits Ask blunt I'll answer blunt","If I'm slammed or it's off I'll say fast"]
+        }
+      ],
+      "aboutLink": "About me →",
+      "footer": "Mainland inbound first other legs same thread if handy."
+    },
+    "whv": {
+      "kicker": "04 · whv",
+      "title": "Aus WHV notes",
+      "subtitle": "Visas landings gigs taxes sorted sloppy but straight",
+      "intro": "That year scraped into chunky posts ping WHV in the same mail thread China questions ride along fine."
+    },
+    "tools": {
+      "kicker": "05 · links",
+      "body": "Partner links tilt Aussie prep specifics for China mostly land via email anyhow."
+    },
+    "cta": {
+      "sectionEyebrow": "Say hi",
+      "title": "Fuzzy plans still welcome.",
+      "p1Lead": "Drop ",
+      "p1Bold1": "crew size",
+      "p1Mid": ", ",
+      "p1Bold2": "approx dates",
+      "p1Trail": ", dream towns I'll sketch doable pacing grounded in how bodies actually slog through days.",
+      "p2": "Foggy itinerary brain Email that too I'll chop wishful from doable blunt.",
+      "templateLabel": "Copy paste blanks",
+      "mailTemplate": "Headcount:\nWhen:\nCities:\nBudget vibe:\nOther:",
+      "mailSubject": "China trip ping Jessie",
+      "primaryBtn": "Email prefilled blurbs",
+      "secondaryBtn": "Blank email chill",
+      "whvNote": "WHV add on same mail works longer threads live upstairs section.",
+      "ariaConsult": "Contact"
+    },
+    "aria": {
+      "persona": "About Jessie",
+      "services": "What I usually do",
+      "travel": "Trip notes",
+      "tools": "Tools & partnerships",
+      "whv": "Australia WHV"
+    }
+  },
   "hero": {
     "title": "Code & Wander",
     "subtitle": "A frontend engineer's WHV travel & tech blog from Australia"

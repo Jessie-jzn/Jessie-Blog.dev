@@ -18,7 +18,6 @@ import BaseLayout from '@/components/layouts/BaseLayout'; // 导入基础布局�
 // import SiteConfig from "../site.config"; // 可选的网站配置
 import Head from 'next/head'; // 导入 Head 组件，用于设置页面头部信息
 
-import '../i18n'; // 导入 i18n.js 文件，初始化国际化
 import { useEffect } from 'react'; // 导入 useEffect 钩子
 import { useRouter } from 'next/router'; // 导入路由钩子
 import Script from 'next/script'; // 导入 Script 组件，用于添加外部脚本

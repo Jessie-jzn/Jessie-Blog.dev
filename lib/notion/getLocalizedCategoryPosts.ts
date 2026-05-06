@@ -86,7 +86,7 @@ const getLocalizedCategoryPosts = async ({
 
   // 加载翻译内容（i18n）
   const translations = await serverSideTranslations(
-    locale || "zh",
+    locale || "en",
     translationNamespaces
   );
 

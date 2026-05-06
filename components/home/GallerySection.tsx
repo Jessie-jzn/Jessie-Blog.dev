@@ -19,7 +19,7 @@ const GallerySection = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className='py-16 bg-gray-50 dark:bg-gray-900/30'
+      className='py-14 bg-canvas/50 dark:bg-neutral-950/40'
     >
       <div className='container mx-auto px-4'>
         <SectionHeader

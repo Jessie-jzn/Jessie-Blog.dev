@@ -24,7 +24,7 @@ export const formatTimestampToDate = (
  */
 export const formatDate = (
   date: string | Date,
-  locale: string = "zh"
+  locale: string = "en"
 ): string => {
   if (!date || !locale) return date ? date.toString() : "";
 

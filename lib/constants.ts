@@ -36,7 +36,7 @@ const BAIDU_TRANSLATE_SECRET_KEY = process.env
   .TRANSLATE_BAIDU_SECRETKEY as string;
 
 const PREVIEW_IMAGES_ENABLED = true;
-const LANG = process.env.NEXT_PUBLIC_LANG || "zh"; // zh-CN,'n-U
+const LANG = process.env.NEXT_PUBLIC_LANG || "en";
 const IsPROD = process.env.NODE_ENV === "production";
 
 /** 营收广告 */

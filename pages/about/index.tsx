@@ -29,14 +29,14 @@ const About = () => {
         title={t('hero.title', { ns: 'about' })}
         description={t('hero.subtitle', { ns: 'about' })}
       />
-      <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-20'>
+      <div className='max-w-3xl mx-auto px-5 sm:px-6 py-10 sm:py-16 font-sans text-gray-700 dark:text-gray-300'>
         {/* Hero Section */}
         <motion.div
           className='flex flex-col md:flex-row items-center gap-10 mb-20 xs:mb-12'
           {...fade(0.1)}
         >
           <div className='flex-shrink-0'>
-            <div className='relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-2 ring-gray-100 dark:ring-gray-800'>
+            <div className='relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-2 ring-black/[0.06] dark:ring-white/[0.12] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.15)]'>
               <Image
                 src='https://img.jessieontheroad.com/avatar.png'
                 alt='Jessie'
@@ -47,10 +47,10 @@ const About = () => {
             </div>
           </div>
           <div className='text-center md:text-left'>
-            <h1 className='text-3xl sm:text-4xl font-light text-gray-900 dark:text-gray-100 tracking-tight mb-3'>
+            <h1 className='text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3'>
               {t('hero.title')}
             </h1>
-            <p className='text-lg sm:text-xl text-gray-500 dark:text-gray-400 font-light leading-relaxed'>
+            <p className='text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed'>
               {t('hero.subtitle')}
             </p>
           </div>
@@ -60,10 +60,10 @@ const About = () => {
         <motion.div className='mb-20 xs:mb-12 max-w-3xl' {...fade(0.15)}>
           <div className='w-8 h-[1px] bg-gray-200 dark:bg-gray-800 mb-8' />
           <div className='space-y-5'>
-            <p className='text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-[1.9] font-light'>
+            <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9]'>
               {t('sections.story.p1')}
             </p>
-            <p className='text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-[1.9] font-light'>
+            <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9]'>
               {t('sections.story.p2')}
             </p>
           </div>
@@ -71,7 +71,7 @@ const About = () => {
 
         {/* What to find here */}
         <motion.div className='mb-20 xs:mb-12' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-400 dark:text-gray-500 tracking-widest uppercase font-light mb-8'>
+          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
             {t('sections.findHere.title')}
           </h2>
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-5'>
@@ -83,7 +83,7 @@ const About = () => {
                 <h3 className='text-base font-medium text-gray-900 dark:text-gray-100 mb-2'>
                   {t(`sections.findHere.${key}.title`)}
                 </h3>
-                <p className='text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed'>
+                <p className='text-sm text-gray-600 dark:text-gray-300 leading-relaxed'>
                   {t(`sections.findHere.${key}.desc`)}
                 </p>
               </div>
@@ -93,7 +93,7 @@ const About = () => {
 
         {/* Tech Stack Section */}
         <motion.div className='mb-20 xs:mb-12' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-400 dark:text-gray-500 tracking-widest uppercase font-light mb-8'>
+          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
             {t('sections.techStack.title')}
           </h2>
           <div className='grid grid-cols-2 sm:grid-cols-4 gap-8'>
@@ -123,7 +123,7 @@ const About = () => {
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className='text-sm text-gray-500 dark:text-gray-400 font-light'
+                      className='text-sm text-gray-600 dark:text-gray-300'
                     >
                       {item}
                     </li>
@@ -136,10 +136,10 @@ const About = () => {
 
         {/* Journey Section */}
         <motion.div className='mb-20 xs:mb-12 max-w-3xl' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-400 dark:text-gray-500 tracking-widest uppercase font-light mb-8'>
+          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
             {t('sections.journey.title')}
           </h2>
-          <p className='text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-[1.9] font-light mb-8'>
+          <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9] mb-8'>
             {t('sections.journey.description')}
           </p>
           <div>
@@ -150,7 +150,7 @@ const About = () => {
               {['experience', 'skills', 'ai', 'whv'].map((item) => (
                 <li key={item} className='flex items-start gap-3'>
                   <span className='mt-2 w-1.5 h-1.5 rounded-full bg-[#62BFAD] flex-shrink-0' />
-                  <span className='text-sm sm:text-base text-gray-600 dark:text-gray-400 font-light leading-relaxed'>
+                  <span className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed'>
                     {t(`sections.journey.background.${item}`)}
                   </span>
                 </li>
@@ -166,10 +166,10 @@ const About = () => {
         >
           <div className='flex flex-col md:flex-row gap-8'>
             <div className='w-full md:w-2/3'>
-              <h2 className='text-sm text-gray-400 dark:text-gray-500 tracking-widest uppercase font-light mb-4'>
+              <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-4'>
                 {t('sections.location.title')}
               </h2>
-              <p className='text-base text-gray-600 dark:text-gray-400 leading-[1.9] font-light mb-6'>
+              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9] mb-6'>
                 {t('sections.location.desc')}
               </p>
               <div className='grid grid-cols-2 gap-6'>
@@ -177,7 +177,7 @@ const About = () => {
                   <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-3'>
                     {t('sections.location.recent')}
                   </h3>
-                  <ul className='space-y-1.5 text-sm text-gray-500 dark:text-gray-400 font-light'>
+                  <ul className='space-y-1.5 text-sm text-gray-600 dark:text-gray-300'>
                     <li>{t('sections.location.cities.sydney')}, NSW</li>
                     <li>{t('sections.location.cities.goldCoast')}, QLD</li>
                     <li>{t('sections.location.cities.melbourne')}, VIC</li>
@@ -188,7 +188,7 @@ const About = () => {
                   <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-3'>
                     {t('sections.location.next')}
                   </h3>
-                  <ul className='space-y-1.5 text-sm text-gray-500 dark:text-gray-400 font-light'>
+                  <ul className='space-y-1.5 text-sm text-gray-600 dark:text-gray-300'>
                     <li>{t('sections.location.cities.perth')}, WA</li>
                     <li>{t('sections.location.cities.adelaide')}, SA</li>
                     <li>{t('sections.location.cities.tasmania')}</li>
@@ -229,26 +229,26 @@ const About = () => {
             </div>
 
             <div className='w-full md:w-3/5 space-y-5'>
-              <h2 className='text-sm text-gray-400 dark:text-gray-500 tracking-widest uppercase font-light mb-2'>
+              <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-2'>
                 {t('sections.philosophy.title')}
               </h2>
 
-              <p className='text-lg sm:text-xl font-light text-gray-900 dark:text-gray-100 leading-snug tracking-tight'>
+              <p className='text-lg sm:text-xl text-gray-900 dark:text-gray-100 leading-snug tracking-tight'>
                 {t('sections.philosophy.slogan')}
               </p>
 
-              <p className='text-base text-gray-600 dark:text-gray-400 leading-[1.9] font-light'>
+              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9]'>
                 {t('sections.philosophy.codeDesc')}
               </p>
-              <p className='text-base text-gray-600 dark:text-gray-400 leading-[1.9] font-light'>
+              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9]'>
                 {t('sections.philosophy.lifeDesc')}
               </p>
 
               <blockquote className='border-l-[2px] border-[#62BFAD]/60 pl-5 py-1 mt-6'>
-                <p className='text-base text-gray-500 dark:text-gray-400 italic font-light leading-relaxed'>
+                <p className='text-base text-gray-600 dark:text-gray-300 italic leading-relaxed'>
                   {t('sections.philosophy.quote')}
                 </p>
-                <footer className='text-sm text-gray-400 dark:text-gray-500 mt-1.5 font-light'>
+                <footer className='text-sm text-gray-500 dark:text-gray-400 mt-1.5'>
                   {t('sections.philosophy.quoteAuthor')}
                 </footer>
               </blockquote>

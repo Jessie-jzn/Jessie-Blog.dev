@@ -11,7 +11,7 @@ import TravelListLayout from '@/components/layouts/TravelListLayout';
 import { useTranslation } from 'next-i18next';
 import { CommonSEO } from '@/components/SEO';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'zh' }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   const { posts, tagOptions, translations } = await getLocalizedCategoryPosts({
     locale,
     pageId: NOTION_POST_ID,
@@ -52,7 +52,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         description={t('travel.description', { ns: 'common' })}
       />
 
-      <div className='min-h-screen bg-white dark:bg-gray-950'>
+      <div className='min-h-screen bg-canvas dark:bg-neutral-950'>
         <h1 className='sr-only'>{t('travel.title')}</h1>
 
         {/* Hero */}
@@ -73,24 +73,24 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease }}
             >
-              <h2 className='text-5xl xs:text-2xl font-light text-white tracking-[0.15em] uppercase'>
+              <h2 className='text-4xl xs:text-2xl font-semibold text-white tracking-tight'>
                 {t('travel.title')}
               </h2>
-              <div className='mx-auto mt-4 w-12 h-[1px] bg-white/60' />
-              <p className='mt-4 text-sm xs:text-xs text-white/70 tracking-widest uppercase font-light'>
+              <div className='mx-auto mt-4 w-10 h-px rounded-full bg-white/50' />
+              <p className='mt-4 text-sm xs:text-xs text-white/85 font-normal tracking-wide leading-relaxed max-w-md mx-auto'>
                 {t('travel.description')}
               </p>
             </motion.div>
           </div>
 
-          <div className='absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-gray-950 to-transparent' />
+          <div className='pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-canvas dark:from-neutral-950 via-canvas/80 dark:via-neutral-950/80 to-transparent' />
         </header>
 
         {/* Content */}
-        <div className='max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 -mt-6 relative z-10'>
+        <div className='max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 -mt-6 relative z-10'>
           {/* Tag Navigation */}
           <motion.nav
-            className='flex items-center justify-center gap-6 xs:gap-4 py-6 border-b border-gray-100 dark:border-gray-800/50 overflow-x-auto scrollbar-hide'
+            className='flex items-center justify-center gap-6 xs:gap-4 py-6 border-b border-black/[0.06] dark:border-white/[0.08] overflow-x-auto scrollbar-hide'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -99,8 +99,8 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
               className={`relative text-sm xs:text-xs tracking-wide whitespace-nowrap transition-colors duration-300 pb-1
                 ${
                   curTab === 'All'
-                    ? 'text-gray-900 dark:text-white'
-                    : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+                    ? 'text-neutral-900 dark:text-white'
+                    : 'text-neutral-400 dark:text-neutral-500 hover:text-[#62BFAD]'
                 }`}
               onClick={() =>
                 handleChangeTab({
@@ -114,8 +114,8 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
               {t('travel.tabs.all')}
               {curTab === 'All' && (
                 <motion.div
-                  layoutId='tab-underline'
-                  className='absolute -bottom-px left-0 right-0 h-[1.5px] bg-gray-900 dark:bg-white'
+                  layoutId='travel-tab-indicator'
+                  className='absolute -bottom-px left-0 right-0 h-[2px] rounded-full bg-[#62BFAD]'
                 />
               )}
             </button>
@@ -126,16 +126,16 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                 className={`relative text-sm xs:text-xs tracking-wide whitespace-nowrap transition-colors duration-300 pb-1
                   ${
                     curTab === tag.id
-                      ? 'text-gray-900 dark:text-white'
-                      : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
+                      ? 'text-neutral-900 dark:text-white'
+                      : 'text-neutral-400 dark:text-neutral-500 hover:text-[#62BFAD]'
                   }`}
                 onClick={() => handleChangeTab(tag)}
               >
                 {tag.name}
                 {curTab === tag.id && (
                   <motion.div
-                    layoutId='tab-underline'
-                    className='absolute -bottom-px left-0 right-0 h-[1.5px] bg-gray-900 dark:bg-white'
+                    layoutId='travel-tab-indicator'
+                    className='absolute -bottom-px left-0 right-0 h-[2px] rounded-full bg-[#62BFAD]'
                   />
                 )}
               </button>
@@ -154,7 +154,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                 href={`${featured?.category}/${featured?.slug || featured.id}`}
                 className='group block'
               >
-                <div className='relative rounded-2xl overflow-hidden aspect-[21/9] xs:aspect-[16/10]'>
+                <div className='relative rounded-[1.25rem] md:rounded-[1.65rem] overflow-hidden aspect-[21/9] xs:aspect-[16/10] ring-1 ring-black/[0.06] dark:ring-white/[0.08] shadow-[0_4px_40px_-12px_rgba(0,0,0,0.12)]'>
                   <Image
                     src={featured.pageCover}
                     alt={featured.title}
@@ -195,7 +195,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                 className='group'
               >
                 <Link href={`${post?.category}/${post?.slug || post.id}`}>
-                  <div className='relative rounded-xl overflow-hidden aspect-[4/3]'>
+                  <div className='relative rounded-2xl overflow-hidden aspect-[4/3] ring-1 ring-black/[0.05] dark:ring-white/[0.07]'>
                     <Image
                       src={post.pageCover}
                       alt={post.title}
@@ -217,7 +217,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                   </div>
 
                   <div className='mt-3 flex items-center justify-between'>
-                    <time className='text-[11px] text-gray-400 dark:text-gray-500 font-light tabular-nums tracking-wide'>
+                    <time className='text-[11px] text-neutral-500 dark:text-neutral-400 font-normal tabular-nums tracking-wide'>
                       {post.lastEditedDate}
                     </time>
                     {post.sorts?.length > 0 && (

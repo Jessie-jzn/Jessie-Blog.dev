@@ -1,10 +1,22 @@
 {
+  "site": {
+    "title": "Jessie永远在路上",
+    "description": "记录技术与日常感想"
+  },
+  "comments": {
+    "title": "留言",
+    "notConfigured": "评论未启用：请在环境变量中设置 NEXT_PUBLIC_CUSDIS_APP_ID（可在 cusdis.com 免费创建）。"
+  },
+  "stats": {
+    "reads": "{{countDisplay}} 次阅读",
+    "subscribersBlog": "全站 {{countDisplay}} 人订阅邮件精选",
+    "subscribersFoot": "当前 {{countDisplay}} 位读者已订阅本站邮件"
+  },
   "hero": {
     "title": "欢迎来到Jessie的世界",
     "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
   },
   "viewAll": "查看全部",
-
   "life": "生活感想",
   "post": "文章",
   "tags": "标签",
@@ -78,10 +90,6 @@
     "life": "生活",
     "whv": "打工度假",
     "about": "关于",
-    "tools": {
-      "title": "工具",
-      "resume": "简历导出"
-    },
     "projects": "项目",
     "tags": "标签",
     "all": "全部",

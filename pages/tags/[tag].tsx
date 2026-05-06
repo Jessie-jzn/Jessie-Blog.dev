@@ -4,8 +4,9 @@ import { GetStaticPaths } from "next";
 import * as Types from "@/lib/type";
 import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const response = await getDataBaseList({
       pageId: NOTION_POST_ID,
@@ -22,7 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         tagOptions: response.tagOptions || [],
         posts: filteredPosts || [],
         filteredTag: filteredTag,
-        
+        ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 10,
     };
@@ -32,6 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         tagOptions: [],
         posts: [],
         filteredTag: {},
+        ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 10,
     };

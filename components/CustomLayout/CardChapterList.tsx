@@ -11,24 +11,28 @@ interface CardChapterListProps {
 }
 
 const CardChapterList: React.FC<CardChapterListProps> = ({ article }) => {
-  console.log("article", article);
   return (
-    <Link href={`${article?.category}/${article?.slug || article.id}`}>
+    <Link
+      href={`${article?.category}/${article?.slug || article.id}`}
+      className="block"
+    >
       <motion.article
-        className="flex items-start py-4 hover:bg-gray-50 border-b border-gray-100 dark:border-gray-800"
-        initial={{ x: -50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
+        className="flex items-start gap-4 p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-neutral-900/70 ring-1 ring-black/[0.05] dark:ring-white/[0.07] hover:ring-black/[0.1] dark:hover:ring-white/[0.12] hover:shadow-[0_8px_32px_-12px_rgba(0,0,0,0.1)] transition-all duration-300"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.08, duration: 0.4 }}
         viewport={{ once: true }}
       >
-        <div className="flex-1 min-w-0 pr-4">
-          <h3 className="text-base md:text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 line-clamp-2">
+        <div className="flex-1 min-w-0 flex flex-col gap-2">
+          <h3 className="text-[15px] md:text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-50 line-clamp-2 leading-snug">
             {article.title}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
-            {article.summarize}
-          </p>
-          <div className="flex items-center text-sm text-gray-500">
+          {article.summarize?.trim() ? (
+            <p className="text-[13px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">
+              {article.summarize}
+            </p>
+          ) : null}
+          <div className="flex items-center text-xs text-neutral-400 dark:text-neutral-500 mt-0.5">
             <span>{article.publishDay}</span>
             {/* <span className="mx-2">·</span>
             <div className="flex items-center">
@@ -40,13 +44,13 @@ const CardChapterList: React.FC<CardChapterListProps> = ({ article }) => {
           </div>
         </div>
         {article.pageCoverThumbnail && (
-          <div className="flex-shrink-0 ml-4">
+          <div className="flex-shrink-0">
             <Image
               src={article.pageCoverThumbnail}
               alt={article.title || ""}
               width={120}
               height={80}
-              className="object-cover rounded-lg w-24 h-16 md:w-32 md:h-20"
+              className="object-cover rounded-xl w-24 h-16 md:w-28 md:h-[4.75rem] ring-1 ring-black/[0.04] dark:ring-white/[0.08]"
             />
           </div>
         )}

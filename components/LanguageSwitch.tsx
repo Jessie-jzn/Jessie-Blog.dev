@@ -1,7 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";
-import { useTranslation } from "next-i18next";
+
+/** Next.js i18n 用于记住用户所选语言的 Cookie 名（与框架约定一致）。 */
+function persistLocalePreference(locale: string) {
+  if (typeof document === "undefined") return;
+  const maxAgeSeconds = 60 * 60 * 24 * 365;
+  document.cookie = `NEXT_LOCALE=${locale};path=/;max-age=${maxAgeSeconds};SameSite=Lax`;
+}
 
 const getInitialLanguage = (
   siteConfigLanguage: string | undefined,
@@ -9,52 +15,92 @@ const getInitialLanguage = (
 ) => {
   if (locale) return locale; // Use locale from Next.js if available
   if (siteConfigLanguage) return siteConfigLanguage; // Site config language
-  return "zh"; // Default fallback language
+  return "en"; // 与 defaultLocale 一致
 };
+
+/** `btnColor` 可以是 Tailwind 类（如 bg-white）或十六进制背景色（如 #d3d58c）。 */
+function surfaceStyles(btnColor: string): {
+  className: string;
+  style?: React.CSSProperties;
+} {
+  if (btnColor.startsWith("#")) {
+    return {
+      className: "",
+      style: { backgroundColor: btnColor },
+    };
+  }
+  return { className: btnColor };
+}
 
 const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
-  const { i18n } = useTranslation();
-  const { locale, locales } = router;
+  const { pathname, query, asPath, locale, locales } = router;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [currentLocale, setCurrentLocale] = useState(
     getInitialLanguage(SiteConfig.language, locale)
   );
+  const triggerSurface = surfaceStyles(btnColor);
+  const menuSurface = surfaceStyles(btnColor);
+
   useEffect(() => {
     if (locale) {
       setCurrentLocale(locale);
     }
   }, [locale]);
 
+  useEffect(() => {
+    setDropdownVisible(false);
+  }, [locale, pathname]);
+
+  useEffect(() => {
+    if (!dropdownVisible) return;
+    const onDocMouseDown = (ev: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(ev.target as Node)
+      ) {
+        setDropdownVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [dropdownVisible]);
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // const changeLanguage = (e: any) => {
-  //   i18n.changeLanguage(lng);
-  //   router.push(router.pathname, router.asPath, { locale: lng });
-  //   const selectedLocale = e.target.getAttribute("data-lang");
-  //   router.push({ pathname, query }, asPath, { locale: selectedLocale });
-  //   // Hide dropdown after selecting a language
-  // };
-
   const handleLanguageChange = useCallback(
-    (e: any) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       const selectedLocale = e.currentTarget.getAttribute("data-lang");
+      if (
+        !selectedLocale ||
+        selectedLocale === locale ||
+        !(locales || []).includes(selectedLocale)
+      ) {
+        setDropdownVisible(false);
+        return;
+      }
 
-      i18n.changeLanguage(selectedLocale);
-      router.push(router.pathname, router.asPath, { locale: selectedLocale });
+      persistLocalePreference(selectedLocale);
+      void router.push(
+        { pathname, query },
+        asPath,
+        { locale: selectedLocale, scroll: false }
+      );
       setDropdownVisible(false);
       setCurrentLocale(selectedLocale);
     },
-    [i18n, router]
+    [asPath, locale, locales, pathname, query, router]
   );
 
   return (
-    <div className="relative inline-block text-left">
+    <div ref={containerRef} className="relative inline-block text-left">
       <div
-        className={`bg-[${btnColor}] text-black font-semibold h-8 w-8 rounded hover:bg-gray-200 flex align-middle items-center justify-center`}
+        className={`${triggerSurface.className} text-black font-semibold h-8 w-8 rounded hover:bg-gray-200 flex align-middle items-center justify-center cursor-pointer`}
+        style={triggerSurface.style}
         onClick={toggleDropdown}
       >
         {currentLocale === "en" ? "🇺🇸" : "🇨🇳"}
@@ -65,7 +111,8 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
       </div>
       {dropdownVisible && (
         <div
-          className={`origin-top-right z-10 absolute right-0 mt-2 w-30 rounded-md shadow-lg bg-[${btnColor}] ring-1 ring-black ring-opacity-5`}
+          className={`${menuSurface.className} origin-top-right z-10 absolute right-0 mt-2 min-w-[8rem] rounded-md shadow-lg ring-1 ring-black ring-opacity-5`}
+          style={menuSurface.style}
         >
           {locales?.map((loc) => (
             <div

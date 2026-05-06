@@ -39,7 +39,7 @@ const CategoryTab = React.memo(
         whileHover="hover"
         className={`
           whitespace-nowrap text-xs sm:text-sm font-medium 
-          transition-colors cursor-pointer mx-1 sm:mx-2
+          transition-colors cursor-pointer py-1 px-0.5
           ${isActive ? "text-[#62BFAD]" : "text-gray-600 dark:text-gray-300"}
         `}
       >
@@ -60,7 +60,7 @@ const ArticleList = React.memo(({ articles }: { articles: Types.Post[] }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className="space-y-4"
+        className="flex flex-col gap-4 sm:gap-5"
       >
         {articles.map((article: any) => (
           <CardChapterList article={article} key={article.id} />
@@ -79,7 +79,7 @@ type CategoryItem = {
   articles: Types.Post[];
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = "zh" }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
   const { posts, tagOptions, translations } = await getLocalizedCategoryPosts({
     locale,
     pageId: NOTION_POST_ID,
@@ -136,12 +136,12 @@ const PostListPage = ({
         title={t("technical.title", { ns: "common" })}
         description={t("travel.description", { ns: "common" })}
       />
-      <div className="bg-white dark:bg-gray-900/70 flex items-center flex-col min-h-screen">
-        {/* 分类导航栏 - 优化移动端显示 */}
-        <nav className="w-full sticky top-[52px] z-40 bg-white dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
-          <div className="mx-auto">
+      <div className="flex items-center flex-col min-h-[60vh]">
+        {/* 分类导航 */}
+        <nav className="w-full sticky top-[52px] z-40 bg-white/80 dark:bg-neutral-950/82 backdrop-blur-xl border-b border-black/[0.06] dark:border-white/[0.08]">
+          <div className="mx-auto max-w-6xl">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2 sm:space-x-6 overflow-x-auto px-2 sm:px-4 py-2 sm:py-3 no-scrollbar">
+              <div className="flex items-center gap-x-3 sm:gap-x-6 overflow-x-auto px-3 sm:px-1 py-2.5 sm:py-3 no-scrollbar">
                 <AnimatePresence>
                   {allTagArticles.map((category: CategoryItem) => (
                     <CategoryTab
@@ -158,7 +158,7 @@ const PostListPage = ({
         </nav>
 
         {/* 主要内容区域 - 优化间距和布局 */}
-        <div className="w-full max-w-screen-xl mx-auto px-2 sm:px-4">
+        <div className="w-full max-w-6xl mx-auto px-3 sm:px-4">
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             {/* 文章列表 */}
             <div className="flex-1 min-h-screen pt-2 sm:pt-4 md:pt-8">

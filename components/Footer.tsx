@@ -4,6 +4,7 @@ import SiteConfig from "@/site.config";
 import SocialContactIcon from "@/components/SocialContactIcon";
 import { useTranslation } from "next-i18next";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
+import SubscriberCountFoot from "@/components/stats/SubscriberCountFoot";
 
 interface FooterProps {
   className?: string;
@@ -14,7 +15,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
   return (
     <footer
-      className={`w-full border-t border-gray-100 dark:border-gray-800/60 bg-white dark:bg-gray-950 ${className || ""}`}
+      className={`w-full border-t border-black/[0.06] dark:border-white/[0.08] bg-white/70 dark:bg-neutral-950/85 backdrop-blur-md ${className || ""}`}
     >
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-12 xs:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -43,12 +44,13 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
               {t("footer.subscribeDesc")}
             </p>
             <NewsletterSubscribe />
+            <SubscriberCountFoot />
           </div>
         </div>
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-gray-100 dark:border-gray-800/40">
+      <div className="border-t border-black/[0.05] dark:border-white/[0.06]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-6 flex flex-col items-center gap-4">
           <SocialContactIcon
             prop={{
@@ -63,7 +65,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
               href="/"
               className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
-              {SiteConfig.title}
+              {t("site.title")}
             </Link>
             <span className="text-gray-200 dark:text-gray-700">·</span>
             <span>

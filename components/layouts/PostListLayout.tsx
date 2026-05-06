@@ -7,9 +7,11 @@ export default function PostListLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen relative w-full bg-white dark:bg-gray-950">
+    <div className="min-h-screen relative w-full bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
       <Navbar isFull={false} />
-      <main className="container mx-auto px-4 xs:px-0 pt-20 xs:pt-14 pb-20">{children}</main>
+      <main className="max-w-6xl mx-auto w-full px-4 sm:px-5 pt-20 xs:pt-14 pb-20">
+        {children}
+      </main>
       <Footer />
     </div>
   );

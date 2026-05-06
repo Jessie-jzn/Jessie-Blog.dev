@@ -100,6 +100,8 @@ module.exports = {
         sans: ["Outfit", ...fontFamily.sans],
       },
       colors: {
+        /** 与首页一致的暖灰底（Ins / 杂志风画布） */
+        canvas: "#ddd8d0",
         primary: "#7aa2f7",
         sky: colors.sky,
         gray: colors.neutral,
