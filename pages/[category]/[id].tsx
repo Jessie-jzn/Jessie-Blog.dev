@@ -13,6 +13,10 @@ import BlogComments from '@/components/BlogComments';
 import PostDetailLayout from '@/components/layouts/PostDetailLayout'
 
 const notionService = new NotionService();
+const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 40);
+const PREBUILD_POST_LIMIT = Number.isFinite(envPrebuildLimit)
+  ? Math.max(0, envPrebuildLimit)
+  : 40;
 
 interface StaticProps {
   params: {
@@ -144,7 +148,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   if (categoryMap) {
     Object.entries(categoryMap).forEach(([category, data]: [string, any]) => {
-      const articles = data.articles || [];
+      const articles = (data.articles || []).slice(0, PREBUILD_POST_LIMIT);
       articles.forEach((article: any) => {
         // 有 slug 优先用 slug，否则用 pageId
         const id = article.slug || article.id;

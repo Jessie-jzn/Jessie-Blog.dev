@@ -1,65 +1,70 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import NotionService from '@/lib/notion/NotionServer';
-import { NOTION_POST_ID } from '@/lib/constants';
 import getDataBaseList from '@/lib/notion/getDataBaseList';
+import { NOTION_POST_ID } from '@/lib/constants';
 
-import React from 'react';
-import { useRouter } from 'next/router';
-import NotionPage from '@/components/Notion/NotionPage';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import PostDetailLayout from '@/components/layouts/PostDetailLayout';
-
-const notionService = new NotionService();
+const ENABLE_LEGACY_REDIRECT_LOG =
+  process.env.LEGACY_POST_REDIRECT_LOG === 'true';
 
 export const getStaticProps: GetStaticProps = async ({
   params,
-  locale,
 }: any) => {
-  const postId = params?.id as string;
-  console.log("postId", postId);
-  const post = await notionService.getPage(postId);
+  const rawId = String(params?.id || '').trim();
+  if (!rawId) {
+    return { notFound: true };
+  }
+
+  const dbResult = await getDataBaseList({
+    pageId: NOTION_POST_ID,
+    from: 'post-legacy-redirect',
+  });
+
+  const normalizedRawId = rawId.replace(/-/g, '');
+  const mappedPageId = dbResult.slugMap?.[rawId];
+
+  const matchedPost = (dbResult.allPages || []).find((post) => {
+    const normalizedPostId = String(post.id || '').replace(/-/g, '');
+    const slug = String(post.slug || '');
+    return (
+      slug === rawId ||
+      normalizedPostId === normalizedRawId ||
+      (mappedPageId && post.id === mappedPageId)
+    );
+  });
+
+  const category = String(matchedPost?.category || '').trim();
+  if (!category) {
+    if (ENABLE_LEGACY_REDIRECT_LOG) {
+      console.info('[legacy-post-redirect] not found', { rawId });
+    }
+    return { notFound: true };
+  }
+
+  if (ENABLE_LEGACY_REDIRECT_LOG) {
+    console.info('[legacy-post-redirect] hit', {
+      from: `/post/${rawId}`,
+      to: `/${category}/${rawId}`,
+      postId: matchedPost?.id,
+      slug: matchedPost?.slug,
+    });
+  }
 
   return {
-    props: {
-      post: post ?? null,
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    redirect: {
+      destination: `/${encodeURIComponent(category)}/${encodeURIComponent(rawId)}`,
+      permanent: true,
     },
     revalidate: 3600,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getDataBaseList({
-    pageId: NOTION_POST_ID,
-    from: 'post-id',
-  });
-
-  const paths = (posts.pageIds ?? []).map((post: any) => ({
-    params: { id: post },
-  }));
-
   return {
-    paths,
-    fallback: true,
+    // 旧路由只保留运行时按需生成，避免构建期为全部文章重复预渲染一次
+    paths: [],
+    fallback: 'blocking',
   };
 };
 
-const PostDetail = ({ post }: any): React.JSX.Element => {
-  const router = useRouter();
-
-  if (router.isFallback || !post) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-
-  return (
-    <>
-      <NotionPage recordMap={post} />
-    </>
-  );
-};
-
-PostDetail.getLayout = (page: React.ReactElement) => {
-  return <PostDetailLayout>{page}</PostDetailLayout>;
-};
-
-export default PostDetail;
+export default function LegacyPostRouteRedirect() {
+  return null;
+}
