@@ -11,7 +11,6 @@ import * as Types from '@/lib/type';
 import HomeHero from '@/components/home/HomeHero';
 import HomePersonaStory from '@/components/home/HomePersonaStory';
 import HomeLandingSections from '@/components/home/HomeLandingSections';
-import HomeToolsSection from '@/components/home/HomeToolsSection';
 import WhvGuideSection from '@/components/home/WhvGuideSection';
 import TravelGuideSection from '@/components/home/TravelGuideSection';
 import HomeConsultCta from '@/components/home/HomeConsultCta';
@@ -86,13 +85,11 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
         <div className='relative z-10 max-w-6xl mx-auto px-3.5 sm:px-5 pb-12 md:pb-16 flex flex-col gap-3.5 sm:gap-4 md:-mt-8'>
           <HomePersonaStory />
 
+          <WhvGuideSection posts={whvPosts} />
+
           <TravelGuideSection sectionId='travel-guides' posts={travelPosts} />
 
           <HomeLandingSections />
-
-          <WhvGuideSection posts={whvPosts} />
-
-          <HomeToolsSection />
 
           <HomeConsultCta />
         </div>

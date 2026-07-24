@@ -16,7 +16,7 @@ const HomeLandingSections = () => {
     : [];
 
   return (
-    <HomePageSection id='services' aria-label={t('landing.aria.services')}>
+    <HomePageSection id='technology-and-life' aria-label={t('landing.aria.services')}>
       <div className='flex flex-wrap items-start justify-between gap-6 mb-8'>
         <div className='max-w-2xl'>
           <p className='text-[11px] font-medium uppercase tracking-[0.22em] text-[#62BFAD] mb-3'>

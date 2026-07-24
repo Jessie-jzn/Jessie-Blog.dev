@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Jessie on the road",
-    "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors."
+    "description": "Notes on an Australian WHV, travel, technology, and everyday life."
   },
   "comments": {
     "title": "Comments",
@@ -38,10 +38,10 @@
   "nav": {
     "home": "Home",
     "technical": "Technical",
-    "travel": "Travel",
+    "travel": "Travel Journal",
     "life": "Life",
     "whv": "WHV",
-    "about": "About",
+    "about": "About Me",
     "tools": {
       "title": "Tools",
       "resume": "Resume"
@@ -58,7 +58,7 @@
         "adventure": "Adventure Routes"
       },
       "guides": {
-        "title": "Travel Guides",
+        "title": "Travel Journal",
         "city": "City Guides",
         "food": "Food Guide",
         "tips": "Travel Tips"
@@ -70,7 +70,7 @@
   },
   "footer": {
     "about": "About",
-    "description": "My desire to practice my skills and share my acquired knowledge fuels my endeavors.",
+    "description": "Jessie's personal blog about an Australian WHV, travel, technology, and life.",
     "copyright": "All rights reserved",
     "contact": "Contact Us",
     "subscribe": "Subscribe",
@@ -79,11 +79,11 @@
     "allRights": "All rights reserved"
   },
   "travel": {
-    "title": "Super Practical Travel Guides",
-    "description": "Help you explore every destination with ease",
+    "title": "Travel Journal",
+    "description": "Places I have travelled and the things I saw, felt, and learned along the way",
     "hero": {
-      "title": "Explore Every Corner of the World",
-      "subtitle": "Capture every wonderful moment of your journey"
+      "title": "Keeping a record of the road",
+      "subtitle": "Cities, landscapes, encounters, and honest moments from travelling"
     },
     "categories": {
       "title": "Browse by Category",
@@ -97,8 +97,8 @@
       "viewAll": "View All"
     },
     "latest": {
-      "title": "Latest Guides",
-      "viewMore": "More Guides"
+      "title": "Latest Stories",
+      "viewMore": "More Stories"
     },
     "tabs": {
       "all": "All",
@@ -107,6 +107,36 @@
       "food": "Food",
       "tips": "Tips"
     }
+  },
+  "whvPage": {
+    "badge": "A lived WHV story",
+    "titleBefore": "My Australian working holiday",
+    "titleHighlight": "WHV",
+    "titleAfter": "year",
+    "description": "From preparing and arriving to finding work and leaving Australia, these are my lived experiences alongside practical notes that may help others.",
+    "roadmap": {
+      "prep": {
+        "title": "Preparing",
+        "description": "Visa / packing / flights"
+      },
+      "landing": {
+        "title": "Settling in",
+        "description": "TFN / banking / housing"
+      },
+      "work": {
+        "title": "Working",
+        "description": "Farms / factories / hotels"
+      },
+      "departure": {
+        "title": "Leaving",
+        "description": "Super / tax return"
+      }
+    },
+    "latest": "Latest stories",
+    "articleCount": "{{count}} stories",
+    "readMore": "Read more",
+    "aboutTitle": "About Jessie",
+    "aboutDescription": "I spent eight years in frontend development and one year in Australia on a WHV. I write about the working holiday, travel, technology, and everyday life."
   },
   "common": {
     "explore": "Explore Now"

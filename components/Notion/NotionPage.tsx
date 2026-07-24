@@ -183,6 +183,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
       nextImage: (props: any) => (
         <Image
           {...props}
+          alt={props.alt || ''}
           placeholder='blur'
           // 使用 notion-utils 提供的 shimer 或者是 base64 占位
           blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='

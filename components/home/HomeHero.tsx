@@ -3,23 +3,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
 
-const consultMailHref = (
-  email: string,
-  subject: string,
-  body?: string,
-) => {
-  const q = [`subject=${encodeURIComponent(subject)}`];
-  if (body) q.push(`body=${encodeURIComponent(body)}`);
-  return `mailto:${email}?${q.join('&')}`;
-};
-
 interface HomeHeroProps {
   email: string;
 }
 
 const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
   const { t } = useTranslation('home');
-  const mailTemplate = t('landing.hero.mailTemplate');
   const mailHint = t('landing.hero.mailHint');
 
   const headlineRaw = t('landing.hero.headline', {
@@ -83,11 +72,9 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
 
           <div className='mt-8 flex flex-wrap gap-3'>
             <a
-              href={consultMailHref(
-                email,
+              href={`mailto:${email}?subject=${encodeURIComponent(
                 t('landing.hero.primaryMailSubject'),
-                mailTemplate,
-              )}
+              )}`}
               className='inline-flex items-center justify-center min-h-[2.85rem] px-7 rounded-full bg-white text-neutral-950 text-sm font-semibold hover:bg-[#eef8f5] transition-colors shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]'
             >
               {t('landing.hero.primaryCta')}

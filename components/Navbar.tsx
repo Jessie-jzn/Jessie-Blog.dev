@@ -43,8 +43,8 @@ const Navbar = ({
   const navigationLinks = useMemo<NavLink[]>(
     () => [
       { id: 'home', href: '/', title: t('nav.home') },
-      { id: 'travel', href: '/travel', title: t('nav.travel') },
       { id: 'whv', href: '/whv', title: t('nav.whv') },
+      { id: 'travel', href: '/travel', title: t('nav.travel') },
       { id: 'life', href: '/life', title: t('nav.life') },
       { id: 'technical', href: '/technical', title: t('nav.technical') },
       { id: 'about', href: '/about', title: t('nav.about') },

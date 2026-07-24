@@ -4,17 +4,17 @@ const SiteConfig = {
   // basic site info (required)
   title: 'Jessie on the road',
   author: 'Jessie', // 作者姓名
-  summary: '记录技术与日常感想', // 作者简介
+  summary: '记录澳洲 WHV、旅行、技术与日常生活', // 作者简介
 
   fullName: 'Jessie Chen',
   headerTitle: 'Jessie on the road',
   description:
-    'My desire to practice my skills and share my acquired knowledge fuels my endeavors.',
-  language: 'en', // 站点默认文案语言（与 Next defaultLocale 一致）
+    'Jessie 的个人博客，记录澳洲 WHV、旅行、技术与日常生活。',
+  language: 'zh', // 站点默认文案语言（与 Next defaultLocale 一致）
   siteLogo: 'https://img.jessieontheroad.com/avatar.png',
   socialBanner: '/static/images/projects/karhdo-blog.png',
   theme: 'system',
-  locale: 'en',
+  locale: 'zh',
   // siteUrl: 'www.jessieontheroad.com',
   siteUrl: 'https://www.jessieontheroad.com',
   domain: 'jessieontheroad.com',
@@ -30,8 +30,8 @@ const SiteConfig = {
     },
     {
       id: 2,
-      title: 'nav.travel',
-      href: '/travel',
+      title: 'nav.whv',
+      href: '/whv',
       // children: [
       //   {
       //     id: 21,
@@ -86,8 +86,8 @@ const SiteConfig = {
     },
     {
       id: 3,
-      title: 'nav.technical',
-      href: '/technical',
+      title: 'nav.travel',
+      href: '/travel',
     },
     {
       id: 4,
@@ -96,8 +96,8 @@ const SiteConfig = {
     },
     {
       id: 5,
-      title: 'nav.whv',
-      href: '/whv',
+      title: 'nav.technical',
+      href: '/technical',
     },
     {
       id: 6,
@@ -200,7 +200,7 @@ const SiteConfig = {
   useImageProxy: true, // 控制是否使用图片代理
   imageProxyUrl:
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/api/image-proxy'
+      ? `http://localhost:${process.env.PORT || '3000'}/api/image-proxy`
       : 'https://jessieontheroad.com/api/image-proxy',
   gallery: {
     images: [

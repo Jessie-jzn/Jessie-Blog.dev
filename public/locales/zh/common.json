@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Jessie永远在路上",
-    "description": "记录技术与日常感想"
+    "description": "记录澳洲 WHV、旅行、技术与日常生活"
   },
   "comments": {
     "title": "留言",
@@ -32,7 +32,7 @@
   "subscriptionFailed": "订阅失败，请重试！",
   "learnMore": "查看更多",
   "workWithMe": "了解我",
-  "authorDesc": "我是一名充满热情的全栈开发者、创业者和开源项目作者，并参与多个成功的创业项目。热衷于分享技术见解、旅行攻略和生活感悟，现居中国上海，活跃于GitHub和Twitter等平台。",
+  "authorDesc": "我是 Jessie，做了 8 年前端，也在澳洲度过了一年 WHV。这里记录打工度假、旅行、技术与日常生活。",
   "lastPost": "最新文章",
   "featuredPost": "专题文章",
   "typedTexts": [
@@ -48,9 +48,9 @@
       "icon": "https://qiniu.jessieontheroad.com/image2.jpg"
     },
     {
-      "title": "旅行攻略",
+      "title": "旅行记录",
       "href": "/travel",
-      "description": "全面的旅行指南和建议。",
+      "description": "记录我亲自走过的地方、见闻与感受。",
       "icon": "https://qiniu.jessieontheroad.com/image4.jpg"
     },
     {
@@ -60,16 +60,16 @@
       "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
     },
     {
-      "title": "澳洲WHV全攻略",
+      "title": "我的澳洲 WHV 一年",
       "href": "/whv",
-      "description": "从签证申请到落地生存，一站式指南",
+      "description": "真实经历为主，也整理准备、落地、工作与离境信息。",
       "icon": "https://qiniu.jessieontheroad.com/image5.jpg"
     }
   ],
   "faqs": [
     {
       "question": "你能从这个博客中获得什么？",
-      "answer": "在这个博客中，我会分享技术见解、旅行攻略和生活感悟，技术分享主要包括 Next.js、React 和 Node.js 等前端技术，搭建高效、美观、用户友好的 web 应用，旅行攻略包括国内外旅游攻略详情"
+      "answer": "这里记录我的澳洲 WHV 经历、亲自走过的旅行、8 年前端开发中的技术经验，以及不同阶段的生活感想。"
     },
     {
       "question": "为什么要有这个博客？",
@@ -86,10 +86,10 @@
   "nav": {
     "home": "首页",
     "technical": "技术",
-    "travel": "旅行",
+    "travel": "旅行记录",
     "life": "生活",
     "whv": "打工度假",
-    "about": "关于",
+    "about": "关于我",
     "projects": "项目",
     "tags": "标签",
     "all": "全部",
@@ -102,7 +102,7 @@
         "adventure": "探险路线"
       },
       "guides": {
-        "title": "旅行攻略",
+        "title": "旅行记录",
         "city": "城市攻略",
         "food": "美食指南",
         "tips": "实用贴士"
@@ -124,7 +124,7 @@
   },
   "footer": {
     "about": "关于",
-    "description": "探索世界各大经典城市，感受独特的城市文化和历史魅力，适合喜欢城市游的你",
+    "description": "Jessie 的个人博客，记录澳洲 WHV、旅行、技术与生活。",
     "copyright": "版权所有",
     "contact": "联系我们",
     "subscribe": "订阅",
@@ -133,11 +133,11 @@
     "allRights": "版权所有"
   },
   "travel": {
-    "title": "超实用的旅行攻略",
-    "description": "助你轻松畅游每一个目的地",
+    "title": "旅行记录",
+    "description": "记录我亲自走过的地方，以及旅途中的见闻与感受",
     "hero": {
-      "title": "探索世界的每个角落",
-      "subtitle": "记录旅途中的每一个精彩瞬间"
+      "title": "走过的路，慢慢记下来",
+      "subtitle": "关于城市、风景、相遇，也关于旅途中的真实感受"
     },
     "categories": {
       "title": "分类浏览",
@@ -151,8 +151,8 @@
       "viewAll": "查看全部"
     },
     "latest": {
-      "title": "最新攻略",
-      "viewMore": "更多攻略"
+      "title": "最新记录",
+      "viewMore": "更多记录"
     },
     "tabs": {
       "all": "全部",
@@ -166,6 +166,36 @@
       "description": "如果你对任何创意领域感兴趣，不妨试试创建一个属于自己的智能体吧！",
       "cta": "参加比赛，说不定下一个大奖得主就是你！"
     }
+  },
+  "whvPage": {
+    "badge": "WHV 亲历记录",
+    "titleBefore": "我的澳洲打工度假",
+    "titleHighlight": "WHV",
+    "titleAfter": "一年",
+    "description": "从准备出发到落地生活，从找工作到离开澳洲。这里记录我的真实经历，也整理那些可能对后来者有用的信息。",
+    "roadmap": {
+      "prep": {
+        "title": "行前准备",
+        "description": "签证 / 行李 / 机票"
+      },
+      "landing": {
+        "title": "落地生活",
+        "description": "税号 / 银行卡 / 租房"
+      },
+      "work": {
+        "title": "工作经历",
+        "description": "农场 / 肉厂 / 酒店"
+      },
+      "departure": {
+        "title": "离开澳洲",
+        "description": "Super / 退税流程"
+      }
+    },
+    "latest": "最新文章",
+    "articleCount": "共 {{count}} 篇记录",
+    "readMore": "继续阅读",
+    "aboutTitle": "关于 Jessie",
+    "aboutDescription": "做了 8 年前端，也在澳洲度过了一年 WHV。这里分享打工度假的真实经历，以及旅行、技术和生活记录。"
   },
   "common": {
     "explore": "立刻探索"

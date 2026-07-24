@@ -61,7 +61,7 @@ const nextConfig = withBundleAnalyzer({
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '3000',
+        port: process.env.PORT || '3000',
         pathname: '/**',
       },
       { protocol: 'https', hostname: 'www.notion.so' },
@@ -78,12 +78,7 @@ const nextConfig = withBundleAnalyzer({
 
   i18n: {
     locales: ['en', 'zh'],
-    defaultLocale: 'en',
-    /**
-     * 开启后首访会根据 Accept-Language 在 en/zh 间选择（均不在时回退 defaultLocale）。
-     * 用户用语言切换器选的版本会写入 NEXT_LOCALE Cookie，后续访问优先用该偏好。
-     */
-    localeDetection: true,
+    defaultLocale: 'zh',
   },
   swcMinify: true, // 启用 SWC 最小化
   env: {

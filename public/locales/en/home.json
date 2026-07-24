@@ -1,93 +1,79 @@
 {
   "landing": {
     "seoTitle": "Jessie on the road",
-    "seoDescription": "Former dev in China inbound trip planning stuff. Lodging trains pay apps SIMs pacing. AU WHV year on file too. Shoot me an email.",
+    "seoDescription": "Jessie's personal blog about eight years in frontend development, a year on an Australian WHV, travel, technology, and everyday life.",
     "hero": {
-      "badge": "ENFJ · dev · AU WHV · China inbound focus",
+      "badge": "ENFJ · frontend · one year in Australia on a WHV",
       "headline": [
-        "Hey, I'm Jessie.",
-        "Mostly I help folks prep travel into mainland China."
+        "Hey, I'm Jessie."
       ],
       "paragraphs": [
-        "Used to write front end. Did a gap year WHV in Australia. Now I geek out wiring real trips for visitors: routing, sleeps, Alipay, WeChat, rideshare, SIM quirks, pacing that does not wreck your first week.",
-        "Site stays drafty on purpose. I'd rather revise old posts than fake I never flubbed anything.",
-        "Email anytime I usually ping back fast. Aus and stray trip notes live below mainland China pulls the busiest mail lately."
+        "I spent eight years working in frontend development and one year living in Australia on a working holiday visa.",
+        "This is where I keep honest notes from that year, the places I have travelled, the things I build, and ordinary life in between.",
+        "These are not definitive answers—just the roads I have taken, recorded as truthfully as I can."
       ],
-      "primaryMailSubject": "Quick China trip question",
-      "primaryCta": "Hit my inbox",
-      "secondaryCta": "What I do",
-      "servicesAnchor": "#services",
-      "mailHint": "",
-      "mailTemplate": "How many people:\nRough dates:\nCities curious about:\nBudget ballpark loose ok:\nAnything else:"
+      "primaryMailSubject": "Hello Jessie",
+      "primaryCta": "Write to me",
+      "secondaryCta": "Read my WHV notes",
+      "servicesAnchor": "#whv-guides",
+      "mailHint": ""
     },
     "persona": {
       "sectionEyebrow": "Tone / site map",
-      "p1": "I write chunky posts because unpacking trip anxiety in small steps beats hiding it in pretty quotes.",
-      "p2": "You will see half baked lines patched when facts move. Showing the glitch beats polishing it sterile.",
-      "p3": "Skim deep or bounce early both cool.",
-      "aside": "Scroll for China scribbles plus Aus WHV. Services hover near footer email still beats guessing."
+      "p1": "The habit of writing things down came largely from coding: when I meet an unfamiliar process, I want to break it into smaller steps and keep a record.",
+      "p2": "As an ENFJ I love bringing people together, but when I write I would rather include the full context than offer a vague happy ending.",
+      "p3": "You will find doubts, mistakes, and later updates here. The point is not to look permanently right, but to record what really happened.",
+      "aside": "Below are notes from my year in Australia, followed by travel, technology, and life. They may not be complete, but every one comes from something I lived or made."
     },
     "travelSection": {
       "kicker": "02 · notes",
-      "title": "Field notes",
-      "subtitle": "China heavy, Aus and stray hops mixed in. Browse free ping me once dates settle.",
-      "introLine1": "Main city writeups smashed with sidebar hops so you see how I stack trips mentally.",
-      "introLine2Before": "Peek read only until ",
-      "introStrong": "headcount and dates settle",
-      "introLine2After": " then hit my inbox we sketch a sane draft before you slam buy buttons."
+      "title": "Travel journal",
+      "subtitle": "Places I have travelled across China, Australia, Asia, and beyond.",
+      "introLine1": "This is not a destination directory. It is a collection of things I saw, felt, and learned on the road.",
+      "introLine2Before": "Details may change over time; I hope the ",
+      "introStrong": "lived experiences",
+      "introLine2After": " remain useful as a reference for your own journey."
     },
     "services": {
       "sectionLabel": "03",
-      "title": "What I help with lately",
+      "title": "Technology and life are part of the story too",
       "blocks": [
         {
-          "heading": "1) China inbound",
-          "items": ["Map routes sleeps transit minus heroic mileage","Talk thru pay apps rideshare SIM quirks plus humane pacing"]
+          "heading": "Technology",
+          "items": ["Eight years in frontend development, with notes on projects and lessons learned","A focus on real problems, the process of building, and imperfect answers"]
         },
         {
-          "heading": "2) Side hops off China",
-          "items": ["Double check Indo AU NZ legs that braid into mainland windows","Tone down flaky promo pings clogging your inbox"]
+          "heading": "Life",
+          "items": ["Everyday observations, choices, and changes beyond travel","Keeping what I thought at the time while allowing the answer to change"]
         },
         {
-          "heading": "3) Gut check pings",
-          "items": ["Unclear if mainland fits Ask blunt I'll answer blunt","If I'm slammed or it's off I'll say fast"]
+          "heading": "This blog",
+          "items": ["Not a service brochure, but a long-term record of personal experience","WHV, travel, technology, and life will continue to grow here"]
         }
       ],
       "aboutLink": "About me →",
-      "footer": "Mainland inbound first other legs same thread if handy."
+      "footer": "Some posts solve a specific problem and others simply preserve a season of life. Together, they tell my story."
     },
     "whv": {
       "kicker": "04 · whv",
-      "title": "Aus WHV notes",
-      "subtitle": "Visas landings gigs taxes sorted sloppy but straight",
-      "intro": "That year scraped into chunky posts ping WHV in the same mail thread China questions ride along fine."
-    },
-    "tools": {
-      "kicker": "05 · links",
-      "body": "Partner links tilt Aussie prep specifics for China mostly land via email anyhow."
+      "title": "My year on an Australian WHV",
+      "subtitle": "Real experiences from preparing and arriving to working and leaving",
+      "intro": "Personal stories first, with practical information where it may help."
     },
     "cta": {
       "sectionEyebrow": "Say hi",
-      "title": "Fuzzy plans still welcome.",
-      "p1Lead": "Drop ",
-      "p1Bold1": "crew size",
-      "p1Mid": ", ",
-      "p1Bold2": "approx dates",
-      "p1Trail": ", dream towns I'll sketch doable pacing grounded in how bodies actually slog through days.",
-      "p2": "Foggy itinerary brain Email that too I'll chop wishful from doable blunt.",
-      "templateLabel": "Copy paste blanks",
-      "mailTemplate": "Headcount:\nWhen:\nCities:\nBudget vibe:\nOther:",
-      "mailSubject": "China trip ping Jessie",
-      "primaryBtn": "Email prefilled blurbs",
-      "secondaryBtn": "Blank email chill",
-      "whvNote": "WHV add on same mail works longer threads live upstairs section.",
+      "title": "If any of these stories resonate, say hello.",
+      "p1": "If you are preparing for a WHV, love travelling, or want to talk about technology and life, feel free to write.",
+      "p2": "You do not need a formal question. Share your experience or simply say hello.",
+      "mailSubject": "Hello Jessie",
+      "primaryBtn": "Write to me",
+      "whvNote": "If something in an article needs updating, I would be glad to hear about that too.",
       "ariaConsult": "Contact"
     },
     "aria": {
       "persona": "About Jessie",
-      "services": "What I usually do",
-      "travel": "Trip notes",
-      "tools": "Tools & partnerships",
+      "services": "Technology and life",
+      "travel": "Travel journal",
       "whv": "Australia WHV"
     }
   },
@@ -104,8 +90,8 @@
     "description": "Covering a wide range of technical topics, from basics to advanced applications"
   },
   "whv": {
-    "title": "Australia WHV Guide",
-    "description": "From visa application to settling in, a one-stop guide"
+    "title": "My Year on an Australian WHV",
+    "description": "Real experiences, with practical notes on preparing, arriving, working, and leaving"
   },
   "feature": {
     "title": "Explore the world freely, embrace romance in everyday life."
@@ -113,7 +99,7 @@
   "sections": {
     "latest": "Latest",
     "whv": "WHV & Working Holiday",
-    "travel": "Travel Guides",
+    "travel": "Travel Journal",
     "viewAll": "View All"
   },
   "toolkit": {
@@ -126,8 +112,8 @@
     "viewAll": "View All"
   },
   "travelGuide": {
-    "title": "Travel Guides",
-    "subtitle": "Selected destination guides and practical advice"
+    "title": "Notes from the Road",
+    "subtitle": "Places I have travelled and what I experienced along the way"
   },
   "testimonials": {
     "title": "Traveler Sharing",
@@ -149,7 +135,7 @@
   "allCategories": "All Categories",
   "routes": {
     "title": "Featured Routes",
-    "subtitle": "Customized itineraries for different travel styles",
+    "subtitle": "Routes and fragments from different journeys",
     "classicCity": { "title": "Classic Cities", "description": "Explore the cultural landscape of world-famous cities" },
     "nature": { "title": "Natural Scenery", "description": "Get close to nature, feel the beauty of Earth" },
     "family": { "title": "Family Tours", "description": "Warm routes suitable for family trips" },
