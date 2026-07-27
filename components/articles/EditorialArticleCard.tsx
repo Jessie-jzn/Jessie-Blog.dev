@@ -9,6 +9,13 @@ interface EditorialArticleCardProps {
   article: Post;
   variant?: EditorialArticleCardVariant;
   priority?: boolean;
+  href?: string;
+}
+
+interface EditorialArticleCardContentProps {
+  article: Post;
+  priority: boolean;
+  href: string;
 }
 
 const articleImageSource = (article: Post) =>
@@ -42,9 +49,9 @@ const ArticleTags = ({ tags }: { tags: string[] }) => {
   );
 };
 
-const RowCard = ({ article, priority }: Omit<EditorialArticleCardProps, "variant">) => (
+const RowCard = ({ article, priority, href }: EditorialArticleCardContentProps) => (
   <Link
-    href={canonicalArticlePath(article)}
+    href={href}
     prefetch={false}
     className="editorial-focus group block rounded-2xl"
   >
@@ -77,9 +84,9 @@ const RowCard = ({ article, priority }: Omit<EditorialArticleCardProps, "variant
   </Link>
 );
 
-const FeatureCard = ({ article, priority }: Omit<EditorialArticleCardProps, "variant">) => (
+const FeatureCard = ({ article, priority, href }: EditorialArticleCardContentProps) => (
   <Link
-    href={canonicalArticlePath(article)}
+    href={href}
     prefetch={false}
     className="editorial-focus group block h-full rounded-2xl"
   >
@@ -110,9 +117,9 @@ const FeatureCard = ({ article, priority }: Omit<EditorialArticleCardProps, "var
   </Link>
 );
 
-const CompactCard = ({ article, priority }: Omit<EditorialArticleCardProps, "variant">) => (
+const CompactCard = ({ article, priority, href }: EditorialArticleCardContentProps) => (
   <Link
-    href={canonicalArticlePath(article)}
+    href={href}
     prefetch={false}
     className="editorial-focus group block rounded-2xl"
   >
@@ -146,16 +153,19 @@ const EditorialArticleCard = ({
   article,
   variant = "row",
   priority = false,
+  href,
 }: EditorialArticleCardProps) => {
+  const articleHref = href ?? canonicalArticlePath(article);
+
   if (variant === "feature") {
-    return <FeatureCard article={article} priority={priority} />;
+    return <FeatureCard article={article} priority={priority} href={articleHref} />;
   }
 
   if (variant === "compact") {
-    return <CompactCard article={article} priority={priority} />;
+    return <CompactCard article={article} priority={priority} href={articleHref} />;
   }
 
-  return <RowCard article={article} priority={priority} />;
+  return <RowCard article={article} priority={priority} href={articleHref} />;
 };
 
 export type { EditorialArticleCardProps, EditorialArticleCardVariant };
