@@ -235,6 +235,8 @@ const HomeLayout = ({ posts }: { posts: Types.Post[] }) => {
                 >
                   <CardPost
                     id={p.id}
+                    category={p.category}
+                    slug={p.slug}
                     imageSrc={p.pageCoverThumbnail}
                     title={p.title}
                     description={p.summarize}

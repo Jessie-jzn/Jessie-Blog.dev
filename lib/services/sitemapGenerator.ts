@@ -1,5 +1,6 @@
 import { Post } from '@/lib/type';
 import SiteConfig from '@/site.config';
+import { canonicalArticlePath } from '@/lib/routing/articleRoute';
 
 interface SitemapURL {
   loc: string;
@@ -42,7 +43,7 @@ export function generateSitemapXML(posts: Post[]): string {
     // 博客文章
     ...posts.map(
       (post): SitemapURL => ({
-        loc: `${SiteConfig.siteUrl}/post/${post.id}`,
+        loc: `${SiteConfig.siteUrl}${canonicalArticlePath(post)}`,
         lastmod: post.lastEditedDate,
         changefreq: 'monthly' as const,
         priority: 0.7,

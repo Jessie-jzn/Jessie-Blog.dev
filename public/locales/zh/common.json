@@ -39,6 +39,11 @@
     "count": "共 {{count}} 篇文章",
     "empty": "没有找到文章。"
   },
+  "articleControls": {
+    "breadcrumb": "面包屑导航",
+    "translationInput": "输入要翻译的文字",
+    "translate": "翻译"
+  },
   "faqSection": {
     "eyebrow": "实用提示",
     "title": "常见问题"

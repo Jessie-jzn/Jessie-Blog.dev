@@ -23,6 +23,7 @@ const listLayoutWithTags = readFileSync(
   "utf8",
 );
 const resumeTool = readFileSync("pages/tools/resume/index.tsx", "utf8");
+const resumeBox = readFileSync("components/ResumeBox.tsx", "utf8");
 const notFoundPage = readFileSync("pages/404.tsx", "utf8");
 const newsletterSubscribe = readFileSync(
   "components/NewsletterSubscribe.tsx",
@@ -38,6 +39,10 @@ const relatedPosts = readFileSync(
   "utf8",
 );
 const notionPage = readFileSync("components/Notion/NotionPage.tsx", "utf8");
+const notionPageHeader = readFileSync(
+  "components/Notion/NotionPageHeader.tsx",
+  "utf8",
+);
 const translateComponent = readFileSync(
   "components/TranslateComponent.tsx",
   "utf8",
@@ -252,11 +257,45 @@ test("secondary controls use bilingual copy and preserve the original resume UI"
   assert.doesNotMatch(resumeTool, /resume-job-title|onClick=\{handleGenerate\}/);
 });
 
+test("final editorial cleanup uses Article terminology and supporting-card padding", () => {
+  assert.equal(englishCommon.post, "Articles");
+  assert.equal(englishCommon.lastPost, "Latest Articles");
+  assert.equal(chineseCommon.post, "文章");
+  assert.equal(chineseCommon.lastPost, "最新文章");
+  assert.match(resumeBox, /rounded-2xl p-6 text-ink/);
+  assert.doesNotMatch(resumeBox, /\bsm:p-8\b/);
+});
+
 test("newsletter email field has a localized accessible name", () => {
   assert.match(newsletterSubscribe, /<label[^>]*htmlFor=\{emailInputId\}/);
   assert.match(newsletterSubscribe, /id=\{emailInputId\}/);
   assert.match(newsletterSubscribe, /name="email"/);
   assert.match(newsletterSubscribe, /t\("emailAddress"\)/);
+});
+
+test("new Article support controls localize their accessible labels", () => {
+  assert.deepEqual(englishCommon.articleControls, {
+    breadcrumb: "Breadcrumb",
+    translationInput: "Enter text to translate",
+    translate: "Translate",
+  });
+  assert.deepEqual(chineseCommon.articleControls, {
+    breadcrumb: "面包屑导航",
+    translationInput: "输入要翻译的文字",
+    translate: "翻译",
+  });
+
+  assert.match(notionPageHeader, /aria-label=\{t\("articleControls\.breadcrumb"\)\}/);
+  assert.match(translateComponent, /useTranslation\(["']common["']\)/);
+  assert.match(
+    translateComponent,
+    /aria-label=\{t\("articleControls\.translationInput"\)\}/,
+  );
+  assert.match(
+    translateComponent,
+    /placeholder=\{t\("articleControls\.translationInput"\)\}/,
+  );
+  assert.match(translateComponent, /\{t\("articleControls\.translate"\)\}/);
 });
 
 test("Article detail uses the shared reading column and editorial surfaces", () => {

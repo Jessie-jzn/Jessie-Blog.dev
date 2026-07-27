@@ -100,9 +100,15 @@ module.exports = {
         sans: ["Outfit", ...fontFamily.sans],
       },
       colors: {
-        /** 与首页一致的暖灰底（Ins / 杂志风画布） */
-        canvas: "#ddd8d0",
-        primary: "#7aa2f7",
+        canvas: "var(--ui-canvas)",
+        surface: "var(--ui-surface)",
+        muted: "var(--ui-surface-muted)",
+        ink: "var(--ui-ink)",
+        subtle: "var(--ui-ink-muted)",
+        line: "var(--ui-line)",
+        primary: "var(--ui-accent)",
+        primarySoft: "var(--ui-accent-soft)",
+        primaryStrong: "var(--ui-accent-strong)",
         sky: colors.sky,
         gray: colors.neutral,
         dark: "#1A1B26",

@@ -72,7 +72,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
 
   return (
     <nav
-      aria-label="Breadcrumb"
+      aria-label={t("articleControls.breadcrumb")}
       className="flex items-center overflow-x-auto whitespace-nowrap py-1 text-sm text-subtle"
     >
       {breadcrumbs.map((item, idx) => (

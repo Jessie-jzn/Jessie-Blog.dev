@@ -50,6 +50,7 @@ export function getRelatedPosts(
       ext: post.ext ?? {},
       tagItems:
         (post.tagItems as unknown as Types.PostData["tagItems"]) ?? [],
+      slug: post.slug,
     })
   );
 }

@@ -22,6 +22,7 @@ import {
   getTagOptions,
   getCategoryOptionsFromLegacySchema,
 } from "./notionSchemaOptions";
+import { validateArticleRoutes } from "@/lib/routing/articleRoute";
 
 interface GetLatestPostsParams {
   allPages: Types.Post[];
@@ -142,6 +143,8 @@ export default async function getDataBaseListLegacy({
   allPages = collectionData.filter((post) => {
     return post && (post.status === "Published" || post.status === "P");
   });
+
+  validateArticleRoutes(allPages);
 
   if (filter) {
     allPages = allPages.filter(filter);

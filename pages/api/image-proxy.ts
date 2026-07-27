@@ -1,5 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
+import { readFile } from "node:fs/promises";
+import { lookup } from "node:dns/promises";
+import path from "node:path";
+import {
+  ARTICLE_IMAGE_FALLBACK,
+  isPrivateNetworkAddress,
+  validateRemoteImageUrl,
+} from "@/lib/images/articleImageSource";
+
+async function sendFallback(res: NextApiResponse) {
+  const fallback = await readFile(
+    path.join(process.cwd(), "public", ARTICLE_IMAGE_FALLBACK)
+  );
+  res.setHeader("Content-Type", "image/jpeg");
+  res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=60");
+  return res.status(200).send(fallback);
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,22 +25,37 @@ export default async function handler(
   const { url } = req.query;
 
   if (!url || typeof url !== "string") {
-    return res.status(400).json({ error: "URL parameter is required" });
+    return sendFallback(res);
   }
 
-  try {
-    // 添加超时控制
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+  const remoteUrl = validateRemoteImageUrl(url);
+  if (!remoteUrl) {
+    return sendFallback(res);
+  }
 
-    const response = await fetch(url, {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const resolvedAddresses = await lookup(remoteUrl.hostname, {
+      all: true,
+      verbatim: true,
+    });
+    if (
+      resolvedAddresses.length === 0 ||
+      resolvedAddresses.some(({ address }) =>
+        isPrivateNetworkAddress(address)
+      )
+    ) {
+      throw new Error("Private image targets are not allowed");
+    }
+
+    const response = await fetch(remoteUrl, {
       signal: controller.signal,
+      redirect: "error",
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; NextJS/Image-Proxy)",
       },
     });
-
-    clearTimeout(timeout);
 
     if (!response.ok) {
       throw new Error(
@@ -41,15 +73,18 @@ export default async function handler(
 
     // 设置缓存和内容类型头
     res.setHeader("Content-Type", contentType);
-    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    res.setHeader(
+      "Cache-Control",
+      "public, max-age=300, stale-while-revalidate=60"
+    );
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     return res.send(buffer);
   } catch (error) {
     console.error("Image proxy error:", error);
-
-    // 返回默认图片
-    return res.redirect("/images/default.webp");
+    return sendFallback(res);
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

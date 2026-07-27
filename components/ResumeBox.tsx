@@ -2,7 +2,7 @@ import React from "react";
 
 const ResumeBox = () => {
   return (
-    <div className="editorial-surface mx-auto max-w-2xl rounded-2xl p-6 text-ink sm:p-8">
+    <div className="editorial-surface mx-auto max-w-2xl rounded-2xl p-6 text-ink">
       <header className="flex items-center mb-8">
         {/* <img
           src="https://via.placeholder.com/150"

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:performance-fixes": "node --experimental-strip-types --test tests/images/*.test.ts tests/notion/*.test.ts tests/runtime/*.test.ts tests/routes/*.test.ts",
     "postbuild": "next-sitemap"
   },
   "dependencies": {

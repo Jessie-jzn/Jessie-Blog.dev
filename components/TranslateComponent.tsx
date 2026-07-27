@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { clientTranslate } from '@/lib/baidu/clientTranslate';
+import { useTranslation } from 'next-i18next';
 
 export default function TranslateComponent() {
+  const { t } = useTranslation('common');
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
 
@@ -20,8 +22,8 @@ export default function TranslateComponent() {
         id="article-translation-input"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
-        aria-label="Enter text to translate"
-        placeholder="Enter text to translate"
+        aria-label={t("articleControls.translationInput")}
+        placeholder={t("articleControls.translationInput")}
         className="editorial-focus min-h-32 w-full resize-y rounded-xl border border-line bg-surface px-4 py-3 text-sm leading-6 text-ink placeholder:text-subtle"
       />
       <button
@@ -29,7 +31,7 @@ export default function TranslateComponent() {
         onClick={handleTranslate}
         className="editorial-focus inline-flex min-h-10 items-center justify-center rounded-xl border border-line bg-primaryStrong px-4 py-2 text-sm font-semibold text-surface transition-[filter] hover:brightness-95"
       >
-        Translate
+        {t("articleControls.translate")}
       </button>
       {translatedText ? (
         <div
