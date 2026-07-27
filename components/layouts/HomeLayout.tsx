@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen relative w-full bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
-      <Navbar isFull={true} currentTheme="dark" />
-      <main>{children}</main>
+    <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
+      <Navbar />
+      <main className="flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">{children}</main>
       <Footer />
       <BackToTop />
     </div>

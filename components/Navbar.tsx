@@ -1,70 +1,46 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { useTranslation } from 'next-i18next';
-import { Analytics } from '@vercel/analytics/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import React, { useCallback, useMemo } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useTranslation } from "next-i18next";
+import { Analytics } from "@vercel/analytics/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const NavMobile = dynamic(() => import('@/components/NavMobile'));
-const ThemeSwitch = dynamic(() => import('@/components/ThemeSwitch'));
-const LanguageSwitch = dynamic(() => import('@/components/LanguageSwitch'));
+const NavMobile = dynamic(() => import("@/components/NavMobile"));
+const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
+const LanguageSwitch = dynamic(() => import("@/components/LanguageSwitch"));
 
 interface NavbarProp {
   btnColor?: string;
   className?: string;
-  isFull?: boolean;
-  currentTheme?: 'light' | 'dark';
 }
 
 type NavLink = { id: string; href: string; title: string };
 
-const Navbar = ({
-  btnColor,
-  className,
-  currentTheme = 'light',
-  isFull = false,
-}: NavbarProp) => {
-  const { t } = useTranslation('common');
-  const NavbarTitle = t('site.title');
+const Navbar = ({ btnColor, className }: NavbarProp) => {
+  const { t } = useTranslation("common");
+  const navbarTitle = t("site.title");
   const router = useRouter();
-
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    if (!isFull) return;
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [isFull]);
 
   const navigationLinks = useMemo<NavLink[]>(
     () => [
-      { id: 'home', href: '/', title: t('nav.home') },
-      { id: 'whv', href: '/whv', title: t('nav.whv') },
-      { id: 'travel', href: '/travel', title: t('nav.travel') },
-      { id: 'life', href: '/life', title: t('nav.life') },
-      { id: 'technical', href: '/technical', title: t('nav.technical') },
-      { id: 'about', href: '/about', title: t('nav.about') },
+      { id: "home", href: "/", title: t("nav.home") },
+      { id: "whv", href: "/whv", title: t("nav.whv") },
+      { id: "travel", href: "/travel", title: t("nav.travel") },
+      { id: "life", href: "/life", title: t("nav.life") },
+      { id: "technical", href: "/technical", title: t("nav.technical") },
+      { id: "about", href: "/about", title: t("nav.about") },
     ],
-    [t]
+    [t],
   );
-
-  const menuItemVariants = {
-    initial: { opacity: 1, y: 0 },
-    hover: { scale: 1.1 },
-    active: { scale: 1.2 },
-  };
 
   const isActiveLink = useCallback(
     (href: string): boolean => {
-      if (href === '/') {
-        return router.asPath === '/';
-      }
-      const basePath = href.replace(/^\/|\/$/g, '');
-      const currentPath = router.asPath.replace(/^\/|\/$/g, '');
+      if (href === "/") return router.asPath === "/";
+
+      const basePath = href.replace(/^\/|\/$/g, "");
+      const currentPath = router.asPath.replace(/^\/|\/$/g, "");
       return (
         currentPath === basePath ||
         currentPath.startsWith(`${basePath}/`) ||
@@ -72,111 +48,76 @@ const Navbar = ({
         currentPath.includes(`/${basePath}-`)
       );
     },
-    [router]
+    [router.asPath],
   );
 
-  const showSolidBg = !isFull || scrolled;
-
-  // 滚动后统一用深色文字；未滚动的沉浸式模式跟随 currentTheme
-  const textColor = showSolidBg
-    ? 'text-gray-900 dark:text-gray-100'
-    : currentTheme === 'dark'
-      ? 'text-gray-100'
-      : 'text-gray-900';
-
-  const underlineColor = showSolidBg
-    ? 'bg-slate-950 dark:bg-slate-50'
-    : currentTheme === 'dark'
-      ? 'bg-slate-50'
-      : 'bg-slate-950';
-
   return (
-    <motion.div
-      initial={false}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
+    <header
       className={[
-        'fixed top-0 left-0 w-full z-[999]',
-        'transition-colors duration-300',
-        showSolidBg
-          ? 'bg-white/80 dark:bg-neutral-950/88 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.06] shadow-[0_1px_0_rgba(0,0,0,0.03)]'
-          : 'bg-transparent',
+        "fixed left-0 top-0 z-[999] w-full border-b border-line bg-surface/90 text-ink backdrop-blur-xl",
         className,
       ]
         .filter(Boolean)
-        .join(' ')}
+        .join(" ")}
     >
-      <div className='max-w-6xl mx-auto flex items-center justify-between px-5 sm:px-6 py-3 xs:px-3 xs:py-2'>
-        <Link href='/' aria-label={NavbarTitle}>
-          <div className='flex items-center'>
-            <div className='mr-3'>
-              <Image
-                src='https://img.jessieontheroad.com/avatar.png'
-                alt='avatar'
-                width={192}
-                height={192}
-                quality={75}
-                priority
-                className='h-10 w-10 rounded-full xs:h-8 xs:w-8'
-              />
-            </div>
-            <div
-              className={`text-lg sm:text-xl font-semibold tracking-tight xs:text-sm ${textColor}`}
-            >
-              {NavbarTitle}
-            </div>
-          </div>
+      <div className="site-container flex min-h-14 items-center justify-between gap-4 sm:min-h-16">
+        <Link
+          href="/"
+          aria-label={navbarTitle}
+          className="editorial-focus flex items-center rounded-xl"
+        >
+          <span className="mr-3">
+            <Image
+              src="https://img.jessieontheroad.com/avatar.png"
+              alt="avatar"
+              width={192}
+              height={192}
+              quality={75}
+              priority
+              className="h-10 w-10 rounded-full xs:h-8 xs:w-8"
+            />
+          </span>
+          <span className="text-lg font-semibold tracking-tight xs:text-sm sm:text-xl">
+            {navbarTitle}
+          </span>
         </Link>
 
-        <div className='flex items-center space-x-5 leading-5 sm:space-x-6'>
-          {navigationLinks.map((link) => (
-            <motion.div
-              key={link.id}
-              className={`relative group hidden sm:block font-medium text-sm ${textColor}`}
-              variants={menuItemVariants}
-              initial='initial'
-              animate={isActiveLink(link.href || '') ? 'active' : 'initial'}
-              whileHover='hover'
-            >
-              <Link href={link.href}>{link.title}</Link>
+        <div className="flex items-center gap-1 sm:gap-3">
+          <nav className="hidden items-center gap-4 lg:flex" aria-label="Primary navigation">
+            {navigationLinks.map((link) => {
+              const isActive = isActiveLink(link.href);
 
-              <motion.div
-                className={`absolute bottom-[-4px] left-0 right-0 h-[2px] rounded ${underlineColor}`}
-                initial={{ scaleX: 0 }}
-                animate={{
-                  scaleX: isActiveLink(link.href || '') ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-          ))}
+              return (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`editorial-focus relative rounded-md py-2 text-sm font-medium transition-colors hover:text-primaryStrong ${
+                    isActive ? "text-primaryStrong" : "text-subtle"
+                  }`}
+                >
+                  {link.title}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-primaryStrong transition-opacity ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
+          </nav>
 
-          <motion.div
-            initial='initial'
-            whileHover='hover'
-            variants={menuItemVariants}
-            className='cursor-pointer'
-          >
-            <ThemeSwitch />
-          </motion.div>
-
-          <motion.div
-            initial='initial'
-            whileHover='hover'
-            variants={menuItemVariants}
-            className='cursor-pointer'
-          >
-            <LanguageSwitch btnColor={btnColor} />
-          </motion.div>
-
-          <div className='cursor-pointer block sm:hidden'>
+          <ThemeSwitch />
+          <LanguageSwitch btnColor={btnColor} />
+          <div className="block lg:hidden">
             <NavMobile />
           </div>
           <Analytics />
           <SpeedInsights />
         </div>
       </div>
-    </motion.div>
+    </header>
   );
 };
 

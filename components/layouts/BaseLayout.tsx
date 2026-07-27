@@ -14,9 +14,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   const { t } = useTranslation("common");
 
   return (
-    <div className="min-h-screen flex flex-col bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-neutral-950/15 dark:selection:bg-white/20">
-      <Navbar isFull={false} />
-      <main className="flex-grow pt-20 xs:pt-14">{children}</main>
+    <div className="flex min-h-screen flex-col bg-canvas text-ink selection:bg-primarySoft">
+      <Navbar />
+      <main className="flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">{children}</main>
       <Footer />
       <div className="fixed left-4 top-1/3 z-50 xs:hidden">
         <ShareButtons

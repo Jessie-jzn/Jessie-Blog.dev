@@ -32,7 +32,7 @@ function surfaceStyles(btnColor: string): {
   return { className: btnColor };
 }
 
-const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
+const LanguageSwitcher = ({ btnColor = "bg-surface" }: { btnColor?: string }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
   const { pathname, query, asPath, locale, locales } = router;
@@ -68,12 +68,10 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
     return () => document.removeEventListener("mousedown", onDocMouseDown);
   }, [dropdownVisible]);
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
+  const toggleDropdown = () => setDropdownVisible((visible) => !visible);
 
   const handleLanguageChange = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLElement>) => {
       const selectedLocale = e.currentTarget.getAttribute("data-lang");
       if (
         !selectedLocale ||
@@ -98,32 +96,32 @@ const LanguageSwitcher = ({ btnColor = "bg-white" }: { btnColor?: string }) => {
 
   return (
     <div ref={containerRef} className="relative inline-block text-left">
-      <div
-        className={`${triggerSurface.className} text-black font-semibold h-8 w-8 rounded hover:bg-gray-200 flex align-middle items-center justify-center cursor-pointer`}
+      <button
+        type="button"
+        aria-label="Change language"
+        aria-expanded={dropdownVisible}
+        className={`${triggerSurface.className} editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-base transition-colors hover:bg-primarySoft`}
         style={triggerSurface.style}
         onClick={toggleDropdown}
       >
         {currentLocale === "en" ? "🇺🇸" : "🇨🇳"}
-        {/* <span className="xs:hidden">
-          {currentLocale === "en" ? "English" : "中文"}
-        </span> */}
-        {/* </button> */}
-      </div>
+      </button>
       {dropdownVisible && (
         <div
-          className={`${menuSurface.className} origin-top-right z-10 absolute right-0 mt-2 min-w-[8rem] rounded-md shadow-lg ring-1 ring-black ring-opacity-5`}
+          className={`${menuSurface.className} absolute right-0 z-10 mt-2 min-w-[8rem] overflow-hidden rounded-xl border border-line bg-surface py-1 text-ink`}
           style={menuSurface.style}
         >
           {locales?.map((loc) => (
-            <div
+            <button
+              type="button"
               key={loc}
               data-lang={loc}
               onClick={handleLanguageChange}
-              className="flex items-center px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100"
+              className="editorial-focus flex min-h-10 w-full items-center px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-primarySoft"
             >
               <span className="mr-2">{loc === "en" ? "🇺🇸" : "🇨🇳"}</span>
               {loc === "en" ? "English" : "中文"}
-            </div>
+            </button>
           ))}
         </div>
       )}

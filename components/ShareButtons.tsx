@@ -23,25 +23,47 @@ export const ShareButtons = ({
   description,
 }: ShareButtonsProps) => {
   return (
-    <div className="flex flex-col items-center gap-4 p-3 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-      <FacebookShareButton url={url} hashtag={title}>
-        <FacebookIcon size={32} round />
+    <div className="editorial-surface flex flex-col items-center gap-2 rounded-xl p-2">
+      <FacebookShareButton
+        url={url}
+        hashtag={title}
+        aria-label="Share on Facebook"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full"
+      >
+        <FacebookIcon size={28} round />
       </FacebookShareButton>
-      <TwitterShareButton url={url} title={title}>
-        <TwitterIcon size={32} round />
+      <TwitterShareButton
+        url={url}
+        title={title}
+        aria-label="Share on Twitter"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full"
+      >
+        <TwitterIcon size={28} round />
       </TwitterShareButton>
-      <LinkedinShareButton url={url} title={title} summary={description}>
-        <LinkedinIcon size={32} round />
+      <LinkedinShareButton
+        url={url}
+        title={title}
+        summary={description}
+        aria-label="Share on LinkedIn"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full"
+      >
+        <LinkedinIcon size={28} round />
       </LinkedinShareButton>
-      <WeiboShareButton url={url} title={title}>
-        <WeiboIcon size={32} round />
+      <WeiboShareButton
+        url={url}
+        title={title}
+        aria-label="Share on Weibo"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full"
+      >
+        <WeiboIcon size={28} round />
       </WeiboShareButton>
       <button
         onClick={() => {
           navigator.clipboard.writeText(url);
           alert("链接已复制到剪贴板！");
         }}
-        className="flex items-center justify-center w-8 h-8 bg-green-500 text-white rounded-full shadow hover:bg-green-600"
+        aria-label="Copy link for WeChat"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-primary text-ink transition-colors hover:bg-primaryStrong hover:text-surface"
       >
         <FaWeixin size={20} />
       </button>
@@ -50,7 +72,8 @@ export const ShareButtons = ({
           navigator.clipboard.writeText(url);
           alert("链接已复制到剪贴板！可以粘贴到小红书分享");
         }}
-        className="flex items-center justify-center w-8 h-8 bg-red-500 text-white rounded-full shadow hover:bg-red-600"
+        aria-label="Copy link for Xiaohongshu"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-primary text-ink transition-colors hover:bg-primaryStrong hover:text-surface"
       >
         <SiXiaohongshu size={20} />
       </button>
