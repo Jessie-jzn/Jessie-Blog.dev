@@ -24,6 +24,17 @@ const listLayoutWithTags = readFileSync(
 );
 const resumeTool = readFileSync("pages/tools/resume/index.tsx", "utf8");
 const notFoundPage = readFileSync("pages/404.tsx", "utf8");
+const newsletterSubscribe = readFileSync(
+  "components/NewsletterSubscribe.tsx",
+  "utf8",
+);
+const sectionFaq = readFileSync("components/SectionFAQ.tsx", "utf8");
+const englishCommon = JSON.parse(
+  readFileSync("public/locales/en/common.json", "utf8"),
+);
+const chineseCommon = JSON.parse(
+  readFileSync("public/locales/zh/common.json", "utf8"),
+);
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -196,4 +207,34 @@ test("secondary routes use the shared container and semantic surfaces", () => {
     assert.match(source, /(?:bg-canvas|bg-surface|bg-muted|text-ink|text-subtle)/);
     assert.doesNotMatch(source, /\bshadow-(?:md|lg)\b/);
   }
+});
+
+test("secondary controls use bilingual copy and preserve the original resume UI", () => {
+  for (const locale of [englishCommon, chineseCommon]) {
+    assert.equal(typeof locale.articleList.all, "string");
+    assert.equal(typeof locale.articleList.search, "string");
+    assert.equal(typeof locale.articleList.browseByTag, "string");
+    assert.equal(typeof locale.articleList.viewTag, "string");
+    assert.equal(typeof locale.articleList.count, "string");
+    assert.equal(typeof locale.articleList.empty, "string");
+    assert.equal(typeof locale.faqSection.eyebrow, "string");
+    assert.equal(typeof locale.faqSection.title, "string");
+    assert.equal(typeof locale.emailAddress, "string");
+  }
+
+  assert.match(listLayoutWithTags, /useTranslation\("common"\)/);
+  assert.doesNotMatch(
+    listLayoutWithTags,
+    /All Articles|Search articles|Browse articles by tag|View articles tagged|No articles found/,
+  );
+  assert.match(sectionFaq, /t\("faqSection\.eyebrow"\)/);
+  assert.match(sectionFaq, /t\("faqSection\.title"\)/);
+  assert.doesNotMatch(resumeTool, /resume-job-title|onClick=\{handleGenerate\}/);
+});
+
+test("newsletter email field has a localized accessible name", () => {
+  assert.match(newsletterSubscribe, /<label[^>]*htmlFor=\{emailInputId\}/);
+  assert.match(newsletterSubscribe, /id=\{emailInputId\}/);
+  assert.match(newsletterSubscribe, /name="email"/);
+  assert.match(newsletterSubscribe, /t\("emailAddress"\)/);
 });

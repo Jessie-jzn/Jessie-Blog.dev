@@ -1,9 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useId, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { subscribeToNewsletter } from "@/lib/mailchimp";
 
 const NewsletterSubscribe: React.FC = () => {
   const { t } = useTranslation("common");
+  const emailInputId = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,10 +45,15 @@ const NewsletterSubscribe: React.FC = () => {
       onSubmit={handleSubscribe}
     >
       <div className="flex flex-col gap-3 sm:flex-row">
+        <label htmlFor={emailInputId} className="sr-only">
+          {t("emailAddress")}
+        </label>
         <input
+          id={emailInputId}
+          name="email"
           type="email"
           ref={emailRef}
-          placeholder="Email address"
+          placeholder={t("emailAddress")}
           disabled={isSubmitting}
           className="editorial-focus min-h-11 min-w-0 flex-auto appearance-none rounded-xl border border-line
           bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-subtle

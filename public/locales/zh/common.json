@@ -30,6 +30,19 @@
   "emailRequired": "请输入您的邮箱📮",
   "subscriptionSuccess": "订阅成功，感谢您的订阅！",
   "subscriptionFailed": "订阅失败，请重试！",
+  "emailAddress": "邮箱地址",
+  "articleList": {
+    "all": "全部文章",
+    "search": "搜索文章",
+    "browseByTag": "按标签浏览文章",
+    "viewTag": "查看标签为 {{tag}} 的文章",
+    "count": "共 {{count}} 篇文章",
+    "empty": "没有找到文章。"
+  },
+  "faqSection": {
+    "eyebrow": "实用提示",
+    "title": "常见问题"
+  },
   "learnMore": "查看更多",
   "workWithMe": "了解我",
   "authorDesc": "我是 Jessie，做了 8 年前端，也在澳洲度过了一年 WHV。这里记录打工度假、旅行、技术与日常生活。",
@@ -207,6 +220,7 @@
   },
   "markdown_to_pdf": {
     "title": "Markdown转PDF",
+    "theme": "简历主题",
     "input": "输入Markdown",
     "preview": "预览",
     "export": "导出PDF",

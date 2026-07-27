@@ -63,10 +63,10 @@ const SectionFAQ = () => {
       <div className="site-container grid gap-8 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primaryStrong">
-            Helpful notes
+            {t("faqSection.eyebrow")}
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">
-            FAQs
+            {t("faqSection.title")}
           </h2>
         </div>
         <div className="space-y-3">

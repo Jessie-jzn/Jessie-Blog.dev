@@ -30,6 +30,19 @@
   "emailRequired": "Please enter your email 📮",
   "subscriptionSuccess": "Subscribed successfully!",
   "subscriptionFailed": "Subscription failed, please try again!",
+  "emailAddress": "Email address",
+  "articleList": {
+    "all": "All Articles",
+    "search": "Search articles",
+    "browseByTag": "Browse articles by tag",
+    "viewTag": "View articles tagged {{tag}}",
+    "count": "{{count}} articles",
+    "empty": "No articles found."
+  },
+  "faqSection": {
+    "eyebrow": "Helpful notes",
+    "title": "FAQs"
+  },
   "learnMore": "Learn More",
   "workWithMe": "About Me",
   "lastPost": "Latest Posts",
@@ -143,6 +156,7 @@
   },
   "markdown_to_pdf": {
     "title": "Markdown to PDF",
+    "theme": "Resume theme",
     "input": "Input Markdown",
     "preview": "Preview",
     "export": "Export PDF",

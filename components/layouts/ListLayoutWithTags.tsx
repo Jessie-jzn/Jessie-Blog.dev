@@ -2,10 +2,12 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import * as Types from "@/lib/type";
 import PageHeader from "@/components/common/PageHeader";
 import FilterPills from "@/components/common/FilterPills";
 import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
+import { activeTagIdFromPath } from "@/lib/routing/tagRouteData";
 
 interface ListLayoutWithTagsProps {
   posts: Types.Post[];
@@ -20,16 +22,10 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
 }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const { t } = useTranslation("common");
   const [searchValue, setSearchValue] = useState("");
   const safePosts = Array.isArray(posts) ? posts : [];
-  const rawActiveTag = pathname?.split("/tags/")[1]?.split(/[?#]/)[0] || "";
-  let activeTagId = rawActiveTag;
-
-  try {
-    activeTagId = decodeURIComponent(rawActiveTag);
-  } catch {
-    activeTagId = rawActiveTag;
-  }
+  const activeTagId = activeTagIdFromPath(pathname);
 
   // Use useMemo to optimize the computation of filteredBlogPosts
   const filteredBlogPosts = useMemo(() => {
@@ -53,14 +49,14 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
     () => [
       {
         id: "all",
-        name: "All Articles",
+        name: t("articleList.all"),
       },
       ...tagOptions.map((tag) => ({
         id: tag.id,
         name: `${tag.name || tag.id} (${tag.count})`,
       })),
     ],
-    [tagOptions],
+    [tagOptions, t],
   );
 
   const handleFilterChange = (item: { id: string }) => {
@@ -75,9 +71,9 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
   return (
     <div className="min-h-[60vh] bg-canvas text-ink">
       <PageHeader
-        eyebrow="Articles"
+        eyebrow={t("post")}
         title={title}
-        meta={`${displayPosts.length} article${displayPosts.length === 1 ? "" : "s"}`}
+        meta={t("articleList.count", { count: displayPosts.length })}
       />
 
       <div className="site-container pb-16 md:pb-24">
@@ -86,21 +82,21 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
             items={filterItems}
             activeId={activeTagId || "all"}
             onChange={handleFilterChange}
-            ariaLabel="Browse articles by tag"
+            ariaLabel={t("articleList.browseByTag")}
           />
         </div>
 
         <div className="grid gap-8 md:grid-cols-[14rem_minmax(0,1fr)] lg:gap-10">
           <aside className="hidden md:block">
             <nav
-              aria-label="Browse articles by tag"
+              aria-label={t("articleList.browseByTag")}
               className="editorial-surface sticky top-24 max-h-[calc(100vh-7rem)] overflow-auto rounded-2xl p-5"
             >
               <Link
                 href="/post"
                 className="editorial-focus block rounded-xl px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-muted hover:text-primaryStrong"
               >
-                All Articles
+                {t("articleList.all")}
               </Link>
               <ul className="mt-2 space-y-1">
                 {!!tagOptions.length &&
@@ -114,7 +110,9 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
                             ? "bg-primarySoft font-semibold text-primaryStrong"
                             : "text-subtle hover:bg-muted hover:text-ink"
                         }`}
-                        aria-label={`View articles tagged ${tag.name || tag.id}`}
+                        aria-label={t("articleList.viewTag", {
+                          tag: tag.name || tag.id,
+                        })}
                       >
                         <span>{tag.name || tag.id}</span>
                         <span className="text-xs">{tag.count}</span>
@@ -128,15 +126,14 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
           <main className="min-w-0">
             <div className="relative mb-6 max-w-xl">
               <label htmlFor="article-search" className="sr-only">
-                Search articles
+                {t("articleList.search")}
               </label>
               <input
                 id="article-search"
-                aria-label="Search articles"
                 type="search"
                 value={searchValue}
                 onChange={(event) => setSearchValue(event.target.value)}
-                placeholder="Search articles"
+                placeholder={t("articleList.search")}
                 className="editorial-focus block min-h-11 w-full rounded-xl border border-line bg-surface px-4 py-2.5 pr-11 text-ink placeholder:text-subtle"
               />
               <svg
@@ -173,7 +170,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
                 className="editorial-surface rounded-2xl p-6 text-sm text-subtle"
                 role="status"
               >
-                No articles found.
+                {t("articleList.empty")}
               </div>
             )}
           </main>

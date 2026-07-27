@@ -5,6 +5,7 @@ import * as Types from "@/lib/type";
 import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import {
   createTagPaths,
   resolveTagRouteData,
@@ -65,12 +66,18 @@ export default function TagPage({
   posts: Types.Post[];
   filteredTag: Types.Tag;
 }) {
+  const { t } = useTranslation("common");
+
   // const title = tagOptions[0].name.toUpperCase();
   return (
     <ListLayoutWithTags
       posts={posts}
       tagOptions={tagOptions}
-      title={filteredTag?.name ? `Tag: ${filteredTag.name}` : "Tag"}
+      title={
+        filteredTag?.name
+          ? `${t("tags")}: ${filteredTag.name}`
+          : t("tags")
+      }
     />
   );
 }
