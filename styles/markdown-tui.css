@@ -76,3 +76,100 @@
     font-style: italic;
   }
 }
+
+/* Toast UI preview inherits the shared Article content language. */
+.tuiCssForEditor .markdown-body {
+  color: var(--ui-ink);
+  background: var(--ui-surface);
+}
+
+.tuiCssForEditor .markdown-body h1,
+.tuiCssForEditor .markdown-body h2,
+.tuiCssForEditor .markdown-body h3,
+.tuiCssForEditor .markdown-body h4,
+.tuiCssForEditor .markdown-body h5,
+.tuiCssForEditor .markdown-body h6 {
+  color: var(--ui-ink);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.tuiCssForEditor .markdown-body h1 {
+  margin: 3rem 0 1rem;
+}
+
+.tuiCssForEditor .markdown-body h2 {
+  margin: 2.5rem 0 0.875rem;
+}
+
+.tuiCssForEditor .markdown-body h3,
+.tuiCssForEditor .markdown-body h4,
+.tuiCssForEditor .markdown-body h5,
+.tuiCssForEditor .markdown-body h6 {
+  margin: 2rem 0 0.75rem;
+}
+
+.tuiCssForEditor .markdown-body a {
+  color: var(--ui-accent-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--ui-accent);
+  text-underline-offset: 0.2em;
+}
+
+.tuiCssForEditor .markdown-body a:focus-visible,
+.tuiCssForEditor .markdown-body summary:focus-visible {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.tuiCssForEditor .markdown-body blockquote {
+  color: var(--ui-ink-muted);
+  background: transparent;
+  border-left-color: var(--ui-accent);
+}
+
+.tuiCssForEditor .markdown-body :not(pre) > code {
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+}
+
+.tuiCssForEditor .markdown-body pre {
+  overflow-x: auto;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}
+
+.tuiCssForEditor .markdown-body pre > code {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.tuiCssForEditor .markdown-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}
+
+.tuiCssForEditor .markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.tuiCssForEditor .markdown-body details {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}

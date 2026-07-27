@@ -71,19 +71,29 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
   if (breadcrumbs.length <= 1) return null;
 
   return (
-    <nav className="flex items-center text-sm text-gray-500 dark:text-gray-400 py-2 overflow-x-auto whitespace-nowrap">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex items-center overflow-x-auto whitespace-nowrap py-1 text-sm text-subtle"
+    >
       {breadcrumbs.map((item, idx) => (
         <span key={idx} className="flex items-center">
-          {idx > 0 && <span className="mx-2 text-gray-300 dark:text-gray-600">/</span>}
+          {idx > 0 && (
+            <span className="mx-2 text-line" aria-hidden="true">
+              /
+            </span>
+          )}
           {idx < breadcrumbs.length - 1 ? (
             <Link
               href={item.href}
-              className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+              className="editorial-focus rounded-sm transition-colors hover:text-primaryStrong"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-gray-900 dark:text-gray-100 font-medium truncate max-w-[300px]">
+            <span
+              aria-current="page"
+              className="max-w-[300px] truncate font-medium text-ink"
+            >
               {item.label}
             </span>
           )}
@@ -99,7 +109,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
  */
 const NotionPageHeader = ({ block }: any) => {
   return (
-    <header className="notion-header">
+    <header className="notion-header border-b border-line bg-surface text-ink backdrop-blur-xl">
       <div className="notion-nav-header" style={{ justifyContent: "flex-end" }}>
         <Search block={block} title={null} />
       </div>

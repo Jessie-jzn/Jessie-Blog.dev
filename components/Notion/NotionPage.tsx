@@ -205,11 +205,6 @@ const NotionPage: React.FC<NotionPageProps> = ({
     }),
     []
   );
-  const pageAsideBottom = React.useMemo(
-    () => <NotionPageAside relatedPosts={relatedPosts} />,
-    [relatedPosts]
-  );
-
   return (
     <>
       <BlogSEO
@@ -220,11 +215,11 @@ const NotionPage: React.FC<NotionPageProps> = ({
         image={postData?.pageCover || SiteConfig.defaultPageCover}
         keywords={postData?.keywords}
       />
-      <div className="max-w-screen-xl mx-auto px-6 xs:px-3">
+      <div className="mb-8 space-y-3">
         <Breadcrumbs postData={postData} />
         {statsPostId ? <PostEngagementBar postId={statsPostId} /> : null}
       </div>
-      <div className={`styles.notion-custom-container`}>
+      <div className="notion-custom-container">
         <NotionRenderer
           bodyClassName={styles.notion}
           components={components as Partial<NotionComponents>}
@@ -244,12 +239,12 @@ const NotionPage: React.FC<NotionPageProps> = ({
           mapImageUrl={mapImageUrl}
           searchNotion={searchNotion}
           pageAside={<Sidebar />}
-          // pageAsideBottom={pageAsideBottom}
           // footer={footer}
         />
       </div>
 
       <AdSense />
+      <NotionPageAside relatedPosts={relatedPosts} />
     </>
   );
 };

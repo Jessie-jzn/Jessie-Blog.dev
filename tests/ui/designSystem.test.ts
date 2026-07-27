@@ -29,6 +29,26 @@ const newsletterSubscribe = readFileSync(
   "utf8",
 );
 const sectionFaq = readFileSync("components/SectionFAQ.tsx", "utf8");
+const postDetailLayout = readFileSync(
+  "components/layouts/PostDetailLayout.tsx",
+  "utf8",
+);
+const relatedPosts = readFileSync(
+  "components/RelatedPosts/RelatedPosts.tsx",
+  "utf8",
+);
+const notionPage = readFileSync("components/Notion/NotionPage.tsx", "utf8");
+const translateComponent = readFileSync(
+  "components/TranslateComponent.tsx",
+  "utf8",
+);
+const notionCss = readFileSync("styles/notion.css", "utf8");
+const markdownTui = readFileSync("styles/markdown-tui.css", "utf8");
+const markdownStyles = [
+  readFileSync("styles/markdown.css", "utf8"),
+  markdownTui,
+  readFileSync("styles/markdown-github.css", "utf8"),
+];
 const englishCommon = JSON.parse(
   readFileSync("public/locales/en/common.json", "utf8"),
 );
@@ -237,4 +257,48 @@ test("newsletter email field has a localized accessible name", () => {
   assert.match(newsletterSubscribe, /id=\{emailInputId\}/);
   assert.match(newsletterSubscribe, /name="email"/);
   assert.match(newsletterSubscribe, /t\("emailAddress"\)/);
+});
+
+test("Article detail uses the shared reading column and editorial surfaces", () => {
+  assert.match(postDetailLayout, /bg-canvas/);
+  assert.match(postDetailLayout, /max-w-\[46rem\]/);
+  assert.match(relatedPosts, /EditorialArticleCard/);
+  assert.match(relatedPosts, /variant="compact"/);
+
+  for (const token of [
+    "var(--ui-accent-strong)",
+    "var(--ui-line)",
+    "var(--ui-surface)",
+    "var(--ui-surface-muted)",
+  ]) {
+    assert.match(notionCss, new RegExp(escapeRegExp(token)));
+  }
+});
+
+test("Article renderer styles stay scoped and use semantic content colors", () => {
+  assert.match(notionCss, /\.notion-custom-container \.notion-link/);
+  assert.match(notionCss, /\.notion-custom-container \.notion-code/);
+
+  for (const source of markdownStyles) {
+    assert.match(source, /\.markdown-body/);
+    assert.match(source, /var\(--ui-ink\)/);
+    assert.match(source, /var\(--ui-line\)/);
+    assert.match(source, /var\(--ui-surface-muted\)/);
+    assert.match(source, /border-radius:\s*1rem/);
+  }
+});
+
+test("Article support blocks remain visible and readable in dark mode", () => {
+  assert.match(
+    notionPage,
+    /<AdSense \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/,
+  );
+  assert.match(translateComponent, /bg-primaryStrong/);
+  assert.match(translateComponent, /text-surface/);
+  assert.match(
+    markdownTui,
+    /\.tuiCssForEditor \.markdown-body pre > code/,
+  );
+  assert.match(markdownTui, /background:\s*transparent/);
+  assert.match(markdownTui, /color:\s*inherit/);
 });

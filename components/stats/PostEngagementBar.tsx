@@ -71,7 +71,7 @@ const PostEngagementBar: React.FC<PostEngagementBarProps> = ({ postId }) => {
 
   return (
     <div
-      className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400 py-3 border-b border-black/[0.06] dark:border-white/[0.08] mb-2"
+      className="editorial-surface flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl px-4 py-3 text-xs text-subtle"
       aria-live="polite"
     >
       {showReads ? (
@@ -82,7 +82,7 @@ const PostEngagementBar: React.FC<PostEngagementBarProps> = ({ postId }) => {
         </span>
       ) : null}
       {showReads && showSubs ? (
-        <span className="text-neutral-300 dark:text-neutral-600" aria-hidden>
+        <span className="text-line" aria-hidden>
           ·
         </span>
       ) : null}

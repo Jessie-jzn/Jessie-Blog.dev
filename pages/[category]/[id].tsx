@@ -179,13 +179,13 @@ const RenderPost: React.FC<RenderPostProps> = ({
   relatedPosts,
 }) => {
   return (
-    <div className="prose mx-auto">
+    <div className="w-full">
       <NotionPage
         recordMap={recordMap}
         postData={postData}
         relatedPosts={relatedPosts}
       />
-      <div className="mx-10 xs:mx-0 px-16 mb-10 xs:px-4">
+      <div className="mt-12">
         <BlogComments
           pageId={postData.id.replace(/-/g, '')}
           pageTitle={postData.title || ''}
