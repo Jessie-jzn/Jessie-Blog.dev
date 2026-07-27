@@ -17,6 +17,7 @@ const travelListLayout = readFileSync(
 const navbar = readFileSync("components/Navbar.tsx", "utf8");
 const footer = readFileSync("components/Footer.tsx", "utf8");
 const button = readFileSync("components/ui/button.tsx", "utf8");
+const technicalHub = readFileSync("pages/technical/index.tsx", "utf8");
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -173,4 +174,12 @@ test("primary hubs no longer use the legacy warm canvas or raw mint hex", () => 
     const source = readFileSync(file, "utf8");
     assert.doesNotMatch(source, /bg-canvas\/50|#4a9e8f|#62BFAD/);
   }
+});
+
+test("technical sidebar clears the shared navigation and sticky filter", () => {
+  assert.match(
+    technicalHub,
+    /sticky top-14[^"]*py-3[^"]*sm:top-16/,
+  );
+  assert.match(technicalHub, /<div className="sticky top-36">/);
 });

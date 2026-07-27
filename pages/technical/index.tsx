@@ -129,7 +129,7 @@ const PostListPage = ({
             </div>
 
             <aside className="hidden w-80 shrink-0 md:block">
-              <div className="sticky top-24">
+              <div className="sticky top-36">
                 <Sidebar />
               </div>
             </aside>
