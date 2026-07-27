@@ -5,8 +5,13 @@ import test from "node:test";
 const css = readFileSync("styles/globals.css", "utf8");
 const tailwindConfig = readFileSync("tailwind.config.ts", "utf8");
 const baseLayout = readFileSync("components/layouts/BaseLayout.tsx", "utf8");
+const homeLayout = readFileSync("components/layouts/HomeLayout.tsx", "utf8");
 const postListLayout = readFileSync(
   "components/layouts/PostListLayout.tsx",
+  "utf8",
+);
+const travelListLayout = readFileSync(
+  "components/layouts/TravelListLayout.tsx",
   "utf8",
 );
 const navbar = readFileSync("components/Navbar.tsx", "utf8");
@@ -142,8 +147,13 @@ test("shared layouts use the semantic canvas and container", () => {
   assert.match(footer, /bg-muted/);
 });
 
-test("shared shell controls avoid inactive navigation props and use line borders", () => {
-  assert.doesNotMatch(navbar, /\bisFull\b|\bcurrentTheme\b/);
+test("shared shell controls preserve hero overlay props and use line borders", () => {
+  assert.match(navbar, /isFull\?: boolean/);
+  assert.match(navbar, /currentTheme\?: "light" \| "dark"/);
+  assert.match(navbar, /const showSolidBg = !isFull \|\| scrolled/);
+  assert.match(navbar, /currentTheme === "dark"/);
+  assert.match(homeLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
+  assert.match(travelListLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
   assert.match(button, /default:\s*"border border-line bg-primary/);
   assert.match(button, /destructive:\s*"border border-line bg-red-700 text-white/);
 });

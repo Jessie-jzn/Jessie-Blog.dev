@@ -8,7 +8,7 @@ export default function TravelListLayout({
 }) {
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
-      <Navbar />
+      <Navbar isFull={true} currentTheme="dark" />
       <main className="w-full flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">{children}</main>
       <Footer />
     </div>

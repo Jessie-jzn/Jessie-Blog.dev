@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
-const ThemeSwitch = () => {
+const ThemeSwitch = ({ className }: { className?: string }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
 
@@ -11,7 +11,7 @@ const ThemeSwitch = () => {
   return (
     <button
       aria-label="Toggle Dark Mode"
-      className="editorial-focus ml-1 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-ink transition-colors hover:bg-primarySoft sm:ml-4"
+      className={`editorial-focus ml-1 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-ink transition-colors hover:bg-primarySoft sm:ml-4 ${className || ""}`}
       onClick={() =>
         setTheme(
           theme === "dark" || resolvedTheme === "dark" ? "light" : "dark"

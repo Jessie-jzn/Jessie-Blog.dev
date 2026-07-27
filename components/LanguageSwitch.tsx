@@ -100,7 +100,7 @@ const LanguageSwitcher = ({ btnColor = "bg-surface" }: { btnColor?: string }) =>
         type="button"
         aria-label="Change language"
         aria-expanded={dropdownVisible}
-        className={`${triggerSurface.className} editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-base transition-colors hover:bg-primarySoft`}
+        className={`${triggerSurface.className} editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line text-ink text-base transition-colors hover:bg-primarySoft`}
         style={triggerSurface.style}
         onClick={toggleDropdown}
       >

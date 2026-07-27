@@ -8,7 +8,7 @@ export default function PostListLayout({
 }) {
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
-      <Navbar />
+      <Navbar isFull={false} />
       <main className="site-container flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">
         {children}
       </main>
