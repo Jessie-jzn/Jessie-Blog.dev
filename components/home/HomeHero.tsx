@@ -39,14 +39,14 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
       <div className='absolute inset-0 bg-neutral-950/35' />
       <div className='absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/40 to-transparent' />
 
-      <div className='relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 pb-12 md:pb-14 pt-32 md:pt-36'>
+      <div className='site-container relative z-10 pb-14 pt-32 md:pb-16 md:pt-36'>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
           className='max-w-2xl'
         >
-          <p className='inline-flex items-center gap-2 rounded-full bg-white/[0.14] backdrop-blur-md px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-white/92 ring-1 ring-white/25 mb-5'>
+          <p className='inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.14] px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur-md mb-5'>
             {t('landing.hero.badge')}
           </p>
 
@@ -75,13 +75,13 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
               href={`mailto:${email}?subject=${encodeURIComponent(
                 t('landing.hero.primaryMailSubject'),
               )}`}
-              className='inline-flex items-center justify-center min-h-[2.85rem] px-7 rounded-full bg-white text-neutral-950 text-sm font-semibold hover:bg-[#eef8f5] transition-colors shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]'
+              className='editorial-focus inline-flex min-h-[2.85rem] items-center justify-center rounded-full border border-white/30 bg-surface px-7 text-sm font-semibold text-ink transition-colors hover:bg-primarySoft'
             >
               {t('landing.hero.primaryCta')}
             </a>
             <Link
               href={t('landing.hero.servicesAnchor')}
-              className='inline-flex items-center justify-center min-h-[2.85rem] px-7 rounded-full bg-transparent text-white text-sm font-medium ring-2 ring-white/35 hover:bg-white/10 backdrop-blur-sm transition-colors'
+              className='editorial-focus inline-flex min-h-[2.85rem] items-center justify-center rounded-full border border-white/35 bg-transparent px-7 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10'
             >
               {t('landing.hero.secondaryCta')}
             </Link>

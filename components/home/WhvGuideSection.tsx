@@ -55,7 +55,7 @@ const WhvGuideSection = ({
 
   return (
     <HomePageSection id={sectionId} aria-label={t('landing.aria.whv')}>
-      <div className='border-b border-neutral-100 dark:border-white/[0.07] pb-8 md:pb-10 mb-8 md:mb-10'>
+      <div className='mb-8 border-b border-line pb-8 md:mb-10 md:pb-10'>
         <SectionHeader
           variant='editorial'
           editorialKicker={kicker}
@@ -67,15 +67,15 @@ const WhvGuideSection = ({
 
       <div className='grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-4 mb-10 md:mb-12'>
         {whvSteps.map((step, i) => (
-          <Link key={i} href={step.link} className='group'>
-            <div className='h-full rounded-2xl bg-stone-50 dark:bg-neutral-800/60 px-2 py-3.5 md:py-5 text-center transition-all duration-300 group-hover:bg-[#62BFAD]/12 group-hover:ring-2 group-hover:ring-[#62BFAD]/35 dark:group-hover:bg-[#62BFAD]/15'>
+          <Link key={i} href={step.link} className='editorial-focus group rounded-2xl'>
+            <div className='h-full rounded-2xl border border-line bg-muted px-2 py-3.5 text-center transition-colors duration-300 group-hover:border-primary/40 group-hover:bg-primarySoft md:py-5'>
               <div className='text-lg md:text-2xl mb-1 md:mb-2 opacity-95'>
                 {step.icon}
               </div>
-              <h3 className='text-[11px] md:text-xs font-semibold text-neutral-900 dark:text-white'>
+              <h3 className='text-[11px] font-semibold text-ink md:text-xs'>
                 {stepTitles[i] ?? step.title}
               </h3>
-              <div className='text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5'>
+              <div className='mt-0.5 text-[10px] text-subtle'>
                 {stepDescs[i]}
               </div>
             </div>

@@ -19,9 +19,9 @@ const GallerySection = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className='py-14 bg-canvas/50 dark:bg-neutral-950/40'
+      className='site-section bg-muted'
     >
-      <div className='container mx-auto px-4'>
+      <div className='site-container'>
         <SectionHeader
           title={t('gallery.title')}
           subtitle={t('gallery.subtitle')}
@@ -30,7 +30,7 @@ const GallerySection = () => {
 
         <div className='grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 h-[400px] md:h-[500px]'>
           {/* 图1：左侧大图 (占2列2行) */}
-          <div className='col-span-2 row-span-2 relative rounded-lg overflow-hidden group'>
+          <div className='group relative col-span-2 row-span-2 overflow-hidden rounded-2xl border border-line'>
             <Image
               src={galleryImages[0].url}
               alt={galleryImages[0].alt}
@@ -41,7 +41,7 @@ const GallerySection = () => {
           </div>
 
           {/* 图2：右上小图 */}
-          <div className='col-span-1 row-span-1 relative rounded-lg overflow-hidden group'>
+          <div className='group relative col-span-1 row-span-1 overflow-hidden rounded-2xl border border-line'>
             <Image
               src={galleryImages[1].url}
               alt={galleryImages[1].alt}
@@ -52,7 +52,7 @@ const GallerySection = () => {
           </div>
 
           {/* 图3：右下高图 (占1列2行) */}
-          <div className='col-span-1 row-span-2 relative rounded-lg overflow-hidden group'>
+          <div className='group relative col-span-1 row-span-2 overflow-hidden rounded-2xl border border-line'>
             <Image
               src={galleryImages[2].url}
               alt={galleryImages[2].alt}
@@ -63,7 +63,7 @@ const GallerySection = () => {
           </div>
 
           {/* 图4：右中填充图 */}
-          <div className='col-span-1 row-span-1 relative rounded-lg overflow-hidden group'>
+          <div className='group relative col-span-1 row-span-1 overflow-hidden rounded-2xl border border-line'>
             <Image
               src={galleryImages[3].url}
               alt={galleryImages[3].alt}

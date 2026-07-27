@@ -34,7 +34,7 @@ const TravelGuideSection = ({
       <br />
       <br />
       {t('landing.travelSection.introLine2Before')}
-      <strong className='font-medium text-neutral-800 dark:text-neutral-200'>
+      <strong className='font-medium text-ink'>
         {t('landing.travelSection.introStrong')}
       </strong>
       {t('landing.travelSection.introLine2After')}
@@ -45,7 +45,7 @@ const TravelGuideSection = ({
 
   return (
     <HomePageSection id={sectionId} aria-label={t('landing.aria.travel')}>
-      <div className='border-b border-neutral-100 dark:border-white/[0.07] pb-8 md:pb-10 mb-8 md:mb-10'>
+      <div className='mb-8 border-b border-line pb-8 md:mb-10 md:pb-10'>
         <SectionHeader
           variant='editorial'
           editorialKicker={kicker}
@@ -53,7 +53,7 @@ const TravelGuideSection = ({
           subtitle={sub}
           readMoreLink='/travel'
         />
-        <div className='mt-6 md:mt-8 p-4 md:p-5 rounded-2xl bg-stone-50 dark:bg-neutral-800/80 text-sm md:text-[15px] text-neutral-600 dark:text-neutral-300 leading-relaxed'>
+        <div className='mt-6 rounded-2xl border border-line bg-muted p-4 text-sm leading-relaxed text-subtle md:mt-8 md:p-5 md:text-[15px]'>
           {intro ?? defaultIntro}
         </div>
       </div>

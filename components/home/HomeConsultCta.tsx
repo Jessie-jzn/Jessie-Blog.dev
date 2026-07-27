@@ -8,15 +8,15 @@ const HomeConsultCta = () => {
 
   return (
     <HomePageSection id='consult' aria-label={t('landing.cta.ariaConsult')} tone='accent'>
-      <p className='text-[11px] font-medium uppercase tracking-[0.22em] text-[#4a9e8f] dark:text-[#62BFAD] mb-3'>
+      <p className='mb-3 text-[11px] font-medium uppercase tracking-[0.22em] text-primaryStrong'>
         {t('landing.cta.sectionEyebrow')}
       </p>
-      <h2 className='text-xl md:text-[1.65rem] font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug max-w-xl'>
+      <h2 className='max-w-xl text-xl font-semibold leading-snug tracking-tight text-ink md:text-[1.65rem]'>
         {t('landing.cta.title')}
       </h2>
-      <div className='mt-6 text-neutral-600 dark:text-neutral-300 text-sm md:text-[15px] leading-relaxed space-y-3 max-w-xl'>
+      <div className='mt-6 max-w-xl space-y-3 text-sm leading-relaxed text-subtle md:text-[15px]'>
         <p>{t('landing.cta.p1')}</p>
-        <p className='text-neutral-500 dark:text-neutral-400'>
+        <p className='text-subtle'>
           {t('landing.cta.p2')}
         </p>
       </div>
@@ -26,15 +26,15 @@ const HomeConsultCta = () => {
           href={`mailto:${email}?subject=${encodeURIComponent(
             t('landing.cta.mailSubject'),
           )}`}
-          className='inline-flex justify-center items-center px-8 py-3 rounded-full bg-[#62BFAD] text-white text-sm font-semibold hover:bg-[#56b09f] hover:brightness-[1.02] transition-colors shadow-[0_6px_24px_-10px_rgba(98,191,173,0.65)]'
+          className='editorial-focus inline-flex items-center justify-center rounded-full border border-line bg-primary px-8 py-3 text-sm font-semibold text-ink transition-colors hover:bg-primaryStrong hover:text-surface'
         >
           {t('landing.cta.primaryBtn')}
         </a>
       </div>
-      <p className='mt-6 text-[12px] text-neutral-500 dark:text-neutral-400 max-w-xl leading-relaxed'>
+      <p className='mt-6 max-w-xl text-[12px] leading-relaxed text-subtle'>
         {t('landing.cta.whvNote')}
       </p>
-      <p className='mt-10 text-[11px] text-neutral-400 dark:text-neutral-500 break-all'>
+      <p className='mt-10 break-all text-[11px] text-subtle'>
         {email}
       </p>
     </HomePageSection>

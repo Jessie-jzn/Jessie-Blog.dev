@@ -34,8 +34,8 @@ const RouteSection = () => {
   ];
 
   return (
-    <section className='py-14 bg-canvas dark:bg-neutral-950'>
-      <div className='container mx-auto px-4'>
+    <section className='site-section bg-canvas'>
+      <div className='site-container'>
         <SectionHeader
           title={t('routes.title')}
           subtitle={t('routes.subtitle')}
@@ -47,7 +47,7 @@ const RouteSection = () => {
             <Link
               key={index}
               href={card.href}
-              className='group block relative rounded-2xl overflow-hidden aspect-[4/5]'
+              className='editorial-focus group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-line'
             >
               {/* 图片层 */}
               <Image

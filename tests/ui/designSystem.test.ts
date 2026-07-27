@@ -161,3 +161,16 @@ test("shared shell controls preserve hero overlay props and use line borders", (
   assert.match(button, /default:\s*"border border-line bg-primary/);
   assert.match(button, /destructive:\s*"border border-line bg-red-700 text-white/);
 });
+
+test("primary hubs no longer use the legacy warm canvas or raw mint hex", () => {
+  for (const file of [
+    "pages/index.tsx",
+    "pages/whv/index.tsx",
+    "pages/travel/index.tsx",
+    "pages/life/index.tsx",
+    "pages/technical/index.tsx",
+  ]) {
+    const source = readFileSync(file, "utf8");
+    assert.doesNotMatch(source, /bg-canvas\/50|#4a9e8f|#62BFAD/);
+  }
+});

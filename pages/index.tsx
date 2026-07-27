@@ -73,7 +73,7 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
   const { t } = useTranslation('home');
 
   return (
-    <div className='min-h-screen bg-canvas dark:bg-neutral-950'>
+    <div className='min-h-screen bg-canvas text-ink'>
       <CommonSEO
         title={t('landing.seoTitle')}
         description={t('landing.seoDescription')}
@@ -82,7 +82,7 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
       <main>
         <HomeHero email={SiteConfig.email} />
 
-        <div className='relative z-10 max-w-6xl mx-auto px-3.5 sm:px-5 pb-12 md:pb-16 flex flex-col gap-3.5 sm:gap-4 md:-mt-8'>
+        <div className='relative z-10'>
           <HomePersonaStory />
 
           <WhvGuideSection posts={whvPosts} />
