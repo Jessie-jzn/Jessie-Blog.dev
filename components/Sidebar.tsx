@@ -5,8 +5,8 @@ import NewsletterSubscribe from '@/components/NewsletterSubscribe';
 
 const Sidebar = () => {
   return (
-    <div className='bg-white dark:bg-gray-800 rounded-lg shadow'>
-      <div className='p-4 text-center flex items-center flex-col'>
+    <div className='editorial-surface rounded-2xl'>
+      <div className='flex flex-col items-center p-6 text-center'>
         <div className='relative w-20 h-20 mx-auto'>
           <Image
             src={`${SiteConfig.imageDomainUrl}/avatar.png`}
@@ -15,28 +15,30 @@ const Sidebar = () => {
             className='rounded-full object-cover'
           />
         </div>
-        <h2 className='text-lg font-bold text-gray-900'>{SiteConfig.author}</h2>
-        <p className='text-sm text-gray-500 mt-2 line-clamp-2'>
+        <h2 className='mt-3 text-lg font-semibold text-ink'>{SiteConfig.author}</h2>
+        <p className='mt-2 line-clamp-2 text-sm leading-6 text-subtle'>
           {SiteConfig.summary}
         </p>
 
         {/* 统计信息 */}
-        <div className='flex justify-center gap-4 mt-3 mb-3'>
+        <div className='my-5 grid w-full grid-cols-3 gap-3 border-y border-line py-4'>
           <div className='text-center'>
-            <div className='text-lg font-semibold text-gray-900'>120</div>
-            <div className='text-xs text-gray-500'>文章</div>
+            <div className='text-lg font-semibold text-ink'>120</div>
+            <div className='text-xs text-subtle'>文章</div>
           </div>
           <div className='text-center'>
-            <div className='text-lg font-semibold text-gray-900'>1.2k</div>
-            <div className='text-xs text-gray-500'>访问</div>
+            <div className='text-lg font-semibold text-ink'>1.2k</div>
+            <div className='text-xs text-subtle'>访问</div>
           </div>
           <div className='text-center'>
-            <div className='text-lg font-semibold text-gray-900'>89</div>
-            <div className='text-xs text-gray-500'>订阅</div>
+            <div className='text-lg font-semibold text-ink'>89</div>
+            <div className='text-xs text-subtle'>订阅</div>
           </div>
         </div>
         {/* <SocialContactIcon /> */}
-        <NewsletterSubscribe />
+        <div className='w-full'>
+          <NewsletterSubscribe />
+        </div>
       </div>
     </div>
   );

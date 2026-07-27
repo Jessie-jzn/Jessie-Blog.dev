@@ -39,35 +39,25 @@ const NewsletterSubscribe: React.FC = () => {
 
   return (
     <form
-      className="rounded-2xl group/form"
+      className="editorial-surface group/form rounded-2xl p-5"
       ref={formRef}
       onSubmit={handleSubscribe}
     >
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-0">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <input
           type="email"
           ref={emailRef}
           placeholder="Email address"
           disabled={isSubmitting}
-          className="min-w-0 flex-auto appearance-none rounded-full border border-black/[0.08]
-          bg-white/85 px-4 py-2.5 text-sm shadow-sm placeholder:text-neutral-400
-          focus:border-[#62BFAD]/50 focus:outline-none focus:ring-2 focus:ring-[#62BFAD]/15
-          dark:border-white/10 dark:bg-neutral-900/50 dark:text-neutral-100
-          dark:placeholder:text-neutral-500
-          dark:focus:border-[#62BFAD]/40 dark:focus:ring-[#62BFAD]/15
-          backdrop-blur-sm transition-all duration-300
-          group-hover/form:border-black/[0.12] dark:group-hover/form:border-white/15"
+          className="editorial-focus min-h-11 min-w-0 flex-auto appearance-none rounded-xl border border-line
+          bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-subtle
+          transition-colors duration-300 group-hover/form:border-primary/50"
         />
         <button
-          className="inline-flex items-center gap-2 justify-center rounded-full
-          py-2.5 px-5 text-sm font-semibold tracking-tight
-          outline-offset-2 transition-all duration-300 active:transition-none
-          bg-neutral-900 text-white shadow-sm
-          hover:bg-neutral-800
-          active:bg-neutral-900 active:opacity-90
-          dark:bg-white dark:text-neutral-900 dark:hover:bg-stone-100
-          dark:active:bg-white
-          sm:ml-3 flex-none backdrop-blur-sm w-full sm:w-auto"
+          className="editorial-focus inline-flex min-h-11 w-full flex-none items-center justify-center gap-2 rounded-xl
+          border border-line bg-primary px-5 py-2.5 text-sm font-semibold tracking-tight text-white
+          transition-colors duration-300 hover:bg-primaryStrong active:opacity-90 disabled:cursor-not-allowed
+          disabled:opacity-60 sm:w-auto"
           type="submit"
           disabled={isSubmitting}
         >
@@ -101,7 +91,7 @@ const NewsletterSubscribe: React.FC = () => {
         </button>
       </div>
       {message && (
-        <p className="mt-2 text-xs md:text-sm text-emerald-600 dark:text-emerald-400 transition-all duration-300">
+        <p className="mt-3 text-xs text-primaryStrong transition-colors duration-300 md:text-sm">
           {message}
         </p>
       )}

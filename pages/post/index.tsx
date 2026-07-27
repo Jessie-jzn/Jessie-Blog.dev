@@ -4,6 +4,8 @@ import { NOTION_POST_ID } from '@/lib/constants';
 import NotionPage from '@/components/Notion/NotionPage';
 import getPage from '@/lib/notion/getPage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import PageHeader from '@/components/common/PageHeader';
 
 // const notionService = new NotionService();
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
@@ -21,10 +23,17 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   };
 };
 const Post = ({ post }: any) => {
+  const { t } = useTranslation('common');
+
   return (
-    <>
+    <div className='min-h-[60vh] bg-canvas text-ink'>
+      <PageHeader
+        eyebrow={t('site.title')}
+        title={t('post')}
+        description={t('site.description')}
+      />
       <NotionPage recordMap={post} />
-    </>
+    </div>
   );
 };
 export default Post;

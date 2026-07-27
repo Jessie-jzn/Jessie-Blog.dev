@@ -18,6 +18,12 @@ const navbar = readFileSync("components/Navbar.tsx", "utf8");
 const footer = readFileSync("components/Footer.tsx", "utf8");
 const button = readFileSync("components/ui/button.tsx", "utf8");
 const technicalHub = readFileSync("pages/technical/index.tsx", "utf8");
+const listLayoutWithTags = readFileSync(
+  "components/layouts/ListLayoutWithTags.tsx",
+  "utf8",
+);
+const resumeTool = readFileSync("pages/tools/resume/index.tsx", "utf8");
+const notFoundPage = readFileSync("pages/404.tsx", "utf8");
 
 const escapeRegExp = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -182,4 +188,12 @@ test("technical sidebar clears the shared navigation and sticky filter", () => {
     /sticky top-14[^"]*py-3[^"]*sm:top-16/,
   );
   assert.match(technicalHub, /<div className="sticky top-36">/);
+});
+
+test("secondary routes use the shared container and semantic surfaces", () => {
+  for (const source of [listLayoutWithTags, resumeTool, notFoundPage]) {
+    assert.match(source, /site-container/);
+    assert.match(source, /(?:bg-canvas|bg-surface|bg-muted|text-ink|text-subtle)/);
+    assert.doesNotMatch(source, /\bshadow-(?:md|lg)\b/);
+  }
 });

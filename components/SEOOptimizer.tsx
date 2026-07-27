@@ -46,13 +46,14 @@ export default function SEOOptimizer({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
-      <h3 className="text-lg font-semibold mb-4">SEO 优化建议</h3>
+    <div className="editorial-surface rounded-2xl p-5 text-ink sm:p-6">
+      <h3 className="mb-4 text-lg font-semibold">SEO 优化建议</h3>
 
       {!suggestions && !loading && (
         <button
+          type="button"
           onClick={optimizeSEO}
-          className="px-4 py-2 bg-[#62BFAD] text-white rounded-lg hover:bg-[#62BFAD]/90 transition-colors"
+          className="editorial-focus min-h-11 rounded-xl border border-line bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primaryStrong"
         >
           获取 SEO 建议
         </button>
@@ -60,11 +61,11 @@ export default function SEOOptimizer({
 
       {loading && (
         <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#62BFAD] border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
         </div>
       )}
 
-      {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+      {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
 
       {suggestions && (
         <motion.div
@@ -74,12 +75,12 @@ export default function SEOOptimizer({
         >
           <div>
             <h4 className="font-medium mb-2">优化后的标题</h4>
-            <p className="text-[#62BFAD]">{suggestions.title}</p>
+            <p className="text-primaryStrong">{suggestions.title}</p>
           </div>
 
           <div>
             <h4 className="font-medium mb-2">Meta Description</h4>
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-subtle">
               {suggestions.description}
             </p>
           </div>
@@ -90,7 +91,7 @@ export default function SEOOptimizer({
               {suggestions.keywords?.map((keyword, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 bg-[#62BFAD]/10 text-[#62BFAD] text-sm rounded-full"
+                  className="editorial-tag rounded-full px-2.5 py-1 text-sm"
                 >
                   {keyword}
                 </span>
@@ -100,7 +101,7 @@ export default function SEOOptimizer({
 
           <div>
             <h4 className="font-medium mb-2">建议的标题结构</h4>
-            <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-300">
+            <ul className="list-inside list-disc space-y-1 text-subtle">
               {suggestions.headings.map((heading, index) => (
                 <li key={index}>{heading}</li>
               ))}
@@ -109,7 +110,7 @@ export default function SEOOptimizer({
 
           <div>
             <h4 className="font-medium mb-2">内容改进建议</h4>
-            <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+            <ul className="list-inside list-disc space-y-2 text-subtle">
               {suggestions.contentSuggestions.map((suggestion, index) => (
                 <li key={index}>{suggestion}</li>
               ))}
@@ -117,8 +118,9 @@ export default function SEOOptimizer({
           </div>
 
           <button
+            type="button"
             onClick={() => onApplyChanges(suggestions)}
-            className="px-4 py-2 bg-[#62BFAD] text-white rounded-lg hover:bg-[#62BFAD]/90 transition-colors"
+            className="editorial-focus min-h-11 rounded-xl border border-line bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primaryStrong"
           >
             应用这些建议
           </button>
@@ -127,5 +129,4 @@ export default function SEOOptimizer({
     </div>
   );
 }
-
 

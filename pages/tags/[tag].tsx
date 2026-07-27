@@ -5,6 +5,10 @@ import * as Types from "@/lib/type";
 import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import {
+  createTagPaths,
+  resolveTagRouteData,
+} from "@/lib/routing/tagRouteData";
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
@@ -13,26 +17,20 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       from: "tags-index",
     });
 
-    const filteredTag = (response.tagOptions as any).find(
-      (tag: Types.Tag) => tag.id === params?.tag
-    );
-    const filteredPosts = filteredTag?.articles || [];
+    const routeData = resolveTagRouteData(response.tagOptions, params?.tag);
 
     return {
       props: {
-        tagOptions: response.tagOptions || [],
-        posts: filteredPosts || [],
-        filteredTag: filteredTag,
+        ...routeData,
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 10,
     };
   } catch (error) {
+    const routeData = resolveTagRouteData([], params?.tag);
     return {
       props: {
-        tagOptions: [],
-        posts: [],
-        filteredTag: {},
+        ...routeData,
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
       revalidate: 10,
@@ -41,18 +39,22 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await getDataBaseList({
-    pageId: NOTION_POST_ID,
-    from: "tags-index",
-  });
-  const paths = (response.tagOptions as Types.Tag[]).map((tag: Types.Tag) => ({
-    params: { tag: encodeURI(tag.id) },
-  }));
-
-  return {
-    paths,
-    fallback: true,
-  };
+  try {
+    const response = await getDataBaseList({
+      pageId: NOTION_POST_ID,
+      from: "tags-index",
+    });
+    return {
+      paths: createTagPaths(response.tagOptions),
+      fallback: true,
+    };
+  } catch (error) {
+    console.error("[tags/getStaticPaths] 无法获取标签列表:", error);
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 };
 export default function TagPage({
   tagOptions,
@@ -68,7 +70,7 @@ export default function TagPage({
     <ListLayoutWithTags
       posts={posts}
       tagOptions={tagOptions}
-      title={`Tag: ${filteredTag?.name}`}
+      title={filteredTag?.name ? `Tag: ${filteredTag.name}` : "Tag"}
     />
   );
 }

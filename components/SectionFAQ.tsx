@@ -12,27 +12,32 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="dark:text-white text-zinc-800">
-      <motion.div
+    <div className="editorial-surface overflow-hidden rounded-2xl text-ink">
+      <motion.button
+        type="button"
         initial={false}
-        className={`cursor-pointer flex justify-between items-center py-4 px-6 border-t border-gray-700`}
+        aria-expanded={isOpen}
+        className="editorial-focus flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <h3 className="text-xl font-bold">{question}</h3>
+        <span className="text-base font-semibold sm:text-lg">{question}</span>
         <motion.div
-          className="text-2xl zinc-800"
+          aria-hidden="true"
+          className="text-2xl text-primaryStrong"
           transition={{ duration: 0.2 }}
         >
           {isOpen ? "−" : "+"}
         </motion.div>
-      </motion.div>
+      </motion.button>
       <motion.div
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         className="overflow-hidden"
       >
-        <div className="px-6 py-4 text-sm">{answer}</div>
+        <div className="border-t border-line px-5 py-4 text-sm leading-6 text-subtle sm:px-6">
+          {answer}
+        </div>
       </motion.div>
     </div>
   );
@@ -48,20 +53,27 @@ const SectionFAQ = () => {
   };
   return (
     <motion.section
-      className="bg-[#f8f5dc] py-8 px-32 flex justify-start items-center min-h-96 xs:flex-col dark:bg-gray-950 dark:text-white xs:hidden"
+      className="site-section bg-muted text-ink"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
       variants={fadeInUp}
     >
-      <h2 className="text-4xl font-bold text-zinc-800 mr-72 ml-56  xs:mb-16 dark:text-white">
-        FAQs
-      </h2>
-      <div className="flex flex-col dark:text-white">
-        {faqs?.map((faq, index) => (
-          <FAQItem key={index} question={faq.question} answer={faq.answer} />
-        ))}
+      <div className="site-container grid gap-8 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-12">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primaryStrong">
+            Helpful notes
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl">
+            FAQs
+          </h2>
+        </div>
+        <div className="space-y-3">
+          {faqs?.map((faq, index) => (
+            <FAQItem key={index} question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
       </div>
     </motion.section>
   );
