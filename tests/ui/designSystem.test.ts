@@ -152,6 +152,10 @@ test("shared shell controls preserve hero overlay props and use line borders", (
   assert.match(navbar, /currentTheme\?: "light" \| "dark"/);
   assert.match(navbar, /const showSolidBg = !isFull \|\| scrolled/);
   assert.match(navbar, /currentTheme === "dark"/);
+  assert.match(
+    navbar,
+    /const controlSurface = btnColor \?\? \(!showSolidBg \? overlayControlSurface : undefined\);/,
+  );
   assert.match(homeLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
   assert.match(travelListLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
   assert.match(button, /default:\s*"border border-line bg-primary/);

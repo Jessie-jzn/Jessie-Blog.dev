@@ -88,11 +88,10 @@ const Navbar = ({
   const underlineColor = !showSolidBg && currentTheme === "dark"
     ? "bg-white"
     : "bg-primaryStrong";
-  const controlSurface = !showSolidBg
-    ? currentTheme === "dark"
-      ? "!border-white/30 !bg-black/20 !text-white hover:!bg-black/30"
-      : "!border-black/15 !bg-white/80 !text-ink hover:!bg-white"
-    : btnColor;
+  const overlayControlSurface = currentTheme === "dark"
+    ? "!border-white/30 !bg-black/20 !text-white hover:!bg-black/30"
+    : "!border-black/15 !bg-white/80 !text-ink hover:!bg-white";
+  const controlSurface = btnColor ?? (!showSolidBg ? overlayControlSurface : undefined);
 
   return (
     <header
