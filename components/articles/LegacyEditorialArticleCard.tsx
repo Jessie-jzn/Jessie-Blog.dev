@@ -1,27 +1,26 @@
 import EditorialArticleCardBody, {
   type EditorialArticleCardVariant,
 } from "@/components/articles/EditorialArticleCardBody";
+import { resolveLegacyArticleAdapterHref } from "@/components/articles/editorialArticleHref";
 import type { Post } from "@/lib/type";
-import { canonicalArticlePath } from "@/lib/routing/articleRoute";
 
-interface EditorialArticleCardProps {
+interface LegacyEditorialArticleCardProps {
   article: Post;
   variant?: EditorialArticleCardVariant;
   priority?: boolean;
 }
 
-const EditorialArticleCard = ({
+const LegacyEditorialArticleCard = ({
   article,
   variant = "row",
   priority = false,
-}: EditorialArticleCardProps) => (
+}: LegacyEditorialArticleCardProps) => (
   <EditorialArticleCardBody
     article={article}
     variant={variant}
     priority={priority}
-    href={canonicalArticlePath(article)}
+    href={resolveLegacyArticleAdapterHref(article)}
   />
 );
 
-export type { EditorialArticleCardProps, EditorialArticleCardVariant };
-export default EditorialArticleCard;
+export default LegacyEditorialArticleCard;

@@ -1,5 +1,4 @@
-import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
-import { resolveLegacyArticleAdapterHref } from "@/components/articles/editorialArticleHref";
+import LegacyEditorialArticleCard from "@/components/articles/LegacyEditorialArticleCard";
 import type { Post } from "@/lib/type";
 
 const CardPost = ({
@@ -36,10 +35,9 @@ const CardPost = ({
   };
 
   return (
-    <EditorialArticleCard
+    <LegacyEditorialArticleCard
       article={article}
       variant="feature"
-      href={resolveLegacyArticleAdapterHref(article)}
     />
   );
 };

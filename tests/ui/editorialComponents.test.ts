@@ -27,12 +27,23 @@ test("FilterPills provides labelled, pressed filter controls", () => {
 
 test("EditorialArticleCard preserves canonical routing and its three variants", () => {
   const source = componentSource("components/articles/EditorialArticleCard.tsx");
+  const body = componentSource("components/articles/EditorialArticleCardBody.tsx");
+  const props = source.match(
+    /interface EditorialArticleCardProps\s*\{([\s\S]*?)\n\}/,
+  );
+
+  assert.ok(props, "Expected EditorialArticleCardProps to be declared");
+  assert.match(props[1], /article:\s*Post/);
+  assert.match(props[1], /variant\?:\s*EditorialArticleCardVariant/);
+  assert.match(props[1], /priority\?:\s*boolean/);
+  assert.doesNotMatch(props[1], /href/);
   assert.match(source, /canonicalArticlePath\(article\)/);
-  assert.match(source, /prefetch=\{false\}/);
-  assert.match(source, /"row"/);
-  assert.match(source, /"feature"/);
-  assert.match(source, /"compact"/);
-  assert.match(source, /ArticleImage/);
+  assert.match(source, /href=\{canonicalArticlePath\(article\)\}/);
+  assert.match(body, /prefetch=\{false\}/);
+  assert.match(body, /"row"/);
+  assert.match(body, /"feature"/);
+  assert.match(body, /"compact"/);
+  assert.match(body, /ArticleImage/);
 });
 
 test("legacy card adapters keep canonical links when category and slug are available", () => {

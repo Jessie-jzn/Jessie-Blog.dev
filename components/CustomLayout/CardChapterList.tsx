@@ -1,6 +1,5 @@
 import React from "react";
-import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
-import { resolveLegacyArticleAdapterHref } from "@/components/articles/editorialArticleHref";
+import LegacyEditorialArticleCard from "@/components/articles/LegacyEditorialArticleCard";
 import * as Types from "@/lib/type";
 
 interface CardChapterListProps {
@@ -16,10 +15,9 @@ const CardChapterList: React.FC<CardChapterListProps> = ({ article, category }) 
   };
 
   return (
-    <EditorialArticleCard
+    <LegacyEditorialArticleCard
       article={compatibleArticle}
       variant="compact"
-      href={resolveLegacyArticleAdapterHref(compatibleArticle)}
     />
   );
 };
