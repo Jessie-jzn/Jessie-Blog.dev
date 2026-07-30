@@ -11,11 +11,6 @@ module.exports = {
   darkMode: "class",
   theme: {
     screens: {
-      //   sm: { max: "430px" },
-      //   // => @media (min-width: 640px and max-width: 767px) { ... }
-      //   md: { min: "431px", max: "1023px" },
-      //   lg: { min: "1024px", max: "1440px" },
-      //   xl: { min: "1441px" },
       xs: {
         max: "430px",
       },
@@ -85,7 +80,6 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        // "sort-first-img": "url('/img/footer-texture.png')",
       },
       spacing: {
         "9/16": "56.25%",

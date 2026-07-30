@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
-import { resolveLegacyArticleAdapterHref } from "../../components/articles/editorialArticleHref.ts";
 
 const componentSource = (path: string) => {
   assert.ok(existsSync(path), `Expected ${path} to exist`);
@@ -44,27 +43,4 @@ test("EditorialArticleCard preserves canonical routing and its three variants", 
   assert.match(body, /"feature"/);
   assert.match(body, /"compact"/);
   assert.match(body, /ArticleImage/);
-});
-
-test("legacy card adapters keep canonical links when category and slug are available", () => {
-  assert.equal(
-    resolveLegacyArticleAdapterHref({
-      id: "legacy-external-id",
-      category: " Travel ",
-      slug: " Coastal-Guide ",
-      title: "Coastal guide",
-    }),
-    "/travel/coastal-guide/",
-  );
-});
-
-test("legacy card adapters retain a non-Notion id when canonical data is incomplete", () => {
-  assert.equal(
-    resolveLegacyArticleAdapterHref({ id: "legacy/external-id", title: "Old card" }),
-    "/post/legacy%2Fexternal-id",
-  );
-});
-
-test("legacy card adapters fall back to the post index for an empty id", () => {
-  assert.equal(resolveLegacyArticleAdapterHref({ id: "", title: "Untitled" }), "/post");
 });

@@ -14,8 +14,6 @@ import '../styles/markdown-github.css'; // 导入自定义 Markdown 样式
 
 import nextI18NextConfig from '../next-i18next.config.js'; // 导入国际化配置
 import BaseLayout from '@/components/layouts/BaseLayout'; // 导入基础布局组件
-// import CustomLayout from "@/components/CustomLayout/index"; // 可选的自定义布局
-// import SiteConfig from "../site.config"; // 可选的网站配置
 import Head from 'next/head'; // 导入 Head 组件，用于设置页面头部信息
 
 import { useEffect } from 'react'; // 导入 useEffect 钩子

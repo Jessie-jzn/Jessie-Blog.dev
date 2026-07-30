@@ -19,7 +19,6 @@ if (apiKey) {
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
-  // transpilePackages: ["@uiw/react-md-editor", "@uiw/react-markdown-preview"],
   images: {
     domains: ['qiniu.jessieontheroad.com'],
     unoptimized: true,
@@ -121,13 +120,6 @@ const nextConfig = withBundleAnalyzer({
         destination: '/:path*',
       },
     ];
-    // return [
-    //   // 将以/api开头的路径代理到OpenAI API
-    //   {
-    //     source: "/api/:path*",
-    //     destination: "https://api.fanyi.baidu.com/:path*",
-    //   },
-    // ];
   },
   logging: {
     fetches: {

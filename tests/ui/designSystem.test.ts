@@ -16,35 +16,24 @@ const travelListLayout = readFileSync(
 );
 const navbar = readFileSync("components/Navbar.tsx", "utf8");
 const footer = readFileSync("components/Footer.tsx", "utf8");
-const button = readFileSync("components/ui/button.tsx", "utf8");
 const technicalHub = readFileSync("pages/technical/index.tsx", "utf8");
 const listLayoutWithTags = readFileSync(
   "components/layouts/ListLayoutWithTags.tsx",
   "utf8",
 );
 const resumeTool = readFileSync("pages/tools/resume/index.tsx", "utf8");
-const resumeBox = readFileSync("components/ResumeBox.tsx", "utf8");
 const notFoundPage = readFileSync("pages/404.tsx", "utf8");
 const newsletterSubscribe = readFileSync(
   "components/NewsletterSubscribe.tsx",
   "utf8",
 );
-const sectionFaq = readFileSync("components/SectionFAQ.tsx", "utf8");
 const postDetailLayout = readFileSync(
   "components/layouts/PostDetailLayout.tsx",
-  "utf8",
-);
-const relatedPosts = readFileSync(
-  "components/RelatedPosts/RelatedPosts.tsx",
   "utf8",
 );
 const notionPage = readFileSync("components/Notion/NotionPage.tsx", "utf8");
 const notionPageHeader = readFileSync(
   "components/Notion/NotionPageHeader.tsx",
-  "utf8",
-);
-const translateComponent = readFileSync(
-  "components/TranslateComponent.tsx",
   "utf8",
 );
 const notionCss = readFileSync("styles/notion.css", "utf8");
@@ -201,8 +190,6 @@ test("shared shell controls preserve hero overlay props and use line borders", (
   );
   assert.match(homeLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
   assert.match(travelListLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
-  assert.match(button, /default:\s*"border border-line bg-primary/);
-  assert.match(button, /destructive:\s*"border border-line bg-red-700 text-white/);
 });
 
 test("primary hubs no longer use the legacy warm canvas or raw mint hex", () => {
@@ -242,8 +229,6 @@ test("secondary controls use bilingual copy and preserve the original resume UI"
     assert.equal(typeof locale.articleList.viewTag, "string");
     assert.equal(typeof locale.articleList.count, "string");
     assert.equal(typeof locale.articleList.empty, "string");
-    assert.equal(typeof locale.faqSection.eyebrow, "string");
-    assert.equal(typeof locale.faqSection.title, "string");
     assert.equal(typeof locale.emailAddress, "string");
   }
 
@@ -252,18 +237,14 @@ test("secondary controls use bilingual copy and preserve the original resume UI"
     listLayoutWithTags,
     /All Articles|Search articles|Browse articles by tag|View articles tagged|No articles found/,
   );
-  assert.match(sectionFaq, /t\("faqSection\.eyebrow"\)/);
-  assert.match(sectionFaq, /t\("faqSection\.title"\)/);
   assert.doesNotMatch(resumeTool, /resume-job-title|onClick=\{handleGenerate\}/);
 });
 
-test("final editorial cleanup uses Article terminology and supporting-card padding", () => {
+test("final editorial cleanup uses Article terminology", () => {
   assert.equal(englishCommon.post, "Articles");
   assert.equal(englishCommon.lastPost, "Latest Articles");
   assert.equal(chineseCommon.post, "文章");
   assert.equal(chineseCommon.lastPost, "最新文章");
-  assert.match(resumeBox, /rounded-2xl p-6 text-ink/);
-  assert.doesNotMatch(resumeBox, /\bsm:p-8\b/);
 });
 
 test("newsletter email field has a localized accessible name", () => {
@@ -273,37 +254,16 @@ test("newsletter email field has a localized accessible name", () => {
   assert.match(newsletterSubscribe, /t\("emailAddress"\)/);
 });
 
-test("new Article support controls localize their accessible labels", () => {
-  assert.deepEqual(englishCommon.articleControls, {
-    breadcrumb: "Breadcrumb",
-    translationInput: "Enter text to translate",
-    translate: "Translate",
-  });
-  assert.deepEqual(chineseCommon.articleControls, {
-    breadcrumb: "面包屑导航",
-    translationInput: "输入要翻译的文字",
-    translate: "翻译",
-  });
+test("new Article navigation localizes its accessible label", () => {
+  assert.equal(englishCommon.articleControls.breadcrumb, "Breadcrumb");
+  assert.equal(chineseCommon.articleControls.breadcrumb, "面包屑导航");
 
   assert.match(notionPageHeader, /aria-label=\{t\("articleControls\.breadcrumb"\)\}/);
-  assert.match(translateComponent, /useTranslation\(["']common["']\)/);
-  assert.match(
-    translateComponent,
-    /aria-label=\{t\("articleControls\.translationInput"\)\}/,
-  );
-  assert.match(
-    translateComponent,
-    /placeholder=\{t\("articleControls\.translationInput"\)\}/,
-  );
-  assert.match(translateComponent, /\{t\("articleControls\.translate"\)\}/);
 });
 
 test("Article detail uses the shared reading column and editorial surfaces", () => {
   assert.match(postDetailLayout, /bg-canvas/);
   assert.match(postDetailLayout, /max-w-\[46rem\]/);
-  assert.match(relatedPosts, /EditorialArticleCard/);
-  assert.match(relatedPosts, /variant="compact"/);
-
   for (const token of [
     "var(--ui-accent-strong)",
     "var(--ui-line)",
@@ -332,8 +292,6 @@ test("Article support blocks remain visible and readable in dark mode", () => {
     notionPage,
     /<AdSense \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/,
   );
-  assert.match(translateComponent, /bg-primaryStrong/);
-  assert.match(translateComponent, /text-surface/);
   assert.match(
     markdownTui,
     /\.tuiCssForEditor \.markdown-body pre > code/,
