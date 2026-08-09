@@ -15,7 +15,7 @@ const HomePersonaStory = () => {
       <div className='grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-8 md:grid-cols-[minmax(0,6rem)_minmax(0,1fr)] md:gap-12'>
         <div className='border-t border-line pt-3'>
           <p className='max-w-[5.5rem] text-[11px] font-semibold leading-snug tracking-wide text-primaryStrong sm:text-xs'>
-            {t('landing.persona.sectionEyebrow')}
+            01
           </p>
         </div>
         <div

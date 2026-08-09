@@ -35,6 +35,51 @@ test('hero is asymmetric and exposes a content index', () => {
   assert.match(hero, /motion-reduce:transition-none/);
 });
 
+test('hero and content directory share a stable world index contract', () => {
+  const hero = source('components/home/HomeHero.tsx');
+  const worlds = source('components/home/HomeContentWorlds.tsx');
+  const persona = source('components/home/HomePersonaStory.tsx');
+
+  assert.match(worlds, /export const HOME_WORLD_KEYS/);
+  assert.match(hero, /import \{ HOME_WORLD_KEYS \}/);
+  assert.doesNotMatch(hero, /const worldKeys/);
+  assert.match(hero, /key=\{`headline-\$\{i\}`\}/);
+  assert.match(hero, /key=\{`paragraph-\$\{idx\}`\}/);
+  assert.match(hero, /href='\/post'/);
+  assert.match(persona, />\s*01\s*</);
+  assert.doesNotMatch(persona, /landing\.persona\.sectionEyebrow/);
+});
+
+test('home locales provide the bilingual Article CTA and world directory', () => {
+  const expectedLabels = {
+    en: 'Read Articles',
+    zh: '阅读文章',
+  } as const;
+  const expectedHrefs = ['/technical', '/whv', '/travel', '/life'];
+
+  for (const locale of ['en', 'zh'] as const) {
+    const messages = JSON.parse(
+      source(`public/locales/${locale}/home.json`)
+    );
+    const landing = messages.landing;
+
+    assert.equal(landing.hero.secondaryCta, expectedLabels[locale]);
+    assert.deepEqual(Object.keys(landing.worlds.items), [
+      'ai',
+      'whv',
+      'travel',
+      'life',
+    ]);
+    assert.deepEqual(
+      Object.values(landing.worlds.items).map(
+        (item: { href: string }) => item.href
+      ),
+      expectedHrefs
+    );
+    assert.equal(typeof landing.worlds.aria, 'string');
+  }
+});
+
 test('guide collections expose lead and index article variants', () => {
   const guides = source('components/home/GuidePostCards.tsx');
   const article = source('components/articles/EditorialArticleCardBody.tsx');

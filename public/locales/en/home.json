@@ -14,9 +14,22 @@
       ],
       "primaryMailSubject": "Hello Jessie",
       "primaryCta": "Write to me",
-      "secondaryCta": "Read my WHV notes",
+      "secondaryCta": "Read Articles",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
+    },
+    "worlds": {
+      "eyebrow": "CONTENT WORLDS",
+      "title": "What I am writing through",
+      "description": "From technical practice to observations on the road, every piece starts with lived experience and ongoing thought.",
+      "allArticles": "Browse all Articles →",
+      "aria": "Content worlds",
+      "items": {
+        "ai": { "eyebrow": "AI & TECH", "title": "AI & Technology", "description": "Frontend practice, AI exploration, and product thinking.", "href": "/technical" },
+        "whv": { "eyebrow": "WHV", "title": "Australian working holiday", "description": "Lived notes and updates from preparing to leaving.", "href": "/whv" },
+        "travel": { "eyebrow": "TRAVEL", "title": "Travel journal", "description": "Places I have visited, what I noticed, and mistakes I made.", "href": "/travel" },
+        "life": { "eyebrow": "LIFE", "title": "Life & reflections", "description": "Change, choices, and imperfect everyday thoughts.", "href": "/life" }
+      }
     },
     "persona": {
       "sectionEyebrow": "Tone / site map",

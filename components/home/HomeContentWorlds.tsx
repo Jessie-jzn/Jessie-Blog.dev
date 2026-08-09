@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';
 
-const keys = ['ai', 'whv', 'travel', 'life'] as const;
+export const HOME_WORLD_KEYS = ['ai', 'whv', 'travel', 'life'] as const;
 
 export default function HomeContentWorlds() {
   const { t } = useTranslation('home');
@@ -22,7 +22,7 @@ export default function HomeContentWorlds() {
       </div>
 
       <div className='mt-10 divide-y divide-line border-y border-line'>
-        {keys.map((key, index) => (
+        {HOME_WORLD_KEYS.map((key, index) => (
           <Link
             key={key}
             href={t(`landing.worlds.items.${key}.href`)}

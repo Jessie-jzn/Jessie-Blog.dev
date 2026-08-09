@@ -2,12 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
+import { HOME_WORLD_KEYS } from '@/components/home/HomeContentWorlds';
 
 interface HomeHeroProps {
   email: string;
 }
-
-const worldKeys = ['ai', 'whv', 'travel', 'life'] as const;
 
 const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
   const { t } = useTranslation('home');
@@ -55,7 +54,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
 
           <h1 className='text-[2.15rem] font-semibold leading-[1.08] tracking-[-0.04em] text-white [text-shadow:0_4px_40px_rgba(0,0,0,0.45)] xs:text-[2.5rem] sm:text-5xl lg:text-[3.4rem]'>
             {headline.map((line, i) => (
-              <span key={line || i}>
+              <span key={`headline-${i}`}>
                 {line}
                 {i < headline.length - 1 ? <br /> : null}
               </span>
@@ -65,7 +64,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
           <div className='mt-6 max-w-xl space-y-4 text-sm leading-[1.7] text-white/85 sm:text-[15px]'>
             {paragraphs.map((block, idx) => (
               <p
-                key={block || idx}
+                key={`paragraph-${idx}`}
                 className='whitespace-pre-line [text-shadow:0_2px_20px_rgba(0,0,0,0.35)]'
               >
                 {block}
@@ -100,7 +99,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
           aria-label={t('landing.worlds.aria')}
           className='divide-y divide-white/15 border-y border-white/20'
         >
-          {worldKeys.map((key, index) => (
+          {HOME_WORLD_KEYS.map((key, index) => (
             <Link
               key={key}
               href={t(`landing.worlds.items.${key}.href`)}

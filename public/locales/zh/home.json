@@ -14,9 +14,22 @@
       ],
       "primaryMailSubject": "网站来信",
       "primaryCta": "写邮件",
-      "secondaryCta": "看 WHV 记录",
+      "secondaryCta": "阅读文章",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
+    },
+    "worlds": {
+      "eyebrow": "内容主题",
+      "title": "我正在记录的世界",
+      "description": "从技术实践到路上的见闻，所有内容都来自真实经历和持续思考。",
+      "allArticles": "浏览全部文章 →",
+      "aria": "内容主题",
+      "items": {
+        "ai": { "eyebrow": "AI & TECH", "title": "AI 与技术", "description": "前端实践、AI 探索与做产品时的思考。", "href": "/technical" },
+        "whv": { "eyebrow": "WHV", "title": "澳洲打工度假", "description": "从准备到离开，一年里的真实经验与更新。", "href": "/whv" },
+        "travel": { "eyebrow": "TRAVEL", "title": "旅行记录", "description": "我亲自走过的地方、见闻和踩过的坑。", "href": "/travel" },
+        "life": { "eyebrow": "LIFE", "title": "生活与思考", "description": "变化、选择，以及不那么完美的日常感受。", "href": "/life" }
+      }
     },
     "persona": {
       "sectionEyebrow": "01",
