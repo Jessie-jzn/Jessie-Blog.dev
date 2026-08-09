@@ -1,3 +1,4 @@
+/** 提供带 common i18n 反馈的 Mailchimp 邮件订阅表单。 */
 import React, { useCallback, useId, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { subscribeToNewsletter } from "@/lib/mailchimp";

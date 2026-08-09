@@ -189,7 +189,15 @@ test("shared shell controls preserve hero overlay props and use line borders", (
     /const controlSurface = btnColor \?\? \(!showSolidBg \? overlayControlSurface : undefined\);/,
   );
   assert.match(homeLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
-  assert.match(travelListLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
+  assert.match(travelListLayout, /<Navbar isFull=\{false\} \/>/);
+  assert.match(
+    navbar,
+    /showSolidBg \? "border-line bg-surface\/90 backdrop-blur-xl" : "border-transparent bg-transparent backdrop-blur-sm"/,
+  );
+  assert.doesNotMatch(
+    navbar,
+    /w-full border-b border-line transition-colors/,
+  );
 });
 
 test("primary hubs no longer use the legacy warm canvas or raw mint hex", () => {

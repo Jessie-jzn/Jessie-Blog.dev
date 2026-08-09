@@ -1,3 +1,4 @@
+/** 渲染站点页脚的介绍、社交入口、订阅表单与订阅人数，并使用 common i18n 文案。 */
 import React from "react";
 import Link from "next/link";
 import SiteConfig from "@/site.config";
@@ -33,6 +34,9 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             >
               {SiteConfig.email}
             </a>
+            <Link href='/projects' className='editorial-focus ml-4 text-sm font-medium text-primaryStrong hover:underline'>
+              {t('nav.projects')}
+            </Link>
           </div>
 
           {/* Newsletter */}

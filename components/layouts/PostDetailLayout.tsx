@@ -1,3 +1,4 @@
+/** 为文章详情提供窄阅读栏、导航和页脚的页面布局。 */
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 

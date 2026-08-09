@@ -1,3 +1,6 @@
+/**
+ * 旧文章链接兼容路由：解析 Notion 文章库后将 /post/[id] 永久重定向至当前文章地址。
+ */
 import { GetServerSideProps } from 'next';
 import getDataBaseList from '@/lib/notion/getDataBaseList';
 import { NOTION_POST_ID } from '@/lib/constants';

@@ -1,3 +1,4 @@
+/** 结合项目配置和 home i18n 渲染首页项目预览及项目页入口。 */
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { PROJECTS } from '@/lib/projects';

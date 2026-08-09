@@ -1,5 +1,6 @@
 "use client";
 
+/** 集成 Cusdis 评论区，并按页面 URL、Notion 页面 id 和语言维护评论上下文。 */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";

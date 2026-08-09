@@ -1,3 +1,4 @@
+/** 渲染作者资料、站点统计和 Mailchimp 订阅入口的侧栏。 */
 import React from 'react';
 import Image from 'next/image';
 import SiteConfig from '@/site.config';

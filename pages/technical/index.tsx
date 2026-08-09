@@ -1,3 +1,6 @@
+/**
+ * 技术分类页：从 Notion 获取本地化技术文章，并提供客户端标签筛选与侧栏。
+ */
 import { GetStaticProps } from "next";
 import React, { useMemo, useState } from "react";
 import { NOTION_POST_ID } from "@/lib/constants";

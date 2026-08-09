@@ -1,3 +1,4 @@
+/** 映射社交平台类型到图标，并输出带主题样式的外部链接。 */
 import { SVGProps } from "react";
 import { SiXiaohongshu } from "react-icons/si"; // 引入小红书图标
 

@@ -1,5 +1,6 @@
 "use client";
 
+/** 提供支持路由高亮和 common i18n 文案的移动端展开式导航。 */
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "./Link";

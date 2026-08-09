@@ -1,3 +1,6 @@
+/**
+ * 关于页：渲染个人故事与站点信息，并加载 about 与公共国际化文案。
+ */
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -5,6 +8,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CommonSEO } from '@/components/SEO';
 import PageHeader from '@/components/common/PageHeader';
+import SiteConfig from '@/site.config';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -256,6 +260,29 @@ const About = () => {
             </div>
           </div>
         </motion.div>
+
+        <motion.section className='editorial-surface mb-20 rounded-2xl p-6 xs:mb-12 sm:p-8' {...fade(0.1)}>
+          <p className='text-[11px] font-medium uppercase tracking-[0.18em] text-primaryStrong'>
+            {t('sections.collaborate.eyebrow')}
+          </p>
+          <h2 className='mt-3 text-xl font-semibold tracking-tight text-ink'>
+            {t('sections.collaborate.title')}
+          </h2>
+          <p className='mt-3 max-w-2xl text-sm leading-relaxed text-subtle'>
+            {t('sections.collaborate.description')}
+          </p>
+          <ul className='mt-6 grid gap-3 sm:grid-cols-3'>
+            {(['brand', 'ai', 'whv'] as const).map((key) => (
+              <li key={key} className='rounded-xl border border-line bg-surface p-4'>
+                <h3 className='font-medium text-ink'>{t(`sections.collaborate.items.${key}.title`)}</h3>
+                <p className='mt-2 text-sm leading-relaxed text-subtle'>{t(`sections.collaborate.items.${key}.description`)}</p>
+              </li>
+            ))}
+          </ul>
+          <a href={`mailto:${SiteConfig.email}?subject=${encodeURIComponent(t('sections.collaborate.subject'))}`} className='editorial-focus mt-6 inline-flex rounded-full border border-line bg-primary px-6 py-3 text-sm font-semibold text-ink hover:bg-primaryStrong hover:text-surface'>
+            {t('sections.collaborate.cta')}
+          </a>
+        </motion.section>
           </div>
         </main>
       </div>

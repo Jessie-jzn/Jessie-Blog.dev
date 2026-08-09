@@ -1,3 +1,6 @@
+/**
+ * 订阅人数统计接口：读取 Mailchimp 受众列表并返回当前订阅人数与数据来源。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { fetchMailchimpMemberCount } from "@/lib/mailchimpAudience";
 

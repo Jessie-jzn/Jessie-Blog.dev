@@ -1,3 +1,4 @@
+/** 在 Notion 文章侧栏将相关 Notion 文章数据转换为编辑式卡片列表。 */
 import React, { useMemo } from "react";
 import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
 import * as Types from "@/lib/type";

@@ -1,3 +1,4 @@
+/** 渲染 WHV 流程入口与可配置的指南文章栏目。 */
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'next-i18next';

@@ -1,3 +1,6 @@
+/**
+ * robots.txt 路由：根据站点配置在服务端输出爬虫规则与 sitemap 地址。
+ */
 import { GetServerSideProps } from "next";
 import SiteConfig from "@/site.config";
 

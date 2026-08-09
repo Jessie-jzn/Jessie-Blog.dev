@@ -1,3 +1,4 @@
+/** 提供可选眉题、描述和元信息的通用页面标题区。 */
 import type { ReactNode } from "react";
 
 interface PageHeaderProps {

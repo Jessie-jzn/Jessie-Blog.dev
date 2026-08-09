@@ -1,3 +1,6 @@
+/**
+ * 文章图片代理接口：校验远程 URL、阻止内网访问并转发图片，失败时返回本地兜底图。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 import { readFile } from "node:fs/promises";

@@ -1,3 +1,4 @@
+/** 根据滚动阈值显示平滑返回页面顶部的浮动按钮。 */
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 

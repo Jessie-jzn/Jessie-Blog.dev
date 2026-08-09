@@ -1,3 +1,6 @@
+/**
+ * 文章阅读量接口：在 Upstash Redis 中查询或累计指定文章的浏览次数。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getStatsRedis } from "@/lib/stats/redis";
 import { normalizeStatsPostId } from "@/lib/stats/postId";

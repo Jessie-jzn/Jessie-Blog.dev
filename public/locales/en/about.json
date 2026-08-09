@@ -66,6 +66,18 @@
       "lifeDesc": "If you're also looking for direction, maybe we're on the same path.",
       "quote": "The world is a book and those who do not travel read only one page.",
       "quoteAuthor": "— Saint Augustine"
+    },
+    "collaborate": {
+      "eyebrow": "COLLABORATE & CONNECT",
+      "title": "Making thoughtful things around real experiences",
+      "description": "I am open to conversations with readers, brands, and project partners who care about these subjects. A good collaboration starts with mutual fit, not a forced promotion.",
+      "subject": "Collaboration and connection",
+      "cta": "Email me",
+      "items": {
+        "brand": { "title": "Brand partnerships", "description": "Content collaborations relevant to AI, technology, WHV, travel, and everyday life." },
+        "ai": { "title": "AI / web projects", "description": "Discuss product ideas, prototypes, and frontend implementation." },
+        "whv": { "title": "WHV conversations", "description": "Personal experience and useful leads only, not professional visa or legal advice." }
+      }
     }
   }
 }

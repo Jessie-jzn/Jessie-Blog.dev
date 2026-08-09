@@ -1,3 +1,6 @@
+/**
+ * 文章聚合页：从 Notion 获取文章库页面记录并以可再生静态页面展示。
+ */
 import { GetStaticProps } from 'next';
 // import NotionService from "@/lib/notion/NotionServer";
 import { NOTION_POST_ID } from '@/lib/constants';

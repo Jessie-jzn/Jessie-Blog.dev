@@ -1,3 +1,4 @@
+/** 从 home i18n 读取服务区块数据并渲染首页落地页服务介绍。 */
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';

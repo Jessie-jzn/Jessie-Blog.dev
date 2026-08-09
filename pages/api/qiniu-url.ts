@@ -1,3 +1,6 @@
+/**
+ * 七牛私有文件接口：使用环境变量中的密钥为单个对象生成一小时有效的下载链接。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import qiniu from "qiniu";
 

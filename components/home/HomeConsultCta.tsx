@@ -1,3 +1,4 @@
+/** 使用 home i18n 和站点邮箱渲染首页咨询服务行动号召区。 */
 import { useTranslation } from 'next-i18next';
 import SiteConfig from '@/site.config';
 import HomePageSection from '@/components/home/HomePageSection';

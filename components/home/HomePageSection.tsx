@@ -1,3 +1,4 @@
+/** 提供首页各区块共用的语义容器、色调与无障碍标签。 */
 import type { ReactNode } from 'react';
 
 type Tone = 'light' | 'dark' | 'accent';

@@ -1,3 +1,4 @@
+/** 提供 Notion 文章的面包屑、搜索和页头辅助展示，并依据路由与 i18n 生成文案。 */
 import { Search } from "react-notion-x";
 import SiteConfig from "@/site.config";
 import { useRouter } from "next/router";

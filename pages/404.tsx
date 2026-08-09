@@ -1,3 +1,6 @@
+/**
+ * 404 页面：根据未知路径推断分类后跳转到对应分类页或首页。
+ */
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';

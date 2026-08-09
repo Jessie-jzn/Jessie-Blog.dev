@@ -1,3 +1,4 @@
+/** 渲染首页 Hero，结合 home i18n 内容、内容世界链接与减弱动画偏好。 */
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';

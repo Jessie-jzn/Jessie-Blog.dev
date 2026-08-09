@@ -1,3 +1,4 @@
+/** 切换 Next.js i18n 语言，并将用户偏好持久化到 NEXT_LOCALE Cookie。 */
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 import SiteConfig from "@/site.config";

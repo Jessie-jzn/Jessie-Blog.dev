@@ -1,3 +1,4 @@
+/** 组合深色首页导航、页脚和返回顶部按钮的首页页面布局。 */
 import Navbar from "@/components/Navbar";
 import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";

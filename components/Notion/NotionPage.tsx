@@ -1,3 +1,4 @@
+/** 将 Notion 记录渲染为文章页，组合 SEO、目录、相关内容、广告与阅读互动数据。 */
 import React, { useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';

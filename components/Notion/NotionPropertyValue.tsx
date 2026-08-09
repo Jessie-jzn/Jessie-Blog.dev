@@ -1,3 +1,4 @@
+/** 格式化并展示 Notion 页面属性值，重点处理创建、发布与最近编辑日期。 */
 import React from 'react';
 import { formatTimestampToDate } from '@/lib/util';
 import { useTranslation } from "next-i18next";

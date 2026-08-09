@@ -1,3 +1,4 @@
+/** 为文章列表提供带内容容器、导航和页脚的页面布局。 */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

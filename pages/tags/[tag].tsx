@@ -1,3 +1,6 @@
+/**
+ * 标签动态页：从 Notion 文章库构建标签路由数据并展示该标签下的文章列表。
+ */
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import ListLayoutWithTags from "@/components/layouts/ListLayoutWithTags";
 import { GetStaticPaths } from "next";

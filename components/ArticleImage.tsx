@@ -1,3 +1,4 @@
+/** 统一规范文章封面来源，并在图片加载失败时回退到默认封面。 */
 import Image, { type ImageProps } from "next/image";
 import { useEffect, useState } from "react";
 import {

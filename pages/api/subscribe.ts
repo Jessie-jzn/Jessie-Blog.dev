@@ -1,3 +1,6 @@
+/**
+ * 邮件订阅接口：接收订阅者资料并将其提交至 Mailchimp 受众列表。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { subscribeToMailchimpApi } from "@/lib/mailchimp";
 

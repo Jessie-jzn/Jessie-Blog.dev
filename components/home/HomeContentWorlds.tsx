@@ -1,3 +1,4 @@
+/** 依据 home i18n 定义并展示首页内容世界的导航入口。 */
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';

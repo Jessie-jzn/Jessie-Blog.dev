@@ -1,3 +1,6 @@
+/**
+ * 文章详情动态路由：从 Notion 文章库静态生成分类文章页，并加载关联文章与评论。
+ */
 import { GetStaticPaths, GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import getDataBaseList from "@/lib/notion/getDataBaseList";

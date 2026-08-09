@@ -1,3 +1,4 @@
+/** 按多种版式渲染文章封面、元数据和链接的编辑式卡片主体。 */
 import Link from "next/link";
 import ArticleImage from "@/components/ArticleImage";
 import type { Post } from "@/lib/type";

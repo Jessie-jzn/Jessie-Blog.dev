@@ -1,3 +1,4 @@
+/** 使用 next-themes 在客户端切换浅色与深色主题。 */
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 

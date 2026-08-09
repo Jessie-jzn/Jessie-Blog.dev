@@ -1,3 +1,6 @@
+/**
+ * 项目页：基于本地 PROJECTS 数据展示项目经历，并加载公共国际化文案。
+ */
 import Link from "next/link";
 import type { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";

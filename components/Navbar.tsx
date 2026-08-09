@@ -1,3 +1,4 @@
+/** 渲染桌面站点导航，并协调移动导航、主题、语言及 Vercel 分析组件。 */
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -46,10 +47,11 @@ const Navbar = ({
   const navigationLinks = useMemo<NavLink[]>(
     () => [
       { id: "home", href: "/", title: t("nav.home") },
+      { id: "articles", href: "/post", title: t("nav.articles") },
+      { id: "technical", href: "/technical", title: t("nav.technical") },
       { id: "whv", href: "/whv", title: t("nav.whv") },
       { id: "travel", href: "/travel", title: t("nav.travel") },
-      { id: "life", href: "/life", title: t("nav.life") },
-      { id: "technical", href: "/technical", title: t("nav.technical") },
+      { id: "projects", href: "/projects", title: t("nav.projects") },
       { id: "about", href: "/about", title: t("nav.about") },
     ],
     [t],
@@ -96,8 +98,8 @@ const Navbar = ({
   return (
     <header
       className={[
-        "fixed left-0 top-0 z-[999] w-full border-b border-line transition-colors duration-300",
-        showSolidBg ? "bg-surface/90 backdrop-blur-xl" : "bg-transparent backdrop-blur-sm",
+        "fixed left-0 top-0 z-[999] w-full border-b transition-colors duration-300",
+        showSolidBg ? "border-line bg-surface/90 backdrop-blur-xl" : "border-transparent bg-transparent backdrop-blur-sm",
         textColor,
         className,
       ]

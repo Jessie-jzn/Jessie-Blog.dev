@@ -1,3 +1,4 @@
+/** 渲染支持 home i18n 与编辑推荐变体的栏目标题和“查看更多”链接。 */
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 

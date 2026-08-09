@@ -1,4 +1,6 @@
-// pages/resume.tsx
+/**
+ * 在线简历工具页：提供 Markdown 编辑、AI 内容生成与 PDF 导出功能。
+ */
 
 import { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";

@@ -1,3 +1,4 @@
+/** 记录文章浏览量并按当前语言展示阅读与订阅统计。 */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";

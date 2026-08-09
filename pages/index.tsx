@@ -1,3 +1,6 @@
+/**
+ * 首页：从 Notion 读取首页或文章库数据，按内容世界组织首页展示与国际化文案。
+ */
 import { GetStaticProps } from 'next';
 import NotionService from '@/lib/notion/NotionServer';
 import { NOTION_HOME_ID, NOTION_POST_ID } from '@/lib/constants';

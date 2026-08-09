@@ -1,3 +1,6 @@
+/**
+ * 旅行分类页：从 Notion 获取本地化旅行文章和标签，支持客户端内容筛选。
+ */
 import { GetStaticProps } from 'next';
 import { motion } from 'framer-motion';
 import { NOTION_POST_ID } from '@/lib/constants';

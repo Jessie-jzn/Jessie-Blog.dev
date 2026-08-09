@@ -1,3 +1,4 @@
+/** 渲染可配置的旅行指南栏目，并将文章列表交给指南卡片展示。 */
 import { useTranslation } from 'next-i18next';
 import type { ReactNode } from 'react';
 import SectionHeader from '@/components/common/SectionHeader';

@@ -1,3 +1,6 @@
+/**
+ * 标签索引页：从 Notion 文章库读取标签统计并按数量排序展示。
+ */
 import Link from "@/components/Link";
 import { GetStaticProps } from "next";
 import getDataBaseList from "@/lib/notion/getDataBaseList";

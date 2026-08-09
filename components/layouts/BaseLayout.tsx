@@ -1,3 +1,4 @@
+/** 组合通用导航、页脚和固定分享栏，作为常规页面的基础布局。 */
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

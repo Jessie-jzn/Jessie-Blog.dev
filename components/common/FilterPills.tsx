@@ -1,3 +1,4 @@
+/** 渲染可横向滚动的通用筛选胶囊按钮，并报告当前选项变更。 */
 interface FilterPillsProps<T extends { id: string; name: string }> {
   items: T[];
   activeId: string;

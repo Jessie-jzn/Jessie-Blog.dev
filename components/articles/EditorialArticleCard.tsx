@@ -1,3 +1,4 @@
+/** 将文章数据和规范 canonical Article URL 传入编辑式文章卡片主体。 */
 import EditorialArticleCardBody, {
   type EditorialArticleCardVariant,
 } from "@/components/articles/EditorialArticleCardBody";

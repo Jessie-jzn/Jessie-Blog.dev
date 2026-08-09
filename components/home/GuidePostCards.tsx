@@ -1,3 +1,4 @@
+/** 将指南文章的精简数据补全为文章模型并渲染为编辑式卡片。 */
 import EditorialArticleCard from '@/components/articles/EditorialArticleCard';
 import type { Post } from '@/lib/type';
 

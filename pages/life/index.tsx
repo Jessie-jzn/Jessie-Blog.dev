@@ -1,3 +1,6 @@
+/**
+ * 生活分类页：从 Notion 获取按语言筛选的生活文章及对应国际化数据。
+ */
 import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
 import { motion } from "framer-motion";

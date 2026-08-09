@@ -1,3 +1,6 @@
+/**
+ * 全站应用入口：装配主题、国际化、全局样式、布局及公开第三方集成。
+ */
 import { ThemeProvider } from 'next-themes'; // 导入主题提供者，用于主题管理
 import { appWithTranslation } from 'next-i18next'; // 导入国际化支持
 import 'tailwindcss/tailwind.css'; // 导入 Tailwind CSS 样式

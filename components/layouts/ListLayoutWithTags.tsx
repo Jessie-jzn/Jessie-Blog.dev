@@ -1,3 +1,4 @@
+/** 支持标签路由、高亮筛选和搜索的文章列表页面布局。 */
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

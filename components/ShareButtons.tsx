@@ -1,3 +1,4 @@
+/** 使用 react-share 提供多平台文章分享入口。 */
 import {
   FacebookShareButton,
   TwitterShareButton,

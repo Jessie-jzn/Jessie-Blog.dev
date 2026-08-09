@@ -1,3 +1,6 @@
+/**
+ * WHV 指南页：从 Notion 读取本地化 WHV 文章并按准备阶段组织阅读路径。
+ */
 import { GetStaticProps } from 'next';
 import { NOTION_POST_ID } from '@/lib/constants';
 import { motion } from 'framer-motion';

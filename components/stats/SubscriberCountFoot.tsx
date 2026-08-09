@@ -1,3 +1,4 @@
+/** 获取并按当前语言格式化展示 Mailchimp 订阅人数。 */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";

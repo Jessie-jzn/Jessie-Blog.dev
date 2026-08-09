@@ -30,8 +30,8 @@ const SiteConfig = {
     },
     {
       id: 2,
-      title: 'nav.whv',
-      href: '/whv',
+      title: 'nav.articles',
+      href: '/post',
       // children: [
       //   {
       //     id: 21,
@@ -86,21 +86,26 @@ const SiteConfig = {
     },
     {
       id: 3,
-      title: 'nav.travel',
-      href: '/travel',
-    },
-    {
-      id: 4,
-      title: 'nav.life',
-      href: '/life',
-    },
-    {
-      id: 5,
       title: 'nav.technical',
       href: '/technical',
     },
     {
+      id: 4,
+      title: 'nav.whv',
+      href: '/whv',
+    },
+    {
+      id: 5,
+      title: 'nav.travel',
+      href: '/travel',
+    },
+    {
       id: 6,
+      title: 'nav.projects',
+      href: '/projects',
+    },
+    {
+      id: 7,
       title: 'nav.about',
       href: '/about',
     },

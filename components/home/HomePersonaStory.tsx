@@ -1,3 +1,4 @@
+/** 使用 home i18n 文案展示首页个人故事与补充说明。 */
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';
 
