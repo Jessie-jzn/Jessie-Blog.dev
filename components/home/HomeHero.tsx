@@ -31,7 +31,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
   return (
     <section className='relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden border-b border-white/15'>
       <Image
-        src='https://img.jessieontheroad.com/image4.jpg'
+        src='/images/home/hero.jpg'
         alt=''
         fill
         className='-z-20 scale-[1.02] object-cover object-center'

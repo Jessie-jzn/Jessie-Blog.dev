@@ -157,7 +157,7 @@ const WhvListPage = ({ posts }: any) => {
             <aside className='editorial-surface sticky top-24 rounded-2xl p-6'>
               <div className='relative mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full bg-muted'>
                 <Image
-                  src='https://img.jessieontheroad.com/avatar.png'
+                  src='/images/avatar.png'
                   alt='Profile'
                   fill
                   className='object-cover'

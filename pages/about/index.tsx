@@ -47,7 +47,7 @@ const About = () => {
           <div className='flex-shrink-0'>
             <div className='relative h-28 w-28 overflow-hidden rounded-full border border-line sm:h-36 sm:w-36'>
               <Image
-                src='https://img.jessieontheroad.com/avatar.png'
+                src='/images/avatar.png'
                 alt='Jessie'
                 fill
                 className='object-cover'

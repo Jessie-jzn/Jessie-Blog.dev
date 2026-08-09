@@ -2,7 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
+import SiteConfig from '../../site.config.ts';
+
 const source = (path: string) => readFileSync(path, 'utf8');
+
+const sourcePathsUnder = (directory: string): string[] =>
+  readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = `${directory}/${entry.name}`;
+
+    if (entry.isDirectory()) return sourcePathsUnder(path);
+    return /\.(?:ts|tsx)$/.test(entry.name) ? [path] : [];
+  });
 
 const componentBlock = (body: string, start: string, end: string) => {
   const match = body.match(new RegExp(`const ${start} =[\\s\\S]*?const ${end} =`));
@@ -17,7 +27,7 @@ test('home keeps its data and business contracts', () => {
   assert.match(page, /CommonSEO/);
   assert.match(page, /<HomeHero email=\{SiteConfig\.email\}/);
   assert.match(page, /<WhvGuideSection posts=\{whvPosts\}/);
-  assert.match(page, /<TravelGuideSection[^>]*posts=\{travelPosts\}/s);
+  assert.match(page, /<TravelGuideSection[^>]*posts=\{travelPosts\}/);
   assert.match(page, /import HomeProjectsPreview/);
   assert.match(page, /<HomeProjectsPreview \/>/);
 });
@@ -144,6 +154,47 @@ test('hero is asymmetric and exposes a content index', () => {
   assert.match(hero, /motion-reduce:transition-none/);
 });
 
+test('website avatar displays and BlogSEO use the local avatar asset', () => {
+  const runtimeSources = [
+    'site.config.ts',
+    ...sourcePathsUnder('components'),
+    ...sourcePathsUnder('pages'),
+  ];
+  const remoteAvatarReferences = runtimeSources.flatMap((path) =>
+    [...source(path).matchAll(/(?:https?:\/\/[^\s'"`]+|\$\{[^}]+\})\/avatar\.png/g)]
+      .map((match) => `${path}: ${match[0]}`),
+  );
+
+  assert.deepEqual(remoteAvatarReferences, []);
+  assert.ok(existsSync('public/images/avatar.png'));
+  assert.equal(SiteConfig.siteLogo, '/images/avatar.png');
+  assert.equal(
+    `${SiteConfig.siteUrl}${SiteConfig.siteLogo}`,
+    'https://www.jessieontheroad.com/images/avatar.png',
+  );
+  assert.match(
+    source('components/SEO.tsx'),
+    /url: `\$\{SiteConfig\.siteUrl\}\$\{SiteConfig\.siteLogo\}`/,
+  );
+
+  for (const path of [
+    'components/Navbar.tsx',
+    'components/Sidebar.tsx',
+    'pages/about/index.tsx',
+    'pages/whv/index.tsx',
+  ]) {
+    assert.match(source(path), /src=['"]\/images\/avatar\.png['"]/);
+  }
+});
+
+test('Hero uses a repository-owned local photograph', () => {
+  const hero = source('components/home/HomeHero.tsx');
+  const heroSource = hero.match(/<Image[\s\S]*?src=['"]([^'"]+)['"]/)?.[1];
+
+  assert.ok(heroSource?.startsWith('/images/home/'));
+  assert.ok(existsSync(`public${heroSource}`));
+});
+
 test('hero and content directory share a stable world index contract', () => {
   const hero = source('components/home/HomeHero.tsx');
   const worlds = source('components/home/HomeContentWorlds.tsx');
@@ -180,8 +231,8 @@ test('home locales provide the bilingual Article CTA and world directory', () =>
       'life',
     ]);
     assert.deepEqual(
-      Object.values(landing.worlds.items).map(
-        (item: { href: string }) => item.href
+      (Object.values(landing.worlds.items) as Array<{ href: string }>).map(
+        (item) => item.href
       ),
       expectedHrefs
     );

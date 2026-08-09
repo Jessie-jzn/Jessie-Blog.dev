@@ -112,7 +112,7 @@ const Navbar = ({
         >
           <span className="mr-3">
             <Image
-              src="https://img.jessieontheroad.com/avatar.png"
+              src="/images/avatar.png"
               alt="avatar"
               width={192}
               height={192}

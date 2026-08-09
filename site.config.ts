@@ -11,7 +11,7 @@ const SiteConfig = {
   description:
     'Jessie 的个人博客，记录澳洲 WHV、旅行、技术与日常生活。',
   language: 'zh', // 站点默认文案语言（与 Next defaultLocale 一致）
-  siteLogo: 'https://img.jessieontheroad.com/avatar.png',
+  siteLogo: '/images/avatar.png',
   socialBanner: '/static/images/projects/karhdo-blog.png',
   theme: 'system',
   locale: 'zh',

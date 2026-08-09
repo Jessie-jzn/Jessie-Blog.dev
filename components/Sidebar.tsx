@@ -9,7 +9,7 @@ const Sidebar = () => {
       <div className='flex flex-col items-center p-6 text-center'>
         <div className='relative w-20 h-20 mx-auto'>
           <Image
-            src={`${SiteConfig.imageDomainUrl}/avatar.png`}
+            src='/images/avatar.png'
             alt='Author avatar'
             fill
             className='rounded-full object-cover'
