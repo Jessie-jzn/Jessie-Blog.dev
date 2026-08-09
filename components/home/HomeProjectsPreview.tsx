@@ -22,33 +22,35 @@ export default function HomeProjectsPreview() {
         </div>
         <Link
           href='/projects'
-          className='editorial-focus inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm font-medium text-primaryStrong transition hover:underline active:translate-y-px motion-reduce:transform-none'
+          className='editorial-focus inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm font-medium text-primaryStrong transition hover:underline focus-visible:outline-ink active:translate-y-px motion-reduce:transform-none'
         >
           {t('landing.projects.allProjects')}
         </Link>
       </div>
 
-      <div className='mt-8 divide-y divide-line border-y border-line'>
-        {PROJECTS.map((project, index) => (
-          <article
-            key={project.id}
-            className='grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-start sm:gap-x-8'
-          >
-            <p className='text-xs font-semibold tabular-nums tracking-[0.16em] text-primaryStrong'>
-              {String(index + 1).padStart(2, '0')}
-            </p>
-            <div>
-              <h3 className='text-base font-semibold text-ink'>{project.title}</h3>
-              <p className='mt-2 text-sm leading-relaxed text-subtle'>
-                {project.summary}
+      {PROJECTS.length > 0 ? (
+        <div className='mt-8 divide-y divide-line border-y border-line'>
+          {PROJECTS.map((project, index) => (
+            <article
+              key={project.id}
+              className='grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-start sm:gap-x-8'
+            >
+              <p className='text-xs font-semibold tabular-nums tracking-[0.16em] text-primaryStrong'>
+                {String(index + 1).padStart(2, '0')}
               </p>
-            </div>
-            <p className='col-start-2 text-xs font-medium uppercase leading-relaxed tracking-[0.1em] text-subtle sm:col-start-3 sm:text-right'>
-              {project.role}
-            </p>
-          </article>
-        ))}
-      </div>
+              <div>
+                <h3 className='text-base font-semibold text-ink'>{project.title}</h3>
+                <p className='mt-2 text-sm leading-relaxed text-subtle'>
+                  {project.summary}
+                </p>
+              </div>
+              <p className='col-start-2 text-xs font-medium uppercase leading-relaxed tracking-[0.1em] text-subtle sm:col-start-3 sm:text-right'>
+                {project.role}
+              </p>
+            </article>
+          ))}
+        </div>
+      ) : null}
     </HomePageSection>
   );
 }

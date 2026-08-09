@@ -130,6 +130,18 @@
       }
     }
   },
+  "projectsPage": {
+    "eyebrow": "项目与经历",
+    "title": "我做过什么，也在继续探索什么",
+    "description": "这里整理这个博客、前端实践与 AI 探索；只记录真实做过或正在做的事。",
+    "experienceLabel": "八年前端经历",
+    "experienceTitle": "用技术把复杂的事情做得更清楚一点",
+    "experienceDescription": "我长期使用 React、Next.js、TypeScript 等现代 Web 技术，也在把 AI 能力带进内容和产品工作流。",
+    "viewProject": "查看项目",
+    "viewRepository": "查看 GitHub",
+    "resume": "查看 / 导出完整简历",
+    "status": { "ongoing": "持续迭代", "experience": "经验沉淀", "exploring": "探索中" }
+  },
   "categories": {
     "routes": "路线攻略",
     "attractions": "景点推荐",

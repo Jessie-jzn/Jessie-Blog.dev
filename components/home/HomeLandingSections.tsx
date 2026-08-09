@@ -28,7 +28,7 @@ const HomeLandingSections = () => {
         </div>
         <Link
           href='/about'
-          className='editorial-focus mt-1 inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-md text-sm font-medium text-subtle underline-offset-4 transition hover:text-primaryStrong hover:underline active:translate-y-px motion-reduce:transform-none'
+          className='editorial-focus mt-1 inline-flex min-h-11 shrink-0 items-center whitespace-nowrap rounded-md text-sm font-medium text-subtle underline-offset-4 transition hover:text-primaryStrong hover:underline focus-visible:outline-ink active:translate-y-px motion-reduce:transform-none'
         >
           {t('landing.services.aboutLink')}
         </Link>

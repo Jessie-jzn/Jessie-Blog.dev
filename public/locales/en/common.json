@@ -86,6 +86,18 @@
       }
     }
   },
+  "projectsPage": {
+    "eyebrow": "Projects & Experience",
+    "title": "What I have built, and what I am exploring",
+    "description": "A truthful record of this publication, frontend practice, and AI exploration.",
+    "experienceLabel": "Eight years in frontend",
+    "experienceTitle": "Making complex things clearer through technology",
+    "experienceDescription": "I work with modern web tools including React, Next.js, and TypeScript, and I am exploring practical AI workflows for content and products.",
+    "viewProject": "View project",
+    "viewRepository": "View GitHub",
+    "resume": "View / export full resume",
+    "status": { "ongoing": "Ongoing", "experience": "Experience", "exploring": "Exploring" }
+  },
   "footer": {
     "about": "About",
     "description": "Jessie's personal blog about an Australian WHV, travel, technology, and life.",

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 
 const source = (path: string) => readFileSync(path, 'utf8');
 
@@ -18,6 +18,8 @@ test('home keeps its data and business contracts', () => {
   assert.match(page, /<HomeHero email=\{SiteConfig\.email\}/);
   assert.match(page, /<WhvGuideSection posts=\{whvPosts\}/);
   assert.match(page, /<TravelGuideSection[^>]*posts=\{travelPosts\}/s);
+  assert.match(page, /import HomeProjectsPreview/);
+  assert.match(page, /<HomeProjectsPreview \/>/);
 });
 
 test('collaboration keeps the configured email and translated subject', () => {
@@ -42,6 +44,46 @@ test('home uses indexed continuous surfaces instead of card grids', () => {
   assert.doesNotMatch(consultation, /sm:grid-cols-3/);
 });
 
+test('project and About actions resolve to their shipped routes', () => {
+  const services = source('components/home/HomeLandingSections.tsx');
+  const preview = source('components/home/HomeProjectsPreview.tsx');
+  const routePath = 'pages/projects/index.tsx';
+
+  assert.match(services, /href='\/about'/);
+  assert.match(preview, /href='\/projects'/);
+  assert.ok(existsSync(routePath), 'Expected the /projects page to ship');
+
+  const route = source(routePath);
+  assert.match(route, /import \{ PROJECTS \} from ["']@\/lib\/projects["']/);
+  assert.match(route, /PROJECTS\.map/);
+  assert.match(route, /serverSideTranslations\([\s\S]*?["']common["']/);
+});
+
+test('project route locales provide every consumed bilingual key', () => {
+  const expectedKeys = [
+    'eyebrow',
+    'title',
+    'description',
+    'experienceLabel',
+    'experienceTitle',
+    'experienceDescription',
+    'viewProject',
+    'viewRepository',
+    'resume',
+    'status',
+  ];
+
+  for (const locale of ['en', 'zh']) {
+    const messages = JSON.parse(source(`public/locales/${locale}/common.json`));
+    assert.deepEqual(Object.keys(messages.projectsPage), expectedKeys);
+    assert.deepEqual(Object.keys(messages.projectsPage.status), [
+      'ongoing',
+      'experience',
+      'exploring',
+    ]);
+  }
+});
+
 test('capabilities use a continuous two-column ledger', () => {
   const services = source('components/home/HomeLandingSections.tsx');
   assert.match(services, /divide-y/);
@@ -57,10 +99,39 @@ test('end-section actions stay stable, focusable, and pressable', () => {
   ]) {
     const component = source(path);
     assert.match(component, /editorial-focus/);
+    assert.match(component, /focus-visible:outline-ink/);
     assert.match(component, /min-h-11/);
     assert.match(component, /whitespace-nowrap/);
     assert.match(component, /active:translate-y-px/);
   }
+});
+
+test('collaboration is the only accent home section', () => {
+  const homeSource = readdirSync('components/home')
+    .filter((name) => name.endsWith('.tsx'))
+    .map((name) => source(`components/home/${name}`))
+    .join('\n');
+  assert.equal(homeSource.match(/tone='accent'/g)?.length, 1);
+  assert.match(source('components/home/HomeConsultCta.tsx'), /tone='accent'/);
+});
+
+test('Hero and closing email actions use the same label in every locale', () => {
+  for (const locale of ['en', 'zh']) {
+    const messages = JSON.parse(source(`public/locales/${locale}/home.json`));
+    assert.equal(
+      messages.landing.hero.primaryCta,
+      messages.landing.cta.primaryBtn,
+    );
+  }
+});
+
+test('project preview omits its ruled surface when no projects exist', () => {
+  const projects = source('components/home/HomeProjectsPreview.tsx');
+  assert.match(
+    projects,
+    /PROJECTS\.length > 0 \? \(\s*<div className='mt-8 divide-y/,
+  );
+  assert.match(projects, /\) : null/);
 });
 
 test('hero is asymmetric and exposes a content index', () => {

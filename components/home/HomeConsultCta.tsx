@@ -42,7 +42,7 @@ const HomeConsultCta = () => {
           href={`mailto:${email}?subject=${encodeURIComponent(
             t('landing.cta.mailSubject'),
           )}`}
-          className='editorial-focus inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-ink bg-ink px-8 py-2.5 text-sm font-semibold text-surface transition hover:border-primaryStrong hover:bg-primaryStrong active:translate-y-px motion-reduce:transform-none'
+          className='editorial-focus inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-ink bg-ink px-8 py-2.5 text-sm font-semibold text-surface transition hover:border-primaryStrong hover:bg-primaryStrong focus-visible:outline-ink active:translate-y-px motion-reduce:transform-none'
         >
           {t('landing.cta.primaryBtn')}
         </a>
