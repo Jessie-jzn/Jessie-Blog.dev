@@ -4,6 +4,12 @@ import { readFileSync } from 'node:fs';
 
 const source = (path: string) => readFileSync(path, 'utf8');
 
+const componentBlock = (body: string, start: string, end: string) => {
+  const match = body.match(new RegExp(`const ${start} =[\\s\\S]*?const ${end} =`));
+  assert.ok(match, `Expected ${start} component block`);
+  return match[0];
+};
+
 test('home keeps its data and business contracts', () => {
   const page = source('pages/index.tsx');
   assert.match(page, /getStaticProps/);
@@ -92,13 +98,46 @@ test('guide collections expose lead and index article variants', () => {
   assert.match(article, /"index"/);
 });
 
+test('guide collection omits its index when the lead has no supporting Articles', () => {
+  const guides = source('components/home/GuidePostCards.tsx');
+  assert.match(guides, /const hasSupporting = supporting\.length > 0/);
+  assert.match(guides, /hasSupporting \? \(/);
+  assert.match(guides, /\) : null/);
+});
+
+test('guide collection does not stretch a single supporting Article', () => {
+  const guides = source('components/home/GuidePostCards.tsx');
+  assert.match(guides, /grid items-start gap-8/);
+});
+
+test('guide Article conversion preserves a full cover independently of its thumbnail', () => {
+  const guides = source('components/home/GuidePostCards.tsx');
+  assert.match(guides, /\| 'pageCover'/);
+  assert.match(
+    guides,
+    /pageCover: post\.pageCover \|\| post\.pageCoverThumbnail \|\| ''/
+  );
+  assert.match(
+    guides,
+    /pageCoverThumbnail: post\.pageCoverThumbnail \|\| ''/
+  );
+});
+
 test('lead and index Articles keep canonical routing and responsive images', () => {
   const wrapper = source('components/articles/EditorialArticleCard.tsx');
   const body = source('components/articles/EditorialArticleCardBody.tsx');
+  const lead = componentBlock(body, 'LeadArticle', 'IndexArticle');
+  const index = componentBlock(body, 'IndexArticle', 'EditorialArticleCardBody');
+
   assert.match(wrapper, /canonicalArticlePath\(article\)/);
-  assert.match(body, /sizes=/);
-  assert.match(body, /articleImageSource\(article\)/);
-  assert.match(body, /prefetch=\{false\}/);
+  for (const variant of [lead, index]) {
+    assert.match(variant, /<ArticleImage/);
+    assert.match(variant, /sizes=/);
+    assert.match(variant, /articleImageSource\(article\)/);
+    assert.match(variant, /prefetch=\{false\}/);
+    assert.match(variant, /<h3/);
+    assert.doesNotMatch(variant, /<h2/);
+  }
 });
 
 test('WHV process contains no emoji presentation', () => {

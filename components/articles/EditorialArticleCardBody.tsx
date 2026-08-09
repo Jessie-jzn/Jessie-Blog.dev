@@ -168,9 +168,9 @@ const LeadArticle = ({ article, priority, href }: EditorialArticleCardVariantPro
       </div>
       <div className="mt-5 flex flex-col gap-3 sm:mt-6">
         <ArticleMeta article={article} />
-        <h2 className="text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-3xl lg:text-4xl">
+        <h3 className="text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-3xl lg:text-4xl">
           {article.title}
-        </h2>
+        </h3>
         {article.summarize ? (
           <p className="line-clamp-3 max-w-2xl text-sm leading-6 text-subtle sm:text-base sm:leading-7">
             {article.summarize}
@@ -200,9 +200,9 @@ const IndexArticle = ({
         </span>
         <div className="min-w-0">
           <ArticleMeta article={article} />
-          <h2 className="mt-2 text-base font-semibold leading-snug tracking-[-0.02em] text-ink transition-colors group-hover:text-primaryStrong sm:text-lg">
+          <h3 className="mt-2 text-base font-semibold leading-snug tracking-[-0.02em] text-ink transition-colors group-hover:text-primaryStrong sm:text-lg">
             {article.title}
-          </h2>
+          </h3>
         </div>
         {image ? (
           <div className="relative hidden aspect-[4/3] overflow-hidden bg-muted sm:block">
