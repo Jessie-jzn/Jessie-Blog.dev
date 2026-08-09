@@ -25,6 +25,16 @@ test('home uses indexed continuous surfaces instead of card grids', () => {
   assert.doesNotMatch(projects, /md:grid-cols-3/);
 });
 
+test('hero is asymmetric and exposes a content index', () => {
+  const hero = source('components/home/HomeHero.tsx');
+  assert.match(
+    hero,
+    /lg:grid-cols-\[minmax\(0,1\.4fr\)_minmax\(16rem,0\.6fr\)\]/
+  );
+  assert.match(hero, /landing\.worlds\.items/);
+  assert.match(hero, /motion-reduce:transition-none/);
+});
+
 test('guide collections expose lead and index article variants', () => {
   const guides = source('components/home/GuidePostCards.tsx');
   const article = source('components/articles/EditorialArticleCardBody.tsx');

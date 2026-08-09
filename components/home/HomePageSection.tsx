@@ -17,16 +17,16 @@ const HomePageSection = ({
 }) => {
   const surface =
     tone === 'dark'
-      ? 'border-y border-line bg-ink text-surface'
+      ? 'bg-ink text-surface'
       : tone === 'accent'
-        ? 'border-y border-line bg-primarySoft'
+        ? 'bg-primarySoft'
         : 'bg-canvas';
 
   return (
     <section
       id={id}
       aria-label={ariaLabel}
-      className={`scroll-mt-20 ${surface} ${className}`}
+      className={`scroll-mt-20 border-b border-line ${surface} ${className}`}
     >
       <div className='site-container site-section'>{children}</div>
     </section>
