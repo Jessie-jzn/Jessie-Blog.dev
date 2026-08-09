@@ -15,6 +15,7 @@ import WhvGuideSection from '@/components/home/WhvGuideSection';
 import TravelGuideSection from '@/components/home/TravelGuideSection';
 import HomeConsultCta from '@/components/home/HomeConsultCta';
 import HomeContentWorlds from '@/components/home/HomeContentWorlds';
+import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
 
 const notionService = new NotionService();
 
@@ -93,6 +94,8 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
           <TravelGuideSection sectionId='travel-guides' posts={travelPosts} />
 
           <HomeLandingSections />
+
+          <HomeProjectsPreview />
 
           <HomeConsultCta />
         </div>

@@ -20,6 +20,14 @@ test('home keeps its data and business contracts', () => {
   assert.match(page, /<TravelGuideSection[^>]*posts=\{travelPosts\}/s);
 });
 
+test('collaboration keeps the configured email and translated subject', () => {
+  const cta = source('components/home/HomeConsultCta.tsx');
+  assert.match(cta, /SiteConfig/);
+  assert.match(cta, /mailto:\$\{email\}/);
+  assert.match(cta, /landing\.cta\.mailSubject/);
+  assert.match(cta, /landing\.cta\.primaryBtn/);
+});
+
 test('home uses indexed continuous surfaces instead of card grids', () => {
   const worlds = source('components/home/HomeContentWorlds.tsx');
   const projects = source('components/home/HomeProjectsPreview.tsx');
@@ -27,8 +35,32 @@ test('home uses indexed continuous surfaces instead of card grids', () => {
   assert.match(worlds, /divide-y/);
   assert.match(projects, /divide-y/);
   assert.match(consultation, /divide-y/);
+  assert.match(projects, /PROJECTS\.map\(\(project, index\)/);
+  assert.match(projects, /String\(index \+ 1\)\.padStart\(2, '0'\)/);
   assert.doesNotMatch(worlds, /grid[^"']*lg:grid-cols-4/);
   assert.doesNotMatch(projects, /md:grid-cols-3/);
+  assert.doesNotMatch(consultation, /sm:grid-cols-3/);
+});
+
+test('capabilities use a continuous two-column ledger', () => {
+  const services = source('components/home/HomeLandingSections.tsx');
+  assert.match(services, /divide-y/);
+  assert.match(services, /sm:grid-cols-\[/);
+  assert.doesNotMatch(services, /space-y-8/);
+});
+
+test('end-section actions stay stable, focusable, and pressable', () => {
+  for (const path of [
+    'components/home/HomeLandingSections.tsx',
+    'components/home/HomeProjectsPreview.tsx',
+    'components/home/HomeConsultCta.tsx',
+  ]) {
+    const component = source(path);
+    assert.match(component, /editorial-focus/);
+    assert.match(component, /min-h-11/);
+    assert.match(component, /whitespace-nowrap/);
+    assert.match(component, /active:translate-y-px/);
+  }
 });
 
 test('hero is asymmetric and exposes a content index', () => {

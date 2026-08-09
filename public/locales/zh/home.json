@@ -5,15 +5,15 @@
     "hero": {
       "badge": "ENFJ · 前端 · 澳洲 WHV 一年",
       "headline": [
-        "我是 Jessie"
+        "我是 Jessie，写代码，也认真记录生活"
       ],
       "paragraphs": [
-        "做了 8 年前端，也在澳洲度过了一年 WHV\n喜欢旅行，也喜欢把经历认真记下来",
-        "这里有打工度假的真实日常\n也有旅行、技术和生活里的片段",
-        "不是标准答案，只是我走过的路\n希望其中一些记录，刚好对你有用"
+        "做了 8 年前端，也持续探索 AI、产品与内容表达。",
+        "这里写 WHV、旅行、技术、生活，以及那些还没有标准答案的思考。",
+        "希望这些真实记录，能在你需要的时候刚好有用。"
       ],
       "primaryMailSubject": "网站来信",
-      "primaryCta": "写邮件",
+      "primaryCta": "和我聊聊",
       "secondaryCta": "阅读文章",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
@@ -30,6 +30,13 @@
         "travel": { "eyebrow": "TRAVEL", "title": "旅行记录", "description": "我亲自走过的地方、见闻和踩过的坑。", "href": "/travel" },
         "life": { "eyebrow": "LIFE", "title": "生活与思考", "description": "变化、选择，以及不那么完美的日常感受。", "href": "/life" }
       }
+    },
+    "projects": {
+      "eyebrow": "PROJECTS & EXPERIENCE",
+      "title": "我做过的项目，也在继续学习的方向",
+      "description": "技术不是一份清单，而是一次次把想法变成可用体验的过程。",
+      "allProjects": "查看项目与经历 →",
+      "aria": "项目与经历"
     },
     "persona": {
       "sectionEyebrow": "01",
@@ -82,14 +89,19 @@
       "subtitle": "从准备、落地到工作与离开，记录真实经历，也整理实用信息"
     },
     "cta": {
-      "sectionEyebrow": "联系我",
-      "title": "如果这些经历让你有共鸣，欢迎来信",
-      "p1": "如果你也在准备 WHV、喜欢旅行，或者想聊技术与生活，可以给我写信。",
-      "p2": "不用准备正式的问题，分享你的经历，或简单打个招呼都可以。",
+      "sectionEyebrow": "合作与交流",
+      "title": "如果你也对这些事感兴趣，欢迎来聊聊",
+      "p1": "无论是内容、产品、AI，还是 WHV 和旅行里的具体问题，都欢迎从一封邮件开始。",
+      "p2": "我也开放与读者、品牌和项目伙伴交流，但会优先选择和这个站内容真正相关的合作。",
       "mailSubject": "你好 Jessie",
       "primaryBtn": "给我写信",
       "whvNote": "如果是文章中的信息需要更新，也欢迎告诉我。",
-      "ariaConsult": "联系"
+      "ariaConsult": "合作与交流",
+      "paths": {
+        "ads": { "title": "品牌合作", "description": "适合读者与内容方向一致的广告或共创。" },
+        "ai": { "title": "AI / Web 项目", "description": "一起讨论产品想法、原型或技术落地。" },
+        "whv": { "title": "WHV 交流", "description": "分享亲身经验，不替代专业签证建议。" }
+      }
     },
     "aria": {
       "persona": "关于 Jessie",

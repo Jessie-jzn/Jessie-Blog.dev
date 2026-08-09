@@ -21,12 +21,28 @@ const HomeConsultCta = () => {
         </p>
       </div>
 
+      <ul className='mt-6 max-w-2xl divide-y divide-line border-y border-line text-sm text-subtle'>
+        {(['ads', 'ai', 'whv'] as const).map((key) => (
+          <li
+            key={key}
+            className='grid gap-1 py-5 sm:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] sm:gap-6'
+          >
+            <p className='font-medium text-ink'>
+              {t(`landing.cta.paths.${key}.title`)}
+            </p>
+            <p className='leading-relaxed'>
+              {t(`landing.cta.paths.${key}.description`)}
+            </p>
+          </li>
+        ))}
+      </ul>
+
       <div className='mt-8'>
         <a
           href={`mailto:${email}?subject=${encodeURIComponent(
             t('landing.cta.mailSubject'),
           )}`}
-          className='editorial-focus inline-flex items-center justify-center rounded-full border border-line bg-primary px-8 py-3 text-sm font-semibold text-ink transition-colors hover:bg-primaryStrong hover:text-surface'
+          className='editorial-focus inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full border border-ink bg-ink px-8 py-2.5 text-sm font-semibold text-surface transition hover:border-primaryStrong hover:bg-primaryStrong active:translate-y-px motion-reduce:transform-none'
         >
           {t('landing.cta.primaryBtn')}
         </a>

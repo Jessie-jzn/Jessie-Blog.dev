@@ -5,15 +5,15 @@
     "hero": {
       "badge": "ENFJ · frontend · one year in Australia on a WHV",
       "headline": [
-        "Hey, I'm Jessie."
+        "I'm Jessie. I build on the web and keep honest notes about life."
       ],
       "paragraphs": [
-        "I spent eight years working in frontend development and one year living in Australia on a working holiday visa.",
-        "This is where I keep honest notes from that year, the places I have travelled, the things I build, and ordinary life in between.",
-        "These are not definitive answers—just the roads I have taken, recorded as truthfully as I can."
+        "I have spent eight years in frontend development, and I keep exploring AI, products, and how to tell useful stories.",
+        "I write about WHV, travel, technology, life, and questions that do not have neat answers yet.",
+        "I hope these lived notes are useful at exactly the right moment."
       ],
       "primaryMailSubject": "Hello Jessie",
-      "primaryCta": "Write to me",
+      "primaryCta": "Get in touch",
       "secondaryCta": "Read Articles",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
@@ -30,6 +30,13 @@
         "travel": { "eyebrow": "TRAVEL", "title": "Travel journal", "description": "Places I have visited, what I noticed, and mistakes I made.", "href": "/travel" },
         "life": { "eyebrow": "LIFE", "title": "Life & reflections", "description": "Change, choices, and imperfect everyday thoughts.", "href": "/life" }
       }
+    },
+    "projects": {
+      "eyebrow": "PROJECTS & EXPERIENCE",
+      "title": "What I have built, and what I am still learning",
+      "description": "Technology is not a checklist; it is how ideas become useful experiences.",
+      "allProjects": "View projects & experience →",
+      "aria": "Projects and experience"
     },
     "persona": {
       "sectionEyebrow": "Tone / site map",
@@ -74,14 +81,19 @@
       "intro": "Personal stories first, with practical information where it may help."
     },
     "cta": {
-      "sectionEyebrow": "Say hi",
-      "title": "If any of these stories resonate, say hello.",
-      "p1": "If you are preparing for a WHV, love travelling, or want to talk about technology and life, feel free to write.",
-      "p2": "You do not need a formal question. Share your experience or simply say hello.",
+      "sectionEyebrow": "COLLABORATE & CONNECT",
+      "title": "If these subjects matter to you too, let’s talk.",
+      "p1": "Content, products, AI, WHV, or a question from the road can all begin with an email.",
+      "p2": "I welcome readers, brands, and project collaborators, especially when the work fits this publication’s themes.",
       "mailSubject": "Hello Jessie",
       "primaryBtn": "Write to me",
       "whvNote": "If something in an article needs updating, I would be glad to hear about that too.",
-      "ariaConsult": "Contact"
+      "ariaConsult": "Collaborate and connect",
+      "paths": {
+        "ads": { "title": "Brand partnerships", "description": "Advertising or co-creation that genuinely fits this readership." },
+        "ai": { "title": "AI / web projects", "description": "Discuss an idea, prototype, or technical path together." },
+        "whv": { "title": "WHV conversations", "description": "Lived experience only, not professional visa advice." }
+      }
     },
     "aria": {
       "persona": "About Jessie",
