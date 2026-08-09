@@ -2,13 +2,19 @@ import Link from "next/link";
 import ArticleImage from "@/components/ArticleImage";
 import type { Post } from "@/lib/type";
 
-export type EditorialArticleCardVariant = "row" | "feature" | "compact";
+export type EditorialArticleCardVariant =
+  | "row"
+  | "feature"
+  | "compact"
+  | "lead"
+  | "index";
 
 interface EditorialArticleCardBodyProps {
   article: Post;
   variant: EditorialArticleCardVariant;
   priority: boolean;
   href: string;
+  position?: number;
 }
 
 type EditorialArticleCardVariantProps = Omit<
@@ -147,12 +153,96 @@ const CompactCard = ({ article, priority, href }: EditorialArticleCardVariantPro
   </Link>
 );
 
+const LeadArticle = ({ article, priority, href }: EditorialArticleCardVariantProps) => (
+  <Link href={href} prefetch={false} className="editorial-focus group block">
+    <article>
+      <div className="relative aspect-[16/10] overflow-hidden bg-muted sm:aspect-[3/2]">
+        <ArticleImage
+          src={articleImageSource(article)}
+          alt={article.title}
+          fill
+          priority={priority}
+          sizes="(max-width: 1023px) 100vw, 55vw"
+          className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.02]"
+        />
+      </div>
+      <div className="mt-5 flex flex-col gap-3 sm:mt-6">
+        <ArticleMeta article={article} />
+        <h2 className="text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink sm:text-3xl lg:text-4xl">
+          {article.title}
+        </h2>
+        {article.summarize ? (
+          <p className="line-clamp-3 max-w-2xl text-sm leading-6 text-subtle sm:text-base sm:leading-7">
+            {article.summarize}
+          </p>
+        ) : null}
+      </div>
+    </article>
+  </Link>
+);
+
+const IndexArticle = ({
+  article,
+  priority,
+  href,
+  position = 1,
+}: EditorialArticleCardVariantProps) => {
+  const image = articleImageSource(article);
+
+  return (
+    <Link href={href} prefetch={false} className="editorial-focus group block py-5">
+      <article className="grid grid-cols-[2rem_minmax(0,1fr)] gap-4 sm:grid-cols-[2.5rem_minmax(0,1fr)_7.5rem] sm:items-center">
+        <span
+          aria-hidden="true"
+          className="pt-0.5 text-xs font-medium tabular-nums tracking-[0.12em] text-primaryStrong sm:self-start"
+        >
+          {String(position).padStart(2, "0")}
+        </span>
+        <div className="min-w-0">
+          <ArticleMeta article={article} />
+          <h2 className="mt-2 text-base font-semibold leading-snug tracking-[-0.02em] text-ink transition-colors group-hover:text-primaryStrong sm:text-lg">
+            {article.title}
+          </h2>
+        </div>
+        {image ? (
+          <div className="relative hidden aspect-[4/3] overflow-hidden bg-muted sm:block">
+            <ArticleImage
+              src={image}
+              alt=""
+              fill
+              priority={priority}
+              sizes="120px"
+              className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+            />
+          </div>
+        ) : null}
+      </article>
+    </Link>
+  );
+};
+
 const EditorialArticleCardBody = ({
   article,
   variant,
   priority,
   href,
+  position,
 }: EditorialArticleCardBodyProps) => {
+  if (variant === "lead") {
+    return <LeadArticle article={article} priority={priority} href={href} />;
+  }
+
+  if (variant === "index") {
+    return (
+      <IndexArticle
+        article={article}
+        priority={priority}
+        href={href}
+        position={position}
+      />
+    );
+  }
+
   if (variant === "feature") {
     return <FeatureCard article={article} priority={priority} href={href} />;
   }

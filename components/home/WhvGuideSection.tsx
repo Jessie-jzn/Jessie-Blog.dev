@@ -7,15 +7,10 @@ import HomePageSection from '@/components/home/HomePageSection';
 import * as Types from '@/lib/type';
 
 const whvSteps = [
-  {
-    title: '行前',
-    icon: '✈️',
-    link: '/tag/preparation',
-    desc: '签证',
-  },
-  { title: '落地', icon: '🇦🇺', link: '/tag/landing', desc: '卡 / 税号' },
-  { title: '工作', icon: '💼', link: '/tag/jobs', desc: '求职' },
-  { title: '离境', icon: '💰', link: '/tag/tax', desc: '退税' },
+  { title: '行前', link: '/tag/preparation', desc: '签证' },
+  { title: '落地', link: '/tag/landing', desc: '卡 / 税号' },
+  { title: '工作', link: '/tag/jobs', desc: '求职' },
+  { title: '离境', link: '/tag/tax', desc: '退税' },
 ];
 
 interface WhvGuideSectionProps {
@@ -65,18 +60,24 @@ const WhvGuideSection = ({
         />
       </div>
 
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-4 mb-10 md:mb-12'>
+      <div className='mb-10 grid grid-cols-2 gap-x-6 md:mb-12 md:grid-cols-4'>
         {whvSteps.map((step, i) => (
-          <Link key={i} href={step.link} className='editorial-focus group rounded-2xl'>
-            <div className='h-full rounded-2xl border border-line bg-muted px-2 py-3.5 text-center transition-colors duration-300 group-hover:border-primary/40 group-hover:bg-primarySoft md:py-5'>
-              <div className='text-lg md:text-2xl mb-1 md:mb-2 opacity-95'>
-                {step.icon}
-              </div>
-              <h3 className='text-[11px] font-semibold text-ink md:text-xs'>
-                {stepTitles[i] ?? step.title}
-              </h3>
-              <div className='mt-0.5 text-[10px] text-subtle'>
-                {stepDescs[i]}
+          <Link
+            key={step.link}
+            href={step.link}
+            className='editorial-focus group border-t border-line py-5 transition-colors duration-300 hover:border-primaryStrong focus-visible:border-primaryStrong'
+          >
+            <div className='flex items-start gap-3'>
+              <span className='text-xs font-medium tabular-nums tracking-[0.12em] text-primaryStrong'>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3 className='text-sm font-semibold text-ink transition-colors group-hover:text-primaryStrong'>
+                  {stepTitles[i] ?? step.title}
+                </h3>
+                <p className='mt-1 text-xs leading-5 text-subtle'>
+                  {stepDescs[i]}
+                </p>
               </div>
             </div>
           </Link>

@@ -53,7 +53,7 @@ const TravelGuideSection = ({
           subtitle={sub}
           readMoreLink='/travel'
         />
-        <div className='mt-6 rounded-2xl border border-line bg-muted p-4 text-sm leading-relaxed text-subtle md:mt-8 md:p-5 md:text-[15px]'>
+        <div className='mt-6 border-l border-primary pl-5 text-sm leading-relaxed text-subtle md:mt-8 md:text-[15px]'>
           {intro ?? defaultIntro}
         </div>
       </div>

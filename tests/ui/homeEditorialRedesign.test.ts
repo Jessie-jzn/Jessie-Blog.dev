@@ -83,13 +83,44 @@ test('home locales provide the bilingual Article CTA and world directory', () =>
 test('guide collections expose lead and index article variants', () => {
   const guides = source('components/home/GuidePostCards.tsx');
   const article = source('components/articles/EditorialArticleCardBody.tsx');
+  assert.match(guides, /const \[lead, \.\.\.supporting\] = posts/);
   assert.match(guides, /variant='lead'/);
   assert.match(guides, /variant='index'/);
+  assert.match(guides, /border-y border-line divide-y divide-line/);
+  assert.doesNotMatch(guides, /xl:grid-cols-4/);
   assert.match(article, /"lead"/);
   assert.match(article, /"index"/);
+});
+
+test('lead and index Articles keep canonical routing and responsive images', () => {
+  const wrapper = source('components/articles/EditorialArticleCard.tsx');
+  const body = source('components/articles/EditorialArticleCardBody.tsx');
+  assert.match(wrapper, /canonicalArticlePath\(article\)/);
+  assert.match(body, /sizes=/);
+  assert.match(body, /articleImageSource\(article\)/);
+  assert.match(body, /prefetch=\{false\}/);
 });
 
 test('WHV process contains no emoji presentation', () => {
   const whv = source('components/home/WhvGuideSection.tsx');
   assert.doesNotMatch(whv, /✈️|🇦🇺|💼|💰/);
+  for (const href of [
+    '/tag/preparation',
+    '/tag/landing',
+    '/tag/jobs',
+    '/tag/tax',
+  ]) {
+    assert.match(whv, new RegExp(href));
+  }
+  assert.match(whv, /\['Prep', 'Landing', 'Jobs', 'Exit'\]/);
+  assert.match(whv, /\['Visa', 'Cards \/ TFN', 'Finding work', 'Tax \/ depart'\]/);
+  assert.match(whv, /String\(i \+ 1\)\.padStart\(2, '0'\)/);
+});
+
+test('travel uses an inline editor note and keeps its empty collection guard', () => {
+  const travel = source('components/home/TravelGuideSection.tsx');
+  assert.match(travel, /if \(!posts\?\.length\) return null/);
+  assert.match(travel, /intro \?\? defaultIntro/);
+  assert.match(travel, /border-l border-primary pl-5/);
+  assert.doesNotMatch(travel, /rounded-2xl border border-line bg-muted/);
 });

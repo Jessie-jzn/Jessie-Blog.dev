@@ -13,30 +13,37 @@ type GuidePost = Pick<
   | 'tags'
 >;
 
+const toArticle = (post: GuidePost): Post => ({
+  ...post,
+  type: 'Post',
+  status: 'Published',
+  tags: post.tags || [],
+  pageCover: post.pageCoverThumbnail || '',
+  pageCoverThumbnail: post.pageCoverThumbnail || '',
+});
+
 const GuidePostCards = ({ posts }: { posts: GuidePost[] }) => {
   if (!posts?.length) return null;
 
-  return (
-    <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4'>
-      {posts.map((post, index) => {
-        const article: Post = {
-          ...post,
-          type: 'Post',
-          status: 'Published',
-          tags: post.tags || [],
-          pageCover: post.pageCoverThumbnail || '',
-          pageCoverThumbnail: post.pageCoverThumbnail || '',
-        };
+  const [lead, ...supporting] = posts;
 
-        return (
-          <EditorialArticleCard
-            key={article.id}
-            article={article}
-            variant='feature'
-            priority={index === 0}
-          />
-        );
-      })}
+  return (
+    <div className='grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)]'>
+      <EditorialArticleCard article={toArticle(lead)} variant='lead' priority />
+      <div className='border-y border-line divide-y divide-line'>
+        {supporting.map((post, index) => {
+          const article = toArticle(post);
+
+          return (
+            <EditorialArticleCard
+              key={article.id}
+              article={article}
+              variant='index'
+              position={index + 2}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

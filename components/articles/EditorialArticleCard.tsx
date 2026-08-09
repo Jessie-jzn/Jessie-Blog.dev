@@ -8,17 +8,20 @@ interface EditorialArticleCardProps {
   article: Post;
   variant?: EditorialArticleCardVariant;
   priority?: boolean;
+  position?: number;
 }
 
 const EditorialArticleCard = ({
   article,
   variant = "row",
   priority = false,
+  position,
 }: EditorialArticleCardProps) => (
   <EditorialArticleCardBody
     article={article}
     variant={variant}
     priority={priority}
+    position={position}
     href={canonicalArticlePath(article)}
   />
 );
