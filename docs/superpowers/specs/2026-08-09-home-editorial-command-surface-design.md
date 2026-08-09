@@ -1,109 +1,113 @@
-# Home Editorial Command Surface Redesign
+# 首页 Editorial Command Surface 重设计规格
 
-## Goal
+## 目标
 
-Redesign the React home page as an editorial command surface inspired by Linear's hierarchy and Raycast's crisp interaction language. The result should feel like a personal publication rather than a SaaS dashboard: Jessie's identity and writing lead, while projects and collaboration remain supporting paths.
+将当前 React 首页重新设计为受 Linear 与 Raycast 启发的「编辑式内容控制台」。页面要体现 Linear 的清晰层级与 Raycast 的利落交互，但本质仍是 Jessie 的个人内容品牌，而不是 SaaS 仪表盘：个人身份与文章是主角，项目与合作入口作为辅助内容。
 
-## Scope and Constraints
+## 范围与约束
 
-- Keep the existing `getStaticProps` flow, Notion queries, Article filtering, ISR, SEO, internationalization, routes, email actions, and link destinations unchanged.
-- Make `pages/index.tsx` the composition point and update only the home-specific components and shared presentation tokens required by the redesign.
-- Use the repository's existing Tailwind CSS 3 setup and existing dependencies. Do not introduce another component system.
-- Preserve unrelated working-tree changes and avoid broad refactors.
-- Keep all existing home content sections unless a presentational wrapper becomes redundant; no new claims, metrics, testimonials, or business behavior are introduced.
+- 保留现有 `getStaticProps`、Notion 数据查询、文章筛选、ISR、SEO、国际化、路由、邮件操作和所有链接目标。
+- 以 `pages/index.tsx` 作为首页结构入口，只修改重设计所需的首页专属组件与公共展示样式。
+- 继续使用项目现有的 Tailwind CSS 3 和已有依赖，不引入新的组件系统。
+- 保留工作区中无关的现有修改，不进行超出首页范围的大规模重构。
+- 保留现有首页内容模块；只允许删除已经没有必要的纯展示包装层。
+- 不新增未经证实的项目成果、指标、客户评价或业务能力。
 
-## Design Direction
+## 设计方向
 
-The selected direction is **Editorial Command Surface**.
+采用已确认的 **Editorial Command Surface** 方向。
 
-Design parameters are `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 4`, and `VISUAL_DENSITY: 4`. The interface combines a disciplined, mostly monochrome editorial grid with Jessie's existing mint accent. Linear supplies the spacing, typography, separators, and calm hierarchy; Raycast supplies compact indexed rows, active states, and tactile controls.
+设计参数：`DESIGN_VARIANCE: 6`、`MOTION_INTENSITY: 4`、`VISUAL_DENSITY: 4`。整体以冷静的黑白灰编辑网格为主，保留 Jessie 当前的薄荷绿色作为唯一强调色。Linear 提供间距、排版、分隔线与克制层级；Raycast 提供编号索引、紧凑信息行、焦点态与触感反馈。
 
-The page must not use repeated floating Cards as its primary layout. Content groups are defined through whitespace, thin rules, columns, numbering, and controlled surface changes. Rounded containers are reserved for controls or a single genuinely elevated focal element.
+页面不允许以重复悬浮 Card 作为主要布局。内容分组主要依赖留白、细线、分栏、编号和有限的背景层次。圆角容器只用于交互控件，或极少数确实需要抬高层级的焦点内容。
 
-## Page Composition
+## 页面结构
 
-### 1. Identity Hero
+### 1. 身份 Hero
 
-The hero remains image-led but changes from a centered overlay stack to an asymmetric composition. The main identity statement, supporting copy, and two existing calls to action occupy the dominant left region. A compact content index or identity rail occupies the secondary region and points to the page's principal themes without adding new destinations.
+保留现有照片，但从覆盖在图片上的常规纵向内容改为非对称构图。左侧承载主要身份表达、说明文字和现有两个行动按钮；右侧设置紧凑的内容索引或身份信息轨道，引导用户理解主要内容主题，但不增加新的链接目标。
 
-The hero must fit in the initial viewport on common desktop sizes. Its overlay treatment should protect text contrast without hiding the photography. Motion is limited to a restrained entrance and must respect reduced-motion preferences.
+Hero 在常见桌面尺寸下必须完整出现在首屏。遮罩需要保证文字对比度，同时保留摄影细节。动效只使用克制的入场动画，并尊重减少动态效果的系统设置。
 
-### 2. Persona Statement
+### 2. 个人叙事
 
-The persona copy becomes an editorial manifesto band with a narrow label column and a readable text column. It uses typography and rules rather than a container Card. The existing aside remains visually distinct through indentation or a single accent rule.
+将现有个人介绍呈现为编辑式宣言区：左侧窄标签栏，右侧可读性更强的正文栏。不使用 Card 包裹。现有补充说明通过缩进或单条强调色竖线区分。
 
-### 3. Content Worlds
+### 3. 内容世界
 
-AI and technology, WHV, travel, and life become an indexed directory rather than four equal Cards. Each destination is a full-width or two-column row with a sequence number, title, concise description, and directional affordance. Hover and focus states may shift the rule, accent, or background subtly, but the rows remain part of one continuous surface.
+AI 与技术、WHV、旅行和生活改为连续的编号目录，不再使用四个等宽 Card。每一项包含序号、标题、简短描述和方向提示。Hover 与键盘焦点可以轻微改变分隔线、背景或强调色，但所有条目应保持在同一个连续内容平面中。
 
-### 4. WHV Guide
+### 4. WHV 指南
 
-The four journey stages become a compact horizontal process rail or segmented index using text and restrained iconography. Emoji are removed from the visible interface. Existing stage routes and bilingual labels stay unchanged.
+四个阶段改为紧凑的横向流程轨道或分段索引，使用文字和克制的图标表达，移除界面中的 Emoji。现有阶段路由和中英文名称保持不变。
 
-WHV Articles use a hierarchy of one emphasized lead Article followed by denser supporting Articles. This avoids an equal-card wall and establishes a clear reading priority while preserving the same input data and canonical Article links.
+WHV 文章采用「一篇重点文章 + 多篇紧凑辅助文章」的层级，避免同尺寸 Card 墙，在不改变输入数据和文章链接的前提下建立明确阅读优先级。
 
-### 5. Travel Guide
+### 5. 旅行指南
 
-Travel follows the same Article system for consistency but may use a wider image-led lead item to preserve its photographic character. The introductory copy becomes an inline editorial note rather than a rounded muted Card.
+旅行内容沿用相同的文章展示系统以保持一致，但重点文章可以使用更宽的图片区域，保留旅行内容的摄影感。现有介绍文字改为行内编辑注释，不再放入圆角浅色 Card。
 
-### 6. Technology, Life, and Services
+### 6. 技术、生活与能力说明
 
-The existing text blocks become a structured capability ledger: headings, descriptions, and thin dividers in an asymmetric grid. The About link remains secondary. No service Card grid is introduced.
+现有文字模块改为结构化能力清单：使用非对称网格、标题、正文和细分隔线。About 链接继续作为次级入口，不新增服务 Card 网格。
 
-### 7. Projects
+### 7. 项目预览
 
-Projects become a numbered project register with role, title, and summary arranged in rows. The entire section uses one continuous bordered rhythm rather than three standalone Cards. The existing Projects route and project data remain unchanged.
+项目改为带编号的项目登记表，按行展示角色、标题和简介。整个区域使用连续边界和分隔节奏，不再使用三个独立 Card。现有项目数据和 `/projects` 路由保持不变。
 
-### 8. Collaboration
+### 8. 合作入口
 
-The final call to action is the page's single high-emphasis surface. Its three collaboration paths are expressed as a divided list rather than Cards. The existing email action, disclosure copy, and visible email address remain intact. The CTA label and intent stay consistent with the hero contact action.
+最终 CTA 是全页唯一的高强调内容面。三个合作方向改为带分隔线的列表，不使用 Card。保留现有邮件操作、说明文字和公开邮箱。Hero 与结尾区的联系按钮保持相同意图与一致文案，避免重复 CTA 表达。
 
-## Visual System
+## 视觉系统
 
-- Retain the existing cool neutral canvas and mint accent, with one accent family across light and dark themes.
-- Use Outfit and the current font stack; do not add remote fonts.
-- Increase contrast between display, section, body, and metadata type. Use tight tracking for major headings and compact uppercase labels only for navigational metadata.
-- Prefer square or subtly rounded structural surfaces. Pills are limited to small status labels and controls.
-- Prefer `border-t`, `border-b`, `divide-y`, grid lines, and negative space over shadows and floating panels.
-- Use a consistent container width and a more deliberate section rhythm, with responsive reductions on small screens.
-- All interactive elements receive visible focus, hover, and active states. Text and button contrast must meet WCAG AA.
+- 保留现有冷色中性背景与薄荷绿色强调色，亮色和暗色主题共用同一强调色体系。
+- 使用当前 Outfit 字体和现有字体栈，不增加远程字体。
+- 拉开主标题、章节标题、正文和元数据之间的字号与字重差异。
+- 大标题使用紧凑字距；大写小标签只用于导航性元数据。
+- 结构性区域使用直角或轻微圆角；pill 只用于小型状态标签与控件。
+- 优先使用 `border-t`、`border-b`、`divide-y`、网格线和留白，不使用大面积阴影或漂浮面板。
+- 全页统一内容宽度和章节垂直节奏，并在小屏幕上适当收紧。
+- 所有交互元素必须具备清晰的 hover、focus 和 active 状态；文字与按钮达到 WCAG AA 对比度。
 
-## Responsive Behavior
+## 响应式行为
 
-- The hero collapses to a single readable column on mobile; the secondary index follows the main action rather than overlaying the image.
-- Directory and project rows stack their metadata without changing reading order.
-- Article layouts become one column on narrow screens, retaining the lead-versus-supporting hierarchy through image size and typography.
-- WHV stages remain touch-friendly and may scroll horizontally only if four readable stages cannot fit without cramped labels.
-- CTA controls remain single-line and at least 44 pixels high.
+- 移动端 Hero 变为单列，次级内容索引放在主要操作之后，不覆盖图片或正文。
+- 内容目录和项目行在窄屏下重新排列元数据，但不改变阅读顺序。
+- 文章区域在窄屏下变为单列，仍通过图片尺寸和排版保留重点文章与辅助文章的区别。
+- WHV 阶段必须保持可点击区域足够大；只有在四个阶段无法清晰并排时才允许横向滚动。
+- CTA 文字不得换行，交互控件高度不低于 44px。
 
-## Component Boundaries
+## 组件边界
 
-- `pages/index.tsx` owns section order and top-level page rhythm.
-- `HomeHero` owns the image, identity content, and hero-local navigation index.
-- `HomePageSection` provides semantic section framing and tone without imposing a Card.
-- `HomeContentWorlds`, `HomeProjectsPreview`, and `HomeConsultCta` each render one continuous indexed or divided surface.
-- `WhvGuideSection` and `TravelGuideSection` retain their data contracts and delegate Article presentation to `GuidePostCards`, which may be renamed internally only if all existing imports remain safe.
-- Shared changes outside `components/home` are limited to presentation primitives needed by multiple redesigned home sections.
+- `pages/index.tsx`：负责章节顺序和页面整体节奏。
+- `HomeHero`：负责首屏图片、身份内容和 Hero 内部索引。
+- `HomePageSection`：提供语义化章节与色调，不强制 Card 外观。
+- `HomeContentWorlds`、`HomeProjectsPreview`、`HomeConsultCta`：各自输出一个连续的索引或分隔列表。
+- `WhvGuideSection`、`TravelGuideSection`：保留现有数据接口，并将文章展示交给 `GuidePostCards`。
+- `components/home` 之外的修改仅限多个首页区域共同需要的展示基础样式。
 
-## Data Flow and States
+## 数据流与状态
 
-The page continues receiving `whvPosts` and `travelPosts` from `getStaticProps`. Components remain presentational and do not introduce new client-side fetching or global state. Existing empty behavior is preserved: Travel renders nothing without Articles, and Article collections render nothing when empty. The redesign must not manufacture placeholder content for production data.
+首页继续通过 `getStaticProps` 接收 `whvPosts` 和 `travelPosts`。所有首页组件继续保持展示型组件，不新增客户端数据请求或全局状态。
 
-Image loading keeps Next.js `Image`, appropriate responsive `sizes`, and priority only for above-the-fold imagery. Existing external image configuration remains unchanged.
+保留现有空数据行为：旅行文章为空时不渲染旅行区域，文章集合为空时不渲染文章列表。生产页面不得使用虚构占位内容填补空数据。
 
-## Verification
+图片继续使用 Next.js `Image`，提供正确的响应式 `sizes`。只有首屏图片或确实位于首屏的重点图片使用 priority。现有外部图片配置保持不变。
 
-- Run TypeScript checking and the repository lint command.
-- Run relevant existing tests and a production build where environment access permits.
-- Inspect the home page at mobile, tablet, and desktop widths in both light and dark themes.
-- Verify keyboard navigation, visible focus, CTA contrast, image legibility, reduced motion, and absence of horizontal overflow.
-- Confirm all existing destinations, mail subjects, translations, SEO fields, Article filtering, and empty-data behavior remain unchanged.
-- Review the final page specifically for repeated Card containers, mixed radius rules, excessive accent use, wrapped desktop CTAs, and duplicated CTA intent.
+## 验证要求
 
-## Success Criteria
+- 运行 TypeScript 检查与仓库现有 lint 命令。
+- 运行相关现有测试，并在环境允许时执行生产构建。
+- 在移动端、平板和桌面宽度下检查首页亮色与暗色主题。
+- 检查键盘导航、可见焦点、CTA 对比度、图片上的文字清晰度、减少动态效果和横向溢出。
+- 确认现有链接目标、邮件主题、翻译键、SEO 字段、文章筛选和空数据行为均未改变。
+- 最终专项检查：重复 Card、混乱圆角体系、强调色滥用、桌面 CTA 换行、重复 CTA 意图。
 
-- The first viewport clearly communicates who Jessie is, what she writes about, and how to read or contact her.
-- Major sections have distinct hierarchy without relying on stacked Cards.
-- The page feels recognizably inspired by Linear and Raycast while remaining a photography-friendly personal publication.
-- WHV and travel Articles expose an obvious lead story and scannable supporting choices.
-- Light and dark themes remain coherent, responsive, accessible, and functionally equivalent to the current home page.
+## 成功标准
+
+- 用户在首屏即可理解 Jessie 是谁、主要写什么，以及如何阅读文章或联系她。
+- 不依赖堆叠 Card，也能让不同章节具有清晰且不同的视觉层级。
+- 页面能让人感受到 Linear 与 Raycast 的启发，同时仍然是适合旅行摄影和个人写作的内容品牌。
+- WHV 与旅行区域有明确的重点文章和易扫描的辅助选择。
+- 亮色、暗色、响应式与无障碍体验保持一致，现有业务功能不发生变化。
