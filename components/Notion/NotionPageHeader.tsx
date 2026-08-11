@@ -11,6 +11,10 @@ interface BreadcrumbsProps {
   postData?: PostData;
 }
 
+const CATEGORY_BREADCRUMB_FALLBACKS = {
+  life: { href: "/life", title: "nav.life" },
+} as const;
+
 /**
  * 独立面包屑组件，基于 postData 和路由路径生成，不依赖 react-notion-x 的 block 结构。
  * 可在 NotionRenderer 外部直接使用。
@@ -47,11 +51,17 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
     if (postData.category && items.length === 1) {
       const categorySlug = pathSegments[0];
       if (categorySlug) {
-        const matchByCategory = SiteConfig.navigationLinks.find(
-          (link: { href: string }) =>
-            link.href !== "/" &&
-            categorySlug.startsWith(link.href.replace("/", ""))
-        );
+        const fallback =
+          CATEGORY_BREADCRUMB_FALLBACKS[
+            categorySlug as keyof typeof CATEGORY_BREADCRUMB_FALLBACKS
+          ];
+        const matchByCategory =
+          fallback ??
+          SiteConfig.navigationLinks.find(
+            (link: { href: string }) =>
+              link.href !== "/" &&
+              categorySlug.startsWith(link.href.replace("/", ""))
+          );
         if (matchByCategory) {
           items.push({
             href: matchByCategory.href,

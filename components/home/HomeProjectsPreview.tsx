@@ -5,7 +5,7 @@ import { PROJECTS } from '@/lib/projects';
 import HomePageSection from '@/components/home/HomePageSection';
 
 export default function HomeProjectsPreview() {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation(['home', 'common']);
 
   return (
     <HomePageSection aria-label={t('landing.projects.aria')}>
@@ -31,25 +31,33 @@ export default function HomeProjectsPreview() {
 
       {PROJECTS.length > 0 ? (
         <div className='mt-8 divide-y divide-line border-y border-line'>
-          {PROJECTS.map((project, index) => (
-            <article
-              key={project.id}
-              className='grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-start sm:gap-x-8'
-            >
-              <p className='text-xs font-semibold tabular-nums tracking-[0.16em] text-primaryStrong'>
-                {String(index + 1).padStart(2, '0')}
-              </p>
-              <div>
-                <h3 className='text-base font-semibold text-ink'>{project.title}</h3>
-                <p className='mt-2 text-sm leading-relaxed text-subtle'>
-                  {project.summary}
+          {PROJECTS.map((project, index) => {
+            const title = t(`projectsPage.items.${project.id}.title`, {
+              ns: 'common',
+            });
+
+            return (
+              <article
+                key={project.id}
+                className='grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-start sm:gap-x-8'
+              >
+                <p className='text-xs font-semibold tabular-nums tracking-[0.16em] text-primaryStrong'>
+                  {String(index + 1).padStart(2, '0')}
                 </p>
-              </div>
-              <p className='col-start-2 text-xs font-medium uppercase leading-relaxed tracking-[0.1em] text-subtle sm:col-start-3 sm:text-right'>
-                {project.role}
-              </p>
-            </article>
-          ))}
+                <div>
+                  <h3 className='text-base font-semibold text-ink'>{title}</h3>
+                  <p className='mt-2 text-sm leading-relaxed text-subtle'>
+                    {t(`projectsPage.items.${project.id}.summary`, {
+                      ns: 'common',
+                    })}
+                  </p>
+                </div>
+                <p className='col-start-2 text-xs font-medium uppercase leading-relaxed tracking-[0.1em] text-subtle sm:col-start-3 sm:text-right'>
+                  {t(`projectsPage.items.${project.id}.role`, { ns: 'common' })}
+                </p>
+              </article>
+            );
+          })}
         </div>
       ) : null}
     </HomePageSection>

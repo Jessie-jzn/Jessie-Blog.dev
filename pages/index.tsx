@@ -84,7 +84,7 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
         description={t('landing.seoDescription')}
       />
 
-      <main>
+      <div>
         <HomeHero email={SiteConfig.email} />
 
         <div className='relative z-10'>
@@ -102,7 +102,7 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
 
           <HomeConsultCta />
         </div>
-      </main>
+      </div>
     </div>
   );
 };

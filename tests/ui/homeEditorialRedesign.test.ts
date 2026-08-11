@@ -85,17 +85,69 @@ test('project route locales provide every consumed bilingual key', () => {
     'viewProject',
     'viewRepository',
     'resume',
+    'stackLabel',
     'status',
+    'items',
   ];
+
+  const projectIds = [
+    'jessie-blog',
+    'frontend-experience',
+    'ai-exploration',
+  ];
+
+  const localeMessages = new Map<string, any>();
 
   for (const locale of ['en', 'zh']) {
     const messages = JSON.parse(source(`public/locales/${locale}/common.json`));
+    localeMessages.set(locale, messages);
     assert.deepEqual(Object.keys(messages.projectsPage), expectedKeys);
     assert.deepEqual(Object.keys(messages.projectsPage.status), [
       'ongoing',
       'experience',
       'exploring',
     ]);
+    assert.deepEqual(Object.keys(messages.projectsPage.items), projectIds);
+
+    for (const id of projectIds) {
+      assert.deepEqual(Object.keys(messages.projectsPage.items[id]), [
+        'title',
+        'summary',
+        'role',
+      ]);
+      for (const value of Object.values(messages.projectsPage.items[id])) {
+        assert.equal(typeof value, 'string');
+        assert.notEqual(value, '');
+      }
+    }
+  }
+
+  const englishItems = localeMessages.get('en').projectsPage.items;
+  const chineseItems = localeMessages.get('zh').projectsPage.items;
+  assert.notEqual(
+    localeMessages.get('zh').projectsPage.stackLabel,
+    localeMessages.get('en').projectsPage.stackLabel,
+  );
+  for (const id of projectIds) {
+    assert.notEqual(chineseItems[id].summary, englishItems[id].summary);
+    assert.notEqual(chineseItems[id].role, englishItems[id].role);
+  }
+});
+
+test('project records keep locale-neutral metadata and render common translations', () => {
+  const records = source('lib/projects.ts');
+  const preview = source('components/home/HomeProjectsPreview.tsx');
+  const route = source('pages/projects/index.tsx');
+
+  assert.doesNotMatch(records, /\b(?:title|summary|role):\s*string/);
+  assert.doesNotMatch(records, /\b(?:title|summary|role):\s*["']/);
+  assert.match(preview, /useTranslation\(\[['"]home['"],\s*['"]common['"]\]\)/);
+  assert.match(route, /t\(["']projectsPage\.stackLabel["'],\s*\{\s*title\s*\}\)/);
+
+  for (const field of ['title', 'summary', 'role']) {
+    const key = `projectsPage\\.items\\.\\$\\{project\\.id\\}\\.${field}`;
+    assert.match(preview, new RegExp(key));
+    assert.match(route, new RegExp(key));
   }
 });
 

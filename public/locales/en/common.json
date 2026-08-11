@@ -97,7 +97,25 @@
     "viewProject": "View project",
     "viewRepository": "View GitHub",
     "resume": "View / export full resume",
-    "status": { "ongoing": "Ongoing", "experience": "Experience", "exploring": "Exploring" }
+    "stackLabel": "{{title}} technology stack",
+    "status": { "ongoing": "Ongoing", "experience": "Experience", "exploring": "Exploring" },
+    "items": {
+      "jessie-blog": {
+        "title": "Jessie on the road",
+        "summary": "A bilingual personal publication for writing about AI, technology, WHV, travel, and life.",
+        "role": "Product, design, and frontend development"
+      },
+      "frontend-experience": {
+        "title": "Frontend practice",
+        "summary": "Eight years of frontend experience focused on turning real product needs into clear, maintainable web interfaces.",
+        "role": "Frontend engineer"
+      },
+      "ai-exploration": {
+        "title": "AI product exploration",
+        "summary": "An ongoing exploration of how AI can make tools, content workflows, and everyday products more useful.",
+        "role": "Independent exploration"
+      }
+    }
   },
   "footer": {
     "about": "About",

@@ -7,6 +7,8 @@ import Link from "./Link";
 import SiteConfig from "@/site.config";
 import { useTranslation } from "next-i18next";
 
+const mobileMenuId = "mobile-navigation-menu";
+
 const NavMobile = () => {
   const [navShow, setNavShow] = useState(false);
   const { t } = useTranslation("common");
@@ -36,6 +38,8 @@ const NavMobile = () => {
     <>
       <button
         aria-label="Toggle Menu"
+        aria-expanded={navShow}
+        aria-controls={mobileMenuId}
         onClick={onToggleNav}
         className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-ink transition-colors hover:bg-primarySoft lg:hidden"
       >
@@ -53,8 +57,12 @@ const NavMobile = () => {
         </svg>
       </button>
       <div
+        id={mobileMenuId}
+        aria-hidden={!navShow}
         className={`fixed inset-0 z-[1000] transform border-b border-line bg-surface/95 text-ink backdrop-blur-xl transition-transform duration-300 ease-in-out ${
-          navShow ? "translate-x-0" : "translate-x-full"
+          navShow
+            ? "visible translate-x-0"
+            : "invisible pointer-events-none translate-x-full"
         }`}
       >
         <div className="site-container flex min-h-14 justify-end sm:min-h-16">

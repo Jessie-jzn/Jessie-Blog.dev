@@ -15,7 +15,10 @@ const travelListLayout = readFileSync(
   "utf8",
 );
 const navbar = readFileSync("components/Navbar.tsx", "utf8");
+const navMobile = readFileSync("components/NavMobile.tsx", "utf8");
 const footer = readFileSync("components/Footer.tsx", "utf8");
+const homePage = readFileSync("pages/index.tsx", "utf8");
+const projectsPage = readFileSync("pages/projects/index.tsx", "utf8");
 const technicalHub = readFileSync("pages/technical/index.tsx", "utf8");
 const listLayoutWithTags = readFileSync(
   "components/layouts/ListLayoutWithTags.tsx",
@@ -200,6 +203,26 @@ test("shared shell controls preserve hero overlay props and use line borders", (
   );
 });
 
+test("home hero starts behind the transparent Navbar without nested main landmarks", () => {
+  assert.doesNotMatch(homeLayout, /<main\b/);
+  assert.doesNotMatch(homeLayout, /\b(?:xs:)?pt-(?:14|16)\b/);
+  assert.match(homeLayout, /\bpb-20\b/);
+  assert.match(homeLayout, /\bmd:pb-24\b/);
+  assert.doesNotMatch(homePage, /<main\b/);
+  assert.doesNotMatch(projectsPage, /<main\b/);
+});
+
+test("closed mobile navigation is hidden from keyboard and assistive technology", () => {
+  assert.match(navMobile, /aria-expanded=\{navShow\}/);
+  assert.match(navMobile, /aria-controls=\{mobileMenuId\}/);
+  assert.match(navMobile, /id=\{mobileMenuId\}/);
+  assert.match(navMobile, /aria-hidden=\{!navShow\}/);
+  assert.match(
+    navMobile,
+    /navShow\s*\?\s*["']visible translate-x-0["']\s*:\s*["'][^"']*invisible[^"']*pointer-events-none[^"']*translate-x-full[^"']*["']/,
+  );
+});
+
 test("primary hubs no longer use the legacy warm canvas or raw mint hex", () => {
   for (const file of [
     "pages/index.tsx",
@@ -267,6 +290,16 @@ test("new Article navigation localizes its accessible label", () => {
   assert.equal(chineseCommon.articleControls.breadcrumb, "面包屑导航");
 
   assert.match(notionPageHeader, /aria-label=\{t\("articleControls\.breadcrumb"\)\}/);
+});
+
+test("Life Articles keep a category breadcrumb without joining primary navigation", () => {
+  assert.doesNotMatch(
+    readFileSync("site.config.ts", "utf8"),
+    /title:\s*["']nav\.life["']/,
+  );
+  assert.match(notionPageHeader, /life:\s*\{/);
+  assert.match(notionPageHeader, /href:\s*["']\/life["']/);
+  assert.match(notionPageHeader, /title:\s*["']nav\.life["']/);
 });
 
 test("Article detail uses the shared reading column and editorial surfaces", () => {
