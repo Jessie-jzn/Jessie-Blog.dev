@@ -192,6 +192,22 @@ test('Hero and closing email actions use the same label in every locale', () => 
   }
 });
 
+test('home copy starts from Jessie lived experience instead of brand language', () => {
+  const zh = JSON.parse(source('public/locales/zh/home.json')).landing;
+  const en = JSON.parse(source('public/locales/en/home.json')).landing;
+
+  assert.match(zh.hero.headline.join('\n'), /澳洲打工度假/);
+  assert.match([...zh.hero.headline, ...zh.hero.paragraphs].join('\n'), /辞职/);
+  assert.match(zh.hero.paragraphs.join('\n'), /重新坐回电脑前/);
+  assert.match(zh.cta.p2, /少让你绕一点路/);
+  assert.doesNotMatch(zh.hero.paragraphs.join('\n'), /持续探索|希望这些真实记录/);
+
+  assert.match(en.hero.headline.join('\n'), /working holiday/);
+  assert.match([...en.hero.headline, ...en.hero.paragraphs].join('\n'), /quit my frontend job/);
+  assert.match(en.hero.paragraphs.join('\n'), /back at my computer/);
+  assert.doesNotMatch(en.hero.paragraphs.join('\n'), /personal publication|ongoing exploration/);
+});
+
 test('project preview omits its ruled surface when no projects exist', () => {
   const projects = source('components/home/HomeProjectsPreview.tsx');
   assert.match(
