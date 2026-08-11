@@ -1,17 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 
 import SiteConfig from '../../site.config.ts';
 
 const source = (path: string) => readFileSync(path, 'utf8');
+
+const sourceWithoutObviousComments = (path: string) =>
+  source(path)
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/^\s*\/\/.*$/gm, '');
 
 const sourcePathsUnder = (directory: string): string[] =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const path = `${directory}/${entry.name}`;
 
     if (entry.isDirectory()) return sourcePathsUnder(path);
-    return /\.(?:ts|tsx)$/.test(entry.name) ? [path] : [];
+    return /\.(?:js|jsx|ts|tsx)$/.test(entry.name) ? [path] : [];
   });
 
 const componentBlock = (body: string, start: string, end: string) => {
@@ -155,13 +160,23 @@ test('hero is asymmetric and exposes a content index', () => {
 });
 
 test('website avatar displays and BlogSEO use the local avatar asset', () => {
+  const runtimeDirectories = ['components', 'pages', 'lib', 'config']
+    .filter(existsSync);
+  const rootConfigs = readdirSync('.', { withFileTypes: true })
+    .filter((entry) =>
+      entry.isFile() && /(?:^|[.-])config\.(?:js|jsx|ts|tsx)$/.test(entry.name)
+    )
+    .map((entry) => entry.name);
   const runtimeSources = [
-    'site.config.ts',
-    ...sourcePathsUnder('components'),
-    ...sourcePathsUnder('pages'),
+    ...new Set([
+      ...rootConfigs,
+      ...runtimeDirectories.flatMap(sourcePathsUnder),
+    ]),
   ];
   const remoteAvatarReferences = runtimeSources.flatMap((path) =>
-    [...source(path).matchAll(/(?:https?:\/\/[^\s'"`]+|\$\{[^}]+\})\/avatar\.png/g)]
+    [...sourceWithoutObviousComments(path).matchAll(
+      /(?:(?:https?:)?\/\/[^\s'"`]*|\$\{[^}]+\})\/avatar\.(?:png|jpe?g|webp|avif)/gi,
+    )]
       .map((match) => `${path}: ${match[0]}`),
   );
 
@@ -187,12 +202,23 @@ test('website avatar displays and BlogSEO use the local avatar asset', () => {
   }
 });
 
-test('Hero uses a repository-owned local photograph', () => {
+test('Hero preloads a bounded repository-owned background photograph', () => {
   const hero = source('components/home/HomeHero.tsx');
-  const heroSource = hero.match(/<Image[\s\S]*?src=['"]([^'"]+)['"]/)?.[1];
+  const heroImage = hero.match(
+    /<Image\s+src=['"]\/images\/home\/hero\.jpg['"][\s\S]*?\/>/,
+  )?.[0];
 
-  assert.ok(heroSource?.startsWith('/images/home/'));
-  assert.ok(existsSync(`public${heroSource}`));
+  assert.ok(heroImage, 'Expected the local Hero background Image');
+  assert.match(heroImage, /\sfill(?:\s|$)/);
+  assert.match(heroImage, /\spriority(?:\s|$)/);
+  assert.match(heroImage, /sizes=['"]100vw['"]/);
+
+  const heroPath = 'public/images/home/hero.jpg';
+  assert.ok(existsSync(heroPath));
+  assert.ok(
+    statSync(heroPath).size <= 500 * 1024,
+    'Hero source must stay at or below 500 KiB while images.unoptimized is enabled',
+  );
 });
 
 test('hero and content directory share a stable world index contract', () => {
