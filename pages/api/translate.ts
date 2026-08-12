@@ -1,3 +1,6 @@
+/**
+ * 翻译接口：将 POST 表单参数转发至百度翻译服务并返回其响应。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 export default async function handler(

@@ -1,3 +1,4 @@
+/** 在生产环境加载并渲染文章内 Google AdSense 广告位。 */
 import { useEffect } from "react";
 import {
   ADSENSE_GOOGLE_ID,

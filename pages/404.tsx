@@ -1,6 +1,11 @@
+/**
+ * 404 页面：根据未知路径推断分类后跳转到对应分类页或首页。
+ */
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import SiteConfig from '@/site.config';
+import PageHeader from '@/components/common/PageHeader';
 
 export default function Custom404() {
   const router = useRouter();
@@ -26,9 +31,21 @@ export default function Custom404() {
   }, [router, asPath]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">页面不存在</h1>
-      <p className="text-gray-600">正在为您重定向...</p>
+    <div className="min-h-[70vh] bg-canvas text-ink">
+      <PageHeader
+        eyebrow="404"
+        title="页面不存在"
+        description="正在为您重定向，也可以立即返回首页。"
+        align="center"
+      />
+      <div className="site-container flex justify-center pb-16 md:pb-24">
+        <Link
+          href="/"
+          className="editorial-focus inline-flex min-h-11 items-center justify-center rounded-xl border border-line bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primaryStrong"
+        >
+          返回首页
+        </Link>
+      </div>
     </div>
   );
-} 
+}

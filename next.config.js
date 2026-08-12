@@ -19,7 +19,6 @@ if (apiKey) {
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
-  // transpilePackages: ["@uiw/react-md-editor", "@uiw/react-markdown-preview"],
   images: {
     domains: ['qiniu.jessieontheroad.com'],
     unoptimized: true,
@@ -115,19 +114,20 @@ const nextConfig = withBundleAnalyzer({
   trailingSlash: true, // 确保你的 URL 末尾有斜杠
   async rewrites() {
     return [
+      {
+        source: '/whv-ai-copilot',
+        destination: 'https://whv-ai-copilot.vercel.app/whv-ai-copilot',
+      },
+      {
+        source: '/whv-ai-copilot/:path*',
+        destination: 'https://whv-ai-copilot.vercel.app/whv-ai-copilot/:path*',
+      },
       // 伪静态重写
       {
         source: '/:path*.html',
         destination: '/:path*',
       },
     ];
-    // return [
-    //   // 将以/api开头的路径代理到OpenAI API
-    //   {
-    //     source: "/api/:path*",
-    //     destination: "https://api.fanyi.baidu.com/:path*",
-    //   },
-    // ];
   },
   logging: {
     fetches: {

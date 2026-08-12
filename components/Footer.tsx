@@ -1,3 +1,4 @@
+/** 渲染站点页脚的介绍、社交入口、订阅表单与订阅人数，并使用 common i18n 文案。 */
 import React from "react";
 import Link from "next/link";
 import SiteConfig from "@/site.config";
@@ -15,32 +16,35 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
   return (
     <footer
-      className={`w-full border-t border-black/[0.06] dark:border-white/[0.08] bg-white/70 dark:bg-neutral-950/85 backdrop-blur-md ${className || ""}`}
+      className={`w-full border-t border-line bg-muted text-ink ${className || ""}`}
     >
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-12 xs:py-8">
+      <div className="site-container py-12 xs:py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* About */}
           <div>
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+            <h3 className="mb-3 text-sm font-medium text-ink">
               {t("footer.about")}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed mb-4 max-w-md">
+            <p className="mb-4 max-w-md text-sm font-light leading-relaxed text-subtle">
               {t("footer.description")}
             </p>
             <a
               href={`mailto:${SiteConfig.email}`}
-              className="text-sm text-gray-400 dark:text-gray-500 hover:text-[#62BFAD] transition-colors font-light"
+              className="editorial-focus text-sm font-light text-subtle transition-colors hover:text-primaryStrong"
             >
               {SiteConfig.email}
             </a>
+            <Link href='/projects' className='editorial-focus ml-4 text-sm font-medium text-primaryStrong hover:underline'>
+              {t('nav.projects')}
+            </Link>
           </div>
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
+            <h3 className="mb-3 text-sm font-medium text-ink">
               {t("footer.subscribe")}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-light leading-relaxed mb-4">
+            <p className="mb-4 text-sm font-light leading-relaxed text-subtle">
               {t("footer.subscribeDesc")}
             </p>
             <NewsletterSubscribe />
@@ -50,24 +54,24 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
       </div>
 
       {/* Bottom */}
-      <div className="border-t border-black/[0.05] dark:border-white/[0.06]">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-6 flex flex-col items-center gap-4">
+      <div className="border-t border-line">
+        <div className="site-container flex flex-col items-center gap-4 py-6">
           <SocialContactIcon
             prop={{
               className: "flex space-x-5",
               theme: "dark",
             }}
           />
-          <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 font-light">
+          <div className="flex items-center gap-2 text-xs font-light text-subtle">
             <span suppressHydrationWarning>© {new Date().getFullYear()}</span>
-            <span className="text-gray-200 dark:text-gray-700">·</span>
+            <span className="text-subtle/60">·</span>
             <Link
               href="/"
-              className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="editorial-focus transition-colors hover:text-primaryStrong"
             >
               {t("site.title")}
             </Link>
-            <span className="text-gray-200 dark:text-gray-700">·</span>
+            <span className="text-subtle/60">·</span>
             <span>
               {t("footer.builtWith")} {SiteConfig.author}
             </span>

@@ -30,6 +30,24 @@
   "emailRequired": "请输入您的邮箱📮",
   "subscriptionSuccess": "订阅成功，感谢您的订阅！",
   "subscriptionFailed": "订阅失败，请重试！",
+  "emailAddress": "邮箱地址",
+  "articleList": {
+    "all": "全部文章",
+    "search": "搜索文章",
+    "browseByTag": "按标签浏览文章",
+    "viewTag": "查看标签为 {{tag}} 的文章",
+    "count": "共 {{count}} 篇文章",
+    "empty": "没有找到文章。"
+  },
+  "articleControls": {
+    "breadcrumb": "面包屑导航",
+    "translationInput": "输入要翻译的文字",
+    "translate": "翻译"
+  },
+  "faqSection": {
+    "eyebrow": "实用提示",
+    "title": "常见问题"
+  },
   "learnMore": "查看更多",
   "workWithMe": "了解我",
   "authorDesc": "我是 Jessie，做了 8 年前端，也在澳洲度过了一年 WHV。这里记录打工度假、旅行、技术与日常生活。",
@@ -85,6 +103,7 @@
   "newPostsAvailable": "我们的博客有新文章啦！",
   "nav": {
     "home": "首页",
+    "articles": "文章",
     "technical": "技术",
     "travel": "旅行记录",
     "life": "生活",
@@ -109,6 +128,36 @@
       },
       "tools": {
         "title": "工具"
+      }
+    }
+  },
+  "projectsPage": {
+    "eyebrow": "项目与经历",
+    "title": "我做过什么，也在继续探索什么",
+    "description": "这里整理这个博客、前端实践与 AI 探索；只记录真实做过或正在做的事。",
+    "experienceLabel": "八年前端经历",
+    "experienceTitle": "用技术把复杂的事情做得更清楚一点",
+    "experienceDescription": "我长期使用 React、Next.js、TypeScript 等现代 Web 技术，也在把 AI 能力带进内容和产品工作流。",
+    "viewProject": "查看项目",
+    "viewRepository": "查看 GitHub",
+    "resume": "查看 / 导出完整简历",
+    "stackLabel": "{{title}} 技术栈",
+    "status": { "ongoing": "持续迭代", "experience": "经验沉淀", "exploring": "探索中" },
+    "items": {
+      "jessie-blog": {
+        "title": "Jessie 永远在路上",
+        "summary": "一个双语个人内容站，记录 AI、技术、打工度假、旅行与生活。",
+        "role": "产品、设计与前端开发"
+      },
+      "frontend-experience": {
+        "title": "前端实践",
+        "summary": "八年前端经验，专注把真实产品需求转化为清晰、可维护的 Web 界面。",
+        "role": "前端工程师"
+      },
+      "ai-exploration": {
+        "title": "AI 产品探索",
+        "summary": "持续探索如何让 AI 更好地服务工具、内容工作流与日常产品。",
+        "role": "独立探索"
       }
     }
   },
@@ -207,6 +256,7 @@
   },
   "markdown_to_pdf": {
     "title": "Markdown转PDF",
+    "theme": "简历主题",
     "input": "输入Markdown",
     "preview": "预览",
     "export": "导出PDF",

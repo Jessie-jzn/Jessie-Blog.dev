@@ -968,3 +968,106 @@
     padding-left: 128px !important;
   }
 }
+
+/* GitHub-flavoured Markdown keeps all editorial overrides scoped to its root. */
+.githubCssForEditor .markdown-body {
+  color: var(--ui-ink);
+  background: var(--ui-surface);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.githubCssForEditor .markdown-body h1,
+.githubCssForEditor .markdown-body h2,
+.githubCssForEditor .markdown-body h3,
+.githubCssForEditor .markdown-body h4,
+.githubCssForEditor .markdown-body h5,
+.githubCssForEditor .markdown-body h6 {
+  color: var(--ui-ink);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.githubCssForEditor .markdown-body h1 {
+  margin: 3rem 0 1rem;
+}
+
+.githubCssForEditor .markdown-body h2 {
+  margin: 2.5rem 0 0.875rem;
+}
+
+.githubCssForEditor .markdown-body h3,
+.githubCssForEditor .markdown-body h4,
+.githubCssForEditor .markdown-body h5,
+.githubCssForEditor .markdown-body h6 {
+  margin: 2rem 0 0.75rem;
+}
+
+.githubCssForEditor .markdown-body a {
+  color: var(--ui-accent-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--ui-accent);
+  text-underline-offset: 0.2em;
+}
+
+.githubCssForEditor .markdown-body a:focus-visible,
+.githubCssForEditor .markdown-body summary:focus-visible {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.githubCssForEditor .markdown-body blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--ui-ink-muted);
+  background: transparent;
+  border-left: 4px solid var(--ui-accent);
+}
+
+.githubCssForEditor .markdown-body :not(pre) > code {
+  padding: 0.15em 0.4em;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 0.4rem;
+}
+
+.githubCssForEditor .markdown-body pre {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}
+
+.githubCssForEditor .markdown-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.githubCssForEditor .markdown-body th,
+.githubCssForEditor .markdown-body td {
+  border-color: var(--ui-line);
+}
+
+.githubCssForEditor .markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.githubCssForEditor .markdown-body details {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}

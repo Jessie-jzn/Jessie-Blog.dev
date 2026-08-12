@@ -1,5 +1,6 @@
 "use client";
 
+/** 集成 Cusdis 评论区，并按页面 URL、Notion 页面 id 和语言维护评论上下文。 */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -37,8 +38,8 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
 
   if (!appId) {
     return (
-      <div className="mt-10 pt-8 border-t border-black/[0.06] dark:border-white/[0.08]">
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center">
+      <div className="editorial-surface rounded-2xl p-6">
+        <p className="text-center text-sm text-subtle">
           {t("comments.notConfigured")}
         </p>
       </div>
@@ -48,15 +49,15 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
   if (!pageUrl) {
     return (
       <div
-        className="mt-10 pt-8 border-t border-black/[0.06] dark:border-white/[0.08] min-h-[120px]"
+        className="editorial-surface min-h-[120px] rounded-2xl p-6"
         aria-hidden
       />
     );
   }
 
   return (
-    <section className="mt-10 pt-8 border-t border-black/[0.06] dark:border-white/[0.08]">
-      <h2 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white mb-4">
+    <section className="editorial-surface rounded-2xl p-5 sm:p-6">
+      <h2 className="mb-5 text-lg font-semibold tracking-tight text-ink">
         {t("comments.title")}
       </h2>
       <ReactCusdis

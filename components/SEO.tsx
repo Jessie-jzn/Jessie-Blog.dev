@@ -1,3 +1,4 @@
+/** 基于站点配置和当前路由生成页面、文章及社交分享所需的 SEO head 标签。 */
 import Head from "next/head";
 import SiteConfig from "../site.config";
 import * as Config from "@/lib/config";

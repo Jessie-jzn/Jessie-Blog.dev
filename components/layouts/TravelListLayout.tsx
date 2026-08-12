@@ -1,3 +1,4 @@
+/** 为旅行列表提供深色导航、全宽内容区和页脚的页面布局。 */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -7,9 +8,9 @@ export default function TravelListLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen relative w-full bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
-      <Navbar isFull={true} currentTheme="dark" />
-      <main className="w-full">{children}</main>
+    <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
+      <Navbar isFull={false} />
+      <main className="w-full flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">{children}</main>
       <Footer />
     </div>
   );

@@ -1,0 +1,46 @@
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import test from "node:test";
+
+const componentSource = (path: string) => {
+  assert.ok(existsSync(path), `Expected ${path} to exist`);
+  return readFileSync(path, "utf8");
+};
+
+test("PageHeader exposes a semantic h1 and shared spacing", () => {
+  const source = componentSource("components/common/PageHeader.tsx");
+  assert.match(source, /<h1/);
+  assert.match(source, /site-container/);
+  assert.match(source, /title/);
+  assert.match(source, /description/);
+});
+
+test("FilterPills provides labelled, pressed filter controls", () => {
+  const source = componentSource("components/common/FilterPills.tsx");
+  assert.match(source, /<nav/);
+  assert.match(source, /aria-label/);
+  assert.match(source, /type="button"/);
+  assert.match(source, /aria-pressed/);
+  assert.match(source, /onChange\(item\)/);
+});
+
+test("EditorialArticleCard preserves canonical routing and its three variants", () => {
+  const source = componentSource("components/articles/EditorialArticleCard.tsx");
+  const body = componentSource("components/articles/EditorialArticleCardBody.tsx");
+  const props = source.match(
+    /interface EditorialArticleCardProps\s*\{([\s\S]*?)\n\}/,
+  );
+
+  assert.ok(props, "Expected EditorialArticleCardProps to be declared");
+  assert.match(props[1], /article:\s*Post/);
+  assert.match(props[1], /variant\?:\s*EditorialArticleCardVariant/);
+  assert.match(props[1], /priority\?:\s*boolean/);
+  assert.doesNotMatch(props[1], /href/);
+  assert.match(source, /canonicalArticlePath\(article\)/);
+  assert.match(source, /href=\{canonicalArticlePath\(article\)\}/);
+  assert.match(body, /prefetch=\{false\}/);
+  assert.match(body, /"row"/);
+  assert.match(body, /"feature"/);
+  assert.match(body, /"compact"/);
+  assert.match(body, /ArticleImage/);
+});

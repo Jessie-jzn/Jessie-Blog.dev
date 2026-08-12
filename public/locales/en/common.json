@@ -18,7 +18,7 @@
   },
   "viewAll": "View All",
   "life": "Life",
-  "post": "Posts",
+  "post": "Articles",
   "tags": "Tags",
   "projects": "Projects",
   "about": "About",
@@ -30,13 +30,32 @@
   "emailRequired": "Please enter your email 📮",
   "subscriptionSuccess": "Subscribed successfully!",
   "subscriptionFailed": "Subscription failed, please try again!",
+  "emailAddress": "Email address",
+  "articleList": {
+    "all": "All Articles",
+    "search": "Search articles",
+    "browseByTag": "Browse articles by tag",
+    "viewTag": "View articles tagged {{tag}}",
+    "count": "{{count}} articles",
+    "empty": "No articles found."
+  },
+  "articleControls": {
+    "breadcrumb": "Breadcrumb",
+    "translationInput": "Enter text to translate",
+    "translate": "Translate"
+  },
+  "faqSection": {
+    "eyebrow": "Helpful notes",
+    "title": "FAQs"
+  },
   "learnMore": "Learn More",
   "workWithMe": "About Me",
-  "lastPost": "Latest Posts",
+  "lastPost": "Latest Articles",
   "featuredPost": "Featured Posts",
   "lastEdited": "Last Edited",
   "nav": {
     "home": "Home",
+    "articles": "Articles",
     "technical": "Technical",
     "travel": "Travel Journal",
     "life": "Life",
@@ -65,6 +84,36 @@
       },
       "tools": {
         "title": "Tools"
+      }
+    }
+  },
+  "projectsPage": {
+    "eyebrow": "Projects & Experience",
+    "title": "What I have built, and what I am exploring",
+    "description": "A truthful record of this publication, frontend practice, and AI exploration.",
+    "experienceLabel": "Eight years in frontend",
+    "experienceTitle": "Making complex things clearer through technology",
+    "experienceDescription": "I work with modern web tools including React, Next.js, and TypeScript, and I am exploring practical AI workflows for content and products.",
+    "viewProject": "View project",
+    "viewRepository": "View GitHub",
+    "resume": "View / export full resume",
+    "stackLabel": "{{title}} technology stack",
+    "status": { "ongoing": "Ongoing", "experience": "Experience", "exploring": "Exploring" },
+    "items": {
+      "jessie-blog": {
+        "title": "Jessie on the road",
+        "summary": "A bilingual personal publication for writing about AI, technology, WHV, travel, and life.",
+        "role": "Product, design, and frontend development"
+      },
+      "frontend-experience": {
+        "title": "Frontend practice",
+        "summary": "Eight years of frontend experience focused on turning real product needs into clear, maintainable web interfaces.",
+        "role": "Frontend engineer"
+      },
+      "ai-exploration": {
+        "title": "AI product exploration",
+        "summary": "An ongoing exploration of how AI can make tools, content workflows, and everyday products more useful.",
+        "role": "Independent exploration"
       }
     }
   },
@@ -143,6 +192,7 @@
   },
   "markdown_to_pdf": {
     "title": "Markdown to PDF",
+    "theme": "Resume theme",
     "input": "Input Markdown",
     "preview": "Preview",
     "export": "Export PDF",

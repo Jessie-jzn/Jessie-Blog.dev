@@ -1,4 +1,6 @@
-// pages/_document.js
+/**
+ * 自定义 HTML 文档壳：配置全站图标、站点验证及 Google Tag Manager 的无脚本回退。
+ */
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {

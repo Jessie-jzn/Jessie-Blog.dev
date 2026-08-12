@@ -1,12 +1,13 @@
+/** 组合深色首页导航、页脚和返回顶部按钮的首页页面布局。 */
 import Navbar from "@/components/Navbar";
 import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen relative w-full bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+    <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
       <Navbar isFull={true} currentTheme="dark" />
-      <main>{children}</main>
+      <div className="flex-grow pb-20 md:pb-24">{children}</div>
       <Footer />
       <BackToTop />
     </div>

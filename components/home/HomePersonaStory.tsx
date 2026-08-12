@@ -1,3 +1,4 @@
+/** 使用 home i18n 文案展示首页个人故事与补充说明。 */
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';
 
@@ -12,22 +13,20 @@ const HomePersonaStory = () => {
 
   return (
     <HomePageSection aria-label={t('landing.aria.persona')}>
-      <div className='grid gap-8 md:grid-cols-[minmax(0,8rem)_1fr] md:gap-12 items-start'>
-        <div className='md:pt-0.5'>
-          <p className='text-[11px] sm:text-xs font-semibold tracking-wide text-[#62BFAD] leading-snug max-w-[7rem] sm:max-w-none'>
-            {t('landing.persona.sectionEyebrow')}
+      <div className='grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-8 md:grid-cols-[minmax(0,6rem)_minmax(0,1fr)] md:gap-12'>
+        <div className='border-t border-line pt-3'>
+          <p className='max-w-[5.5rem] text-[11px] font-semibold leading-snug tracking-wide text-primaryStrong sm:text-xs'>
+            01
           </p>
-          <span
-            className='mt-2 block h-px w-10 max-w-full bg-[#62BFAD]/40'
-            aria-hidden
-          />
         </div>
-        <div className={`space-y-5 max-w-2xl ${personaBodyClasses} text-neutral-800 dark:text-neutral-200`}>
+        <div
+          className={`max-w-2xl space-y-5 ${personaBodyClasses} text-ink`}
+        >
           <p>{t('landing.persona.p1')}</p>
           <p>{t('landing.persona.p2')}</p>
           <p>{t('landing.persona.p3')}</p>
           {aside ? (
-            <p className='text-neutral-600 dark:text-neutral-400 border-l-2 border-[#62BFAD]/55 pl-5 md:pl-6'>
+            <p className='border-t border-line pt-5 text-subtle'>
               {aside}
             </p>
           ) : null}

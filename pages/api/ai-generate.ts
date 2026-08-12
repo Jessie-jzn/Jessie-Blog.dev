@@ -1,4 +1,6 @@
-// /pages/api/ai-generate.ts
+/**
+ * 简历生成接口：接收职位名称并调用 OpenAI 生成中文 Markdown 简历片段。
+ */
 import { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
 

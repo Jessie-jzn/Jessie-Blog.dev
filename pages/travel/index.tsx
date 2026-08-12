@@ -1,7 +1,11 @@
+/**
+ * 旅行分类页：从 Notion 获取本地化旅行文章和标签，支持客户端内容筛选。
+ */
 import { GetStaticProps } from 'next';
 import { motion } from 'framer-motion';
 import { NOTION_POST_ID } from '@/lib/constants';
 import Image from 'next/image';
+import ArticleImage from '@/components/ArticleImage';
 import SiteConfig from '@/site.config';
 import * as Types from '@/lib/type';
 import getLocalizedCategoryPosts from '@/lib/notion/getLocalizedCategoryPosts';
@@ -10,6 +14,10 @@ import Link from 'next/link';
 import TravelListLayout from '@/components/layouts/TravelListLayout';
 import { useTranslation } from 'next-i18next';
 import { CommonSEO } from '@/components/SEO';
+import { canonicalArticlePath } from '@/lib/routing/articleRoute';
+import PageHeader from '@/components/common/PageHeader';
+import FilterPills from '@/components/common/FilterPills';
+import EditorialArticleCard from '@/components/articles/EditorialArticleCard';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   const { posts, tagOptions, translations } = await getLocalizedCategoryPosts({
@@ -32,12 +40,31 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
 const ease = [0.23, 1, 0.32, 1];
 
+type TravelFilter = {
+  id: string;
+  name: string;
+  articles: Types.Post[];
+};
+
 const TravelListPage = ({ posts, tagOptions }: any) => {
   const { t } = useTranslation('common');
   const [curTab, setCurTab] = useState('All');
   const [postList, setPostList] = useState(posts);
 
-  const handleChangeTab = (item: Types.Tag) => {
+  const filters: TravelFilter[] = [
+    {
+      id: 'All',
+      name: t('travel.tabs.all'),
+      articles: posts,
+    },
+    ...(tagOptions || []).map((tag: Types.Tag) => ({
+      id: tag.id,
+      name: tag.name || tag.value || '',
+      articles: tag.articles || [],
+    })),
+  ];
+
+  const handleChangeTab = (item: TravelFilter) => {
     setCurTab(item.id);
     setPostList(item.articles);
   };
@@ -52,11 +79,9 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
         description={t('travel.description', { ns: 'common' })}
       />
 
-      <div className='min-h-screen bg-canvas dark:bg-neutral-950'>
-        <h1 className='sr-only'>{t('travel.title')}</h1>
-
+      <div className='min-h-screen bg-canvas text-ink'>
         {/* Hero */}
-        <header className='relative w-full h-[55vh] xs:h-[40vh] overflow-hidden'>
+        <section className='relative min-h-[32rem] w-full overflow-hidden sm:min-h-[36rem]'>
           <Image
             src={`${SiteConfig.imageDomainUrl}/image6.jpg`}
             alt={t('travel.title')}
@@ -64,98 +89,57 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
             priority
             className='object-cover object-[center_30%] scale-105'
           />
-          <div className='absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/70' />
+          <div className='absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/75' />
 
-          <div className='absolute inset-0 flex flex-col items-center justify-end pb-20 xs:pb-14 px-6'>
+          <div className='absolute inset-0 flex items-end'>
             <motion.div
-              className='text-center'
+              className='w-full [&_h1]:text-white [&_p]:text-white/85 [&_.editorial-tag]:border-white/25 [&_.editorial-tag]:bg-white/15 [&_.editorial-tag]:text-white'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease }}
             >
-              <h2 className='text-4xl xs:text-2xl font-semibold text-white tracking-tight'>
-                {t('travel.title')}
-              </h2>
-              <div className='mx-auto mt-4 w-10 h-px rounded-full bg-white/50' />
-              <p className='mt-4 text-sm xs:text-xs text-white/85 font-normal tracking-wide leading-relaxed max-w-md mx-auto'>
-                {t('travel.description')}
-              </p>
+              <PageHeader
+                align='center'
+                eyebrow={t('nav.travel')}
+                title={t('travel.title')}
+                description={t('travel.description')}
+              />
             </motion.div>
           </div>
-
-          <div className='pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-canvas dark:from-neutral-950 via-canvas/80 dark:via-neutral-950/80 to-transparent' />
-        </header>
+        </section>
 
         {/* Content */}
-        <div className='max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 -mt-6 relative z-10'>
+        <div className='site-container'>
           {/* Tag Navigation */}
-          <motion.nav
-            className='flex items-center justify-center gap-6 xs:gap-4 py-6 border-b border-black/[0.06] dark:border-white/[0.08] overflow-x-auto scrollbar-hide'
+          <motion.div
+            className='border-b border-line py-6'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <button
-              className={`relative text-sm xs:text-xs tracking-wide whitespace-nowrap transition-colors duration-300 pb-1
-                ${
-                  curTab === 'All'
-                    ? 'text-neutral-900 dark:text-white'
-                    : 'text-neutral-400 dark:text-neutral-500 hover:text-[#62BFAD]'
-                }`}
-              onClick={() =>
-                handleChangeTab({
-                  id: 'All',
-                  articles: posts,
-                  count: posts?.length,
-                  value: t('travel.tabs.all'),
-                })
-              }
-            >
-              {t('travel.tabs.all')}
-              {curTab === 'All' && (
-                <motion.div
-                  layoutId='travel-tab-indicator'
-                  className='absolute -bottom-px left-0 right-0 h-[2px] rounded-full bg-[#62BFAD]'
-                />
-              )}
-            </button>
-
-            {tagOptions?.map((tag: Types.Tag) => (
-              <button
-                key={tag.id}
-                className={`relative text-sm xs:text-xs tracking-wide whitespace-nowrap transition-colors duration-300 pb-1
-                  ${
-                    curTab === tag.id
-                      ? 'text-neutral-900 dark:text-white'
-                      : 'text-neutral-400 dark:text-neutral-500 hover:text-[#62BFAD]'
-                  }`}
-                onClick={() => handleChangeTab(tag)}
-              >
-                {tag.name}
-                {curTab === tag.id && (
-                  <motion.div
-                    layoutId='travel-tab-indicator'
-                    className='absolute -bottom-px left-0 right-0 h-[2px] rounded-full bg-[#62BFAD]'
-                  />
-                )}
-              </button>
-            ))}
-          </motion.nav>
+            <FilterPills
+              items={filters}
+              activeId={curTab}
+              onChange={handleChangeTab}
+              ariaLabel={t('travel.categories.title')}
+            />
+          </motion.div>
 
           {/* Featured Post */}
           {featured && (
             <motion.div
-              className='mt-10 xs:mt-6'
+              className='mt-10'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease }}
             >
               <Link
-                href={`${featured?.category}/${featured?.slug || featured.id}`}
+                href={canonicalArticlePath(featured)}
+                prefetch={false}
                 className='group block'
               >
-                <div className='relative rounded-[1.25rem] md:rounded-[1.65rem] overflow-hidden aspect-[21/9] xs:aspect-[16/10] ring-1 ring-black/[0.06] dark:ring-white/[0.08] shadow-[0_4px_40px_-12px_rgba(0,0,0,0.12)]'>
-                  <Image
+                <article className='relative aspect-[16/10] overflow-hidden rounded-3xl border border-line bg-muted sm:aspect-[21/9]'>
+                  <ArticleImage
                     src={featured.pageCover}
                     alt={featured.title}
                     fill
@@ -176,59 +160,41 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
                       {featured.summarize}
                     </p>
                   </div>
-                </div>
+                </article>
               </Link>
             </motion.div>
           )}
 
           {/* Post Grid */}
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mt-10 xs:mt-6 pb-20 xs:pb-12'>
-            {grid.map((post: any, index: number) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.4 + index * 0.06, duration: 0.5, ease },
-                }}
-                className='group'
-              >
-                <Link href={`${post?.category}/${post?.slug || post.id}`}>
-                  <div className='relative rounded-2xl overflow-hidden aspect-[4/3] ring-1 ring-black/[0.05] dark:ring-white/[0.07]'>
-                    <Image
-                      src={post.pageCover}
-                      alt={post.title}
-                      fill
-                      className='object-cover transition-transform duration-[1s] group-hover:scale-[1.04]'
-                    />
-                    <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500' />
+          <div className='mt-10 grid grid-cols-1 gap-6 pb-20 sm:grid-cols-2 lg:grid-cols-3'>
+            {grid.map((post: any, index: number) => {
+              const article = {
+                ...post,
+                tags: [
+                  ...(post.city || []),
+                  ...(post.sorts || []),
+                  ...(post.tags || []),
+                ],
+              } as Types.Post;
 
-                    <div className='absolute bottom-0 left-0 right-0 p-5 xs:p-4'>
-                      {post.city?.length > 0 && (
-                        <p className='text-[10px] text-white/50 tracking-[0.2em] uppercase mb-1.5'>
-                          {post.city.join(' · ')}
-                        </p>
-                      )}
-                      <h3 className='text-sm xs:text-xs font-light text-white leading-relaxed line-clamp-2 tracking-wide'>
-                        {post.title}
-                      </h3>
-                    </div>
-                  </div>
-
-                  <div className='mt-3 flex items-center justify-between'>
-                    <time className='text-[11px] text-neutral-500 dark:text-neutral-400 font-normal tabular-nums tracking-wide'>
-                      {post.lastEditedDate}
-                    </time>
-                    {post.sorts?.length > 0 && (
-                      <span className='text-[11px] text-gray-400 dark:text-gray-500 font-light tracking-wide'>
-                        {post.sorts[0]}
-                      </span>
-                    )}
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+              return (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { delay: 0.4 + index * 0.06, duration: 0.5, ease },
+                  }}
+                >
+                  <EditorialArticleCard
+                    article={article}
+                    variant='feature'
+                    priority={index === 0}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

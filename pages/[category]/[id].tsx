@@ -1,3 +1,6 @@
+/**
+ * 文章详情动态路由：从 Notion 文章库静态生成分类文章页，并加载关联文章与评论。
+ */
 import { GetStaticPaths, GetStaticProps } from "next";
 import NotionService from "@/lib/notion/NotionServer";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
@@ -11,6 +14,10 @@ import { getRelatedPosts } from "@/lib/services/RelatedPostsService";
 import { NOTION_POST_ID } from "@/lib/constants";
 import BlogComments from '@/components/BlogComments';
 import PostDetailLayout from '@/components/layouts/PostDetailLayout'
+import {
+  canonicalArticleRoute,
+  createArticleRouteCatalog,
+} from '@/lib/routing/articleRoute';
 
 const notionService = new NotionService();
 const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 40);
@@ -42,21 +49,27 @@ export const getStaticProps: GetStaticProps<
       pageId: databaseId,
       from: "post-id",
     });
-    const { slugMap, allPages = [] } = dbResult;
+    const { allPages = [] } = dbResult;
+    const resolution = createArticleRouteCatalog(allPages).resolve(
+      rawId,
+      params.category
+    );
 
-    let resolvedPostId = slugMap?.[rawId] ?? "";
-    if (!resolvedPostId) {
-      const normalizedRaw = rawId.replace(/-/g, "");
-      const directMatch = allPages.find(
-        (p) => p.id.replace(/-/g, "") === normalizedRaw
-      );
-      if (directMatch) {
-        resolvedPostId = directMatch.id;
-      } else {
-        console.warn(`[getStaticProps] "${rawId}" 既不是有效 slug 也不是已知 pageId`);
-        return { notFound: true };
-      }
+    if (!resolution) {
+      console.warn(`[getStaticProps] "${rawId}" 既不是有效 slug 也不是已知 pageId`);
+      return { notFound: true };
     }
+
+    if (!resolution.isCanonical) {
+      return {
+        redirect: {
+          destination: resolution.canonical.path,
+          permanent: true,
+        },
+      };
+    }
+
+    const resolvedPostId = resolution.article.id;
 
     // getPage 是唯一的网络请求，相关文章直接从 allPages 内存计算，无需并行
     const recordMap = await notionService.getPage(resolvedPostId);
@@ -67,9 +80,7 @@ export const getStaticProps: GetStaticProps<
     const relatedArticles = getRelatedPosts(resolvedPostId, allPages);
 
     let postData: any = null;
-    const matchedPost = allPages.find(
-      (p) => p.id.replace(/-/g, "") === resolvedPostId.replace(/-/g, "")
-    );
+    const matchedPost = resolution.article;
 
     if (matchedPost) {
       postData = {
@@ -150,12 +161,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     Object.entries(categoryMap).forEach(([category, data]: [string, any]) => {
       const articles = (data.articles || []).slice(0, PREBUILD_POST_LIMIT);
       articles.forEach((article: any) => {
-        // 有 slug 优先用 slug，否则用 pageId
-        const id = article.slug || article.id;
-        const key = `${category}/${id}`;
+        const route = canonicalArticleRoute(article);
+        const key = `${route.category}/${route.reference}`;
         if (!seen.has(key)) {
           seen.add(key);
-          paths.push({ params: { category, id } });
+          paths.push({
+            params: { category: route.category, id: route.reference },
+          });
         }
       });
     });
@@ -179,13 +191,13 @@ const RenderPost: React.FC<RenderPostProps> = ({
   relatedPosts,
 }) => {
   return (
-    <div className="prose mx-auto">
+    <div className="w-full">
       <NotionPage
         recordMap={recordMap}
         postData={postData}
         relatedPosts={relatedPosts}
       />
-      <div className="mx-10 xs:mx-0 px-16 mb-10 xs:px-4">
+      <div className="mt-12">
         <BlogComments
           pageId={postData.id.replace(/-/g, '')}
           pageTitle={postData.title || ''}

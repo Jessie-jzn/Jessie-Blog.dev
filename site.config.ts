@@ -11,7 +11,7 @@ const SiteConfig = {
   description:
     'Jessie 的个人博客，记录澳洲 WHV、旅行、技术与日常生活。',
   language: 'zh', // 站点默认文案语言（与 Next defaultLocale 一致）
-  siteLogo: 'https://img.jessieontheroad.com/avatar.png',
+  siteLogo: '/images/avatar.png',
   socialBanner: '/static/images/projects/karhdo-blog.png',
   theme: 'system',
   locale: 'zh',
@@ -30,8 +30,8 @@ const SiteConfig = {
     },
     {
       id: 2,
-      title: 'nav.whv',
-      href: '/whv',
+      title: 'nav.articles',
+      href: '/post',
       // children: [
       //   {
       //     id: 21,
@@ -86,21 +86,26 @@ const SiteConfig = {
     },
     {
       id: 3,
-      title: 'nav.travel',
-      href: '/travel',
-    },
-    {
-      id: 4,
-      title: 'nav.life',
-      href: '/life',
-    },
-    {
-      id: 5,
       title: 'nav.technical',
       href: '/technical',
     },
     {
+      id: 4,
+      title: 'nav.whv',
+      href: '/whv',
+    },
+    {
+      id: 5,
+      title: 'nav.travel',
+      href: '/travel',
+    },
+    {
       id: 6,
+      title: 'nav.projects',
+      href: '/projects',
+    },
+    {
+      id: 7,
       title: 'nav.about',
       href: '/about',
     },

@@ -1,3 +1,4 @@
+/** 为文章列表提供带内容容器、导航和页脚的页面布局。 */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -7,9 +8,9 @@ export default function PostListLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen relative w-full bg-canvas dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+    <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
       <Navbar isFull={false} />
-      <main className="max-w-6xl mx-auto w-full px-4 sm:px-5 pt-20 xs:pt-14 pb-20">
+      <main className="site-container flex-grow pt-16 pb-20 xs:pt-14 md:pb-24">
         {children}
       </main>
       <Footer />

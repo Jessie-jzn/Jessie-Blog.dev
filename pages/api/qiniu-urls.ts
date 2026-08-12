@@ -1,3 +1,6 @@
+/**
+ * 七牛批量私有链接接口：解析对象键数组并返回各文件的一小时有效下载地址。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import qiniu from "qiniu";
 

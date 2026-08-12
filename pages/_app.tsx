@@ -1,3 +1,6 @@
+/**
+ * 全站应用入口：装配主题、国际化、全局样式、布局及公开第三方集成。
+ */
 import { ThemeProvider } from 'next-themes'; // 导入主题提供者，用于主题管理
 import { appWithTranslation } from 'next-i18next'; // 导入国际化支持
 import 'tailwindcss/tailwind.css'; // 导入 Tailwind CSS 样式
@@ -14,13 +17,12 @@ import '../styles/markdown-github.css'; // 导入自定义 Markdown 样式
 
 import nextI18NextConfig from '../next-i18next.config.js'; // 导入国际化配置
 import BaseLayout from '@/components/layouts/BaseLayout'; // 导入基础布局组件
-// import CustomLayout from "@/components/CustomLayout/index"; // 可选的自定义布局
-// import SiteConfig from "../site.config"; // 可选的网站配置
 import Head from 'next/head'; // 导入 Head 组件，用于设置页面头部信息
 
 import { useEffect } from 'react'; // 导入 useEffect 钩子
 import { useRouter } from 'next/router'; // 导入路由钩子
 import Script from 'next/script'; // 导入 Script 组件，用于添加外部脚本
+import { getPublicIntegrations } from '@/lib/runtime/publicIntegrations';
 
 interface MyAppProps {
   Component: React.ComponentType & {
@@ -31,10 +33,25 @@ interface MyAppProps {
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
   const router = useRouter(); // 获取路由对象
+  const integrations = getPublicIntegrations({
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
+    NEXT_PUBLIC_ADSENSE_ID: process.env.NEXT_PUBLIC_ADSENSE_ID,
+    NEXT_PUBLIC_CLARITY_ID: process.env.NEXT_PUBLIC_CLARITY_ID,
+    NEXT_PUBLIC_CUSTOM_SCRIPT_URL:
+      process.env.NEXT_PUBLIC_CUSTOM_SCRIPT_URL,
+  });
 
   useEffect(() => {
+    if (!integrations.gaId) {
+      return;
+    }
+
     const handleRouteChange = (url: string) => {
-      (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+      const gtag = (window as any).gtag;
+      if (typeof gtag !== 'function') {
+        return;
+      }
+      gtag('config', integrations.gaId, {
         // Google Analytics 路由变化跟踪
         page_path: url,
       });
@@ -44,7 +61,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange); // 清理事件监听
     };
-  }, [router.events]);
+  }, [integrations.gaId, router.events]);
 
   const getLayout =
     Component.getLayout ?? ((page) => <BaseLayout>{page}</BaseLayout>); // 获取布局，如果没有则使用基础布局
@@ -56,10 +73,12 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         {/* <link rel="preconnect" href="https://www.googletagmanager.com" /> */}
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />{' '}
         {/* DNS 预取 */}
-        <meta
-          name='google-adsense-account'
-          content={process.env.NEXT_PUBLIC_ADSENSE_ID} // Google AdSense 账户信息
-        ></meta>
+        {integrations.adsenseId && (
+          <meta
+            name='google-adsense-account'
+            content={integrations.adsenseId}
+          />
+        )}
         <meta name='msapplication-TileColor' content='#000000' />{' '}
         {/* Windows 瓷砖颜色 */}
         <meta
@@ -76,47 +95,48 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         {/* 百度站点验证 */}
       </Head>
 
-      <Script
-        id='google-analytics'
-        strategy='afterInteractive' // 确保在页面交互后加载
-        dangerouslySetInnerHTML={{
-          __html: `
+      {integrations.gaId && (
+        <>
+          <Script
+            id='google-analytics'
+            strategy='afterInteractive'
+            dangerouslySetInnerHTML={{
+              __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            gtag('config', '${integrations.gaId}');
           `,
-        }}
-      ></Script>
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} // 加载 Google Analytics 脚本
-      ></Script>
-      <Script
-        async
-        custom-element='amp-ad'
-        src='https://cdn.ampproject.org/v0/amp-ad-0.1.js' // 加载 AMP 广告脚本
-      ></Script>
-      <Script
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`} // 加载 Google AdSense 脚本
-        crossOrigin='anonymous'
-        strategy='afterInteractive' // 确保页面互动之后才加载广告脚本
-      ></Script>
-      <Script
-        id='custom-script'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function () {
-                var script = document.createElement("script");
-                script.async = 1;
-                script.src = '${process.env.NEXT_PUBLIC_CUSTOM_SCRIPT_URL}'; // 加载自定义脚本
-                document.head.appendChild(script);
-            })();
-          `,
-        }}
-      />
+            }}
+          />
+          <Script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${integrations.gaId}`}
+          />
+        </>
+      )}
+      {integrations.adsenseId && (
+        <>
+          <Script
+            async
+            custom-element='amp-ad'
+            src='https://cdn.ampproject.org/v0/amp-ad-0.1.js'
+          />
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.adsenseId}`}
+            crossOrigin='anonymous'
+            strategy='afterInteractive'
+          />
+        </>
+      )}
+      {integrations.customScriptUrl && (
+        <Script
+          id='custom-script'
+          src={integrations.customScriptUrl}
+          strategy='afterInteractive'
+        />
+      )}
       <Script
         id='custom-script-2'
         strategy='afterInteractive'
@@ -134,24 +154,21 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         data-cfasync='false'
         data-wpfc-render='false'
       />
-      <Script
-        async
-        strategy='afterInteractive'
-        crossOrigin='anonymous'
-      ></Script>
-      <Script
-        id='microsoft-clarity'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
+      {integrations.clarityId && (
+        <Script
+          id='microsoft-clarity'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; // 加载 Microsoft Clarity 脚本
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");
+            })(window, document, "clarity", "script", "${integrations.clarityId}");
           `,
-        }}
-      />
+          }}
+        />
+      )}
       <ThemeProvider
         defaultTheme='system' // 默认主题为系统主题
         enableSystem={true} // 启用系统主题

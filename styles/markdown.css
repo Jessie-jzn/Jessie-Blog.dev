@@ -3,6 +3,133 @@
   list-style: disc;
 }
 
+/* Editorial Markdown overrides stay inside the renderer roots. */
+:root .markdown-body,
+.custom-html-style {
+  color: var(--ui-ink);
+  background: var(--ui-surface);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+:root .markdown-body h1,
+:root .markdown-body h2,
+:root .markdown-body h3,
+:root .markdown-body h4,
+:root .markdown-body h5,
+:root .markdown-body h6,
+.custom-html-style h1,
+.custom-html-style h2,
+.custom-html-style h3,
+.custom-html-style h4,
+.custom-html-style h5,
+.custom-html-style h6 {
+  color: var(--ui-ink);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+:root .markdown-body h1,
+.custom-html-style h1 {
+  margin: 3rem 0 1rem;
+}
+
+:root .markdown-body h2,
+.custom-html-style h2 {
+  margin: 2.5rem 0 0.875rem;
+}
+
+:root .markdown-body h3,
+:root .markdown-body h4,
+:root .markdown-body h5,
+:root .markdown-body h6,
+.custom-html-style h3,
+.custom-html-style h4,
+.custom-html-style h5,
+.custom-html-style h6 {
+  margin: 2rem 0 0.75rem;
+}
+
+:root .markdown-body a,
+.custom-html-style a {
+  color: var(--ui-accent-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--ui-accent);
+  text-underline-offset: 0.2em;
+}
+
+:root .markdown-body a:focus-visible,
+.custom-html-style a:focus-visible,
+:root .markdown-body summary:focus-visible,
+.custom-html-style summary:focus-visible {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+:root .markdown-body blockquote,
+.custom-html-style blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--ui-ink-muted);
+  background: transparent;
+  border-left: 4px solid var(--ui-accent);
+}
+
+:root .markdown-body :not(pre) > code,
+.custom-html-style :not(pre) > code {
+  padding: 0.15em 0.4em;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 0.4rem;
+}
+
+:root .markdown-body pre,
+.custom-html-style pre {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}
+
+:root .markdown-body table,
+.custom-html-style table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+:root .markdown-body th,
+:root .markdown-body td,
+.custom-html-style th,
+.custom-html-style td {
+  border-color: var(--ui-line);
+}
+
+:root .markdown-body img,
+.custom-html-style img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+:root .markdown-body details,
+.custom-html-style details {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  color: var(--ui-ink);
+  background: var(--ui-surface-muted);
+  border: 1px solid var(--ui-line);
+  border-radius: 1rem;
+}
+
 .markdown-body {
   background: #fff;
   font-size: 16px;

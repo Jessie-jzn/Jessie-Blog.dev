@@ -1,3 +1,6 @@
+/**
+ * 首页：从 Notion 读取首页或文章库数据，按内容世界组织首页展示与国际化文案。
+ */
 import { GetStaticProps } from 'next';
 import NotionService from '@/lib/notion/NotionServer';
 import { NOTION_HOME_ID, NOTION_POST_ID } from '@/lib/constants';
@@ -14,6 +17,8 @@ import HomeLandingSections from '@/components/home/HomeLandingSections';
 import WhvGuideSection from '@/components/home/WhvGuideSection';
 import TravelGuideSection from '@/components/home/TravelGuideSection';
 import HomeConsultCta from '@/components/home/HomeConsultCta';
+import HomeContentWorlds from '@/components/home/HomeContentWorlds';
+import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
 
 const notionService = new NotionService();
 
@@ -73,17 +78,19 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
   const { t } = useTranslation('home');
 
   return (
-    <div className='min-h-screen bg-canvas dark:bg-neutral-950'>
+    <div className='min-h-screen bg-canvas text-ink'>
       <CommonSEO
         title={t('landing.seoTitle')}
         description={t('landing.seoDescription')}
       />
 
-      <main>
+      <div>
         <HomeHero email={SiteConfig.email} />
 
-        <div className='relative z-10 max-w-6xl mx-auto px-3.5 sm:px-5 pb-12 md:pb-16 flex flex-col gap-3.5 sm:gap-4 md:-mt-8'>
+        <div className='relative z-10'>
           <HomePersonaStory />
+
+          <HomeContentWorlds />
 
           <WhvGuideSection posts={whvPosts} />
 
@@ -91,9 +98,11 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
 
           <HomeLandingSections />
 
+          <HomeProjectsPreview />
+
           <HomeConsultCta />
         </div>
-      </main>
+      </div>
     </div>
   );
 };

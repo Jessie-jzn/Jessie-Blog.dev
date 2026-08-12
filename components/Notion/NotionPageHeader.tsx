@@ -1,3 +1,4 @@
+/** 提供 Notion 文章的面包屑、搜索和页头辅助展示，并依据路由与 i18n 生成文案。 */
 import { Search } from "react-notion-x";
 import SiteConfig from "@/site.config";
 import { useRouter } from "next/router";
@@ -9,6 +10,10 @@ import type { PostData } from "@/lib/type";
 interface BreadcrumbsProps {
   postData?: PostData;
 }
+
+const CATEGORY_BREADCRUMB_FALLBACKS = {
+  life: { href: "/life", title: "nav.life" },
+} as const;
 
 /**
  * 独立面包屑组件，基于 postData 和路由路径生成，不依赖 react-notion-x 的 block 结构。
@@ -46,11 +51,17 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
     if (postData.category && items.length === 1) {
       const categorySlug = pathSegments[0];
       if (categorySlug) {
-        const matchByCategory = SiteConfig.navigationLinks.find(
-          (link: { href: string }) =>
-            link.href !== "/" &&
-            categorySlug.startsWith(link.href.replace("/", ""))
-        );
+        const fallback =
+          CATEGORY_BREADCRUMB_FALLBACKS[
+            categorySlug as keyof typeof CATEGORY_BREADCRUMB_FALLBACKS
+          ];
+        const matchByCategory =
+          fallback ??
+          SiteConfig.navigationLinks.find(
+            (link: { href: string }) =>
+              link.href !== "/" &&
+              categorySlug.startsWith(link.href.replace("/", ""))
+          );
         if (matchByCategory) {
           items.push({
             href: matchByCategory.href,
@@ -71,19 +82,29 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
   if (breadcrumbs.length <= 1) return null;
 
   return (
-    <nav className="flex items-center text-sm text-gray-500 dark:text-gray-400 py-2 overflow-x-auto whitespace-nowrap">
+    <nav
+      aria-label={t("articleControls.breadcrumb")}
+      className="flex items-center overflow-x-auto whitespace-nowrap py-1 text-sm text-subtle"
+    >
       {breadcrumbs.map((item, idx) => (
         <span key={idx} className="flex items-center">
-          {idx > 0 && <span className="mx-2 text-gray-300 dark:text-gray-600">/</span>}
+          {idx > 0 && (
+            <span className="mx-2 text-line" aria-hidden="true">
+              /
+            </span>
+          )}
           {idx < breadcrumbs.length - 1 ? (
             <Link
               href={item.href}
-              className="hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+              className="editorial-focus rounded-sm transition-colors hover:text-primaryStrong"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-gray-900 dark:text-gray-100 font-medium truncate max-w-[300px]">
+            <span
+              aria-current="page"
+              className="max-w-[300px] truncate font-medium text-ink"
+            >
               {item.label}
             </span>
           )}
@@ -99,7 +120,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ postData }) => {
  */
 const NotionPageHeader = ({ block }: any) => {
   return (
-    <header className="notion-header">
+    <header className="notion-header border-b border-line bg-surface text-ink backdrop-blur-xl">
       <div className="notion-nav-header" style={{ justifyContent: "flex-end" }}>
         <Search block={block} title={null} />
       </div>

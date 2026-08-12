@@ -1,9 +1,14 @@
+/**
+ * 关于页：渲染个人故事与站点信息，并加载 about 与公共国际化文案。
+ */
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CommonSEO } from '@/components/SEO';
+import PageHeader from '@/components/common/PageHeader';
+import SiteConfig from '@/site.config';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -29,16 +34,24 @@ const About = () => {
         title={t('hero.title', { ns: 'about' })}
         description={t('hero.subtitle', { ns: 'about' })}
       />
-      <div className='max-w-3xl mx-auto px-5 sm:px-6 py-10 sm:py-16 font-sans text-gray-700 dark:text-gray-300'>
+      <div className='bg-canvas text-ink'>
+        <PageHeader
+          eyebrow={t('sections.story.title', { defaultValue: 'About Jessie' })}
+          title={t('hero.title')}
+          description={t('hero.subtitle')}
+        />
+
+        <main className='site-container pb-16 font-sans md:pb-24'>
+          <div className='mx-auto max-w-4xl'>
         {/* Hero Section */}
         <motion.div
-          className='flex flex-col md:flex-row items-center gap-10 mb-20 xs:mb-12'
+          className='mb-16 flex justify-center md:mb-20'
           {...fade(0.1)}
         >
           <div className='flex-shrink-0'>
-            <div className='relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-2 ring-black/[0.06] dark:ring-white/[0.12] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.15)]'>
+            <div className='relative h-28 w-28 overflow-hidden rounded-full border border-line sm:h-36 sm:w-36'>
               <Image
-                src='https://img.jessieontheroad.com/avatar.png'
+                src='/images/avatar.png'
                 alt='Jessie'
                 fill
                 className='object-cover'
@@ -46,24 +59,16 @@ const About = () => {
               />
             </div>
           </div>
-          <div className='text-center md:text-left'>
-            <h1 className='text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3'>
-              {t('hero.title')}
-            </h1>
-            <p className='text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed'>
-              {t('hero.subtitle')}
-            </p>
-          </div>
         </motion.div>
 
         {/* Story Section */}
         <motion.div className='mb-20 xs:mb-12 max-w-3xl' {...fade(0.15)}>
-          <div className='w-8 h-[1px] bg-gray-200 dark:bg-gray-800 mb-8' />
+          <div className='mb-8 h-px w-8 bg-line' />
           <div className='space-y-5'>
-            <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9]'>
+            <p className='text-base leading-[1.9] text-subtle sm:text-lg'>
               {t('sections.story.p1')}
             </p>
-            <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9]'>
+            <p className='text-base leading-[1.9] text-subtle sm:text-lg'>
               {t('sections.story.p2')}
             </p>
           </div>
@@ -71,19 +76,19 @@ const About = () => {
 
         {/* What to find here */}
         <motion.div className='mb-20 xs:mb-12' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
+          <h2 className='mb-8 text-sm uppercase tracking-widest text-subtle'>
             {t('sections.findHere.title')}
           </h2>
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-5'>
             {['travel', 'tech', 'life'].map((key) => (
               <div
                 key={key}
-                className='p-6 rounded-2xl bg-gray-50/80 dark:bg-gray-900/40 border border-black/[0.03] dark:border-white/[0.03]'
+                className='editorial-surface rounded-2xl p-6'
               >
-                <h3 className='text-base font-medium text-gray-900 dark:text-gray-100 mb-2'>
+                <h3 className='mb-2 text-base font-medium text-ink'>
                   {t(`sections.findHere.${key}.title`)}
                 </h3>
-                <p className='text-sm text-gray-600 dark:text-gray-300 leading-relaxed'>
+                <p className='text-sm leading-relaxed text-subtle'>
                   {t(`sections.findHere.${key}.desc`)}
                 </p>
               </div>
@@ -93,7 +98,7 @@ const About = () => {
 
         {/* Tech Stack Section */}
         <motion.div className='mb-20 xs:mb-12' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
+          <h2 className='mb-8 text-sm uppercase tracking-widest text-subtle'>
             {t('sections.techStack.title')}
           </h2>
           <div className='grid grid-cols-2 sm:grid-cols-4 gap-8'>
@@ -116,14 +121,14 @@ const About = () => {
               },
             ].map((group) => (
               <div key={group.label}>
-                <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-3'>
+                <h3 className='mb-3 text-sm font-medium text-ink'>
                   {group.label}
                 </h3>
                 <ul className='space-y-1.5'>
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className='text-sm text-gray-600 dark:text-gray-300'
+                      className='text-sm text-subtle'
                     >
                       {item}
                     </li>
@@ -136,21 +141,21 @@ const About = () => {
 
         {/* Journey Section */}
         <motion.div className='mb-20 xs:mb-12 max-w-3xl' {...fade(0.1)}>
-          <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-8'>
+          <h2 className='mb-8 text-sm uppercase tracking-widest text-subtle'>
             {t('sections.journey.title')}
           </h2>
-          <p className='text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-[1.9] mb-8'>
+          <p className='mb-8 text-base leading-[1.9] text-subtle sm:text-lg'>
             {t('sections.journey.description')}
           </p>
           <div>
-            <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-4'>
+            <h3 className='mb-4 text-sm font-medium text-ink'>
               {t('sections.journey.background.title')}
             </h3>
             <ul className='space-y-3'>
               {['experience', 'skills', 'ai', 'whv'].map((item) => (
                 <li key={item} className='flex items-start gap-3'>
-                  <span className='mt-2 w-1.5 h-1.5 rounded-full bg-[#62BFAD] flex-shrink-0' />
-                  <span className='text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed'>
+                  <span className='mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary' />
+                  <span className='text-sm leading-relaxed text-subtle sm:text-base'>
                     {t(`sections.journey.background.${item}`)}
                   </span>
                 </li>
@@ -161,23 +166,23 @@ const About = () => {
 
         {/* Current Location */}
         <motion.div
-          className='mb-20 xs:mb-12 rounded-2xl bg-gray-50/80 dark:bg-gray-900/40 border border-black/[0.03] dark:border-white/[0.03] p-6 sm:p-8'
+          className='editorial-surface mb-20 rounded-2xl p-6 xs:mb-12 sm:p-8'
           {...fade(0.1)}
         >
           <div className='flex flex-col md:flex-row gap-8'>
             <div className='w-full md:w-2/3'>
-              <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-4'>
+              <h2 className='mb-4 text-sm uppercase tracking-widest text-subtle'>
                 {t('sections.location.title')}
               </h2>
-              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9] mb-6'>
+              <p className='mb-6 text-base leading-[1.9] text-subtle'>
                 {t('sections.location.desc')}
               </p>
               <div className='grid grid-cols-2 gap-6'>
                 <div>
-                  <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-3'>
+                  <h3 className='mb-3 text-sm font-medium text-ink'>
                     {t('sections.location.recent')}
                   </h3>
-                  <ul className='space-y-1.5 text-sm text-gray-600 dark:text-gray-300'>
+                  <ul className='space-y-1.5 text-sm text-subtle'>
                     <li>{t('sections.location.cities.sydney')}, NSW</li>
                     <li>{t('sections.location.cities.goldCoast')}, QLD</li>
                     <li>{t('sections.location.cities.melbourne')}, VIC</li>
@@ -185,10 +190,10 @@ const About = () => {
                   </ul>
                 </div>
                 <div>
-                  <h3 className='text-sm font-medium text-gray-900 dark:text-gray-100 mb-3'>
+                  <h3 className='mb-3 text-sm font-medium text-ink'>
                     {t('sections.location.next')}
                   </h3>
-                  <ul className='space-y-1.5 text-sm text-gray-600 dark:text-gray-300'>
+                  <ul className='space-y-1.5 text-sm text-subtle'>
                     <li>{t('sections.location.cities.perth')}, WA</li>
                     <li>{t('sections.location.cities.adelaide')}, SA</li>
                     <li>{t('sections.location.cities.tasmania')}</li>
@@ -229,32 +234,57 @@ const About = () => {
             </div>
 
             <div className='w-full md:w-3/5 space-y-5'>
-              <h2 className='text-sm text-gray-500 dark:text-gray-400 tracking-widest uppercase mb-2'>
+              <h2 className='mb-2 text-sm uppercase tracking-widest text-subtle'>
                 {t('sections.philosophy.title')}
               </h2>
 
-              <p className='text-lg sm:text-xl text-gray-900 dark:text-gray-100 leading-snug tracking-tight'>
+              <p className='text-lg leading-snug tracking-tight text-ink sm:text-xl'>
                 {t('sections.philosophy.slogan')}
               </p>
 
-              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9]'>
+              <p className='text-base leading-[1.9] text-subtle'>
                 {t('sections.philosophy.codeDesc')}
               </p>
-              <p className='text-base text-gray-700 dark:text-gray-300 leading-[1.9]'>
+              <p className='text-base leading-[1.9] text-subtle'>
                 {t('sections.philosophy.lifeDesc')}
               </p>
 
-              <blockquote className='border-l-[2px] border-[#62BFAD]/60 pl-5 py-1 mt-6'>
-                <p className='text-base text-gray-600 dark:text-gray-300 italic leading-relaxed'>
+              <blockquote className='mt-6 border-l-2 border-primary py-1 pl-5'>
+                <p className='text-base italic leading-relaxed text-subtle'>
                   {t('sections.philosophy.quote')}
                 </p>
-                <footer className='text-sm text-gray-500 dark:text-gray-400 mt-1.5'>
+                <footer className='mt-1.5 text-sm text-subtle'>
                   {t('sections.philosophy.quoteAuthor')}
                 </footer>
               </blockquote>
             </div>
           </div>
         </motion.div>
+
+        <motion.section className='editorial-surface mb-20 rounded-2xl p-6 xs:mb-12 sm:p-8' {...fade(0.1)}>
+          <p className='text-[11px] font-medium uppercase tracking-[0.18em] text-primaryStrong'>
+            {t('sections.collaborate.eyebrow')}
+          </p>
+          <h2 className='mt-3 text-xl font-semibold tracking-tight text-ink'>
+            {t('sections.collaborate.title')}
+          </h2>
+          <p className='mt-3 max-w-2xl text-sm leading-relaxed text-subtle'>
+            {t('sections.collaborate.description')}
+          </p>
+          <ul className='mt-6 grid gap-3 sm:grid-cols-3'>
+            {(['brand', 'ai', 'whv'] as const).map((key) => (
+              <li key={key} className='rounded-xl border border-line bg-surface p-4'>
+                <h3 className='font-medium text-ink'>{t(`sections.collaborate.items.${key}.title`)}</h3>
+                <p className='mt-2 text-sm leading-relaxed text-subtle'>{t(`sections.collaborate.items.${key}.description`)}</p>
+              </li>
+            ))}
+          </ul>
+          <a href={`mailto:${SiteConfig.email}?subject=${encodeURIComponent(t('sections.collaborate.subject'))}`} className='editorial-focus mt-6 inline-flex rounded-full border border-line bg-primary px-6 py-3 text-sm font-semibold text-ink hover:bg-primaryStrong hover:text-surface'>
+            {t('sections.collaborate.cta')}
+          </a>
+        </motion.section>
+          </div>
+        </main>
       </div>
     </>
   );

@@ -5,70 +5,97 @@
     "hero": {
       "badge": "ENFJ · frontend · one year in Australia on a WHV",
       "headline": [
-        "Hey, I'm Jessie."
+        "I'm Jessie.",
+        "I worked in frontend for years, then left for a working holiday in Australia."
       ],
       "paragraphs": [
-        "I spent eight years working in frontend development and one year living in Australia on a working holiday visa.",
-        "This is where I keep honest notes from that year, the places I have travelled, the things I build, and ordinary life in between.",
-        "These are not definitive answers—just the roads I have taken, recorded as truthfully as I can."
+        "I quit my frontend job, spent a year in Australia on a working holiday, then came home and was back at my computer, writing code again.",
+        "Lately I have been putting AI into real work bit by bit, instead of leaving it in a demo.",
+        "This site does not have one theme. Code, AI, Australia, travel, and ordinary life are already tangled up in mine.",
+        "I keep the mistakes, the things I understood later, and the things nobody told me when I needed them."
       ],
       "primaryMailSubject": "Hello Jessie",
       "primaryCta": "Write to me",
-      "secondaryCta": "Read my WHV notes",
+      "secondaryCta": "Read Articles",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
     },
+    "worlds": {
+      "eyebrow": "CONTENT WORLDS",
+      "title": "What shows up here",
+      "description": "Not four neatly separated topics—just the things I have been doing, living through, and thinking about lately.",
+      "allArticles": "Browse all Articles →",
+      "aria": "Content worlds",
+      "items": {
+        "ai": { "eyebrow": "AI & TECH", "title": "AI & frontend", "description": "How I use AI to write code, build workflows, and run evals in real projects—the useful parts and the messes too.", "href": "/technical" },
+        "whv": { "eyebrow": "WHV", "title": "Working holiday in Australia", "description": "Visas, jobs, and actually settling in. There are plenty of guides; doing it yourself can still be chaotic.", "href": "/whv" },
+        "travel": { "eyebrow": "TRAVEL", "title": "Travel", "description": "No checklist or travel-template posts. Just places I really liked and would go back to.", "href": "/travel" },
+        "life": { "eyebrow": "LIFE", "title": "Life", "description": "Work, finding a new direction, living on my own, and things that took time to understand.", "href": "/life" }
+      }
+    },
+    "projects": {
+      "eyebrow": "PROJECTS & EXPERIENCE",
+      "title": "Things I have made",
+      "description": "Some are finished. Some are still being figured out. These are the ones I have actually worked on.",
+      "allProjects": "View projects & experience →",
+      "aria": "Projects and experience"
+    },
     "persona": {
       "sectionEyebrow": "Tone / site map",
-      "p1": "The habit of writing things down came largely from coding: when I meet an unfamiliar process, I want to break it into smaller steps and keep a record.",
-      "p2": "As an ENFJ I love bringing people together, but when I write I would rather include the full context than offer a vague happy ending.",
-      "p3": "You will find doubts, mistakes, and later updates here. The point is not to look permanently right, but to record what really happened.",
-      "aside": "Below are notes from my year in Australia, followed by travel, technology, and life. They may not be complete, but every one comes from something I lived or made."
+      "p1": "Writing things down probably came from coding. When I run into a process I do not know, I want to take it apart. When I make a mistake, I want to leave a note for next time.",
+      "p2": "I am not especially concise. I usually want to tell the bit before and after, because a story can look very different without the context.",
+      "p3": "There are doubts, mistakes, and later updates here. Things change. If an old post is wrong, I will fix it; I will also leave what I thought at the time.",
+      "aside": "First comes that year in Australia, then travel, tech, and life. It is not especially tidy, but it is all mine."
     },
     "travelSection": {
       "kicker": "02 · notes",
       "title": "Travel journal",
-      "subtitle": "Places I have travelled across China, Australia, Asia, and beyond.",
-      "introLine1": "This is not a destination directory. It is a collection of things I saw, felt, and learned on the road.",
-      "introLine2Before": "Details may change over time; I hope the ",
-      "introStrong": "lived experiences",
-      "introLine2After": " remain useful as a reference for your own journey."
+      "subtitle": "Places I went to, really liked, and still think about later.",
+      "introLine1": "No checklists. No travel-template posts.",
+      "introLine2Before": "Routes and prices change; what I can keep are the ",
+      "introStrong": "small things",
+      "introLine2After": " that happened on the road."
     },
     "services": {
       "sectionLabel": "03",
-      "title": "Technology and life are part of the story too",
+      "title": "The other things I have been doing",
       "blocks": [
         {
           "heading": "Technology",
-          "items": ["Eight years in frontend development, with notes on projects and lessons learned","A focus on real problems, the process of building, and imperfect answers"]
+          "items": ["Years of frontend work, projects I have built, and the mistakes that came with them","Less theory, more of what I tried and where it went wrong"]
         },
         {
           "heading": "Life",
-          "items": ["Everyday observations, choices, and changes beyond travel","Keeping what I thought at the time while allowing the answer to change"]
+          "items": ["Work, choices, and ordinary days outside travel","Some answers change later. That is fine too"]
         },
         {
           "heading": "This blog",
-          "items": ["Not a service brochure, but a long-term record of personal experience","WHV, travel, technology, and life will continue to grow here"]
+          "items": ["Not a service brochure, and not proof that I have it all figured out","Just a place to put the things that have happened over the years"]
         }
       ],
       "aboutLink": "About me →",
-      "footer": "Some posts solve a specific problem and others simply preserve a season of life. Together, they tell my story."
+      "footer": "Some posts solve one small problem. Some are here because I did not want to forget them."
     },
     "whv": {
       "kicker": "04 · whv",
       "title": "My year on an Australian WHV",
-      "subtitle": "Real experiences from preparing and arriving to working and leaving",
+      "subtitle": "From getting ready to leaving again: the things you only really learn once you are there.",
       "intro": "Personal stories first, with practical information where it may help."
     },
     "cta": {
-      "sectionEyebrow": "Say hi",
-      "title": "If any of these stories resonate, say hello.",
-      "p1": "If you are preparing for a WHV, love travelling, or want to talk about technology and life, feel free to write.",
-      "p2": "You do not need a formal question. Share your experience or simply say hello.",
+      "sectionEyebrow": "COLLABORATE & CONNECT",
+      "title": "Write to me if you want to talk",
+      "p1": "AI, frontend work, or a working holiday in Australia—I am happy to talk about any of it.",
+      "p2": "If I have already made the mistake you are dealing with now, I may be able to save you a bit of time.",
       "mailSubject": "Hello Jessie",
       "primaryBtn": "Write to me",
       "whvNote": "If something in an article needs updating, I would be glad to hear about that too.",
-      "ariaConsult": "Contact"
+      "ariaConsult": "Collaborate and connect",
+      "paths": {
+        "ads": { "title": "Brand partnerships", "description": "If your product genuinely fits the people who read this, we can talk." },
+        "ai": { "title": "AI / web projects", "description": "If you want to turn an idea into something people can use, I am interested." },
+        "whv": { "title": "WHV conversations", "description": "I can share what happened to me, not replace professional visa advice." }
+      }
     },
     "aria": {
       "persona": "About Jessie",

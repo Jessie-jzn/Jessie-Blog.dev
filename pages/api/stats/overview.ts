@@ -1,3 +1,6 @@
+/**
+ * 文章统计概览接口：从 Upstash Redis 与 Mailchimp 汇总指定文章阅读量和全站订阅数。
+ */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getStatsRedis } from "@/lib/stats/redis";
 import { normalizeStatsPostId } from "@/lib/stats/postId";

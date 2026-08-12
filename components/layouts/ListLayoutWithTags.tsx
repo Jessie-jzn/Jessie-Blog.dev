@@ -1,7 +1,14 @@
+/** 支持标签路由、高亮筛选和搜索的文章列表页面布局。 */
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import * as Types from "@/lib/type";
+import PageHeader from "@/components/common/PageHeader";
+import FilterPills from "@/components/common/FilterPills";
+import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
+import { activeTagIdFromPath } from "@/lib/routing/tagRouteData";
 
 interface ListLayoutWithTagsProps {
   posts: Types.Post[];
@@ -15,14 +22,15 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
   tagOptions = [],
 }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { t } = useTranslation("common");
   const [searchValue, setSearchValue] = useState("");
+  const safePosts = Array.isArray(posts) ? posts : [];
+  const activeTagId = activeTagIdFromPath(pathname);
 
   // Use useMemo to optimize the computation of filteredBlogPosts
   const filteredBlogPosts = useMemo(() => {
-    if (!Array.isArray(posts)) {
-      return [];
-    }
-    return posts.filter((post) => {
+    return safePosts.filter((post) => {
       const searchContent = [
         post.title,
         post.summarize,
@@ -31,127 +39,142 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
 
       return searchContent.toLowerCase().includes(searchValue.toLowerCase());
     });
-  }, [posts, searchValue]);
+  }, [safePosts, searchValue]);
 
   // Use useMemo to optimize the computation of displayPosts
   const displayPosts = useMemo(() => {
-    return !searchValue ? posts : filteredBlogPosts;
-  }, [posts, filteredBlogPosts, searchValue]);
+    return !searchValue ? safePosts : filteredBlogPosts;
+  }, [safePosts, filteredBlogPosts, searchValue]);
+
+  const filterItems = useMemo(
+    () => [
+      {
+        id: "all",
+        name: t("articleList.all"),
+      },
+      ...tagOptions.map((tag) => ({
+        id: tag.id,
+        name: `${tag.name || tag.id} (${tag.count})`,
+      })),
+    ],
+    [tagOptions, t],
+  );
+
+  const handleFilterChange = (item: { id: string }) => {
+    if (item.id === "all") {
+      void router.push("/post");
+      return;
+    }
+
+    void router.push(`/tags/${encodeURIComponent(item.id)}`);
+  };
 
   return (
-    <div className="container mx-auto pt-6 pb-8">
-      <div className="flex flex-wrap -mx-4">
-        <div className="w-full sm:w-1/4 px-4 mb-8 sm:mb-0">
-          <div className="h-full max-h-screen overflow-auto rounded bg-gray-50 p-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40">
-            <div className="px-6 py-4">
+    <div className="min-h-[60vh] bg-canvas text-ink">
+      <PageHeader
+        eyebrow={t("post")}
+        title={title}
+        meta={t("articleList.count", { count: displayPosts.length })}
+      />
+
+      <div className="site-container pb-16 md:pb-24">
+        <div className="mb-6 md:hidden">
+          <FilterPills
+            items={filterItems}
+            activeId={activeTagId || "all"}
+            onChange={handleFilterChange}
+            ariaLabel={t("articleList.browseByTag")}
+          />
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-[14rem_minmax(0,1fr)] lg:gap-10">
+          <aside className="hidden md:block">
+            <nav
+              aria-label={t("articleList.browseByTag")}
+              className="editorial-surface sticky top-24 max-h-[calc(100vh-7rem)] overflow-auto rounded-2xl p-5"
+            >
               <Link
-                href={`/post`}
-                className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+                href="/post"
+                className="editorial-focus block rounded-xl px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-muted hover:text-primaryStrong"
               >
-                All Posts
+                {t("articleList.all")}
               </Link>
-              <ul>
+              <ul className="mt-2 space-y-1">
                 {!!tagOptions.length &&
-                  tagOptions?.map((t: Types.Tag) => (
-                    <li key={t.id} className="my-3">
-                      {pathname.split("/tags/")[1] === t.id ? (
-                        <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                          {`${t.name} (${t.count})`}
-                        </h3>
-                      ) : (
-                        <Link
-                          href={`/tags/${t.id}`}
-                          className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                          aria-label={`View posts tagged ${t.name}`}
-                        >
-                          {`${t.name} (${t.count})`}
-                        </Link>
-                      )}
+                  tagOptions.map((tag: Types.Tag) => (
+                    <li key={tag.id}>
+                      <Link
+                        href={`/tags/${encodeURIComponent(tag.id)}`}
+                        aria-current={activeTagId === tag.id ? "page" : undefined}
+                        className={`editorial-focus flex min-h-10 items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm transition-colors ${
+                          activeTagId === tag.id
+                            ? "bg-primarySoft font-semibold text-primaryStrong"
+                            : "text-subtle hover:bg-muted hover:text-ink"
+                        }`}
+                        aria-label={t("articleList.viewTag", {
+                          tag: tag.name || tag.id,
+                        })}
+                      >
+                        <span>{tag.name || tag.id}</span>
+                        <span className="text-xs">{tag.count}</span>
+                      </Link>
                     </li>
                   ))}
               </ul>
+            </nav>
+          </aside>
+
+          <main className="min-w-0">
+            <div className="relative mb-6 max-w-xl">
+              <label htmlFor="article-search" className="sr-only">
+                {t("articleList.search")}
+              </label>
+              <input
+                id="article-search"
+                type="search"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                placeholder={t("articleList.search")}
+                className="editorial-focus block min-h-11 w-full rounded-xl border border-line bg-surface px-4 py-2.5 pr-11 text-ink placeholder:text-subtle"
+              />
+              <svg
+                aria-hidden="true"
+                className="pointer-events-none absolute right-3 top-3 h-5 w-5 text-subtle"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
             </div>
-          </div>
-        </div>
-        <div className="w-full sm:w-3/4 px-4">
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
-            <div className="space-y-2 pb-8 md:space-y-5">
-              <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-                {title}
-              </h1>
-              <div className="relative max-w-lg">
-                <label>
-                  <span className="sr-only">Search articles</span>
-                  <input
-                    aria-label="Search articles"
-                    type="text"
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder="Search articles"
-                    className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-sky-500 focus:ring-sky-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
-                  />
-                </label>
-                <svg
-                  className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <ul>
-              {!filteredBlogPosts.length && "No posts found."}
-              {displayPosts?.map((post: Types.Post) => {
-                const { id, title, summarize, tags, lastEditedDate } = post;
-                return (
-                  <li key={id} className="py-4">
-                    <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                          <time dateTime={lastEditedDate}>
-                            {lastEditedDate}
-                          </time>
-                        </dd>
-                      </dl>
-                      <div className="space-y-3 xl:col-span-3">
-                        <div>
-                          <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link
-                              href={`/post/${id}`}
-                              className="text-gray-900 dark:text-gray-100"
-                            >
-                              {title}
-                            </Link>
-                          </h3>
-                          <div className="flex flex-wrap">
-                            {tags?.map((tag: string) => (
-                              <div
-                                key={tag}
-                                className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 p-0.5 bg-[#c8d2d2] rounded-md"
-                              >
-                                {tag}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summarize}
-                        </div>
-                      </div>
-                    </article>
+
+            {displayPosts.length ? (
+              <ul className="space-y-5">
+                {displayPosts.map((post: Types.Post, index) => (
+                  <li key={post.id}>
+                    <EditorialArticleCard
+                      article={post}
+                      variant="row"
+                      priority={index === 0}
+                    />
                   </li>
-                );
-              })}
-            </ul>
-          </div>
+                ))}
+              </ul>
+            ) : (
+              <div
+                className="editorial-surface rounded-2xl p-6 text-sm text-subtle"
+                role="status"
+              >
+                {t("articleList.empty")}
+              </div>
+            )}
+          </main>
         </div>
       </div>
     </div>

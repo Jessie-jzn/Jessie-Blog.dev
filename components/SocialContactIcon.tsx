@@ -1,3 +1,4 @@
+/** 按站点配置汇集邮箱与社交平台联系图标。 */
 import SocialIcon from "@/components/SocialIcon";
 import SiteConfig from "@/site.config";
 

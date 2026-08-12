@@ -1,3 +1,6 @@
+/**
+ * SEO 优化接口：接收文章标题、正文和分类，调用优化服务返回内容建议。
+ */
 import { NextApiRequest, NextApiResponse } from "next";
 import { optimizePostSEO } from "@/lib/services/seoOptimizer";
 

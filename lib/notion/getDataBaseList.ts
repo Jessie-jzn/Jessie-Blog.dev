@@ -21,6 +21,11 @@ import type { GetDataBaseListResult } from "@/lib/type";
 import getDataBaseListOfficial from "@/lib/notion/getDataBaseListOfficial";
 import getDataBaseListLegacy from "@/lib/notion/getDataBaseListLegacy";
 import { getOfficialDatabaseIdForPage } from "@/lib/notion/officialDatabaseId";
+import { getGlobalPromiseCache } from "@/lib/notion/promiseCache";
+import {
+  deriveDataBaseListResult,
+  requirePopulatedDataBaseListResult,
+} from "@/lib/notion/deriveDataBaseListResult";
 
 /** 重新导出，保持 getSinglePostData 等文件的 import 路径不变：`from "./getDataBaseList"` */
 export { getTagOptions } from "./notionSchemaOptions";
@@ -35,17 +40,26 @@ function isOfficialListEnabled(): boolean {
 }
 
 // 构建/运行期的进程内缓存：同参数请求复用同一 Promise，避免短时间内重复拉取 Notion
-const databaseListCache = new Map<string, Promise<GetDataBaseListResult>>();
+const databaseListCache = getGlobalPromiseCache<
+  string,
+  GetDataBaseListResult
+>("notion-database-list");
+const DEFAULT_DATABASE_LIST_CACHE_TTL_MS = 5 * 60 * 1000;
+
+function databaseListCacheTtlMs(): number {
+  const configured = Number(process.env.NOTION_DATABASE_LIST_CACHE_TTL_MS);
+  return Number.isFinite(configured) && configured > 0
+    ? configured
+    : DEFAULT_DATABASE_LIST_CACHE_TTL_MS;
+}
 
 function createCacheKey(params: Types.NotionPageParamsProp, databaseId?: string) {
   const enabled = isOfficialListEnabled();
-  const filterKey = params.filter ? String(params.filter) : "";
   // from 仅用于日志，不参与数据结果，因此不作为缓存键的一部分
   return JSON.stringify({
     pageId: params.pageId,
     databaseId: databaseId ?? "",
     official: enabled,
-    filterKey,
   });
 }
 
@@ -64,49 +78,43 @@ export default async function getDataBaseList(
 
   const databaseId = getOfficialDatabaseIdForPage(pageId);
   const cacheKey = createCacheKey(params, databaseId);
-  const cachedPromise = databaseListCache.get(cacheKey);
-  if (cachedPromise) {
-    return cachedPromise;
-  }
+  const baseResult = await databaseListCache.getOrCreate(
+    cacheKey,
+    async () => {
+      let result: GetDataBaseListResult;
 
-  const requestPromise = (async () => {
-    if (isOfficialListEnabled() && databaseId) {
-      try {
-        console.log("[getDataBaseList] official notion databases.query", {
-          pageId,
-          databaseId,
-          from,
-        });
-        return await getDataBaseListOfficial({
-          databaseId,
-          from,
-          filter,
-        });
-      } catch (err) {
-        console.error(
-          "[getDataBaseList] 官方 API 拉取失败，回退到 legacy。错误：",
-          err
-        );
-        return getDataBaseListLegacy(params);
+      if (isOfficialListEnabled() && databaseId) {
+        try {
+          console.log("[getDataBaseList] official notion databases.query", {
+            pageId,
+            databaseId,
+            from,
+          });
+          result = await getDataBaseListOfficial({
+            databaseId,
+            from,
+          });
+          result = requirePopulatedDataBaseListResult(result);
+        } catch (err) {
+          console.error(
+            "[getDataBaseList] 官方 API 拉取失败，回退到 legacy。错误：",
+            err
+          );
+          result = await getDataBaseListLegacy({ ...params, filter: undefined });
+        }
+      } else {
+        if (isOfficialListEnabled() && !databaseId) {
+          console.warn(
+            "[getDataBaseList] 未解析到官方 database_id（请检查 NOTION_POST_DATABASE_ID / NOTION_GUIDE_DATABASE_ID 与 NOTION_*_ID 是否匹配），使用 legacy 列表。"
+          );
+        }
+        result = await getDataBaseListLegacy({ ...params, filter: undefined });
       }
-    }
 
-    if (isOfficialListEnabled() && !databaseId) {
-      console.warn(
-        "[getDataBaseList] 未解析到官方 database_id（请检查 NOTION_POST_DATABASE_ID / NOTION_GUIDE_DATABASE_ID 与 NOTION_*_ID 是否匹配），使用 legacy 列表。"
-      );
-    }
+      return requirePopulatedDataBaseListResult(result);
+    },
+    { ttlMs: databaseListCacheTtlMs() }
+  );
 
-    return getDataBaseListLegacy(params);
-  })();
-
-  databaseListCache.set(cacheKey, requestPromise);
-
-  try {
-    return await requestPromise;
-  } catch (error) {
-    // 若请求失败，移除缓存，避免后续复用失败 Promise
-    databaseListCache.delete(cacheKey);
-    throw error;
-  }
+  return deriveDataBaseListResult(baseResult, filter);
 }

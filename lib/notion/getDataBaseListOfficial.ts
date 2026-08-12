@@ -20,6 +20,7 @@ import {
 import { mapOfficialDatabasePageToProperties } from "@/lib/notion/mapOfficialDatabasePage";
 import { getAllCategories } from "@/lib/notion/getAllCategories";
 import getAllTagsList from "@/lib/notion/getAllTagsList";
+import { validateArticleRoutes } from "@/lib/routing/articleRoute";
 
 /** 与 getDataBaseListLegacy 中逻辑一致：取最近发布的 Post。`from` 不参与排序，仅保留参数对称。 */
 function getLatestPosts({
@@ -84,6 +85,8 @@ export default async function getDataBaseListOfficial({
   let allPages = collectionData.filter((post) => {
     return post && (post.status === "Published" || post.status === "P");
   });
+
+  validateArticleRoutes(allPages);
 
   if (filter) {
     allPages = allPages.filter(filter);

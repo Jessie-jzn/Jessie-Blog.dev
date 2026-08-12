@@ -1,38 +1,53 @@
 "use client";
 
+/** 提供支持路由高亮和 common i18n 文案的移动端展开式导航。 */
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "./Link";
 import SiteConfig from "@/site.config";
 import { useTranslation } from "next-i18next";
 
+const mobileMenuId = "mobile-navigation-menu";
+
 const NavMobile = () => {
   const [navShow, setNavShow] = useState(false);
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   const onToggleNav = () => {
     setNavShow((status) => {
-      if (status) {
-        document.body.style.overflow = "auto";
-      } else {
-        // Prevent scrolling
-        document.body.style.overflow = "hidden";
-      }
+      document.body.style.overflow = status ? "auto" : "hidden";
       return !status;
     });
+  };
+
+  const isActiveLink = (href: string) => {
+    if (href === "/") return router.asPath === "/";
+
+    const basePath = href.replace(/^\/|\/$/g, "");
+    const currentPath = router.asPath.replace(/^\/|\/$/g, "");
+    return (
+      currentPath === basePath ||
+      currentPath.startsWith(`${basePath}/`) ||
+      currentPath.startsWith(`${basePath}-`) ||
+      currentPath.includes(`/${basePath}-`)
+    );
   };
 
   return (
     <>
       <button
         aria-label="Toggle Menu"
+        aria-expanded={navShow}
+        aria-controls={mobileMenuId}
         onClick={onToggleNav}
-        className="sm:hidden"
+        className="editorial-focus inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-surface text-ink transition-colors hover:bg-primarySoft lg:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-neutral-900 dark:text-neutral-100"
+          className="h-5 w-5"
         >
           <path
             fillRule="evenodd"
@@ -42,13 +57,17 @@ const NavMobile = () => {
         </svg>
       </button>
       <div
-        className={`fixed left-0 top-0 z-[999] h-full w-full transform bg-white/94 dark:bg-neutral-950/96 backdrop-blur-xl duration-300 ease-in-out ${
-          navShow ? "translate-x-0" : "translate-x-full"
+        id={mobileMenuId}
+        aria-hidden={!navShow}
+        className={`fixed inset-0 z-[1000] transform border-b border-line bg-surface/95 text-ink backdrop-blur-xl transition-transform duration-300 ease-in-out ${
+          navShow
+            ? "visible translate-x-0"
+            : "invisible pointer-events-none translate-x-full"
         }`}
       >
-        <div className="flex justify-end">
+        <div className="site-container flex min-h-14 justify-end sm:min-h-16">
           <button
-            className="mr-8 mt-8 h-8 w-8"
+            className="editorial-focus inline-flex h-10 w-10 items-center justify-center self-center rounded-xl border border-line bg-surface text-ink transition-colors hover:bg-primarySoft"
             aria-label="Toggle Menu"
             onClick={onToggleNav}
           >
@@ -56,7 +75,7 @@ const NavMobile = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="text-neutral-900 dark:text-neutral-100"
+              className="h-5 w-5"
             >
               <path
                 fillRule="evenodd"
@@ -66,18 +85,33 @@ const NavMobile = () => {
             </svg>
           </button>
         </div>
-        <nav className="mt-8">
-          {SiteConfig.navigationLinks?.map((link: any) => (
-            <div key={link.title} className="px-12 py-4">
-              <Link
-                href={link.href}
-                className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
-                onClick={onToggleNav}
-              >
-                {t(link.title)}
-              </Link>
-            </div>
-          ))}
+        <nav className="site-container mt-8" aria-label="Mobile navigation">
+          {SiteConfig.navigationLinks?.map((link: any) => {
+            const isActive = isActiveLink(link.href);
+
+            return (
+              <div key={link.title} className="border-b border-line">
+                <Link
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`editorial-focus flex min-h-14 items-center rounded-md text-xl font-semibold tracking-tight transition-colors ${
+                    isActive ? "text-primaryStrong" : "text-ink hover:text-primaryStrong"
+                  }`}
+                  onClick={onToggleNav}
+                >
+                  <span className="relative">
+                    {t(link.title)}
+                    {isActive && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primaryStrong"
+                      />
+                    )}
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
         </nav>
       </div>
     </>

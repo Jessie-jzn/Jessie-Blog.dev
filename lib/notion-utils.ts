@@ -1,4 +1,5 @@
 import SiteConfig from '@/site.config';
+import { legacyArticlePath } from '@/lib/routing/articleRoute';
 
 import {
   Block,
@@ -75,24 +76,9 @@ export const mapPageUrl =
     } else if (pageUuid) {
       // 获取规范的页面 ID
       const canonicalPageId = getCanonicalPageId(pageUuid, recordMap);
-      const block = recordMap.block[pageId]?.value;
-
-      // 获取页面所属的数据库 ID
-      const databaseId = block?.parent_id;
-      // 查找数据库对应的路由前缀
-      const routePrefix = databaseId
-        ? SiteConfig.databaseMapping[databaseId] || ''
-        : '';
-
-      // 根据是否有路由前缀生成不同的 URL
-      if (routePrefix) {
-        return createUrl(
-          `/${routePrefix}/post/${canonicalPageId}`,
-          searchParams
-        );
-      } else {
-        return createUrl(`/post/${canonicalPageId}`, searchParams);
-      }
+      // recordMap 没有完整文章目录，无法安全推导 category/slug。
+      // 统一进入 legacy adapter，再由文章路由 module 重定向到 canonical URL。
+      return createUrl(legacyArticlePath(canonicalPageId), searchParams);
     }
 
     // 如果无法解析页面 ID，返回空字符串
