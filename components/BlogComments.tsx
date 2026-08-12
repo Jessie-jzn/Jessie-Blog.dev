@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { ReactCusdis } from "react-cusdis";
 
 export interface BlogCommentsProps {
   /** Cusdis page 维度，同一 Notion id 在多语言间共用留言区 */
@@ -55,21 +54,28 @@ const BlogComments: React.FC<BlogCommentsProps> = ({
     );
   }
 
+  const params = new URLSearchParams({
+    appId,
+    pageId,
+    pageTitle,
+    pageUrl,
+    theme: "auto",
+  });
+
+  if (lang) {
+    params.set("lang", lang);
+  }
+
   return (
     <section className="editorial-surface rounded-2xl p-5 sm:p-6">
       <h2 className="mb-5 text-lg font-semibold tracking-tight text-ink">
         {t("comments.title")}
       </h2>
-      <ReactCusdis
-        {...(lang ? { lang } : {})}
-        attrs={{
-          host,
-          appId,
-          pageId,
-          pageTitle,
-          pageUrl,
-          theme: "auto",
-        }}
+      <iframe
+        title={t("comments.title")}
+        src={`${host}/embed?${params.toString()}`}
+        className="min-h-[240px] w-full border-0"
+        loading="lazy"
       />
     </section>
   );
