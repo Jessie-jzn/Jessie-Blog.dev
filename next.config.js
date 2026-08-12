@@ -114,6 +114,14 @@ const nextConfig = withBundleAnalyzer({
   trailingSlash: true, // 确保你的 URL 末尾有斜杠
   async rewrites() {
     return [
+      {
+        source: '/whv-ai-copilot',
+        destination: 'https://whv-ai-copilot.vercel.app/whv-ai-copilot',
+      },
+      {
+        source: '/whv-ai-copilot/:path*',
+        destination: 'https://whv-ai-copilot.vercel.app/whv-ai-copilot/:path*',
+      },
       // 伪静态重写
       {
         source: '/:path*.html',
