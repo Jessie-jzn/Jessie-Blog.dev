@@ -20,6 +20,7 @@ const footer = readFileSync("components/Footer.tsx", "utf8");
 const homePage = readFileSync("pages/index.tsx", "utf8");
 const projectsPage = readFileSync("pages/projects/index.tsx", "utf8");
 const technicalHub = readFileSync("pages/technical/index.tsx", "utf8");
+const articleIndex = readFileSync("pages/post/index.tsx", "utf8");
 const listLayoutWithTags = readFileSync(
   "components/layouts/ListLayoutWithTags.tsx",
   "utf8",
@@ -250,6 +251,13 @@ test("secondary routes use the shared container and semantic surfaces", () => {
     assert.match(source, /(?:bg-canvas|bg-surface|bg-muted|text-ink|text-subtle)/);
     assert.doesNotMatch(source, /\bshadow-(?:md|lg)\b/);
   }
+});
+
+test("Article index reads the Notion database as a list instead of rendering it as a page", () => {
+  assert.match(articleIndex, /getDataBaseList/);
+  assert.match(articleIndex, /ListLayoutWithTags/);
+  assert.doesNotMatch(articleIndex, /getPage\s*\(/);
+  assert.doesNotMatch(articleIndex, /<NotionPage/);
 });
 
 test("secondary controls use bilingual copy and preserve the original resume UI", () => {

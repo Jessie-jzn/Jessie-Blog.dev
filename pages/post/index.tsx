@@ -1,42 +1,47 @@
 /**
- * 文章聚合页：从 Notion 获取文章库页面记录并以可再生静态页面展示。
+ * 文章聚合页：从 Notion 文章数据库读取已发布文章，并提供搜索与标签导航。
  */
-import { GetStaticProps } from 'next';
-// import NotionService from "@/lib/notion/NotionServer";
-import { NOTION_POST_ID } from '@/lib/constants';
-import NotionPage from '@/components/Notion/NotionPage';
-import getPage from '@/lib/notion/getPage';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import PageHeader from '@/components/common/PageHeader';
+import type { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import ListLayoutWithTags from "@/components/layouts/ListLayoutWithTags";
+import { NOTION_POST_ID } from "@/lib/constants";
+import getDataBaseList from "@/lib/notion/getDataBaseList";
+import type { Post, Tag } from "@/lib/type";
 
-// const notionService = new NotionService();
-export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
-  const post = await getPage({
+interface ArticleIndexProps {
+  posts: Post[];
+  tagOptions: Tag[];
+}
+
+export const getStaticProps: GetStaticProps<ArticleIndexProps> = async ({
+  locale,
+}) => {
+  const response = await getDataBaseList({
     pageId: NOTION_POST_ID,
-    from: 'post-index',
+    from: "post-index",
   });
 
   return {
     props: {
-      post: post,
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+      posts: response.allPages ?? [],
+      tagOptions: response.tagOptions ?? [],
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
     revalidate: 10,
   };
 };
-const Post = ({ post }: any) => {
-  const { t } = useTranslation('common');
+
+const ArticleIndex = ({ posts, tagOptions }: ArticleIndexProps) => {
+  const { t } = useTranslation("common");
 
   return (
-    <div className='min-h-[60vh] bg-canvas text-ink'>
-      <PageHeader
-        eyebrow={t('site.title')}
-        title={t('post')}
-        description={t('site.description')}
-      />
-      <NotionPage recordMap={post} />
-    </div>
+    <ListLayoutWithTags
+      posts={posts}
+      tagOptions={tagOptions}
+      title={t("articleList.all")}
+    />
   );
 };
-export default Post;
+
+export default ArticleIndex;
