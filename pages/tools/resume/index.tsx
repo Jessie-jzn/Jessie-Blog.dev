@@ -9,7 +9,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import PageHeader from "@/components/common/PageHeader";
 import { useTranslation } from "next-i18next";
 
@@ -65,7 +64,7 @@ export default function MarkdownResume() {
         className={'markdown-body'}
         key={theme}
       >
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+        <ReactMarkdown>{text}</ReactMarkdown>
       </div>
     </div>
 

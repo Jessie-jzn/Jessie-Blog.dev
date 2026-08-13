@@ -6,7 +6,6 @@ import { useTranslation } from "next-i18next";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const NavMobile = dynamic(() => import("@/components/NavMobile"));
 const ThemeSwitch = dynamic(() => import("@/components/ThemeSwitch"));
@@ -160,7 +159,6 @@ const Navbar = ({
             <NavMobile />
           </div>
           <Analytics />
-          <SpeedInsights />
         </div>
       </div>
     </header>

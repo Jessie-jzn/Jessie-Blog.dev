@@ -25,7 +25,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
   const router = useRouter();
   const { t } = useTranslation("common");
   const [searchValue, setSearchValue] = useState("");
-  const safePosts = Array.isArray(posts) ? posts : [];
+  const safePosts = useMemo(() => (Array.isArray(posts) ? posts : []), [posts]);
   const activeTagId = activeTagIdFromPath(pathname);
 
   // Use useMemo to optimize the computation of filteredBlogPosts
