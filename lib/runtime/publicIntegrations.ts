@@ -1,5 +1,5 @@
 interface AdSenseEnv {
-  NEXT_PUBLIC_ADSENSE_ID?: string;
+  ADSENSE_GOOGLE_ID?: string;
   ADSENSE_GOOGLE_SLOT_IN_ARTICLE?: string;
 }
 
@@ -32,7 +32,7 @@ const absoluteHttpUrl = (value?: string): string | null => {
 
 export function getAdSenseConfig(env: AdSenseEnv) {
   return {
-    clientId: nonEmpty(env.NEXT_PUBLIC_ADSENSE_ID),
+    clientId: nonEmpty(env.ADSENSE_GOOGLE_ID),
     articleSlotId: nonEmpty(env.ADSENSE_GOOGLE_SLOT_IN_ARTICLE),
   };
 }

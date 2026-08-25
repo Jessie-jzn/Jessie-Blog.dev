@@ -35,7 +35,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   const router = useRouter(); // 获取路由对象
   const integrations = getPublicIntegrations({
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
-    NEXT_PUBLIC_ADSENSE_ID: process.env.NEXT_PUBLIC_ADSENSE_ID,
+    ADSENSE_GOOGLE_ID: process.env.ADSENSE_GOOGLE_ID,
     NEXT_PUBLIC_CLARITY_ID: process.env.NEXT_PUBLIC_CLARITY_ID,
     NEXT_PUBLIC_CUSTOM_SCRIPT_URL:
       process.env.NEXT_PUBLIC_CUSTOM_SCRIPT_URL,

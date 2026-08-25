@@ -83,6 +83,7 @@ const nextConfig = withBundleAnalyzer({
   env: {
     TRANSLATE_BAIDU_APPID: process.env.TRANSLATE_BAIDU_APPID,
     TRANSLATE_BAIDU_SECRETKEY: process.env.TRANSLATE_BAIDU_SECRETKEY,
+    ADSENSE_GOOGLE_ID: process.env.ADSENSE_GOOGLE_ID,
   },
 
   webpack: (config, { isServer }) => {

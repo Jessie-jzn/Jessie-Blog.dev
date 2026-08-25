@@ -112,7 +112,7 @@ export const CommonSEO = ({
       {/* 谷歌广告 */}
       <meta
         name="google-adsense-account"
-        content={process.env.NEXT_PUBLIC_ADSENSE_ID}
+        content={process.env.ADSENSE_GOOGLE_ID}
       ></meta>
     </Head>
   );

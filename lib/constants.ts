@@ -47,7 +47,7 @@ const {
   clientId: ADSENSE_GOOGLE_ID,
   articleSlotId: ADSENSE_GOOGLE_SLOT_IN_ARTICLE,
 } = getAdSenseConfig({
-  NEXT_PUBLIC_ADSENSE_ID: process.env.NEXT_PUBLIC_ADSENSE_ID,
+  ADSENSE_GOOGLE_ID: process.env.ADSENSE_GOOGLE_ID,
   ADSENSE_GOOGLE_SLOT_IN_ARTICLE:
     process.env.ADSENSE_GOOGLE_SLOT_IN_ARTICLE,
 }); // 按照单元广告=>新建展示广告
