@@ -1,7 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getPublicIntegrations } from "../../lib/runtime/publicIntegrations.ts";
+import {
+  getAdSenseConfig,
+  getPublicIntegrations,
+} from "../../lib/runtime/publicIntegrations.ts";
+
+test("normalizes one public AdSense client ID for every ad consumer", () => {
+  assert.deepEqual(
+    getAdSenseConfig({
+      NEXT_PUBLIC_ADSENSE_ID: " ca-pub-9533100025276131 ",
+      ADSENSE_GOOGLE_SLOT_IN_ARTICLE: " 1234567890 ",
+    }),
+    {
+      clientId: "ca-pub-9533100025276131",
+      articleSlotId: "1234567890",
+    }
+  );
+});
 
 test("disables missing and malformed optional integrations", () => {
   assert.deepEqual(

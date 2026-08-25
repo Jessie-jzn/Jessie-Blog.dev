@@ -1,6 +1,10 @@
-interface PublicIntegrationEnv {
-  NEXT_PUBLIC_GA_ID?: string;
+interface AdSenseEnv {
   NEXT_PUBLIC_ADSENSE_ID?: string;
+  ADSENSE_GOOGLE_SLOT_IN_ARTICLE?: string;
+}
+
+interface PublicIntegrationEnv extends AdSenseEnv {
+  NEXT_PUBLIC_GA_ID?: string;
   NEXT_PUBLIC_CLARITY_ID?: string;
   NEXT_PUBLIC_CUSTOM_SCRIPT_URL?: string;
 }
@@ -26,10 +30,17 @@ const absoluteHttpUrl = (value?: string): string | null => {
   }
 };
 
+export function getAdSenseConfig(env: AdSenseEnv) {
+  return {
+    clientId: nonEmpty(env.NEXT_PUBLIC_ADSENSE_ID),
+    articleSlotId: nonEmpty(env.ADSENSE_GOOGLE_SLOT_IN_ARTICLE),
+  };
+}
+
 export function getPublicIntegrations(env: PublicIntegrationEnv) {
   return {
     gaId: nonEmpty(env.NEXT_PUBLIC_GA_ID),
-    adsenseId: nonEmpty(env.NEXT_PUBLIC_ADSENSE_ID),
+    adsenseId: getAdSenseConfig(env).clientId,
     clarityId: nonEmpty(env.NEXT_PUBLIC_CLARITY_ID),
     customScriptUrl: absoluteHttpUrl(env.NEXT_PUBLIC_CUSTOM_SCRIPT_URL),
   };

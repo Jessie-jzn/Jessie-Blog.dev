@@ -1,3 +1,5 @@
+import { getAdSenseConfig } from "@/lib/runtime/publicIntegrations";
+
 /**Notion相关 */
 const NOTION_HOST = "https://www.notion.so/";
 const NOTION_TOKEN = process.env.NOTION_API_KEY as string;
@@ -41,9 +43,14 @@ const IsPROD = process.env.NODE_ENV === "production";
 
 /** 营收广告 */
 /** google ads */
-const ADSENSE_GOOGLE_ID = process.env.ADSENSE_GOOGLE_ID;
-const ADSENSE_GOOGLE_SLOT_IN_ARTICLE =
-  process.env.ADSENSE_GOOGLE_SLOT_IN_ARTICLE; //按照单元广告=>新建展示广告
+const {
+  clientId: ADSENSE_GOOGLE_ID,
+  articleSlotId: ADSENSE_GOOGLE_SLOT_IN_ARTICLE,
+} = getAdSenseConfig({
+  NEXT_PUBLIC_ADSENSE_ID: process.env.NEXT_PUBLIC_ADSENSE_ID,
+  ADSENSE_GOOGLE_SLOT_IN_ARTICLE:
+    process.env.ADSENSE_GOOGLE_SLOT_IN_ARTICLE,
+}); // 按照单元广告=>新建展示广告
 
 export {
   NOTION_TOKEN,
