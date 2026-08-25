@@ -223,7 +223,7 @@ const About = () => {
             <div className='w-full md:w-2/5'>
               <div className='relative aspect-[4/3] w-full overflow-hidden rounded-2xl'>
                 <Image
-                  src='https://img.jessieontheroad.com/icon/Telecommuting-cuate.png'
+                  src='https://img.jessieonroad.com/icon/Telecommuting-cuate.png'
                   alt='Code & Life'
                   fill
                   className='object-cover'

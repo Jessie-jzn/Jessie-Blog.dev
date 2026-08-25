@@ -20,7 +20,7 @@ if (apiKey) {
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
-    domains: ['qiniu.jessieontheroad.com'],
+    domains: ['img.jessieonroad.com'],
     unoptimized: true,
     remotePatterns: [
       {
@@ -45,11 +45,11 @@ const nextConfig = withBundleAnalyzer({
       },
       {
         protocol: 'https',
-        hostname: '*.jessieontheroad.**',
+        hostname: '*.jessieonroad.**',
       },
       {
         protocol: 'https',
-        hostname: 'img.jessieontheroad.com',
+        hostname: 'img.jessieonroad.com',
         port: '',
         pathname: '/**',
       },

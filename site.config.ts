@@ -15,10 +15,9 @@ const SiteConfig = {
   socialBanner: '/static/images/projects/karhdo-blog.png',
   theme: 'system',
   locale: 'zh',
-  // siteUrl: 'www.jessieontheroad.com',
-  siteUrl: 'https://www.jessieontheroad.com',
-  domain: 'jessieontheroad.com',
-  imageDomainUrl: 'https://img.jessieontheroad.com',
+  siteUrl: 'https://jessieonroad.com',
+  domain: 'jessieonroad.com',
+  imageDomainUrl: 'https://img.jessieonroad.com',
 
   // 导航栏（必填）
   // navigation（required）
@@ -206,7 +205,7 @@ const SiteConfig = {
   imageProxyUrl:
     process.env.NODE_ENV === 'development'
       ? `http://localhost:${process.env.PORT || '3000'}/api/image-proxy`
-      : 'https://jessieontheroad.com/api/image-proxy',
+      : 'https://jessieonroad.com/api/image-proxy',
   gallery: {
     images: [
       // 添加图册图片配置

@@ -253,7 +253,7 @@ test('website avatar displays and BlogSEO use the local avatar asset', () => {
   assert.equal(SiteConfig.siteLogo, '/images/avatar.png');
   assert.equal(
     `${SiteConfig.siteUrl}${SiteConfig.siteLogo}`,
-    'https://www.jessieontheroad.com/images/avatar.png',
+    'https://jessieonroad.com/images/avatar.png',
   );
   assert.match(
     source('components/SEO.tsx'),
