@@ -23,7 +23,7 @@ const AdSense = () => {
     <ins
       className="adsbygoogle"
       style={{ display: "block" }}
-      data-ad-client={`ca-${ADSENSE_GOOGLE_ID}`} // 替换为你的广告客户端ID
+      data-ad-client={ADSENSE_GOOGLE_ID} // 替换为你的广告客户端ID
       data-ad-slot={ADSENSE_GOOGLE_SLOT_IN_ARTICLE} // 替换为你的广告位ID
       data-ad-format="auto"
       data-full-width-responsive="true"
