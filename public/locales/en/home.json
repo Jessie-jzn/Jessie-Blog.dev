@@ -33,19 +33,17 @@
         "life": { "eyebrow": "LIFE", "title": "Life", "description": "Work, finding a new direction, living on my own, and things that took time to understand.", "href": "/life" }
       }
     },
+    "technicalSection": {
+      "kicker": "TECH · ARTICLES",
+      "title": "Technical articles",
+      "subtitle": "Code, AI, and what it takes to put new ideas to work in real projects."
+    },
     "projects": {
       "eyebrow": "PROJECTS & EXPERIENCE",
       "title": "Things I have made",
       "description": "Some are finished. Some are still being figured out. These are the ones I have actually worked on.",
       "allProjects": "View projects & experience →",
       "aria": "Projects and experience"
-    },
-    "persona": {
-      "sectionEyebrow": "Tone / site map",
-      "p1": "Writing things down probably came from coding. When I run into a process I do not know, I want to take it apart. When I make a mistake, I want to leave a note for next time.",
-      "p2": "I am not especially concise. I usually want to tell the bit before and after, because a story can look very different without the context.",
-      "p3": "There are doubts, mistakes, and later updates here. Things change. If an old post is wrong, I will fix it; I will also leave what I thought at the time.",
-      "aside": "First comes that year in Australia, then travel, tech, and life. It is not especially tidy, but it is all mine."
     },
     "travelSection": {
       "kicker": "02 · notes",
@@ -55,26 +53,6 @@
       "introLine2Before": "Routes and prices change; what I can keep are the ",
       "introStrong": "small things",
       "introLine2After": " that happened on the road."
-    },
-    "services": {
-      "sectionLabel": "03",
-      "title": "The other things I have been doing",
-      "blocks": [
-        {
-          "heading": "Technology",
-          "items": ["Years of frontend work, projects I have built, and the mistakes that came with them","Less theory, more of what I tried and where it went wrong"]
-        },
-        {
-          "heading": "Life",
-          "items": ["Work, choices, and ordinary days outside travel","Some answers change later. That is fine too"]
-        },
-        {
-          "heading": "This blog",
-          "items": ["Not a service brochure, and not proof that I have it all figured out","Just a place to put the things that have happened over the years"]
-        }
-      ],
-      "aboutLink": "About me →",
-      "footer": "Some posts solve one small problem. Some are here because I did not want to forget them."
     },
     "whv": {
       "kicker": "04 · whv",
@@ -98,8 +76,7 @@
       }
     },
     "aria": {
-      "persona": "About Jessie",
-      "services": "Technology and life",
+      "technical": "Technical articles",
       "travel": "Travel journal",
       "whv": "Australia WHV"
     }

@@ -1,12 +1,17 @@
 import type { Tag } from "../type.ts";
+import {
+  toPostListItems,
+  toTagSummaries,
+  toTagSummary,
+  type TagSummary,
+} from "./listPageData.ts";
 
-const emptyTag = (): Tag => ({
+const emptyTag = (): TagSummary => ({
   id: "",
   name: "",
   value: "",
   color: "",
   count: 0,
-  articles: [],
 });
 
 const normalizeTags = (tagOptions: unknown): Tag[] =>
@@ -23,9 +28,9 @@ export function resolveTagRouteData(
       : undefined;
 
   return {
-    tagOptions: tags,
-    posts: filteredTag?.articles ?? [],
-    filteredTag: filteredTag ?? emptyTag(),
+    tagOptions: toTagSummaries(tags),
+    posts: toPostListItems(filteredTag?.articles),
+    filteredTag: filteredTag ? toTagSummary(filteredTag) : emptyTag(),
   };
 }
 

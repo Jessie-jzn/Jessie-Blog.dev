@@ -38,7 +38,7 @@ const GuidePostCards = ({ posts }: { posts: GuidePost[] }) => {
           : undefined
       }
     >
-      <EditorialArticleCard article={toArticle(lead)} variant='lead' priority />
+      <EditorialArticleCard article={toArticle(lead)} variant='lead' />
       {hasSupporting ? (
         <div className='border-y border-line divide-y divide-line'>
           {supporting.map((post, index) => {

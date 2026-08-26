@@ -7,11 +7,16 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ListLayoutWithTags from "@/components/layouts/ListLayoutWithTags";
 import { NOTION_POST_ID } from "@/lib/constants";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
-import type { Post, Tag } from "@/lib/type";
+import {
+  toPostListItems,
+  toTagSummaries,
+  type PostListItem,
+  type TagSummary,
+} from "@/lib/routing/listPageData";
 
 interface ArticleIndexProps {
-  posts: Post[];
-  tagOptions: Tag[];
+  posts: PostListItem[];
+  tagOptions: TagSummary[];
 }
 
 export const getStaticProps: GetStaticProps<ArticleIndexProps> = async ({
@@ -24,11 +29,11 @@ export const getStaticProps: GetStaticProps<ArticleIndexProps> = async ({
 
   return {
     props: {
-      posts: response.allPages ?? [],
-      tagOptions: response.tagOptions ?? [],
+      posts: toPostListItems(response.allPages),
+      tagOptions: toTagSummaries(response.tagOptions),
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 

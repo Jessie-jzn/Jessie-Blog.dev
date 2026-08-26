@@ -12,18 +12,19 @@ import { useTranslation } from 'next-i18next';
 import { CommonSEO } from '@/components/SEO';
 import * as Types from '@/lib/type';
 import HomeHero from '@/components/home/HomeHero';
-import HomePersonaStory from '@/components/home/HomePersonaStory';
-import HomeLandingSections from '@/components/home/HomeLandingSections';
+import TechnicalGuideSection from '@/components/home/TechnicalGuideSection';
 import WhvGuideSection from '@/components/home/WhvGuideSection';
 import TravelGuideSection from '@/components/home/TravelGuideSection';
 import HomeConsultCta from '@/components/home/HomeConsultCta';
 import HomeContentWorlds from '@/components/home/HomeContentWorlds';
 import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
+import { selectTechnicalPosts } from '@/lib/home/selectTechnicalPosts';
 
 const notionService = new NotionService();
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let posts = [] as Types.Post[];
+  let technicalPosts: Types.Post[] = [];
   let whvPosts: Types.Post[] = [];
   let travelPosts: Types.Post[] = [];
 
@@ -54,27 +55,31 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     if (travelPosts.length === 0) {
       travelPosts = posts.filter(
         (p) => !whvPosts.some((w) => w.id === p.id)
-      ).slice(0, 12);
+      ).slice(0, 6);
       if (travelPosts.length === 0) travelPosts = posts.slice(0, 12);
     }
   }
 
+  technicalPosts = selectTechnicalPosts(posts);
+
   return {
     props: {
+      technicalPosts,
       whvPosts,
       travelPosts,
       ...(await serverSideTranslations(locale || 'en', ['common', 'home'])),
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 
 interface HomeProps {
+  technicalPosts: Types.Post[];
   whvPosts: Types.Post[];
   travelPosts: Types.Post[];
 }
 
-const Home = ({ whvPosts, travelPosts }: HomeProps) => {
+const Home = ({ technicalPosts, whvPosts, travelPosts }: HomeProps) => {
   const { t } = useTranslation('home');
 
   return (
@@ -88,15 +93,13 @@ const Home = ({ whvPosts, travelPosts }: HomeProps) => {
         <HomeHero email={SiteConfig.email} />
 
         <div className='relative z-10'>
-          <HomePersonaStory />
-
           <HomeContentWorlds />
+
+          <TechnicalGuideSection posts={technicalPosts} />
 
           <WhvGuideSection posts={whvPosts} />
 
           <TravelGuideSection sectionId='travel-guides' posts={travelPosts} />
-
-          <HomeLandingSections />
 
           <HomeProjectsPreview />
 

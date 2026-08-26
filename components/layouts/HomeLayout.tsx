@@ -7,7 +7,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative flex min-h-screen w-full flex-col bg-canvas text-ink">
       <Navbar isFull={true} currentTheme="dark" />
-      <div className="flex-grow pb-20 md:pb-24">{children}</div>
+      <div className="flex-grow">{children}</div>
       <Footer />
       <BackToTop />
     </div>

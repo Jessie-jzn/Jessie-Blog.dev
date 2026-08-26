@@ -21,7 +21,7 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     domains: ['img.jessieonroad.com'],
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: 'https',

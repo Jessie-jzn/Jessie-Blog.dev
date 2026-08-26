@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
       tagOptions,
       ...translations,
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 

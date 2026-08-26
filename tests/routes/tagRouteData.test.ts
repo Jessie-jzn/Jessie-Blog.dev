@@ -14,6 +14,8 @@ const article: Post = {
   tags: ["Working Holiday"],
   pageCover: "",
   pageCoverThumbnail: "",
+  comment: "must not reach page props",
+  ext: { large: "payload" },
 };
 
 const tag: Tag = {
@@ -23,6 +25,27 @@ const tag: Tag = {
   color: "blue",
   count: 1,
   articles: [article],
+};
+
+const articleSummary = {
+  id: "article-1",
+  title: "Article",
+  tags: ["Working Holiday"],
+  summarize: "",
+  category: "",
+  publishDay: "",
+  lastEditedDate: "",
+  pageCover: "",
+  pageCoverThumbnail: "",
+  slug: "",
+};
+
+const tagSummary = {
+  id: "Working Holiday",
+  name: "Working Holiday",
+  value: "Working Holiday",
+  color: "blue",
+  count: 1,
 };
 
 test("returns serializable empty data when tag options are missing", () => {
@@ -36,24 +59,23 @@ test("returns serializable empty data when tag options are missing", () => {
     value: "",
     color: "",
     count: 0,
-    articles: [],
   });
 });
 
 test("returns the matching tag and its articles", () => {
   const result = resolveTagRouteData([tag], "Working Holiday");
 
-  assert.deepEqual(result.tagOptions, [tag]);
-  assert.deepEqual(result.filteredTag, tag);
-  assert.deepEqual(result.posts, [article]);
+  assert.deepEqual(result.tagOptions, [tagSummary]);
+  assert.deepEqual(result.filteredTag, tagSummary);
+  assert.deepEqual(result.posts, [articleSummary]);
 });
 
 test("returns an empty serializable tag for an unknown id", () => {
   const result = resolveTagRouteData([tag], "Unknown");
-  assert.deepEqual(result.tagOptions, [tag]);
+  assert.deepEqual(result.tagOptions, [tagSummary]);
   assert.deepEqual(result.posts, []);
   assert.equal(result.filteredTag.id, "");
-  assert.deepEqual(result.filteredTag.articles, []);
+  assert.equal("articles" in result.filteredTag, false);
 });
 
 test("creates paths only for tags with non-empty ids", () => {

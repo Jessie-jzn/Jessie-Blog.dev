@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'zh' }) => {
       posts: posts,
       ...translations,
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 

@@ -138,7 +138,7 @@ export const getStaticProps: GetStaticProps<
         relatedPosts: relatedArticles ?? [],
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
-      revalidate: 100,
+      revalidate: 3600,
     };
   } catch (error) {
     console.error("Error in getStaticProps:", error);

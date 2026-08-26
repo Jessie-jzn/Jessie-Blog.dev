@@ -5,13 +5,16 @@ import Link from "@/components/Link";
 import { GetStaticProps } from "next";
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { NOTION_POST_ID } from "@/lib/constants";
-import * as Types from "@/lib/type";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import PageHeader from "@/components/common/PageHeader";
+import {
+  toTagSummaries,
+  type TagSummary,
+} from "@/lib/routing/listPageData";
 
 interface TagOptions {
-  tagOptions: Types.Tag[];
+  tagOptions: TagSummary[];
 }
 export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
   const response = await getDataBaseList({
@@ -21,10 +24,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => {
 
   return {
     props: {
-      tagOptions: response.tagOptions,
+      tagOptions: toTagSummaries(response.tagOptions),
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 };
 
@@ -43,7 +46,7 @@ const TagsIndex = ({ tagOptions }: TagOptions) => {
       <main className="site-container pb-16 md:pb-24">
         {sortedTags.length ? (
           <ul className="flex flex-wrap gap-3" aria-label={t("tags")}>
-            {sortedTags.map((tag: Types.Tag) => (
+            {sortedTags.map((tag: TagSummary) => (
               <li key={tag.id}>
                 <Link
                   href={`/tags/${encodeURIComponent(tag.id)}`}

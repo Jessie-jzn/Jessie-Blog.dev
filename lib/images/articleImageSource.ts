@@ -1,5 +1,6 @@
 export const ARTICLE_IMAGE_FALLBACK = "/images/default.jpg";
-const IMAGE_PROXY_PATH = "/api/image-proxy";
+const IMAGE_PROXY_PATH = "/api/image-proxy/";
+const LEGACY_IMAGE_PROXY_PATH = "/api/image-proxy";
 
 const isPrivateIpv4 = (hostname: string): boolean => {
   const octets = hostname.split(".").map(Number);
@@ -68,6 +69,12 @@ export function articleImageSource(value?: string | null): string {
   const source = value?.trim();
   if (!source) {
     return ARTICLE_IMAGE_FALLBACK;
+  }
+  if (source === LEGACY_IMAGE_PROXY_PATH) {
+    return IMAGE_PROXY_PATH;
+  }
+  if (source.startsWith(`${LEGACY_IMAGE_PROXY_PATH}?`)) {
+    return `${IMAGE_PROXY_PATH}${source.slice(LEGACY_IMAGE_PROXY_PATH.length)}`;
   }
   if (source === IMAGE_PROXY_PATH || source.startsWith(`${IMAGE_PROXY_PATH}?`)) {
     return source;

@@ -22,7 +22,11 @@ test("preserves local and already proxied image paths", () => {
   assert.equal(articleImageSource("/images/default.jpg"), "/images/default.jpg");
   assert.equal(
     articleImageSource("/api/image-proxy?url=https%3A%2F%2Fexample.com%2Fa.jpg"),
-    "/api/image-proxy?url=https%3A%2F%2Fexample.com%2Fa.jpg"
+    "/api/image-proxy/?url=https%3A%2F%2Fexample.com%2Fa.jpg"
+  );
+  assert.equal(
+    articleImageSource("/api/image-proxy/?url=https%3A%2F%2Fexample.com%2Fa.jpg"),
+    "/api/image-proxy/?url=https%3A%2F%2Fexample.com%2Fa.jpg"
   );
 });
 
@@ -30,7 +34,7 @@ test("wraps public HTTP images in the local proxy exactly once", () => {
   const remote = "https://images.example.com/cover.jpg?size=large";
   assert.equal(
     articleImageSource(remote),
-    `/api/image-proxy?url=${encodeURIComponent(remote)}`
+    `/api/image-proxy/?url=${encodeURIComponent(remote)}`
   );
 });
 

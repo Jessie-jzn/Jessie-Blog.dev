@@ -4,7 +4,6 @@
 import getDataBaseList from "@/lib/notion/getDataBaseList";
 import ListLayoutWithTags from "@/components/layouts/ListLayoutWithTags";
 import { GetStaticPaths } from "next";
-import * as Types from "@/lib/type";
 import { GetStaticProps } from "next";
 import { NOTION_POST_ID } from "@/lib/constants";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -13,6 +12,10 @@ import {
   createTagPaths,
   resolveTagRouteData,
 } from "@/lib/routing/tagRouteData";
+import type {
+  PostListItem,
+  TagSummary,
+} from "@/lib/routing/listPageData";
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
@@ -28,7 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         ...routeData,
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
-      revalidate: 10,
+      revalidate: 300,
     };
   } catch (error) {
     const routeData = resolveTagRouteData([], params?.tag);
@@ -37,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         ...routeData,
         ...(await serverSideTranslations(locale ?? "en", ["common"])),
       },
-      revalidate: 10,
+      revalidate: 300,
     };
   }
 };
@@ -65,9 +68,9 @@ export default function TagPage({
   posts,
   filteredTag,
 }: {
-  tagOptions: Types.Tag[];
-  posts: Types.Post[];
-  filteredTag: Types.Tag;
+  tagOptions: TagSummary[];
+  posts: PostListItem[];
+  filteredTag: TagSummary;
 }) {
   const { t } = useTranslation("common");
 

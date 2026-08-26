@@ -28,13 +28,64 @@ const componentBlock = (body: string, start: string, end: string) => {
 test('home keeps its data and business contracts', () => {
   const page = source('pages/index.tsx');
   assert.match(page, /getStaticProps/);
-  assert.match(page, /revalidate: 10/);
+  assert.match(page, /revalidate: 300/);
   assert.match(page, /CommonSEO/);
   assert.match(page, /<HomeHero email=\{SiteConfig\.email\}/);
+  assert.match(page, /technicalPosts = selectTechnicalPosts\(posts\)/);
+  assert.match(page, /<TechnicalGuideSection posts=\{technicalPosts\} \/>/);
   assert.match(page, /<WhvGuideSection posts=\{whvPosts\}/);
   assert.match(page, /<TravelGuideSection[^>]*posts=\{travelPosts\}/);
   assert.match(page, /import HomeProjectsPreview/);
   assert.match(page, /<HomeProjectsPreview \/>/);
+});
+
+test('home omits the removed landing capabilities section', () => {
+  const page = source('pages/index.tsx');
+  assert.doesNotMatch(page, /HomeLandingSections/);
+  assert.equal(existsSync('components/home/HomeLandingSections.tsx'), false);
+
+  for (const locale of ['en', 'zh']) {
+    const landing = JSON.parse(
+      source(`public/locales/${locale}/home.json`),
+    ).landing;
+    assert.equal(landing.services, undefined);
+    assert.equal(landing.aria.services, undefined);
+  }
+});
+
+test('home places a six-article technical section before WHV', () => {
+  const page = source('pages/index.tsx');
+  const technicalSectionPosition = page.indexOf(
+    '<TechnicalGuideSection posts={technicalPosts} />',
+  );
+  const whvSectionPosition = page.indexOf(
+    '<WhvGuideSection posts={whvPosts} />',
+  );
+
+  assert.ok(technicalSectionPosition >= 0);
+  assert.ok(technicalSectionPosition < whvSectionPosition);
+
+  const section = source('components/home/TechnicalGuideSection.tsx');
+  assert.match(section, /if \(!posts\?\.length\) return null/);
+  assert.match(section, /readMoreLink='\/technical'/);
+  assert.match(section, /<GuidePostCards posts=\{posts\} \/>/);
+
+  for (const locale of ['en', 'zh']) {
+    const landing = JSON.parse(
+      source(`public/locales/${locale}/home.json`),
+    ).landing;
+    assert.equal(typeof landing.technicalSection.title, 'string');
+    assert.equal(typeof landing.technicalSection.subtitle, 'string');
+    assert.equal(typeof landing.aria.technical, 'string');
+  }
+});
+
+test('only the above-the-fold Hero image is eagerly prioritized', () => {
+  const hero = source('components/home/HomeHero.tsx');
+  const guideCards = source('components/home/GuidePostCards.tsx');
+
+  assert.match(hero, /priority/);
+  assert.doesNotMatch(guideCards, /priority/);
 });
 
 test('collaboration keeps the configured email and translated subject', () => {
@@ -59,12 +110,10 @@ test('home uses indexed continuous surfaces instead of card grids', () => {
   assert.doesNotMatch(consultation, /sm:grid-cols-3/);
 });
 
-test('project and About actions resolve to their shipped routes', () => {
-  const services = source('components/home/HomeLandingSections.tsx');
+test('project actions resolve to their shipped route', () => {
   const preview = source('components/home/HomeProjectsPreview.tsx');
   const routePath = 'pages/projects/index.tsx';
 
-  assert.match(services, /href='\/about'/);
   assert.match(preview, /href='\/projects'/);
   assert.ok(existsSync(routePath), 'Expected the /projects page to ship');
 
@@ -151,16 +200,8 @@ test('project records keep locale-neutral metadata and render common translation
   }
 });
 
-test('capabilities use a continuous two-column ledger', () => {
-  const services = source('components/home/HomeLandingSections.tsx');
-  assert.match(services, /divide-y/);
-  assert.match(services, /sm:grid-cols-\[/);
-  assert.doesNotMatch(services, /space-y-8/);
-});
-
 test('end-section actions stay stable, focusable, and pressable', () => {
   for (const path of [
-    'components/home/HomeLandingSections.tsx',
     'components/home/HomeProjectsPreview.tsx',
     'components/home/HomeConsultCta.tsx',
   ]) {
@@ -196,9 +237,10 @@ test('home copy starts from Jessie lived experience instead of brand language', 
   const zh = JSON.parse(source('public/locales/zh/home.json')).landing;
   const en = JSON.parse(source('public/locales/en/home.json')).landing;
 
-  assert.match(zh.hero.headline.join('\n'), /澳洲打工度假/);
-  assert.match([...zh.hero.headline, ...zh.hero.paragraphs].join('\n'), /辞职/);
-  assert.match(zh.hero.paragraphs.join('\n'), /重新坐回电脑前/);
+  assert.deepEqual(zh.hero.headline, ["HI, I'm Jessie.", '一名程序员']);
+  assert.match(zh.hero.paragraphs.join('\n'), /代码/);
+  assert.match(zh.hero.paragraphs.join('\n'), /AI/);
+  assert.match(zh.hero.paragraphs.join('\n'), /生活/);
   assert.match(zh.cta.p2, /少让你绕一点路/);
   assert.doesNotMatch(zh.hero.paragraphs.join('\n'), /持续探索|希望这些真实记录/);
 
@@ -253,7 +295,7 @@ test('website avatar displays and BlogSEO use the local avatar asset', () => {
   assert.equal(SiteConfig.siteLogo, '/images/avatar.png');
   assert.equal(
     `${SiteConfig.siteUrl}${SiteConfig.siteLogo}`,
-    'https://jessieonroad.com/images/avatar.png',
+    'https://www.jessieonroad.com/images/avatar.png',
   );
   assert.match(
     source('components/SEO.tsx'),
@@ -292,7 +334,6 @@ test('Hero preloads a bounded repository-owned background photograph', () => {
 test('hero and content directory share a stable world index contract', () => {
   const hero = source('components/home/HomeHero.tsx');
   const worlds = source('components/home/HomeContentWorlds.tsx');
-  const persona = source('components/home/HomePersonaStory.tsx');
 
   assert.match(worlds, /export const HOME_WORLD_KEYS/);
   assert.match(hero, /import \{ HOME_WORLD_KEYS \}/);
@@ -300,8 +341,6 @@ test('hero and content directory share a stable world index contract', () => {
   assert.match(hero, /key=\{`headline-\$\{i\}`\}/);
   assert.match(hero, /key=\{`paragraph-\$\{idx\}`\}/);
   assert.match(hero, /href='\/post'/);
-  assert.match(persona, />\s*01\s*</);
-  assert.doesNotMatch(persona, /landing\.persona\.sectionEyebrow/);
 });
 
 test('home locales provide the bilingual Article CTA and world directory', () => {

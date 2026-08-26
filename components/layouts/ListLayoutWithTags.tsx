@@ -4,16 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import * as Types from "@/lib/type";
 import PageHeader from "@/components/common/PageHeader";
 import FilterPills from "@/components/common/FilterPills";
 import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
 import { activeTagIdFromPath } from "@/lib/routing/tagRouteData";
+import type {
+  PostListItem,
+  TagSummary,
+} from "@/lib/routing/listPageData";
 
 interface ListLayoutWithTagsProps {
-  posts: Types.Post[];
+  posts: PostListItem[];
   title: string;
-  tagOptions: Types.Tag[];
+  tagOptions: TagSummary[];
 }
 
 const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
@@ -101,7 +104,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
               </Link>
               <ul className="mt-2 space-y-1">
                 {!!tagOptions.length &&
-                  tagOptions.map((tag: Types.Tag) => (
+                  tagOptions.map((tag: TagSummary) => (
                     <li key={tag.id}>
                       <Link
                         href={`/tags/${encodeURIComponent(tag.id)}`}
@@ -156,7 +159,7 @@ const ListLayoutWithTags: React.FC<ListLayoutWithTagsProps> = ({
 
             {displayPosts.length ? (
               <ul className="space-y-5">
-                {displayPosts.map((post: Types.Post, index) => (
+                {displayPosts.map((post: PostListItem, index) => (
                   <li key={post.id}>
                     <EditorialArticleCard
                       article={post}
