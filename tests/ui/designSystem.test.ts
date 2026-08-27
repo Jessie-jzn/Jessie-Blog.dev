@@ -310,23 +310,20 @@ test("Life Articles keep a category breadcrumb without joining primary navigatio
   assert.match(notionPageHeader, /title:\s*["']nav\.life["']/);
 });
 
-test("Article detail uses the shared reading column and editorial surfaces", () => {
-  assert.match(postDetailLayout, /bg-canvas/);
-  assert.match(postDetailLayout, /max-w-\[46rem\]/);
-  for (const token of [
-    "var(--ui-accent-strong)",
-    "var(--ui-line)",
-    "var(--ui-surface)",
-    "var(--ui-surface-muted)",
-  ]) {
-    assert.match(notionCss, new RegExp(escapeRegExp(token)));
-  }
+test("Article detail preserves the original wide Notion reading layout", () => {
+  assert.match(
+    postDetailLayout,
+    /container mx-auto px-8 pt-20 xs:pt-14 prose dark:prose-invert max-w-none/,
+  );
+  assert.doesNotMatch(postDetailLayout, /max-w-\[46rem\]/);
+  assert.doesNotMatch(notionCss, /--notion-max-width:\s*46rem/);
+  assert.doesNotMatch(
+    notionCss,
+    /\.notion-custom-container \.notion-title\s*\{/,
+  );
 });
 
-test("Article renderer styles stay scoped and use semantic content colors", () => {
-  assert.match(notionCss, /\.notion-custom-container \.notion-link/);
-  assert.match(notionCss, /\.notion-custom-container \.notion-code/);
-
+test("Markdown article styles stay scoped and use semantic content colors", () => {
   for (const source of markdownStyles) {
     assert.match(source, /\.markdown-body/);
     assert.match(source, /var\(--ui-ink\)/);

@@ -1,4 +1,4 @@
-/** 为文章详情提供窄阅读栏、导航和页脚的页面布局。 */
+/** 为文章详情提供导航、正文和页脚布局。 */
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -8,9 +8,9 @@ export default function PostDetailLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='min-h-screen bg-canvas text-ink'>
+    <div className='min-h-screen'>
       <Navbar isFull={false} />
-      <article className='mx-auto w-full max-w-[46rem] px-4 pb-20 pt-20 sm:px-6 sm:pb-24 sm:pt-24'>
+      <article className='container mx-auto px-8 pt-20 xs:pt-14 prose dark:prose-invert max-w-none'>
         {children}
       </article>
       <Footer />
