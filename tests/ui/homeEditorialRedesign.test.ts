@@ -413,7 +413,6 @@ test('guide Article conversion preserves a full cover independently of its thumb
 test('lead and index Articles keep canonical routing and responsive images', () => {
   const wrapper = source('components/articles/EditorialArticleCard.tsx');
   const body = source('components/articles/EditorialArticleCardBody.tsx');
-  const articleLink = source('components/articles/ArticleLink.tsx');
   const lead = componentBlock(body, 'LeadArticle', 'IndexArticle');
   const index = componentBlock(body, 'IndexArticle', 'EditorialArticleCardBody');
 
@@ -422,12 +421,10 @@ test('lead and index Articles keep canonical routing and responsive images', () 
     assert.match(variant, /<ArticleImage/);
     assert.match(variant, /sizes=/);
     assert.match(variant, /articleImageSource\(article\)/);
-    assert.match(variant, /<ArticleLink/);
+    assert.match(variant, /prefetch=\{false\}/);
     assert.match(variant, /<h3/);
     assert.doesNotMatch(variant, /<h2/);
   }
-  assert.match(articleLink, /prefetch=\{false\}/);
-  assert.match(articleLink, /onMouseEnter=\{prefetchOnIntent\}/);
 });
 
 test('WHV process contains no emoji presentation', () => {

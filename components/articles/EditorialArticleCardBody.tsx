@@ -1,6 +1,6 @@
 /** 按多种版式渲染文章封面、元数据和链接的编辑式卡片主体。 */
+import Link from "next/link";
 import ArticleImage from "@/components/ArticleImage";
-import ArticleLink from "@/components/articles/ArticleLink";
 import type { Post } from "@/lib/type";
 
 export type EditorialArticleCardVariant =
@@ -55,8 +55,9 @@ const ArticleTags = ({ tags }: { tags: string[] }) => {
 };
 
 const RowCard = ({ article, priority, href }: EditorialArticleCardVariantProps) => (
-  <ArticleLink
+  <Link
     href={href}
+    prefetch={false}
     className="editorial-focus group block rounded-2xl"
   >
     <article className="editorial-card flex flex-col overflow-hidden transition-shadow duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-lg md:flex-row">
@@ -85,12 +86,13 @@ const RowCard = ({ article, priority, href }: EditorialArticleCardVariantProps) 
         </div>
       </div>
     </article>
-  </ArticleLink>
+  </Link>
 );
 
 const FeatureCard = ({ article, priority, href }: EditorialArticleCardVariantProps) => (
-  <ArticleLink
+  <Link
     href={href}
+    prefetch={false}
     className="editorial-focus group block h-full rounded-2xl"
   >
     <article className="editorial-card flex h-full flex-col overflow-hidden transition-shadow duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-lg">
@@ -117,12 +119,13 @@ const FeatureCard = ({ article, priority, href }: EditorialArticleCardVariantPro
         </div>
       </div>
     </article>
-  </ArticleLink>
+  </Link>
 );
 
 const CompactCard = ({ article, priority, href }: EditorialArticleCardVariantProps) => (
-  <ArticleLink
+  <Link
     href={href}
+    prefetch={false}
     className="editorial-focus group block rounded-2xl"
   >
     <article className="editorial-card flex gap-4 p-4 transition-shadow duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-md">
@@ -148,11 +151,11 @@ const CompactCard = ({ article, priority, href }: EditorialArticleCardVariantPro
         </div>
       </div>
     </article>
-  </ArticleLink>
+  </Link>
 );
 
 const LeadArticle = ({ article, priority, href }: EditorialArticleCardVariantProps) => (
-  <ArticleLink href={href} className="editorial-focus group block">
+  <Link href={href} prefetch={false} className="editorial-focus group block">
     <article>
       <div className="relative aspect-[16/10] overflow-hidden bg-muted sm:aspect-[3/2]">
         <ArticleImage
@@ -176,7 +179,7 @@ const LeadArticle = ({ article, priority, href }: EditorialArticleCardVariantPro
         ) : null}
       </div>
     </article>
-  </ArticleLink>
+  </Link>
 );
 
 const IndexArticle = ({
@@ -188,7 +191,7 @@ const IndexArticle = ({
   const image = articleImageSource(article);
 
   return (
-    <ArticleLink href={href} className="editorial-focus group block py-5">
+    <Link href={href} prefetch={false} className="editorial-focus group block py-5">
       <article className="grid grid-cols-[2rem_minmax(0,1fr)] gap-4 sm:grid-cols-[2.5rem_minmax(0,1fr)_7.5rem] sm:items-center">
         <span
           aria-hidden="true"
@@ -215,7 +218,7 @@ const IndexArticle = ({
           </div>
         ) : null}
       </article>
-    </ArticleLink>
+    </Link>
   );
 };
 
