@@ -23,6 +23,7 @@ import { useEffect } from 'react'; // 导入 useEffect 钩子
 import { useRouter } from 'next/router'; // 导入路由钩子
 import Script from 'next/script'; // 导入 Script 组件，用于添加外部脚本
 import { getPublicIntegrations } from '@/lib/runtime/publicIntegrations';
+import { appendExternalScript } from '@/lib/runtime/deferredExternalScript';
 
 interface MyAppProps {
   Component: React.ComponentType & {
@@ -62,6 +63,13 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       router.events.off('routeChangeComplete', handleRouteChange); // 清理事件监听
     };
   }, [integrations.gaId, router.events]);
+
+  useEffect(() => {
+    return appendExternalScript(
+      document,
+      'https://emrldtp.cc/MzMyNjk0.js?t=332694',
+    );
+  }, []);
 
   const getLayout =
     Component.getLayout ?? ((page) => <BaseLayout>{page}</BaseLayout>); // 获取布局，如果没有则使用基础布局
@@ -137,23 +145,6 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
           strategy='afterInteractive'
         />
       )}
-      <Script
-        id='custom-script-2'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function () {
-                var script = document.createElement("script");
-                script.async = 1;
-                script.src = 'https://emrldtp.cc/MzMyNjk0.js?t=332694';
-                document.head.appendChild(script);
-            })();
-          `,
-        }}
-        data-noptimize='1'
-        data-cfasync='false'
-        data-wpfc-render='false'
-      />
       {integrations.clarityId && (
         <Script
           id='microsoft-clarity'
