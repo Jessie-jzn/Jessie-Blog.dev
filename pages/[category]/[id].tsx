@@ -18,6 +18,7 @@ import {
   canonicalArticleRoute,
   createArticleRouteCatalog,
 } from '@/lib/routing/articleRoute';
+import { retryableNotFound } from '@/lib/routing/retryableNotFound';
 
 const notionService = new NotionService();
 const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 80);
@@ -74,7 +75,7 @@ export const getStaticProps: GetStaticProps<
     // getPage 是唯一的网络请求，相关文章直接从 allPages 内存计算，无需并行
     const recordMap = await notionService.getPage(resolvedPostId);
     if (!recordMap) {
-      return { notFound: true };
+      return retryableNotFound();
     }
 
     const relatedArticles = getRelatedPosts(resolvedPostId, allPages);
@@ -128,7 +129,7 @@ export const getStaticProps: GetStaticProps<
 
     if (!postData) {
       console.warn(`[getStaticProps] 无法获取 postData, id="${rawId}"`);
-      return { notFound: true };
+      return retryableNotFound();
     }
 
     return {
@@ -142,7 +143,7 @@ export const getStaticProps: GetStaticProps<
     };
   } catch (error) {
     console.error("Error in getStaticProps:", error);
-    return { notFound: true };
+    return retryableNotFound();
   }
 };
 
