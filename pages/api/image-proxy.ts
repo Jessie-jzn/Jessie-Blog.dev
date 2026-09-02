@@ -11,6 +11,7 @@ import {
   isPrivateNetworkAddress,
   validateRemoteImageUrl,
 } from "@/lib/images/articleImageSource";
+import { createResponseTimeout } from "@/lib/images/remoteImageTimeout";
 
 async function sendFallback(res: NextApiResponse) {
   const fallback = await readFile(
@@ -36,8 +37,7 @@ export default async function handler(
     return sendFallback(res);
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
+  const responseTimeout = createResponseTimeout(10000);
   try {
     const resolvedAddresses = await lookup(remoteUrl.hostname, {
       all: true,
@@ -53,12 +53,13 @@ export default async function handler(
     }
 
     const response = await fetch(remoteUrl, {
-      signal: controller.signal,
+      signal: responseTimeout.signal,
       redirect: "error",
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; NextJS/Image-Proxy)",
       },
     });
+    responseTimeout.clear();
 
     if (!response.ok) {
       throw new Error(
@@ -87,7 +88,7 @@ export default async function handler(
     console.error("Image proxy error:", error);
     return sendFallback(res);
   } finally {
-    clearTimeout(timeout);
+    responseTimeout.clear();
   }
 }
 
