@@ -20,7 +20,7 @@ import {
 } from '@/lib/routing/articleRoute';
 
 const notionService = new NotionService();
-const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 40);
+const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 80);
 const PREBUILD_POST_LIMIT = Number.isFinite(envPrebuildLimit)
   ? Math.max(0, envPrebuildLimit)
   : 40;

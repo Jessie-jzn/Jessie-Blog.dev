@@ -27,6 +27,7 @@ test("FilterPills provides labelled, pressed filter controls", () => {
 test("EditorialArticleCard preserves canonical routing and its three variants", () => {
   const source = componentSource("components/articles/EditorialArticleCard.tsx");
   const body = componentSource("components/articles/EditorialArticleCardBody.tsx");
+  const articleLink = componentSource("components/articles/ArticleLink.tsx");
   const props = source.match(
     /interface EditorialArticleCardProps\s*\{([\s\S]*?)\n\}/,
   );
@@ -38,7 +39,11 @@ test("EditorialArticleCard preserves canonical routing and its three variants", 
   assert.doesNotMatch(props[1], /href/);
   assert.match(source, /canonicalArticlePath\(article\)/);
   assert.match(source, /href=\{canonicalArticlePath\(article\)\}/);
-  assert.match(body, /prefetch=\{false\}/);
+  assert.match(body, /ArticleLink/);
+  assert.match(articleLink, /prefetch=\{false\}/);
+  assert.match(articleLink, /onMouseEnter=\{prefetchOnIntent\}/);
+  assert.match(articleLink, /onFocus=\{prefetchOnIntent\}/);
+  assert.match(articleLink, /onTouchStart=\{prefetchOnIntent\}/);
   assert.match(body, /"row"/);
   assert.match(body, /"feature"/);
   assert.match(body, /"compact"/);
