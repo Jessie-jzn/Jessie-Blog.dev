@@ -481,9 +481,9 @@
   align-items: center;
 }
 
-/* 核心容器自适应 */
+/* 正文容器占满可用宽度。 */
 .notion {
-  @apply w-full max-w-7xl mx-auto; /* 限制正文最大宽度，避免大屏图片横跨全屏 */
+  @apply w-full mx-auto;
 }
 
 /* 强制图片 block 占满容器宽度 */

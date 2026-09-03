@@ -320,10 +320,14 @@ test("Life Articles keep a category breadcrumb without joining primary navigatio
 });
 
 test("Article detail preserves the original wide Notion reading layout", () => {
+  const notionContent = ruleBodyContaining(notionCss, ".notion", "@apply");
+
   assert.match(
     postDetailLayout,
     /container mx-auto px-8 pt-20 xs:pt-14 prose dark:prose-invert max-w-none/,
   );
+  assert.match(notionContent, /@apply\s+w-full\s+mx-auto/);
+  assert.doesNotMatch(notionContent, /max-w-7xl|max-width/);
   assert.doesNotMatch(postDetailLayout, /max-w-\[46rem\]/);
   assert.doesNotMatch(notionCss, /--notion-max-width:\s*46rem/);
   assert.doesNotMatch(
