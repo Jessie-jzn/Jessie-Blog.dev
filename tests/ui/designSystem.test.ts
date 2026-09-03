@@ -40,6 +40,11 @@ const articleAsidePath = "components/Notion/ArticleAside.tsx";
 const articleAside = existsSync(articleAsidePath)
   ? readFileSync(articleAsidePath, "utf8")
   : "";
+const notionPageAside = readFileSync(
+  "components/Notion/NotionPageAside.tsx",
+  "utf8",
+);
+const sidebar = readFileSync("components/Sidebar.tsx", "utf8");
 const notionPageHeader = readFileSync(
   "components/Notion/NotionPageHeader.tsx",
   "utf8",
@@ -345,6 +350,13 @@ test("Article related content sits directly below the author profile in the Noti
   );
   assert.doesNotMatch(notionPage, /<AdSense \/>[\s\S]*<NotionPageAside/);
   assert.match(articleAside, /<Sidebar \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/);
+});
+
+test("Article aside uses one shared surface instead of nested profile and related cards", () => {
+  assert.match(articleAside, /editorial-surface[\s\S]*divide-y/);
+  assert.doesNotMatch(sidebar, /editorial-surface/);
+  assert.doesNotMatch(newsletterSubscribe, /editorial-surface/);
+  assert.doesNotMatch(notionPageAside, /editorial-surface/);
 });
 
 test("Article support code remains readable in dark mode", () => {

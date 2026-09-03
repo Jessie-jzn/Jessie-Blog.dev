@@ -41,7 +41,7 @@ const NewsletterSubscribe: React.FC = () => {
 
   return (
     <form
-      className="editorial-surface group/form rounded-2xl p-5"
+      className="group/form"
       ref={formRef}
       onSubmit={handleSubscribe}
     >

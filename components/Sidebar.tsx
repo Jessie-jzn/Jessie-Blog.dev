@@ -6,7 +6,7 @@ import NewsletterSubscribe from '@/components/NewsletterSubscribe';
 
 const Sidebar = () => {
   return (
-    <div className='editorial-surface rounded-2xl'>
+    <section>
       <div className='flex flex-col items-center p-6 text-center'>
         <div className='relative w-20 h-20 mx-auto'>
           <Image
@@ -41,7 +41,7 @@ const Sidebar = () => {
           <NewsletterSubscribe />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
