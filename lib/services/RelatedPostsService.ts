@@ -1,12 +1,12 @@
 /**
  * 相关文章：直接从调用方传入的 allPages 中按标签匹配，不再重复调用 getDataBaseList。
  */
-import * as Types from "@/lib/type";
+import type * as Types from "../type.ts";
 
 export function getRelatedPosts(
   postId: string,
   allPages: Types.Post[],
-): Types.PostData[] {
+): Types.Post[] {
   if (!allPages?.length) {
     return [];
   }
@@ -29,27 +29,18 @@ export function getRelatedPosts(
   );
 
   return related.slice(0, 5).map(
-    (post): Types.PostData => ({
+    (post): Types.Post => ({
       id: post.id,
-      keywords: "",
-      summarize: post.summarize ?? "",
-      type: post.type === "Post" ? "Post" : "Page",
-      status: "Published",
-      tags: post.tags ?? [],
       title: post.title,
+      tags: post.tags ?? [],
       category: post.category ?? "",
-      comment: post.comment ?? "",
+      summarize: post.summarize ?? "",
       publishDate: post.publishDate ?? 0,
       publishDay: post.publishDay ?? "",
       lastEditedDate: post.lastEditedDate ?? "",
       lastEditedDay: post.lastEditedDay ?? "",
-      fullWidth: post.fullWidth ?? false,
-      pageIcon: post.pageIcon ?? "",
-      pageCover: post.pageCover,
-      pageCoverThumbnail: post.pageCoverThumbnail,
-      ext: post.ext ?? {},
-      tagItems:
-        (post.tagItems as unknown as Types.PostData["tagItems"]) ?? [],
+      pageCover: post.pageCover ?? "",
+      pageCoverThumbnail: post.pageCoverThumbnail ?? "",
       slug: post.slug,
     })
   );

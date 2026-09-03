@@ -127,7 +127,7 @@ const propertyCreatedTimeValue = (
 interface NotionPageProps {
   recordMap: ExtendedRecordMap;
   postData?: Types.PostData;
-  relatedPosts?: Types.PostData[];
+  relatedPosts?: Types.Post[];
 }
 
 const NotionPage: React.FC<NotionPageProps> = ({

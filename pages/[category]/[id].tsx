@@ -183,7 +183,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface RenderPostProps {
   recordMap: ExtendedRecordMap;
   postData: Type.PostData;
-  relatedPosts: Type.PostData[];
+  relatedPosts: Type.Post[];
 }
 
 const RenderPost: React.FC<RenderPostProps> = ({

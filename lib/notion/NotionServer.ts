@@ -3,6 +3,7 @@ import { Client } from '@notionhq/client';
 import { NotionCompatAPI } from 'notion-compat';
 import { NOTION_TOKEN } from '@/lib/constants';
 import { getBlockCollectionId } from '@/lib/notion-utils';
+import { stripRecordMapRaw } from '@/lib/notion/stripRecordMapRaw';
 
 if (!NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN is not defined');
@@ -79,7 +80,7 @@ class NotionServer {
     if (USE_OFFICIAL_PAGE_API) {
       try {
         const recordMap = await this.notionCompat.getPage(pageId);
-        return recordMap;
+        return stripRecordMapRaw(recordMap);
       } catch (error: any) {
         console.warn(
           '[NotionServer.getPage] 官方 API 失败，回退到 legacy api/v3:',
@@ -90,7 +91,7 @@ class NotionServer {
 
     try {
       const page = await this.notionAPI.getPage(pageId);
-      return page;
+      return stripRecordMapRaw(page);
     } catch (error: any) {
       console.error('Error fetching page (legacy):', error.body || error);
       throw new Error('Failed to fetch page');

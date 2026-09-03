@@ -4,7 +4,7 @@ import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
 import * as Types from "@/lib/type";
 
 interface NotionPageAsideProps {
-  relatedPosts?: Types.PostData[];
+  relatedPosts?: Types.Post[];
 }
 
 const NotionPageAside: React.FC<NotionPageAsideProps> = ({
@@ -14,24 +14,9 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
     () => (
       <ul className="space-y-4">
         {relatedPosts.map((post) => {
-          const article: Types.Post = {
-            id: post.id,
-            title: post.title,
-            tags: post.tags || [],
-            summarize: post.summarize,
-            category: post.category,
-            publishDate: post.publishDate,
-            publishDay: post.publishDay,
-            lastEditedDate: post.lastEditedDate,
-            lastEditedDay: post.lastEditedDay,
-            pageCover: post.pageCover || "",
-            pageCoverThumbnail: post.pageCoverThumbnail || "",
-            slug: post.slug,
-          };
-
           return (
             <li key={post.id}>
-              <EditorialArticleCard article={article} variant="compact" />
+              <EditorialArticleCard article={post} variant="compact" />
             </li>
           );
         })}
