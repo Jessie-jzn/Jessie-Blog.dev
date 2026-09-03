@@ -12,8 +12,7 @@ import * as Types from '@/lib/type';
 import styles from './styles.module.css';
 import NotionPropertyValue from './NotionPropertyValue';
 import { Breadcrumbs } from './NotionPageHeader';
-import NotionPageAside from './NotionPageAside';
-import Sidebar from '@/components/Sidebar';
+import ArticleAside from './ArticleAside';
 
 import { BlogSEO } from '@/components/SEO';
 import { mapPageUrl, mapImageUrl } from '@/lib/notion-utils';
@@ -239,13 +238,12 @@ const NotionPage: React.FC<NotionPageProps> = ({
           mapPageUrl={siteMapPageUrl}
           mapImageUrl={mapImageUrl}
           searchNotion={searchNotion}
-          pageAside={<Sidebar />}
+          pageAside={<ArticleAside relatedPosts={relatedPosts} />}
           // footer={footer}
         />
       </div>
 
       <AdSense />
-      <NotionPageAside relatedPosts={relatedPosts} />
     </>
   );
 };

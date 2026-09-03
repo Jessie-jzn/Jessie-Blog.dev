@@ -30,14 +30,14 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   }
 
   return (
-    <aside className="mt-12 w-full">
+    <section className="w-full">
       <div className="editorial-surface rounded-2xl p-5">
         <h2 className="mb-4 text-lg font-semibold tracking-tight text-ink">
           相关推荐
         </h2>
         {renderedPosts}
       </div>
-    </aside>
+    </section>
   );
 };
 

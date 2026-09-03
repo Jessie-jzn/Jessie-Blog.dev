@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 
 const css = readFileSync("styles/globals.css", "utf8");
@@ -36,6 +36,10 @@ const postDetailLayout = readFileSync(
   "utf8",
 );
 const notionPage = readFileSync("components/Notion/NotionPage.tsx", "utf8");
+const articleAsidePath = "components/Notion/ArticleAside.tsx";
+const articleAside = existsSync(articleAsidePath)
+  ? readFileSync(articleAsidePath, "utf8")
+  : "";
 const notionPageHeader = readFileSync(
   "components/Notion/NotionPageHeader.tsx",
   "utf8",
@@ -333,11 +337,17 @@ test("Markdown article styles stay scoped and use semantic content colors", () =
   }
 });
 
-test("Article support blocks remain visible and readable in dark mode", () => {
+test("Article related content sits directly below the author profile in the Notion aside", () => {
+  assert.equal(existsSync(articleAsidePath), true);
   assert.match(
     notionPage,
-    /<AdSense \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/,
+    /pageAside=\{<ArticleAside relatedPosts=\{relatedPosts\} \/>\}/,
   );
+  assert.doesNotMatch(notionPage, /<AdSense \/>[\s\S]*<NotionPageAside/);
+  assert.match(articleAside, /<Sidebar \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/);
+});
+
+test("Article support code remains readable in dark mode", () => {
   assert.match(
     markdownTui,
     /\.tuiCssForEditor \.markdown-body pre > code/,
