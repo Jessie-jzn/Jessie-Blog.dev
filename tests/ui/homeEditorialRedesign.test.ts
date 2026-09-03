@@ -443,10 +443,10 @@ test('WHV process contains no emoji presentation', () => {
   assert.match(whv, /String\(i \+ 1\)\.padStart\(2, '0'\)/);
 });
 
-test('travel uses an inline editor note and keeps its empty collection guard', () => {
+test('travel keeps its empty collection guard without an editorial intro', () => {
   const travel = source('components/home/TravelGuideSection.tsx');
   assert.match(travel, /if \(!posts\?\.length\) return null/);
-  assert.match(travel, /intro \?\? defaultIntro/);
-  assert.match(travel, /border-l border-primary pl-5/);
+  assert.match(travel, /<GuidePostCards posts=\{posts\} \/>/);
+  assert.doesNotMatch(travel, /defaultIntro|introLine1|introLine2Before/);
   assert.doesNotMatch(travel, /rounded-2xl border border-line bg-muted/);
 });

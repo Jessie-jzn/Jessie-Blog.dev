@@ -66,11 +66,7 @@
     "travelSection": {
       "kicker": "03 · Travel",
       "title": "旅行记录",
-      "subtitle": "这里写我去过的一些地方，以及旅行中发生的事。",
-      "introLine1": "不做打卡清单，也不套攻略模板。",
-      "introLine2Before": "路线和价格会变，文章记录的是我当时的行程和实际经历。",
-      "introStrong": "具体事",
-      "introLine2After": "。"
+      "subtitle": "这里写我去过的一些地方，以及旅行中发生的事。"
     },
     "whv": {
       "kicker": "02 · whv",
