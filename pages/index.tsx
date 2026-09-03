@@ -19,6 +19,7 @@ import HomeConsultCta from '@/components/home/HomeConsultCta';
 import HomeContentWorlds from '@/components/home/HomeContentWorlds';
 import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
 import { selectTechnicalPosts } from '@/lib/home/selectTechnicalPosts';
+import { selectTravelPosts } from '@/lib/home/selectTravelPosts';
 
 const notionService = new NotionService();
 
@@ -45,19 +46,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       )
       .slice(0, 6);
 
-    travelPosts = posts
-      .filter((p) =>
-        (p.category || '').toLowerCase().includes('travel')
-      )
-      .slice(0, 12);
-
     if (whvPosts.length === 0) whvPosts = posts.slice(0, 4);
-    if (travelPosts.length === 0) {
-      travelPosts = posts.filter(
-        (p) => !whvPosts.some((w) => w.id === p.id)
-      ).slice(0, 6);
-      if (travelPosts.length === 0) travelPosts = posts.slice(0, 12);
-    }
+    travelPosts = selectTravelPosts(posts, whvPosts);
   }
 
   technicalPosts = selectTechnicalPosts(posts);
