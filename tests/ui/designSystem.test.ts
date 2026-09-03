@@ -349,12 +349,13 @@ test("Article related content sits directly below the author profile in the Noti
     /pageAside=\{<ArticleAside relatedPosts=\{relatedPosts\} \/>\}/,
   );
   assert.doesNotMatch(notionPage, /<AdSense \/>[\s\S]*<NotionPageAside/);
-  assert.match(articleAside, /<Sidebar \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/);
+  assert.match(articleAside, /<Sidebar flat \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/);
 });
 
 test("Article aside uses one shared surface instead of nested profile and related cards", () => {
   assert.match(articleAside, /editorial-surface[\s\S]*divide-y/);
-  assert.doesNotMatch(sidebar, /editorial-surface/);
+  assert.match(articleAside, /<Sidebar flat \/>/);
+  assert.match(sidebar, /flat \? undefined : 'editorial-surface rounded-2xl'/);
   assert.doesNotMatch(newsletterSubscribe, /editorial-surface/);
   assert.doesNotMatch(notionPageAside, /editorial-surface/);
 });

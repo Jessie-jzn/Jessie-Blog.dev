@@ -4,9 +4,13 @@ import Image from 'next/image';
 import SiteConfig from '@/site.config';
 import NewsletterSubscribe from '@/components/NewsletterSubscribe';
 
-const Sidebar = () => {
+interface SidebarProps {
+  flat?: boolean;
+}
+
+const Sidebar = ({ flat = false }: SidebarProps) => {
   return (
-    <section>
+    <section className={flat ? undefined : 'editorial-surface rounded-2xl'}>
       <div className='flex flex-col items-center p-6 text-center'>
         <div className='relative w-20 h-20 mx-auto'>
           <Image

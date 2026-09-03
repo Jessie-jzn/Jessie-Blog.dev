@@ -11,7 +11,7 @@ interface ArticleAsideProps {
 const ArticleAside: React.FC<ArticleAsideProps> = ({ relatedPosts }) => {
   return (
     <aside className='editorial-surface divide-y divide-line overflow-hidden rounded-2xl'>
-      <Sidebar />
+      <Sidebar flat />
       <NotionPageAside relatedPosts={relatedPosts} />
     </aside>
   );
