@@ -8,18 +8,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import getLocalizedCategoryPosts from "@/lib/notion/getLocalizedCategoryPosts";
 import PostListLayout from "@/components/layouts/PostListLayout";
 import dynamic from "next/dynamic";
-import * as Types from "@/lib/type";
 import { CommonSEO } from "@/components/SEO";
 import { useTranslation } from "next-i18next";
 import PageHeader from "@/components/common/PageHeader";
 import FilterPills from "@/components/common/FilterPills";
 import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
+import {
+  filterCategoryPosts,
+  toCategoryPageData,
+} from "@/lib/routing/categoryPageData";
+import type { PostListItem, TagSummary } from "@/lib/routing/listPageData";
 
 const Sidebar = dynamic(() => import("@/components/Sidebar"), {
   ssr: false,
 });
 
-const ArticleList = React.memo(({ articles }: { articles: Types.Post[] }) => {
+const ArticleList = React.memo(({ articles }: { articles: PostListItem[] }) => {
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -48,7 +52,6 @@ ArticleList.displayName = "ArticleList";
 type CategoryItem = {
   id: string;
   name: string;
-  articles: Types.Post[];
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
@@ -60,10 +63,11 @@ export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => {
     useCache: true,
   });
 
+  const pageData = toCategoryPageData(posts, tagOptions);
+
   return {
     props: {
-      posts,
-      tagOptions,
+      ...pageData,
       ...translations,
     },
     revalidate: 300,
@@ -74,31 +78,31 @@ const PostListPage = ({
   posts,
   tagOptions,
 }: {
-  posts: Types.Post[];
-  tagOptions: Types.Tag[];
+  posts: PostListItem[];
+  tagOptions: TagSummary[];
 }) => {
   const { t } = useTranslation("common");
-  const allTagArticles = useMemo<CategoryItem[]>(() => {
+  const filterItems = useMemo<CategoryItem[]>(() => {
     return [
       {
         id: "all",
         name: t("all"),
-        articles: posts,
       },
       ...tagOptions.map((tag) => ({
-        id: tag.id,
-        name: tag.name || "",
-        articles: tag.articles || [],
+        id: tag.value || tag.name,
+        name: tag.name || tag.value,
       })),
     ];
-  }, [posts, tagOptions, t]);
+  }, [tagOptions, t]);
 
-  const [curCategoryItem, setCurCategoryItem] = useState<CategoryItem>(
-    allTagArticles[0],
+  const [activeFilterId, setActiveFilterId] = useState("all");
+  const filteredPosts = useMemo(
+    () => filterCategoryPosts(posts, activeFilterId),
+    [activeFilterId, posts],
   );
 
   const handleChangeCategory = (item: CategoryItem) => {
-    setCurCategoryItem(item);
+    setActiveFilterId(item.id);
   };
 
   return (
@@ -118,8 +122,8 @@ const PostListPage = ({
 
         <div className="sticky top-14 z-40 border-y border-line bg-canvas/90 px-4 py-3 backdrop-blur-xl sm:top-16 sm:px-6 lg:px-8">
           <FilterPills
-            items={allTagArticles}
-            activeId={curCategoryItem.id}
+            items={filterItems}
+            activeId={activeFilterId}
             onChange={handleChangeCategory}
             ariaLabel={t("nav.technical")}
           />
@@ -128,7 +132,7 @@ const PostListPage = ({
         <div className="w-full px-4 pb-16 pt-8 sm:px-6 md:pb-24 lg:px-8">
           <div className="flex flex-col gap-8 md:flex-row">
             <div className="min-h-screen min-w-0 flex-1">
-              <ArticleList articles={curCategoryItem.articles} />
+              <ArticleList articles={filteredPosts} />
             </div>
 
             <aside className="hidden w-80 shrink-0 md:block">
