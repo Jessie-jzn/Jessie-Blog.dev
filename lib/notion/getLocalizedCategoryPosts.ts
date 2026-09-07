@@ -4,6 +4,7 @@ import getDataBaseList from "@/lib/notion/getDataBaseList";
 import { processTags } from "@/lib/util";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import * as Types from "@/lib/type";
+import { selectLocalizedPosts } from "@/lib/routing/localizedPosts";
 
 // 定义文章的类型结构（可以根据实际字段拓展）
 interface Post {
@@ -51,10 +52,6 @@ const getLocalizedCategoryPosts = async ({
 }> => {
   const [enCategory, zhCategory] = categories;
 
-  // 根据当前语言设置主分类（primary）和次分类（secondary）
-  const [primaryKey, secondaryKey] =
-    locale === "en" ? [enCategory, zhCategory] : [zhCategory, enCategory];
-
   // 生成缓存 key，用于唯一标识一次请求
   const cacheKey = `${pageId}_${locale}_${from}_${categories.join("_")}`;
   if (useCache && _cache.has(cacheKey)) {
@@ -67,17 +64,15 @@ const getLocalizedCategoryPosts = async ({
     pageId,
     from,
     filter: (post: Post) =>
-      post.category === enCategory || post.category === zhCategory,
+      post.category === (locale === "en" ? enCategory : zhCategory),
   });
 
   // 从返回结果中取出对应语言分类的文章列表
-  const primaryPosts: Post[] =
-    response.categoryMap?.[primaryKey]?.articles || [];
-  const secondaryPosts: Post[] =
-    response.categoryMap?.[secondaryKey]?.articles || [];
-
-  // 合并文章列表，主语言在前
-  const allPosts: Post[] = [...primaryPosts, ...secondaryPosts];
+  const allPosts = selectLocalizedPosts(
+    response.allPages as Post[],
+    locale,
+    categories
+  );
 
   // 处理标签映射，去重、计数等（返回 Map）
   const tagMap = processTags(response.tagOptions || []);

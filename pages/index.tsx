@@ -20,6 +20,7 @@ import HomeContentWorlds from '@/components/home/HomeContentWorlds';
 import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
 import { selectTechnicalPosts } from '@/lib/home/selectTechnicalPosts';
 import { selectTravelPosts } from '@/lib/home/selectTravelPosts';
+import { isLocalePost } from '@/lib/routing/localizedPosts';
 
 const notionService = new NotionService();
 
@@ -36,7 +37,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       pageId: NOTION_POST_ID,
       from: 'home-index',
     });
-    posts = (response?.allPages || []) as Types.Post[];
+    posts = ((response?.allPages || []) as Types.Post[]).filter((post) =>
+      isLocalePost(post, locale || 'zh')
+    );
 
     whvPosts = posts
       .filter(
