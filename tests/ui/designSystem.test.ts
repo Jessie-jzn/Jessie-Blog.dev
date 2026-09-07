@@ -292,7 +292,7 @@ test("final editorial cleanup uses Article terminology", () => {
   assert.equal(englishCommon.post, "Articles");
   assert.equal(englishCommon.lastPost, "Latest Articles");
   assert.equal(chineseCommon.post, "文章");
-  assert.equal(chineseCommon.lastPost, "最新文章");
+  assert.equal(chineseCommon.lastPost, "最近更新");
 });
 
 test("newsletter email field has a localized accessible name", () => {
@@ -354,6 +354,8 @@ test("Article related content sits directly below the author profile in the Noti
   );
   assert.doesNotMatch(notionPage, /<AdSense \/>[\s\S]*<NotionPageAside/);
   assert.match(articleAside, /<Sidebar flat \/>[\s\S]*<NotionPageAside relatedPosts=\{relatedPosts\} \/>/);
+  assert.match(notionPageAside, /variant="index"/);
+  assert.match(notionPageAside, /position=\{index \+ 1\}/);
 });
 
 test("Article aside uses one shared surface instead of nested profile and related cards", () => {

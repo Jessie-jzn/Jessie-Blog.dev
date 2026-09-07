@@ -28,7 +28,7 @@ export function getRelatedPosts(
       Boolean(post.tags?.some((tag: string) => tag === firstTag))
   );
 
-  return related.slice(0, 5).map(
+  return related.slice(0, 10).map(
     (post): Types.Post => ({
       id: post.id,
       title: post.title,

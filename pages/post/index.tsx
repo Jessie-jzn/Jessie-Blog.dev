@@ -13,6 +13,7 @@ import {
   type PostListItem,
   type TagSummary,
 } from "@/lib/routing/listPageData";
+import { CommonSEO } from "@/components/SEO";
 
 interface ArticleIndexProps {
   posts: PostListItem[];
@@ -41,11 +42,18 @@ const ArticleIndex = ({ posts, tagOptions }: ArticleIndexProps) => {
   const { t } = useTranslation("common");
 
   return (
-    <ListLayoutWithTags
+    <>
+      <CommonSEO
+        title={t("articleList.all")}
+        description={t("seo.articlesDescription")}
+        keywords={t("seo.articlesKeywords")}
+      />
+      <ListLayoutWithTags
       posts={posts}
       tagOptions={tagOptions}
       title={t("articleList.all")}
-    />
+      />
+    </>
   );
 };
 

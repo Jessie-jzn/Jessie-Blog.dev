@@ -1,74 +1,99 @@
 {
   "landing": {
     "seoTitle": "Jessie on the road",
-    "seoDescription": "Jessie's personal blog about eight years in frontend development, a year on an Australian WHV, travel, technology, and everyday life.",
+    "seoDescription": "Jessie's personal blog. I work in AI development in Shanghai and write about work, my Australian working holiday, travel, and everyday life.",
     "hero": {
-      "badge": "ENFJ · frontend · one year in Australia on a WHV",
+      "badge": "Shanghai · AI development · Australian WHV",
       "headline": [
-        "I'm Jessie.",
-        "I worked in frontend for years, then left for a working holiday in Australia."
+        "Hi, I'm Jessie."
       ],
       "paragraphs": [
-        "I quit my frontend job, spent a year in Australia on a working holiday, then came home and was back at my computer, writing code again.",
-        "Lately I have been putting AI into real work bit by bit, instead of leaving it in a demo.",
-        "This site does not have one theme. Code, AI, Australia, travel, and ordinary life are already tangled up in mine.",
-        "I keep the mistakes, the things I understood later, and the things nobody told me when I needed them."
+        "I work in AI development in Shanghai. Before coming back to China, I spent a year on a working holiday in Australia.",
+        "I write here about problems I run into doing AI development, my year in Australia, trips I’ve taken, and life back in China."
       ],
       "primaryMailSubject": "Hello Jessie",
       "primaryCta": "Write to me",
-      "secondaryCta": "Read Articles",
+      "secondaryCta": "Read the blog",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
     },
     "worlds": {
-      "eyebrow": "CONTENT WORLDS",
-      "title": "What shows up here",
-      "description": "Not four neatly separated topics—just the things I have been doing, living through, and thinking about lately.",
-      "allArticles": "Browse all Articles →",
-      "aria": "Content worlds",
+      "eyebrow": "Have a look around",
+      "title": "What I write about",
+      "allArticles": "All articles →",
+      "aria": "Article categories",
       "items": {
-        "ai": { "eyebrow": "AI & TECH", "title": "AI & frontend", "description": "How I use AI to write code, build workflows, and run evals in real projects—the useful parts and the messes too.", "href": "/technical" },
-        "whv": { "eyebrow": "WHV", "title": "Working holiday in Australia", "description": "Visas, jobs, and actually settling in. There are plenty of guides; doing it yourself can still be chaotic.", "href": "/whv" },
-        "travel": { "eyebrow": "TRAVEL", "title": "Travel", "description": "No checklist or travel-template posts. Just places I really liked and would go back to.", "href": "/travel" },
-        "life": { "eyebrow": "LIFE", "title": "Life", "description": "Work, finding a new direction, living on my own, and things that took time to understand.", "href": "/life" }
+        "ai": {
+          "eyebrow": "AI & TECH",
+          "title": "AI development",
+          "description": "Problems I run into doing AI development, and what I’ve tried.",
+          "href": "/technical"
+        },
+        "whv": {
+          "eyebrow": "WHV",
+          "title": "Working holiday in Australia",
+          "description": "Visas, job hunting, housing, and everyday life in Australia. A few notes for anyone preparing to go.",
+          "href": "/whv"
+        },
+        "travel": {
+          "eyebrow": "TRAVEL",
+          "title": "Travel",
+          "description": "Places I’ve been, routes I’ve taken, and things I wanted to write about after coming home.",
+          "href": "/travel"
+        },
+        "life": {
+          "eyebrow": "LIFE",
+          "title": "Life",
+          "description": "Working again after coming back to China, and notes from my everyday life.",
+          "href": "/life"
+        }
       }
     },
     "technicalSection": {
-      "kicker": "TECH · ARTICLES",
-      "title": "Technical articles",
-      "subtitle": "Code, AI, and what it takes to put new ideas to work in real projects."
+      "kicker": "Technical notes",
+      "title": "Notes from writing code",
+      "subtitle": "Notes on problems I run into doing AI development."
     },
     "projects": {
-      "eyebrow": "PROJECTS & EXPERIENCE",
-      "title": "Things I have made",
-      "description": "Some are finished. Some are still being figured out. These are the ones I have actually worked on.",
-      "allProjects": "View projects & experience →",
+      "eyebrow": "Projects",
+      "title": "Things I work on",
+      "description": "My AI projects, this blog, and notes from previous work.",
+      "allProjects": "Projects and experience →",
       "aria": "Projects and experience"
     },
     "travelSection": {
-      "kicker": "02 · notes",
-      "title": "Travel journal",
-      "subtitle": "Places I went to, really liked, and still think about later."
+      "kicker": "Travel",
+      "title": "Places I’ve been",
+      "subtitle": "Writing things down after the trip, a little at a time."
     },
     "whv": {
-      "kicker": "04 · whv",
+      "kicker": "Working holiday",
       "title": "My year on an Australian WHV",
-      "subtitle": "From getting ready to leaving again: the things you only really learn once you are there.",
-      "intro": "Personal stories first, with practical information where it may help."
+      "subtitle": "I read plenty of guides before leaving. There was still a lot to figure out once I arrived. These are my notes from that year.",
+      "intro": "Stories from that year, with practical notes along the way."
     },
     "cta": {
-      "sectionEyebrow": "COLLABORATE & CONNECT",
-      "title": "Write to me if you want to talk",
-      "p1": "AI, frontend work, or a working holiday in Australia—I am happy to talk about any of it.",
-      "p2": "If I have already made the mistake you are dealing with now, I may be able to save you a bit of time.",
+      "sectionEyebrow": "Keep in touch",
+      "title": "Feel like writing?",
+      "p1": "If a post reminded you of something, or your experience was different, I’d like to hear about it.",
+      "p2": "You can also write about AI development or a working holiday you’re planning.",
       "mailSubject": "Hello Jessie",
       "primaryBtn": "Write to me",
-      "whvNote": "If something in an article needs updating, I would be glad to hear about that too.",
+      "whvNote": "Please let me know if you spot a mistake or something out of date.",
       "ariaConsult": "Collaborate and connect",
       "paths": {
-        "ads": { "title": "Brand partnerships", "description": "If your product genuinely fits the people who read this, we can talk." },
-        "ai": { "title": "AI / web projects", "description": "If you want to turn an idea into something people can use, I am interested." },
-        "whv": { "title": "WHV conversations", "description": "I can share what happened to me, not replace professional visa advice." }
+        "ads": {
+          "title": "Brand partnerships",
+          "description": "If your product fits the subjects I write about, send me an introduction."
+        },
+        "ai": {
+          "title": "AI development",
+          "description": "If you have an AI project in mind, send me a note."
+        },
+        "whv": {
+          "title": "WHV conversations",
+          "description": "Happy to share my experience. Check official sources for current visa requirements."
+        }
       }
     },
     "aria": {
@@ -78,23 +103,23 @@
     }
   },
   "hero": {
-    "title": "Code & Wander",
-    "subtitle": "A frontend engineer's WHV travel & tech blog from Australia"
+    "title": "Code and everyday life",
+    "subtitle": "AI development notes, travel stories, and my working holiday in Australia"
   },
   "travel": {
-    "title": "Share Unique Travel Experiences",
-    "description": "Discover different landscapes, record wonderful moments during the journey"
+    "title": "Places I’ve been",
+    "description": "The things I wanted to remember after coming home."
   },
   "technical": {
-    "title": "Explore Latest Technologies",
-    "description": "Covering a wide range of technical topics, from basics to advanced applications"
+    "title": "Notes from writing code",
+    "description": "Problems I’ve run into doing AI development and how I worked through them."
   },
   "whv": {
     "title": "My Year on an Australian WHV",
     "description": "Real experiences, with practical notes on preparing, arriving, working, and leaving"
   },
   "feature": {
-    "title": "Explore the world freely, embrace romance in everyday life."
+    "title": "Notes from the road and everyday life."
   },
   "sections": {
     "latest": "Latest",
@@ -115,34 +140,29 @@
     "title": "Notes from the Road",
     "subtitle": "Places I have travelled and what I experienced along the way"
   },
-  "testimonials": {
-    "title": "Traveler Sharing",
-    "reviews": {
-      "1": {
-        "content": "The travel advice here has made my journey more colorful, thank you for sharing!",
-        "author": "Sarah"
-      },
-      "2": {
-        "content": "As a solo traveler, I found lots of practical advice and encouragement here.",
-        "author": "Emma"
-      },
-      "3": {
-        "content": "Not just a travel guide, but a warm travel community.",
-        "author": "Linda"
-      }
-    }
-  },
   "allCategories": "All Categories",
   "routes": {
-    "title": "Featured Routes",
-    "subtitle": "Routes and fragments from different journeys",
-    "classicCity": { "title": "Classic Cities", "description": "Explore the cultural landscape of world-famous cities" },
-    "nature": { "title": "Natural Scenery", "description": "Get close to nature, feel the beauty of Earth" },
-    "family": { "title": "Family Tours", "description": "Warm routes suitable for family trips" },
-    "adventure": { "title": "Adventure Journey", "description": "Challenge yourself, explore the unknown" }
+    "title": "Routes I’ve taken",
+    "subtitle": "A few notes to look through when planning a trip.",
+    "classicCity": {
+      "title": "Classic Cities",
+      "description": "Notes from walking around a city."
+    },
+    "nature": {
+      "title": "Natural Scenery",
+      "description": "Mountains, coastlines, and a few days out of town."
+    },
+    "family": {
+      "title": "Family Tours",
+      "description": "Routes to consider for a trip with family."
+    },
+    "adventure": {
+      "title": "Adventure Journey",
+      "description": "Routes for trying somewhere new."
+    }
   },
   "gallery": {
-    "title": "Travel Gallery",
-    "subtitle": "Capturing wonderful moments through the lens"
+    "title": "Travel photos",
+    "subtitle": "A few pictures to come back to."
   }
 }

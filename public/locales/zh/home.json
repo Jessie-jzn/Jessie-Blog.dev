@@ -1,99 +1,97 @@
 {
   "landing": {
     "seoTitle": "Jessie永远在路上",
-    "seoDescription": "Jessie 的个人博客。记录 8 年前端经历、澳洲 WHV 一年，以及旅行、技术与日常生活。",
+    "seoDescription": "Jessie 的个人博客，现在在上海做 AI 开发。写工作里遇到的问题，也记录澳洲 WHV、旅行和生活。",
     "hero": {
-      "badge": "ENFJ · 10年前端 · 澳洲 WHV 一年",
+      "badge": "上海 · AI 开发 · 澳洲 WHV",
       "headline": [
-        "HI, I'm Jessie.",
-        "一名程序员"
+        "你好，我是 Jessie。"
       ],
       "paragraphs": [
-        "我做技术圈占开发，也在工作中大量使用 AI。",
-        "这里会写代码、AI，也会写最近的生活。"
+        "我现在在上海做 AI 开发。之前去澳洲打工度假了一年，后来回国工作。",
+        "我在这里写 AI 开发时遇到的问题，也写澳洲那一年的生活、旅行，还有回国以后的日子。"
       ],
-      "primaryMailSubject": "网站来信",
+      "primaryMailSubject": "你好 Jessie",
       "primaryCta": "给我写信",
-      "secondaryCta": "阅读文章",
+      "secondaryCta": "看看文章",
       "servicesAnchor": "#whv-guides",
       "mailHint": ""
     },
     "worlds": {
-      "eyebrow": "内容主题",
-      "title": "这里会写这些",
-      "description": "这里记录我最近的生活、工作，以及其他想写的事。",
-      "allArticles": "浏览全部文章 →",
-      "aria": "内容主题",
+      "eyebrow": "随便翻翻",
+      "title": "最近在写什么",
+      "allArticles": "全部文章 →",
+      "aria": "文章分类",
       "items": {
         "ai": {
           "eyebrow": "AI & TECH",
-          "title": "AI 与前端",
-          "description": "在真实项目里怎么用 AI 写代码、做 Workflow、做 Eval，还有一路踩过的坑。",
+          "title": "AI 开发",
+          "description": "我做 AI 开发时遇到的问题，以及试过的办法。",
           "href": "/technical"
         },
         "whv": {
           "eyebrow": "WHV",
           "title": "澳洲打工度假",
-          "description": "办签证、找工作、真正落地生活。攻略很多，轮到自己还是会手忙脚乱。",
+          "description": "签证、找工作、租房，还有在澳洲过日子的琐碎。给正在准备出发的你一点参考。",
           "href": "/whv"
         },
         "travel": {
           "eyebrow": "TRAVEL",
           "title": "旅行",
-          "description": "不做打卡清单，写一些我真的喜欢、愿意再去一次的地方。",
+          "description": "去过的地方、走过的路线，以及旅行回来还想写下来的事。",
           "href": "/travel"
         },
         "life": {
           "eyebrow": "LIFE",
           "title": "生活",
-          "description": "工作、重新找方向、一个人生活，还有慢慢才想明白的事。",
+          "description": "回国以后重新工作的日子，还有我平时的一些记录。",
           "href": "/life"
         }
       }
     },
     "technicalSection": {
-      "kicker": "技术 · 文章",
-      "title": "技术文章",
-      "subtitle": "写代码，也折腾 AI。记录真实项目里的实践和踩过的坑。"
+      "kicker": "技术笔记",
+      "title": "写代码时记下的事",
+      "subtitle": "我做 AI 开发时遇到的问题，记在这里。"
     },
     "projects": {
-      "eyebrow": "PROJECTS & EXPERIENCE",
-      "title": "我做过的东西",
-      "description": "有做完的，也有还在折腾的。先把真实做过的放在这里。",
-      "allProjects": "查看项目与经历 →",
+      "eyebrow": "项目",
+      "title": "写文章之外，也做点东西",
+      "description": "我做的 AI 项目、这个博客，还有以前的工作记录。",
+      "allProjects": "看看项目与经历 →",
       "aria": "项目与经历"
     },
     "travelSection": {
-      "kicker": "03 · Travel",
-      "title": "旅行记录",
-      "subtitle": "这里写我去过的一些地方，以及旅行中发生的事。"
+      "kicker": "旅行",
+      "title": "去过的地方",
+      "subtitle": "回来以后，慢慢把路上的事补写在这里。"
     },
     "whv": {
-      "kicker": "02 · whv",
+      "kicker": "澳洲打工度假",
       "title": "我的澳洲 WHV 一年",
-      "subtitle": "从准备到离开，一年里那些网上说不太清、自己遇到才知道的事。"
+      "subtitle": "出发前查过很多攻略，到了才发现还有好多事要自己摸索。这些是我那一年的记录。"
     },
     "cta": {
-      "sectionEyebrow": "合作与交流",
-      "title": "想聊聊的话，可以写信给我",
-      "p1": "AI、前端，或者澳洲打工度假的事，都可以聊。",
-      "p2": "如果刚好我踩过你现在踩的坑，我应该能少让你绕一点路。",
+      "sectionEyebrow": "来信",
+      "title": "有想说的，写信给我吧",
+      "p1": "读到哪篇有共鸣，或者有不同的经历，都欢迎告诉我。",
+      "p2": "也可以聊 AI 开发，或你正在准备的澳洲打工度假。",
       "mailSubject": "你好 Jessie",
       "primaryBtn": "给我写信",
-      "whvNote": "如果是文章中的信息需要更新，也欢迎告诉我。",
-      "ariaConsult": "合作与交流",
+      "whvNote": "文章里有过时或写错的地方，也请提醒我。",
+      "ariaConsult": "联系 Jessie",
       "paths": {
         "ads": {
           "title": "品牌合作",
-          "description": "如果你觉得你的产品真的和这里的读者有关，可以聊聊。"
+          "description": "和博客内容合适的产品或品牌，欢迎来信介绍。"
         },
         "ai": {
-          "title": "AI / Web 项目",
-          "description": "想一起把一个想法做成能用的东西，也可以找我。"
+          "title": "AI 开发",
+          "description": "有想做的 AI 项目，可以写信聊聊。"
         },
         "whv": {
           "title": "WHV 交流",
-          "description": "我能说的是自己走过的路，不替代专业签证建议。"
+          "description": "可以聊我的准备和经历；具体签证要求仍请查官方信息。"
         }
       }
     },
@@ -104,33 +102,33 @@
     }
   },
   "hero": {
-    "title": "写代码，也在路上",
-    "subtitle": "一个前端工程师的澳洲 WHV 旅行 & 技术博客"
+    "title": "写代码，也写生活",
+    "subtitle": "Jessie 的 AI 开发笔记、澳洲打工度假和旅行记录"
   },
   "travel": {
-    "title": "分享独特的旅行体验",
-    "description": "发现不一样的风景,记录旅途中的精彩瞬间"
+    "title": "去过的地方",
+    "description": "旅行回来，还想记住的那些事。"
   },
   "technical": {
-    "title": "探索最新的技术实现",
-    "description": "涵盖广泛的技术主题，从基础知识到高级应用"
+    "title": "写代码时记下的事",
+    "description": "AI 开发时遇到的问题和处理过程。"
   },
   "whv": {
     "title": "我的澳洲 WHV 一年",
-    "description": "以真实经历为主，也整理准备、落地、工作与离境信息"
+    "description": "签证、落地、找工作和离开澳洲，那一年我是这样过来的。"
   },
   "feature": {
-    "title": "去世界撒野，在生活里浪漫"
+    "title": "路上的事，生活里的事，慢慢写。"
   },
   "sections": {
-    "latest": "最新内容",
+    "latest": "最近更新",
     "whv": "WHV & 打工度假",
     "travel": "旅行记录",
     "viewAll": "查看全部"
   },
   "toolkit": {
     "title": "WHV 实用工具",
-    "subtitle": "省钱指南"
+    "subtitle": "准备和生活中用得上的东西"
   },
   "explore": {
     "readMore": "更多",
@@ -139,48 +137,31 @@
   },
   "travelGuide": {
     "title": "边走边记录",
-    "subtitle": "我亲自走过的地方，以及旅途中的见闻与感受"
-  },
-  "testimonials": {
-    "title": "旅行，不只是短暂的逃离，而是更好的归来",
-    "reviews": {
-      "1": {
-        "content": "这里的旅行建议让我的旅程变得更加丰富多彩，感谢分享！",
-        "author": "Sarah"
-      },
-      "2": {
-        "content": "作为一个独立旅行者，在这里找到了很多实用的建议和鼓励。",
-        "author": "Emma"
-      },
-      "3": {
-        "content": "不仅是旅行指南，更是一个充满温度的旅行社区。",
-        "author": "Linda"
-      }
-    }
+    "subtitle": "走过的路线，和路上发生的事。"
   },
   "allCategories": "所有分类",
   "routes": {
-    "title": "自由行不迷路",
-    "subtitle": "不同旅程留下的路线与片段",
+    "title": "走过的路线",
+    "subtitle": "做行程时，可以翻翻这些记录。",
     "classicCity": {
       "title": "经典城市",
-      "description": "探索世界著名城市的人文风景"
+      "description": "在城市里走走逛逛的记录。"
     },
     "nature": {
       "title": "自然风光",
-      "description": "亲近大自然，感受地球的壮美"
+      "description": "山、海和离开城市的几天。"
     },
     "family": {
       "title": "亲子游览",
-      "description": "适合全家出行的温馨路线"
+      "description": "和家人出门可以参考的路线。"
     },
     "adventure": {
       "title": "探险之旅",
-      "description": "挑战自我，探索未知"
+      "description": "想多走一点、试点新鲜的路线。"
     }
   },
   "gallery": {
-    "title": "镜头下的世界",
-    "subtitle": "捕捉旅途中的每一个美好瞬间"
+    "title": "旅行相册",
+    "subtitle": "照片留下来，有空再慢慢看。"
   }
 }

@@ -3,9 +3,22 @@
     "title": "Jessie on the road",
     "description": "Notes on an Australian WHV, travel, technology, and everyday life."
   },
+  "seo": {
+    "technicalKeywords": "AI development Shanghai, AI development notes, large language models, AI tools, AI projects",
+    "travelKeywords": "travel journal, Australia travel, independent travel, Jessie travel",
+    "aboutKeywords": "AI developer Shanghai, Jessie, Australian working holiday",
+    "projectsKeywords": "AI development projects, AI tools, Shanghai AI developer, Jessie projects",
+    "lifeDescription": "Notes on working and living in Shanghai after coming back to China.",
+    "lifeKeywords": "Shanghai life, working in China, personal notes, Jessie",
+    "whvKeywords": "Australian WHV, Australia working holiday, WHV jobs, life in Australia",
+    "articlesDescription": "Jessie's notes on AI development, an Australian working holiday, travel, and everyday life.",
+    "articlesKeywords": "AI development, Australian WHV, travel journal, Shanghai life",
+    "tagsDescription": "Browse Jessie's posts by tag.",
+    "tagDescription": "Browse posts about {{tag}}."
+  },
   "comments": {
     "title": "Comments",
-    "notConfigured": "Comments are disabled. Set NEXT_PUBLIC_CUSDIS_APP_ID (free at cusdis.com)."
+    "notConfigured": "Comments aren’t available here yet. You can write to me by email."
   },
   "stats": {
     "reads": "{{countDisplay}} reads",
@@ -13,8 +26,8 @@
     "subscribersFoot": "{{countDisplay}} readers are on the email list"
   },
   "hero": {
-    "title": "Welcome to Jessie's World",
-    "subtitle": "May you travel the world and find the most beautiful scenery and stories"
+    "title": "Hi, I'm Jessie",
+    "subtitle": "I write about code, travel, and everyday life."
   },
   "viewAll": "View All",
   "life": "Life",
@@ -26,10 +39,10 @@
   "all": "All",
   "contact": "Contact",
   "subscribe": "Subscribe",
-  "subscribeDesc": "Subscribe to get notified of new posts. Unsubscribe anytime!",
-  "emailRequired": "Please enter your email 📮",
-  "subscriptionSuccess": "Subscribed successfully!",
-  "subscriptionFailed": "Subscription failed, please try again!",
+  "subscribeDesc": "Leave your email if you’d like to hear when I post something new. You can unsubscribe anytime.",
+  "emailRequired": "Please enter your email address.",
+  "subscriptionSuccess": "You’re subscribed. Thanks for reading along.",
+  "subscriptionFailed": "That didn’t go through. Please try again later.",
   "emailAddress": "Email address",
   "articleList": {
     "all": "All Articles",
@@ -37,7 +50,7 @@
     "browseByTag": "Browse articles by tag",
     "viewTag": "View articles tagged {{tag}}",
     "count": "{{count}} articles",
-    "empty": "No articles found."
+    "empty": "No articles here yet. Try another keyword or category."
   },
   "articleControls": {
     "breadcrumb": "Breadcrumb",
@@ -45,8 +58,8 @@
     "translate": "Translate"
   },
   "faqSection": {
-    "eyebrow": "Helpful notes",
-    "title": "FAQs"
+    "eyebrow": "About this blog",
+    "title": "A few things you might wonder"
   },
   "learnMore": "Learn More",
   "workWithMe": "About Me",
@@ -89,41 +102,45 @@
   },
   "projectsPage": {
     "eyebrow": "Projects & Experience",
-    "title": "What I have built, and what I am exploring",
-    "description": "A truthful record of this publication, frontend practice, and AI exploration.",
-    "experienceLabel": "Eight years in frontend",
-    "experienceTitle": "Making complex things clearer through technology",
-    "experienceDescription": "I work with modern web tools including React, Next.js, and TypeScript, and I am exploring practical AI workflows for content and products.",
+    "title": "A few things I’ve worked on",
+    "description": "My AI projects, this blog, and notes from previous work.",
+    "experienceLabel": "My work now",
+    "experienceTitle": "AI development in Shanghai",
+    "experienceDescription": "I work in AI development. I keep notes here on project problems and what I’ve tried, along with my previous development work.",
     "viewProject": "View project",
     "viewRepository": "View GitHub",
     "resume": "View / export full resume",
     "stackLabel": "{{title}} technology stack",
-    "status": { "ongoing": "Ongoing", "experience": "Experience", "exploring": "Exploring" },
+    "status": {
+      "ongoing": "Ongoing",
+      "experience": "Experience",
+      "exploring": "Exploring"
+    },
     "items": {
       "jessie-blog": {
         "title": "Jessie on the road",
-        "summary": "A bilingual personal publication for writing about AI, technology, WHV, travel, and life.",
+        "summary": "The blog you’re reading: code, working holidays, travel, and everyday life, in Chinese and English.",
         "role": "Product, design, and frontend development"
       },
       "frontend-experience": {
-        "title": "Frontend practice",
-        "summary": "Eight years of frontend experience focused on turning real product needs into clear, maintainable web interfaces.",
+        "title": "Previous frontend work",
+        "summary": "In my previous frontend work, I used jQuery, React, and Next.js to build and maintain pages.",
         "role": "Frontend engineer"
       },
       "ai-exploration": {
-        "title": "AI product exploration",
-        "summary": "An ongoing exploration of how AI can make tools, content workflows, and everyday products more useful.",
-        "role": "Independent exploration"
+        "title": "AI development",
+        "summary": "I work in AI development now. These are notes on project problems and what I’ve tried.",
+        "role": "AI development"
       }
     }
   },
   "footer": {
     "about": "About",
-    "description": "Jessie's personal blog about an Australian WHV, travel, technology, and life.",
+    "description": "This is my personal blog. I'm Jessie.",
     "copyright": "All rights reserved",
-    "contact": "Contact Us",
+    "contact": "Contact me",
     "subscribe": "Subscribe",
-    "subscribeDesc": "Subscribe to receive notifications of my latest posts",
+    "subscribeDesc": "Get an email when there’s a new post.",
     "builtWith": "Built with",
     "allRights": "All rights reserved"
   },
@@ -158,11 +175,11 @@
     }
   },
   "whvPage": {
-    "badge": "A lived WHV story",
-    "titleBefore": "My Australian working holiday",
+    "badge": "Notes from Australia",
+    "titleBefore": "My year in Australia",
     "titleHighlight": "WHV",
-    "titleAfter": "year",
-    "description": "From preparing and arriving to finding work and leaving Australia, these are my lived experiences alongside practical notes that may help others.",
+    "titleAfter": "notes",
+    "description": "Getting ready, finding work, settling in, and sorting things out before leaving. These posts are my record of that year, for anyone doing their own research.",
     "roadmap": {
       "prep": {
         "title": "Preparing",
@@ -185,10 +202,10 @@
     "articleCount": "{{count}} stories",
     "readMore": "Read more",
     "aboutTitle": "About Jessie",
-    "aboutDescription": "I spent eight years in frontend development and one year in Australia on a WHV. I write about the working holiday, travel, technology, and everyday life."
+    "aboutDescription": "I'm Jessie. I now work in AI development in Shanghai. I previously spent a year on a working holiday in Australia; these are my records of the work, travel, and everyday life from that year."
   },
   "common": {
-    "explore": "Explore Now"
+    "explore": "Take a look"
   },
   "markdown_to_pdf": {
     "title": "Markdown to PDF",
@@ -197,5 +214,13 @@
     "preview": "Preview",
     "export": "Export PDF",
     "placeholder": "Enter your markdown here..."
+  },
+  "subscribing": "Subscribing…",
+  "authorDesc": "I'm Jessie. I work in AI development in Shanghai and previously spent a year on a working holiday in Australia. I write about work, travel, and everyday life.",
+  "newPostsNotification": "New post",
+  "newPostsAvailable": "I’ve posted something new.",
+  "technical": {
+    "title": "Technical notes",
+    "description": "Problems and work notes from doing AI development."
   }
 }

@@ -9,6 +9,7 @@ import { useTranslation } from "next-i18next";
 import PageHeader from "@/components/common/PageHeader";
 import EditorialArticleCard from "@/components/articles/EditorialArticleCard";
 import type { Post as Article } from "@/lib/type";
+import { CommonSEO } from "@/components/SEO";
 
 const cardVariants = {
   initial: {
@@ -49,6 +50,11 @@ const Post = ({ posts }: any) => {
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
+      <CommonSEO
+        title={t("nav.life")}
+        description={t("seo.lifeDescription")}
+        keywords={t("seo.lifeKeywords")}
+      />
       <PageHeader
         eyebrow={t("lastPost")}
         title={t("nav.life")}

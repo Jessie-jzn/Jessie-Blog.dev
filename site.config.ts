@@ -4,12 +4,12 @@ const SiteConfig = {
   // basic site info (required)
   title: 'Jessie on the road',
   author: 'Jessie', // 作者姓名
-  summary: '记录澳洲 WHV、旅行、技术与日常生活', // 作者简介
+  summary: '我是 Jessie，现在在上海做 AI 开发。', // 作者简介
 
   fullName: 'Jessie Chen',
   headerTitle: 'Jessie on the road',
   description:
-    'Jessie 的个人博客，记录澳洲 WHV、旅行、技术与日常生活。',
+    'Jessie 的个人博客：在上海做 AI 开发，记录工作、澳洲 WHV、旅行和日常。',
   language: 'zh', // 站点默认文案语言（与 Next defaultLocale 一致）
   siteLogo: '/images/avatar.png',
   socialBanner: '/static/images/projects/karhdo-blog.png',

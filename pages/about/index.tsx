@@ -33,6 +33,7 @@ const About = () => {
       <CommonSEO
         title={t('hero.title', { ns: 'about' })}
         description={t('hero.subtitle', { ns: 'about' })}
+        keywords={t('seo.aboutKeywords', { ns: 'common' })}
       />
       <div className='bg-canvas text-ink'>
         <PageHeader
@@ -104,6 +105,10 @@ const About = () => {
           <div className='grid grid-cols-2 sm:grid-cols-4 gap-8'>
             {[
               {
+                label: t('sections.techStack.exploring'),
+                items: ['AI / LLM', 'Python', 'Prompt Engineering', 'RAG'],
+              },
+              {
                 label: t('sections.techStack.frontend'),
                 items: ['React & Next.js', 'TypeScript', 'Tailwind CSS', 'Redux & React Query'],
               },
@@ -114,10 +119,6 @@ const About = () => {
               {
                 label: t('sections.techStack.tools'),
                 items: ['Git & GitHub', 'VS Code', 'Docker', 'Figma'],
-              },
-              {
-                label: t('sections.techStack.exploring'),
-                items: ['AI / LLM', 'Python', 'Prompt Engineering', 'RAG'],
               },
             ].map((group) => (
               <div key={group.label}>
@@ -238,10 +239,6 @@ const About = () => {
                 {t('sections.philosophy.title')}
               </h2>
 
-              <p className='text-lg leading-snug tracking-tight text-ink sm:text-xl'>
-                {t('sections.philosophy.slogan')}
-              </p>
-
               <p className='text-base leading-[1.9] text-subtle'>
                 {t('sections.philosophy.codeDesc')}
               </p>
@@ -249,14 +246,6 @@ const About = () => {
                 {t('sections.philosophy.lifeDesc')}
               </p>
 
-              <blockquote className='mt-6 border-l-2 border-primary py-1 pl-5'>
-                <p className='text-base italic leading-relaxed text-subtle'>
-                  {t('sections.philosophy.quote')}
-                </p>
-                <footer className='mt-1.5 text-sm text-subtle'>
-                  {t('sections.philosophy.quoteAuthor')}
-                </footer>
-              </blockquote>
             </div>
           </div>
         </motion.div>

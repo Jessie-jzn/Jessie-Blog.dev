@@ -1,51 +1,51 @@
 {
   "hero": {
     "title": "Hi, I'm Jessie",
-    "subtitle": "A developer who also takes life seriously.",
-    "connect": "Let's Connect"
+    "subtitle": "Back in China, now working in AI development in Shanghai.",
+    "connect": "Write to me"
   },
   "sections": {
     "story": {
       "title": "About Me",
-      "p1": "7 years in frontend — from jQuery to React to Next.js. Somewhere along the way, I realized that writing code is just part of the job. Life is the bigger question.",
-      "p2": "Right now I'm on a Working Holiday in Australia. Some days I'm debugging architecture, other days I'm figuring out where to find penguins. And sometimes, I'm just wondering what comes next."
+      "p1": "I'm Jessie. I work in AI development in Shanghai. This blog is where I keep notes on problems I run into at work and what I’ve tried.",
+      "p2": "I spent a year on a working holiday in Australia and have since returned to China. I write here about the jobs, trips, and everyday life from that year. I also write about working in Shanghai since coming back, and what’s been on my mind."
     },
     "findHere": {
-      "title": "This blog documents three things",
+      "title": "What you can read here",
       "travel": {
-        "title": "🧭 Travel & WHV",
-        "desc": "Places I've been, mistakes I've made, real experiences"
+        "title": "Travel and working holidays",
+        "desc": "My year in Australia and notes from other trips."
       },
       "tech": {
-        "title": "💻 Tech",
-        "desc": "Frontend dev, project practice, and exploring AI"
+        "title": "Technical notes",
+        "desc": "Problems and work notes from doing AI development."
       },
       "life": {
-        "title": "🌱 Life",
-        "desc": "Imperfect but honest reflections"
+        "title": "Everyday life",
+        "desc": "Notes on working and living in Shanghai since coming back to China."
       }
     },
     "techStack": {
-      "title": "Tech Stack & Tools",
+      "title": "Tools I work with",
       "frontend": "Frontend",
       "backend": "Backend",
       "tools": "Tools",
-      "exploring": "Exploring"
+      "exploring": "AI development"
     },
     "journey": {
-      "title": "My Journey",
-      "description": "I'm not great at grand speeches. I write code, and I'm also running away from it. 7 years in frontend, from jQuery to React, and now looking toward AI. Tech changes, people change.",
+      "title": "About my work",
+      "description": "I work in AI development now. Previously, I worked in frontend development for years. Those older notes are still on the blog; new posts mostly cover my current work.",
       "background": {
-        "title": "Key Milestones",
-        "experience": "7 years as a frontend engineer, from jQuery era to modern frameworks",
-        "skills": "Specialized in React, TypeScript, Next.js and modern web tech",
-        "ai": "Currently exploring AI, looking for what's next in tech",
-        "whv": "On an Australian WHV, working and traveling"
+        "title": "A few details",
+        "experience": "I previously worked in frontend development, including jQuery projects.",
+        "skills": "I used React, TypeScript, and Next.js in my frontend work.",
+        "ai": "I now work in AI development in Shanghai.",
+        "whv": "I spent a year on a working holiday in Australia and write about that time here."
       }
     },
     "location": {
-      "title": "Currently in Australia",
-      "desc": "This year on WHV in Australia, I've been working, traveling, and rethinking what work and life really mean.",
+      "title": "That year in Australia",
+      "desc": "I’m back in China now. This section keeps my notes from that year in Australia, when I worked and travelled. I also wrote about applying for a visa, finding work, and everyday life.",
       "recent": "Places I've been",
       "next": "Want to visit",
       "cities": {
@@ -60,23 +60,29 @@
       }
     },
     "philosophy": {
-      "title": "One Last Thing",
-      "slogan": "I hope something here finds you at the right moment.",
-      "codeDesc": "No perfect guides here, no success stories — just the roads I've walked, the pits I've fallen into, and some half-formed thoughts.",
-      "lifeDesc": "If you're also looking for direction, maybe we're on the same path.",
-      "quote": "The world is a book and those who do not travel read only one page.",
-      "quoteAuthor": "— Saint Augustine"
+      "title": "Why I keep a blog",
+      "codeDesc": "Solving a coding problem, visiting somewhere new, changing my mind about work: I want a place to keep these things, so I can look back and remember what I was thinking.",
+      "lifeDesc": "If you read something and think “me too,” you’re welcome to write to me."
     },
     "collaborate": {
-      "eyebrow": "COLLABORATE & CONNECT",
-      "title": "Making thoughtful things around real experiences",
-      "description": "I am open to conversations with readers, brands, and project partners who care about these subjects. A good collaboration starts with mutual fit, not a forced promotion.",
-      "subject": "Collaboration and connection",
-      "cta": "Email me",
+      "eyebrow": "Keep in touch",
+      "title": "A thought, a question, or something to work on together",
+      "description": "You can write about a post or a project. Just tell me what you have in mind.",
+      "subject": "Hello Jessie",
+      "cta": "Write to me",
       "items": {
-        "brand": { "title": "Brand partnerships", "description": "Content collaborations relevant to AI, technology, WHV, travel, and everyday life." },
-        "ai": { "title": "AI / web projects", "description": "Discuss product ideas, prototypes, and frontend implementation." },
-        "whv": { "title": "WHV conversations", "description": "Personal experience and useful leads only, not professional visa or legal advice." }
+        "brand": {
+          "title": "Brand partnerships",
+          "description": "For collaborations related to technology, travel, or everyday life, send me an introduction."
+        },
+        "ai": {
+          "title": "AI development",
+          "description": "If you have an AI project in mind, write and tell me about it."
+        },
+        "whv": {
+          "title": "WHV conversations",
+          "description": "I can share my experience and where I found information. Check official sources for visa requirements."
+        }
       }
     }
   }

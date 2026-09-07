@@ -210,10 +210,11 @@ const NotionPage: React.FC<NotionPageProps> = ({
       <BlogSEO
         title={postData?.title}
         description={postData?.summarize || SiteConfig.description}
-        createdTime={postData?.lastEditedDay || new Date()}
+        createdTime={postData?.publishDay || postData?.lastEditedDay || new Date()}
         lastEditTime={postData?.lastEditedDate || new Date()}
         image={postData?.pageCover || SiteConfig.defaultPageCover}
         keywords={postData?.keywords}
+        category={postData?.category}
       />
       <div className="mb-8 space-y-3">
         <Breadcrumbs postData={postData} />

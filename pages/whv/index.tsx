@@ -11,6 +11,7 @@ import PageHeader from '@/components/common/PageHeader';
 import SectionHeader from '@/components/common/SectionHeader';
 import EditorialArticleCard from '@/components/articles/EditorialArticleCard';
 import type { Post } from '@/lib/type';
+import { CommonSEO } from '@/components/SEO';
 
 // --- 动画配置 (保持原有的顺滑质感) ---
 const containerVariants = {
@@ -101,6 +102,11 @@ const WhvListPage = ({ posts }: any) => {
 
   return (
     <div className='min-h-screen bg-canvas pb-16 text-ink sm:pb-20'>
+      <CommonSEO
+        title={t('whvPage.titleBefore')}
+        description={t('whvPage.description')}
+        keywords={t('seo.whvKeywords')}
+      />
       {/* 1. 专题头部 */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}

@@ -77,6 +77,7 @@ const TravelListPage = ({ posts, tagOptions }: any) => {
       <CommonSEO
         title={t('travel.title', { ns: 'common' })}
         description={t('travel.description', { ns: 'common' })}
+        keywords={t('seo.travelKeywords')}
       />
 
       <div className='min-h-screen bg-canvas text-ink'>

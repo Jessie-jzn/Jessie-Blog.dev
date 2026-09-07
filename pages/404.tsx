@@ -34,8 +34,8 @@ export default function Custom404() {
     <div className="min-h-[70vh] bg-canvas text-ink">
       <PageHeader
         eyebrow="404"
-        title="页面不存在"
-        description="正在为您重定向，也可以立即返回首页。"
+        title="这页没找到"
+        description="稍等一下，带你回去看看别的文章。也可以直接回首页。"
         align="center"
       />
       <div className="site-container flex justify-center pb-16 md:pb-24">

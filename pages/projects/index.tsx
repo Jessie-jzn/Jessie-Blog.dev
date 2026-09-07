@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import PageHeader from "@/components/common/PageHeader";
 import { PROJECTS } from "@/lib/projects";
+import { CommonSEO } from "@/components/SEO";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -19,6 +20,11 @@ export default function ProjectsPage() {
 
   return (
     <div className="bg-canvas text-ink">
+      <CommonSEO
+        title={t("projectsPage.title")}
+        description={t("projectsPage.description")}
+        keywords={t("seo.projectsKeywords")}
+      />
       <PageHeader
         eyebrow={t("projectsPage.eyebrow")}
         title={t("projectsPage.title")}

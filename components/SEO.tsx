@@ -10,6 +10,9 @@ interface CommonSEOProps {
   ogType?: string;
   keywords?: string;
 }
+
+const DEFAULT_KEYWORDS =
+  '上海 AI 开发, AI 开发笔记, 澳洲 WHV, 澳洲打工度假, 旅行记录, Jessie';
 export const CommonSEO = ({
   title,
   description,
@@ -23,8 +26,23 @@ export const CommonSEO = ({
   title = title ?? SiteConfig?.title;
   description = description ?? SiteConfig?.description;
 
-  const socialImageUrl = image;
-  const url = `${SiteConfig.siteUrl}${router.asPath}`;
+  const socialImageUrl = image || `${SiteConfig.siteUrl}${SiteConfig.socialBanner}`;
+  const path = (router.asPath || '/').split(/[?#]/, 1)[0] || '/';
+  const url = new URL(path, SiteConfig.siteUrl).toString();
+  const documentTitle = title === SiteConfig.title ? title : `${title} | ${SiteConfig.title}`;
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: SiteConfig.title,
+    url: SiteConfig.siteUrl,
+    description,
+    inLanguage: router.locale === 'en' ? 'en' : 'zh-CN',
+    author: {
+      '@type': 'Person',
+      name: SiteConfig.author,
+      url: `${SiteConfig.siteUrl}/about`,
+    },
+  };
 
   // const socialImageUrl = getSocialImageUrl(pageId) || image;
 
@@ -70,14 +88,14 @@ export const CommonSEO = ({
         </>
       )}
       {/* 配置页面标题的相关 meta 标签 */}
-      <meta property="og:title" content={title} />
-      <meta name="twitter:title" content={title} />
-      <title>{title}</title>
+      <meta property="og:title" content={documentTitle} />
+      <meta name="twitter:title" content={documentTitle} />
+      <title>{documentTitle}</title>
       <meta
         name="keywords"
         content={
           keywords ||
-          "travel, blog, Jessie, travel blogger, travel tips, travel stories, SEO, optimization,solo travel, travel tips, eco-friendly travel, Jessie travel, solo adventure, sustainable travel, Front-end,enginner"
+          DEFAULT_KEYWORDS
         }
       />
 
@@ -114,6 +132,10 @@ export const CommonSEO = ({
         name="google-adsense-account"
         content={process.env.ADSENSE_GOOGLE_ID}
       ></meta>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
     </Head>
   );
 };
@@ -123,6 +145,7 @@ interface BlogSeoProps extends CommonSEOProps {
   createdTime: string | Date;
   keywords?: string;
   lastEditTime: string | Date;
+  category?: string;
 }
 
 export const BlogSEO = ({
@@ -133,17 +156,22 @@ export const BlogSEO = ({
   // url,
   keywords,
   image,
+  category,
 }: BlogSeoProps) => {
-  // const publishedAt = new Date(createdTime).toISOString();
-  // const modifiedAt = new Date(lastEditTime).toISOString();
+  const toIsoDate = (value: string | Date) => {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+  };
+  const publishedAt = toIsoDate(createdTime);
+  const modifiedAt = toIsoDate(lastEditTime);
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
     image: image,
-    datePublished: createdTime,
-    dateModified: lastEditTime,
+    ...(publishedAt ? { datePublished: publishedAt } : {}),
+    ...(modifiedAt ? { dateModified: modifiedAt } : {}),
     author: {
       "@type": "Person",
       name: SiteConfig.author,
@@ -157,7 +185,11 @@ export const BlogSEO = ({
       },
     },
     description: description,
-    articleSection: "Travel Tips", // 添加文章类别
+    articleSection: category,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SiteConfig.siteUrl}${useRouter().asPath.split(/[?#]/, 1)[0]}`,
+    },
   };
 
   return (
@@ -169,12 +201,12 @@ export const BlogSEO = ({
         keywords={keywords}
       />
       <Head>
-        {/* {date && (
+        {publishedAt && (
           <meta property="article:published_time" content={publishedAt} />
         )}
-        {lastEdit && (
+        {modifiedAt && (
           <meta property="article:modified_time" content={modifiedAt} />
-        )} */}
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

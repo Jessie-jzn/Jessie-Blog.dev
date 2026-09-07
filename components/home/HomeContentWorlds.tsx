@@ -17,9 +17,6 @@ export default function HomeContentWorlds() {
         <h2 className='mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl'>
           {t('landing.worlds.title')}
         </h2>
-        <p className='mt-3 max-w-xl text-sm leading-relaxed text-subtle sm:text-[15px]'>
-          {t('landing.worlds.description')}
-        </p>
       </div>
 
       <div className='mt-10 divide-y divide-line border-y border-line'>

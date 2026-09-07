@@ -237,16 +237,16 @@ test('home copy starts from Jessie lived experience instead of brand language', 
   const zh = JSON.parse(source('public/locales/zh/home.json')).landing;
   const en = JSON.parse(source('public/locales/en/home.json')).landing;
 
-  assert.deepEqual(zh.hero.headline, ["HI, I'm Jessie.", '一名程序员']);
-  assert.match(zh.hero.paragraphs.join('\n'), /代码/);
+  assert.match(zh.hero.headline.join("\n"), /Jessie/);
+  assert.match(zh.hero.paragraphs.join('\n'), /上海/);
   assert.match(zh.hero.paragraphs.join('\n'), /AI/);
   assert.match(zh.hero.paragraphs.join('\n'), /生活/);
-  assert.match(zh.cta.p2, /少让你绕一点路/);
+  assert.match(zh.cta.p2, /澳洲打工度假/);
   assert.doesNotMatch(zh.hero.paragraphs.join('\n'), /持续探索|希望这些真实记录/);
 
-  assert.match(en.hero.headline.join('\n'), /working holiday/);
-  assert.match([...en.hero.headline, ...en.hero.paragraphs].join('\n'), /quit my frontend job/);
-  assert.match(en.hero.paragraphs.join('\n'), /back at my computer/);
+  assert.match(en.hero.paragraphs.join('\n'), /working holiday/);
+  assert.match(en.hero.paragraphs.join('\n'), /AI development/);
+  assert.match(en.hero.paragraphs.join('\n'), /Australia/);
   assert.doesNotMatch(en.hero.paragraphs.join('\n'), /personal publication|ongoing exploration/);
 });
 
@@ -345,8 +345,8 @@ test('hero and content directory share a stable world index contract', () => {
 
 test('home locales provide the bilingual Article CTA and world directory', () => {
   const expectedLabels = {
-    en: 'Read Articles',
-    zh: '阅读文章',
+    en: 'Read the blog',
+    zh: '看看文章',
   } as const;
   const expectedHrefs = ['/technical', '/whv', '/travel', '/life'];
 

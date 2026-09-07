@@ -40,6 +40,26 @@ export function generateSitemapXML(posts: Post[]): string {
       changefreq: 'weekly' as const,
       priority: 0.9,
     },
+    {
+      loc: `${SiteConfig.siteUrl}/whv`,
+      changefreq: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      loc: `${SiteConfig.siteUrl}/life`,
+      changefreq: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      loc: `${SiteConfig.siteUrl}/post`,
+      changefreq: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      loc: `${SiteConfig.siteUrl}/projects`,
+      changefreq: 'monthly' as const,
+      priority: 0.6,
+    },
     // 博客文章
     ...posts.map(
       (post): SitemapURL => ({

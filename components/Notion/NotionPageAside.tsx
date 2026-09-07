@@ -13,10 +13,14 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   const renderedPosts = useMemo(
     () => (
       <ul className="space-y-4">
-        {relatedPosts.map((post) => {
+        {relatedPosts.map((post, index) => {
           return (
             <li key={post.id}>
-              <EditorialArticleCard article={post} variant="compact" />
+              <EditorialArticleCard
+                article={post}
+                variant="index"
+                position={index + 1}
+              />
             </li>
           );
         })}
@@ -32,7 +36,7 @@ const NotionPageAside: React.FC<NotionPageAsideProps> = ({
   return (
     <section className="w-full p-6">
       <h2 className="mb-4 text-lg font-semibold tracking-tight text-ink">
-        相关推荐
+        还可以读读
       </h2>
       {renderedPosts}
     </section>

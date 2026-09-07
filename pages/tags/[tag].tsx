@@ -16,6 +16,7 @@ import type {
   PostListItem,
   TagSummary,
 } from "@/lib/routing/listPageData";
+import { CommonSEO } from "@/components/SEO";
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
@@ -76,7 +77,13 @@ export default function TagPage({
 
   // const title = tagOptions[0].name.toUpperCase();
   return (
-    <ListLayoutWithTags
+    <>
+      <CommonSEO
+        title={filteredTag?.name ? `${t("tags")}: ${filteredTag.name}` : t("tags")}
+        description={t("seo.tagDescription", { tag: filteredTag?.name || t("tags") })}
+        keywords={filteredTag?.name || t("seo.articlesKeywords")}
+      />
+      <ListLayoutWithTags
       posts={posts}
       tagOptions={tagOptions}
       title={
@@ -84,6 +91,7 @@ export default function TagPage({
           ? `${t("tags")}: ${filteredTag.name}`
           : t("tags")
       }
-    />
+      />
+    </>
   );
 }

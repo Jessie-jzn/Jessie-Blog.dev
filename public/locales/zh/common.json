@@ -3,21 +3,34 @@
     "title": "Jessie永远在路上",
     "description": "记录澳洲 WHV、旅行、技术与日常生活"
   },
+  "seo": {
+    "technicalKeywords": "上海 AI 开发, AI 开发笔记, 大语言模型, AI 工具, AI 项目",
+    "travelKeywords": "旅行记录, 澳洲旅行, 自由行, Jessie 旅行",
+    "aboutKeywords": "上海 AI 开发, AI 开发者, Jessie, 澳洲 WHV",
+    "projectsKeywords": "AI 开发项目, AI 工具, 上海 AI 开发, Jessie 项目",
+    "lifeDescription": "回国以后在上海工作、生活的一些记录。",
+    "lifeKeywords": "上海生活, 回国工作, 生活记录, Jessie",
+    "whvKeywords": "澳洲 WHV, 澳洲打工度假, WHV 找工作, 澳洲生活",
+    "articlesDescription": "Jessie 的 AI 开发、澳洲 WHV、旅行和生活记录。",
+    "articlesKeywords": "AI 开发, 澳洲 WHV, 旅行记录, 上海生活",
+    "tagsDescription": "按标签浏览 Jessie 的文章。",
+    "tagDescription": "浏览关于 {{tag}} 的文章。"
+  },
   "comments": {
     "title": "留言",
-    "notConfigured": "评论未启用：请在环境变量中设置 NEXT_PUBLIC_CUSDIS_APP_ID（可在 cusdis.com 免费创建）。"
+    "notConfigured": "这里暂时还不能留言，想交流的话可以给我写信。"
   },
   "stats": {
     "reads": "{{countDisplay}} 次阅读",
-    "subscribersBlog": "全站 {{countDisplay}} 人订阅邮件精选",
-    "subscribersFoot": "当前 {{countDisplay}} 位读者已订阅本站邮件"
+    "subscribersBlog": "{{countDisplay}} 位读者订阅了更新",
+    "subscribersFoot": "已有 {{countDisplay}} 位读者通过邮件关注这里"
   },
   "hero": {
-    "title": "欢迎来到Jessie的世界",
-    "subtitle": "愿你走遍世界每个角落，遇见最美的风景和故事"
+    "title": "你好，我是 Jessie",
+    "subtitle": "这里写代码，也写旅行和生活。"
   },
   "viewAll": "查看全部",
-  "life": "生活感想",
+  "life": "生活随记",
   "post": "文章",
   "tags": "标签",
   "projects": "项目",
@@ -26,10 +39,10 @@
   "all": "全部",
   "contact": "联系",
   "subscribe": "订阅",
-  "subscribeDesc": "订阅我的文章，收到我的最新发布通知，可随时取消订阅！",
-  "emailRequired": "请输入您的邮箱📮",
-  "subscriptionSuccess": "订阅成功，感谢您的订阅！",
-  "subscriptionFailed": "订阅失败，请重试！",
+  "subscribeDesc": "想继续读的话，可以留下邮箱。有新文章时通知你，随时可以退订。",
+  "emailRequired": "先填一下你的邮箱吧。",
+  "subscriptionSuccess": "订阅好了，谢谢你愿意继续读。",
+  "subscriptionFailed": "这次没订阅成功，请稍后再试。",
   "emailAddress": "邮箱地址",
   "articleList": {
     "all": "全部文章",
@@ -37,7 +50,7 @@
     "browseByTag": "按标签浏览文章",
     "viewTag": "查看标签为 {{tag}} 的文章",
     "count": "共 {{count}} 篇文章",
-    "empty": "没有找到文章。"
+    "empty": "这里还没有找到文章，可以换个关键词或分类看看。"
   },
   "articleControls": {
     "breadcrumb": "面包屑导航",
@@ -45,62 +58,62 @@
     "translate": "翻译"
   },
   "faqSection": {
-    "eyebrow": "实用提示",
-    "title": "常见问题"
+    "eyebrow": "关于这里",
+    "title": "你可能想知道"
   },
   "learnMore": "查看更多",
   "workWithMe": "了解我",
-  "authorDesc": "我是 Jessie，做了 8 年前端，也在澳洲度过了一年 WHV。这里记录打工度假、旅行、技术与日常生活。",
-  "lastPost": "最新文章",
-  "featuredPost": "专题文章",
+  "authorDesc": "我是 Jessie，现在在上海做 AI 开发，之前去澳洲打工度假过一年。这里写工作、旅行和生活。",
+  "lastPost": "最近更新",
+  "featuredPost": "选几篇给你",
   "typedTexts": [
-    "我喜欢编程 💻。",
-    "我喜欢旅行 ✈️。",
-    "让我们一起创造一些惊人的东西！🚀"
+    "写代码，也记笔记。",
+    "出门走走，回来慢慢写。",
+    "还有一些日常，想留在这里。"
   ],
   "features": [
     {
       "title": "技术文章",
       "href": "/technical",
-      "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。",
+      "description": "我做 AI 开发时遇到的问题和工作笔记。",
       "icon": "https://img.jessieonroad.com/image2.jpg"
     },
     {
       "title": "旅行记录",
       "href": "/travel",
-      "description": "记录我亲自走过的地方、见闻与感受。",
+      "description": "去过的地方，以及路上想记住的事。",
       "icon": "https://img.jessieonroad.com/image4.jpg"
     },
     {
       "title": "生活感想",
       "href": "/life",
-      "description": "个人的生活经历和思考。",
+      "description": "关于工作、独处和日常的想法。",
       "icon": "https://img.jessieonroad.com/image5.jpg"
     },
     {
       "title": "我的澳洲 WHV 一年",
       "href": "/whv",
-      "description": "真实经历为主，也整理准备、落地、工作与离境信息。",
+      "description": "从出发到离开，记录我在澳洲打工度假的一年。",
       "icon": "https://img.jessieonroad.com/image5.jpg"
     }
   ],
   "faqs": [
     {
-      "question": "你能从这个博客中获得什么？",
-      "answer": "这里记录我的澳洲 WHV 经历、亲自走过的旅行、8 年前端开发中的技术经验，以及不同阶段的生活感想。"
+      "question": "这里都写些什么？",
+      "answer": "我做 AI 开发时遇到的问题、澳洲打工度假的生活、旅行，还有回国以后在上海工作的日子。"
     },
     {
-      "question": "为什么要有这个博客？",
-      "answer": "我对编程和技术分享的热爱促使我创建了这个博客。这里是我记录开发历程、分享技术技巧，并提供深入的编程指南的平台。通过这个博客，我希望与各位开发者建立联系，分享有价值的见解，并提供实用的建议，帮助大家提升编程技能。我相信技术能够改变世界，创造更好的未来。我希望我的博客能成为你编程学习的灵感和信息来源。"
+      "question": "为什么写这个博客？",
+      "answer": "有些问题花了很久才解决，有些经历过一阵就会忘。我想给它们留个地方，也方便以后回头看看自己当时在想什么。有人刚好用得上，就更好了。"
     },
     {
-      "question": "针对技术开发，使用的工具有哪些？",
-      "answer": "编辑器：Visual Studio Code,版本控制：Git & GitHub,框架和库：Next.js, React, Node.js, Tailwind CSS,开发环境：Docker, Vercel"
+      "question": "这个博客是用什么做的？",
+      "answer": "用 Next.js、React 和 Tailwind CSS 写页面，通过 Notion 管理文章，部署在 Vercel。项目页里有更多介绍。"
     }
   ],
-  "lastEdited": "最新编辑",
+  "lastEdited": "最近修改",
   "newPostsNotification": "新文章通知",
-  "newPostsAvailable": "我们的博客有新文章啦！",
+  "newPostsAvailable": "我更新了一篇文章。",
   "nav": {
     "home": "首页",
     "articles": "文章",
@@ -133,31 +146,35 @@
   },
   "projectsPage": {
     "eyebrow": "项目与经历",
-    "title": "我做过什么，也在继续探索什么",
-    "description": "这里整理这个博客、前端实践与 AI 探索；只记录真实做过或正在做的事。",
-    "experienceLabel": "八年前端经历",
-    "experienceTitle": "用技术把复杂的事情做得更清楚一点",
-    "experienceDescription": "我长期使用 React、Next.js、TypeScript 等现代 Web 技术，也在把 AI 能力带进内容和产品工作流。",
+    "title": "我做过的一些东西",
+    "description": "这里放着我做的 AI 项目、这个博客和以前的工作记录。",
+    "experienceLabel": "现在的工作",
+    "experienceTitle": "在上海做 AI 开发",
+    "experienceDescription": "我现在做 AI 开发。项目里的问题和做法会记在这里，以前的开发经历也保留着。",
     "viewProject": "查看项目",
     "viewRepository": "查看 GitHub",
     "resume": "查看 / 导出完整简历",
     "stackLabel": "{{title}} 技术栈",
-    "status": { "ongoing": "持续迭代", "experience": "经验沉淀", "exploring": "探索中" },
+    "status": {
+      "ongoing": "还在更新",
+      "experience": "工作经历",
+      "exploring": "尝试中"
+    },
     "items": {
       "jessie-blog": {
         "title": "Jessie 永远在路上",
-        "summary": "一个双语个人内容站，记录 AI、技术、打工度假、旅行与生活。",
+        "summary": "就是你正在看的这个博客。用中英文写技术、打工度假、旅行和日常。",
         "role": "产品、设计与前端开发"
       },
       "frontend-experience": {
-        "title": "前端实践",
-        "summary": "八年前端经验，专注把真实产品需求转化为清晰、可维护的 Web 界面。",
+        "title": "以前的前端工作",
+        "summary": "以前做前端时，用过 jQuery、React 和 Next.js，负责页面开发和维护。",
         "role": "前端工程师"
       },
       "ai-exploration": {
-        "title": "AI 产品探索",
-        "summary": "持续探索如何让 AI 更好地服务工具、内容工作流与日常产品。",
-        "role": "独立探索"
+        "title": "AI 开发",
+        "summary": "我现在做 AI 开发，这里记着项目里遇到的问题和试过的做法。",
+        "role": "AI 开发"
       }
     }
   },
@@ -173,20 +190,20 @@
   },
   "footer": {
     "about": "关于",
-    "description": "Jessie 的个人博客，记录澳洲 WHV、旅行、技术与生活。",
+    "description": "这是我的个人博客。我是 Jessie。",
     "copyright": "版权所有",
-    "contact": "联系我们",
+    "contact": "联系我",
     "subscribe": "订阅",
-    "subscribeDesc": "订阅我的文章，收到我的最新发布通知",
+    "subscribeDesc": "有新文章时，可以通过邮件收到通知。",
     "builtWith": "由",
     "allRights": "版权所有"
   },
   "travel": {
     "title": "旅行记录",
-    "description": "记录我亲自走过的地方，以及旅途中的见闻与感受",
+    "description": "走过的路线、路上的见闻，还有回来以后记住的事。",
     "hero": {
       "title": "走过的路，慢慢记下来",
-      "subtitle": "关于城市、风景、相遇，也关于旅途中的真实感受"
+      "subtitle": "一些行程参考，也有计划之外的见闻。"
     },
     "categories": {
       "title": "分类浏览",
@@ -196,7 +213,7 @@
       "tips": "实用贴士"
     },
     "featured": {
-      "title": "精选内容",
+      "title": "先读这几篇",
       "viewAll": "查看全部"
     },
     "latest": {
@@ -211,17 +228,17 @@
       "tips": "攻略"
     },
     "creative": {
-      "title": "创意无限",
-      "description": "如果你对任何创意领域感兴趣，不妨试试创建一个属于自己的智能体吧！",
-      "cta": "参加比赛，说不定下一个大奖得主就是你！"
+      "title": "做点小东西",
+      "description": "有想法的时候，也试着把它做出来。",
+      "cta": "看看项目"
     }
   },
   "whvPage": {
-    "badge": "WHV 亲历记录",
+    "badge": "澳洲生活记录",
     "titleBefore": "我的澳洲打工度假",
     "titleHighlight": "WHV",
     "titleAfter": "一年",
-    "description": "从准备出发到落地生活，从找工作到离开澳洲。这里记录我的真实经历，也整理那些可能对后来者有用的信息。",
+    "description": "出发前要准备什么，到了怎么找工作、安顿下来，离开时还有哪些事要办。这些文章记着我那一年的经历，给同样在查资料的你一点参考。",
     "roadmap": {
       "prep": {
         "title": "行前准备",
@@ -244,15 +261,15 @@
     "articleCount": "共 {{count}} 篇记录",
     "readMore": "继续阅读",
     "aboutTitle": "关于 Jessie",
-    "aboutDescription": "做了 8 年前端，也在澳洲度过了一年 WHV。这里分享打工度假的真实经历，以及旅行、技术和生活记录。"
+    "aboutDescription": "我是 Jessie，现在在上海做 AI 开发。之前在澳洲打工度假了一年，这里留着那一年的工作、旅行和生活记录。"
   },
   "common": {
-    "explore": "立刻探索"
+    "explore": "去看看"
   },
   "technical": {
     "title": "技术文章",
     "href": "/technical",
-    "description": "涵盖广泛的技术主题，从基础知识到高级应用，提供详细的教程和深入的分析。"
+    "description": "我做 AI 开发时遇到的问题和工作笔记。"
   },
   "markdown_to_pdf": {
     "title": "Markdown转PDF",
@@ -261,5 +278,6 @@
     "preview": "预览",
     "export": "导出PDF",
     "placeholder": "在此输入Markdown文本..."
-  }
+  },
+  "subscribing": "正在订阅…"
 }

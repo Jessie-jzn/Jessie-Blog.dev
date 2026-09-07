@@ -109,7 +109,8 @@ const PostListPage = ({
     <>
       <CommonSEO
         title={t("technical.title", { ns: "common" })}
-        description={t("travel.description", { ns: "common" })}
+        description={t("technical.description", { ns: "common" })}
+        keywords={t("seo.technicalKeywords")}
       />
       <div className="min-h-[60vh] bg-canvas text-ink">
         <PageHeader

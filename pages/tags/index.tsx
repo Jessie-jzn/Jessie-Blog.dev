@@ -12,6 +12,7 @@ import {
   toTagSummaries,
   type TagSummary,
 } from "@/lib/routing/listPageData";
+import { CommonSEO } from "@/components/SEO";
 
 interface TagOptions {
   tagOptions: TagSummary[];
@@ -37,6 +38,11 @@ const TagsIndex = ({ tagOptions }: TagOptions) => {
 
   return (
     <div className="min-h-[60vh] bg-canvas text-ink">
+      <CommonSEO
+        title={t("tags")}
+        description={t("seo.tagsDescription")}
+        keywords={t("seo.articlesKeywords")}
+      />
       <PageHeader
         eyebrow={t("post")}
         title={t("tags")}
