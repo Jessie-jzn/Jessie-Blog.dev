@@ -1,12 +1,36 @@
 export const ARTICLE_IMAGE_FALLBACK = "/images/default.jpg";
 const IMAGE_PROXY_PATH = "/api/image-proxy/";
 const LEGACY_IMAGE_PROXY_PATH = "/api/image-proxy";
+const COVER_PALETTES = [
+  ["#112D4E", "#3F72AF", "#DBE2EF"],
+  ["#243B2F", "#5C946E", "#D7E8D4"],
+  ["#472D30", "#A26769", "#F0D3D3"],
+  ["#3C315B", "#8064A2", "#E9E2F5"],
+  ["#49392C", "#B47B4B", "#F3E0C7"],
+  ["#1F3A4A", "#4E9DA6", "#D7F0F2"],
+];
+
+const hashSeed = (value: string) => {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
 
 export function generatedArticleCoverSource(seed?: string | null): string | null {
   const normalizedSeed = seed?.trim();
-  return normalizedSeed
-    ? `/api/article-cover/${encodeURIComponent(normalizedSeed)}`
-    : null;
+  if (!normalizedSeed) return null;
+
+  const hash = hashSeed(normalizedSeed);
+  const [ink, accent, paper] = COVER_PALETTES[hash % COVER_PALETTES.length];
+  const angle = hash % 360;
+  const circleX = 100 + (hash % 720);
+  const circleY = 80 + ((hash >>> 8) % 320);
+  const stripeX = 220 + ((hash >>> 16) % 400);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-label="Article cover"><rect width="960" height="600" fill="${paper}"/><rect width="960" height="600" fill="${ink}" opacity=".08"/><g transform="rotate(${angle} 480 300)"><rect x="${stripeX}" y="-180" width="120" height="960" fill="${accent}" opacity=".65"/><rect x="${stripeX + 152}" y="-180" width="24" height="960" fill="${ink}" opacity=".26"/></g><circle cx="${circleX}" cy="${circleY}" r="175" fill="${ink}" opacity=".9"/><circle cx="${circleX + 42}" cy="${circleY - 30}" r="92" fill="${accent}" opacity=".95"/><path d="M80 500H880" stroke="${ink}" stroke-width="5" opacity=".55"/><path d="M80 532H560" stroke="${ink}" stroke-width="2" opacity=".35"/></svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
 const isPrivateIpv4 = (hostname: string): boolean => {

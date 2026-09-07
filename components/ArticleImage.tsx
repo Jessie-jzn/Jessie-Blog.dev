@@ -31,7 +31,7 @@ export default function ArticleImage({
       {...props}
       src={currentSource}
       alt={alt}
-      unoptimized={currentSource === generatedFallback}
+      unoptimized={currentSource === generatedFallback || currentSource.startsWith("data:image/")}
       onError={(event) => {
         if (generatedFallback && currentSource !== generatedFallback) {
           setCurrentSource(generatedFallback);
