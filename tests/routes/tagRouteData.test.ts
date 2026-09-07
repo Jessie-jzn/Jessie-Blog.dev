@@ -27,6 +27,15 @@ const tag: Tag = {
   articles: [article],
 };
 
+const bilingualTag: Tag = {
+  ...tag,
+  count: 2,
+  articles: [
+    { ...article, id: "article-en", category: "travel-en" },
+    { ...article, id: "article-zh", category: "travel-zh" },
+  ],
+};
+
 const articleSummary = {
   id: "article-1",
   title: "Article",
@@ -68,6 +77,13 @@ test("returns the matching tag and its articles", () => {
   assert.deepEqual(result.tagOptions, [tagSummary]);
   assert.deepEqual(result.filteredTag, tagSummary);
   assert.deepEqual(result.posts, [articleSummary]);
+});
+
+test("keeps only articles in the active language for a tag", () => {
+  const result = resolveTagRouteData([bilingualTag], "Working Holiday", "en");
+
+  assert.equal(result.filteredTag.count, 1);
+  assert.deepEqual(result.posts.map((post) => post.id), ["article-en"]);
 });
 
 test("returns an empty serializable tag for an unknown id", () => {

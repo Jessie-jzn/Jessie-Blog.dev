@@ -14,6 +14,8 @@ import {
   type TagSummary,
 } from "@/lib/routing/listPageData";
 import { CommonSEO } from "@/components/SEO";
+import { isLocalePost } from "@/lib/routing/localizedPosts";
+import type { Post } from "@/lib/type";
 
 interface ArticleIndexProps {
   posts: PostListItem[];
@@ -26,6 +28,7 @@ export const getStaticProps: GetStaticProps<ArticleIndexProps> = async ({
   const response = await getDataBaseList({
     pageId: NOTION_POST_ID,
     from: "post-index",
+    filter: (post: Post) => isLocalePost(post, locale ?? "zh"),
   });
 
   return {

@@ -25,7 +25,11 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       from: "tags-index",
     });
 
-    const routeData = resolveTagRouteData(response.tagOptions, params?.tag);
+    const routeData = resolveTagRouteData(
+      response.tagOptions,
+      params?.tag,
+      locale
+    );
 
     return {
       props: {
@@ -35,7 +39,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       revalidate: 300,
     };
   } catch (error) {
-    const routeData = resolveTagRouteData([], params?.tag);
+    const routeData = resolveTagRouteData([], params?.tag, locale);
     return {
       props: {
         ...routeData,

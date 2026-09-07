@@ -5,6 +5,7 @@ import {
   toTagSummary,
   type TagSummary,
 } from "./listPageData.ts";
+import { isLocalePost } from "./localizedPosts.ts";
 
 const emptyTag = (): TagSummary => ({
   id: "",
@@ -17,11 +18,23 @@ const emptyTag = (): TagSummary => ({
 const normalizeTags = (tagOptions: unknown): Tag[] =>
   Array.isArray(tagOptions) ? (tagOptions as Tag[]) : [];
 
+const localizeTags = (tags: Tag[], locale?: string): Tag[] => {
+  if (!locale) {
+    return tags;
+  }
+
+  return tags.flatMap((tag) => {
+    const articles = tag.articles.filter((article) => isLocalePost(article, locale));
+    return articles.length ? [{ ...tag, articles, count: articles.length }] : [];
+  });
+};
+
 export function resolveTagRouteData(
   tagOptions: unknown,
-  requestedTag: unknown
+  requestedTag: unknown,
+  locale?: string
 ) {
-  const tags = normalizeTags(tagOptions);
+  const tags = localizeTags(normalizeTags(tagOptions), locale);
   const filteredTag =
     typeof requestedTag === "string"
       ? tags.find((tag) => tag.id === requestedTag)
