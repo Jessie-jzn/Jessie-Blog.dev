@@ -64,6 +64,7 @@ const RowCard = ({ article, priority, href }: EditorialArticleCardVariantProps) 
       <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-muted md:w-5/12">
         <ArticleImage
           src={articleImageSource(article)}
+          fallbackSeed={article.id}
           alt={article.title}
           fill
           priority={priority}
@@ -99,6 +100,7 @@ const FeatureCard = ({ article, priority, href }: EditorialArticleCardVariantPro
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <ArticleImage
           src={articleImageSource(article)}
+          fallbackSeed={article.id}
           alt={article.title}
           fill
           priority={priority}
@@ -132,6 +134,7 @@ const CompactCard = ({ article, priority, href }: EditorialArticleCardVariantPro
       <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-muted sm:h-24 sm:w-36">
         <ArticleImage
           src={articleImageSource(article)}
+          fallbackSeed={article.id}
           alt={article.title}
           fill
           priority={priority}
@@ -160,6 +163,7 @@ const LeadArticle = ({ article, priority, href }: EditorialArticleCardVariantPro
       <div className="relative aspect-[16/10] overflow-hidden bg-muted sm:aspect-[3/2]">
         <ArticleImage
           src={articleImageSource(article)}
+          fallbackSeed={article.id}
           alt={article.title}
           fill
           priority={priority}
@@ -205,18 +209,17 @@ const IndexArticle = ({
             {article.title}
           </h3>
         </div>
-        {image ? (
-          <div className="relative hidden aspect-[4/3] overflow-hidden bg-muted sm:block">
-            <ArticleImage
-              src={image}
-              alt=""
-              fill
-              priority={priority}
-              sizes="120px"
-              className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
-            />
-          </div>
-        ) : null}
+        <div className="relative hidden aspect-[4/3] overflow-hidden bg-muted sm:block">
+          <ArticleImage
+            src={image}
+            fallbackSeed={article.id}
+            alt=""
+            fill
+            priority={priority}
+            sizes="120px"
+            className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+          />
+        </div>
       </article>
     </Link>
   );

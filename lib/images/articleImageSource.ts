@@ -2,6 +2,13 @@ export const ARTICLE_IMAGE_FALLBACK = "/images/default.jpg";
 const IMAGE_PROXY_PATH = "/api/image-proxy/";
 const LEGACY_IMAGE_PROXY_PATH = "/api/image-proxy";
 
+export function generatedArticleCoverSource(seed?: string | null): string | null {
+  const normalizedSeed = seed?.trim();
+  return normalizedSeed
+    ? `/api/article-cover/${encodeURIComponent(normalizedSeed)}.svg`
+    : null;
+}
+
 const isPrivateIpv4 = (hostname: string): boolean => {
   const octets = hostname.split(".").map(Number);
   if (
@@ -65,10 +72,11 @@ export function validateRemoteImageUrl(value: string): URL | null {
   }
 }
 
-export function articleImageSource(value?: string | null): string {
+export function articleImageSource(value?: string | null, seed?: string | null): string {
+  const fallback = generatedArticleCoverSource(seed) || ARTICLE_IMAGE_FALLBACK;
   const source = value?.trim();
   if (!source) {
-    return ARTICLE_IMAGE_FALLBACK;
+    return fallback;
   }
   if (source === LEGACY_IMAGE_PROXY_PATH) {
     return IMAGE_PROXY_PATH;
@@ -86,5 +94,5 @@ export function articleImageSource(value?: string | null): string {
   const remote = validateRemoteImageUrl(source);
   return remote
     ? `${IMAGE_PROXY_PATH}?url=${encodeURIComponent(remote.toString())}`
-    : ARTICLE_IMAGE_FALLBACK;
+    : fallback;
 }

@@ -9,13 +9,21 @@ import {
   validateRemoteImageUrl,
 } from "../../lib/images/articleImageSource.ts";
 
-test("uses the existing local fallback for empty and malformed sources", () => {
+test("uses a stable generated cover for empty and malformed sources when given an article seed", () => {
   assert.equal(ARTICLE_IMAGE_FALLBACK, "/images/default.jpg");
   assert.equal(existsSync("public/images/default.jpg"), true);
   assert.equal(articleImageSource(), ARTICLE_IMAGE_FALLBACK);
-  assert.equal(articleImageSource("  "), ARTICLE_IMAGE_FALLBACK);
-  assert.equal(articleImageSource("not a url"), ARTICLE_IMAGE_FALLBACK);
-  assert.equal(articleImageSource("javascript:alert(1)"), ARTICLE_IMAGE_FALLBACK);
+  assert.equal(articleImageSource(undefined, "post-a"), "/api/article-cover/post-a.svg");
+  assert.equal(articleImageSource("  ", "post-a"), "/api/article-cover/post-a.svg");
+  assert.equal(articleImageSource("not a url", "post-a"), "/api/article-cover/post-a.svg");
+  assert.equal(
+    articleImageSource("javascript:alert(1)", "post-a"),
+    "/api/article-cover/post-a.svg"
+  );
+  assert.notEqual(
+    articleImageSource(undefined, "post-a"),
+    articleImageSource(undefined, "post-b")
+  );
 });
 
 test("preserves local and already proxied image paths", () => {
@@ -52,6 +60,7 @@ test("rejects localhost and private network image targets", () => {
   for (const value of blocked) {
     assert.equal(validateRemoteImageUrl(value), null, value);
     assert.equal(articleImageSource(value), ARTICLE_IMAGE_FALLBACK, value);
+    assert.equal(articleImageSource(value, "post-a"), "/api/article-cover/post-a.svg", value);
   }
 });
 
