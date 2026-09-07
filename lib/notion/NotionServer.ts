@@ -4,6 +4,7 @@ import { NotionCompatAPI } from 'notion-compat';
 import { NOTION_TOKEN } from '@/lib/constants';
 import { getBlockCollectionId } from '@/lib/notion-utils';
 import { stripRecordMapRaw } from '@/lib/notion/stripRecordMapRaw';
+import { retryNotionPageLoad } from './retryNotionPageLoad';
 
 if (!NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN is not defined');
@@ -77,6 +78,10 @@ class NotionServer {
    * 如果官方 API 失败（例如 Integration 没有访问权限），自动回退到旧版 api/v3。
    */
   async getPage(pageId: string) {
+    return retryNotionPageLoad(() => this.getPageOnce(pageId));
+  }
+
+  private async getPageOnce(pageId: string) {
     if (USE_OFFICIAL_PAGE_API) {
       try {
         const recordMap = await this.notionCompat.getPage(pageId);
