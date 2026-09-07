@@ -5,7 +5,7 @@ const LEGACY_IMAGE_PROXY_PATH = "/api/image-proxy";
 export function generatedArticleCoverSource(seed?: string | null): string | null {
   const normalizedSeed = seed?.trim();
   return normalizedSeed
-    ? `/api/article-cover/${encodeURIComponent(normalizedSeed)}.svg`
+    ? `/api/article-cover/${encodeURIComponent(normalizedSeed)}`
     : null;
 }
 
