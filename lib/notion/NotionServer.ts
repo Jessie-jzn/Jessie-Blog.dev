@@ -4,7 +4,6 @@ import { NotionCompatAPI } from 'notion-compat';
 import { NOTION_TOKEN } from '@/lib/constants';
 import { getBlockCollectionId } from '@/lib/notion-utils';
 import { stripRecordMapRaw } from '@/lib/notion/stripRecordMapRaw';
-import { getGlobalPageRecordMapCache } from './pageRecordMapCache';
 
 if (!NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN is not defined');
@@ -17,7 +16,6 @@ if (!NOTION_TOKEN) {
  */
 const USE_OFFICIAL_PAGE_API =
   process.env.USE_OFFICIAL_PAGE_API !== 'false';
-const pageRecordMapCache = getGlobalPageRecordMapCache<any>();
 
 class NotionServer {
   private static instance: NotionServer;
@@ -79,27 +77,25 @@ class NotionServer {
    * 如果官方 API 失败（例如 Integration 没有访问权限），自动回退到旧版 api/v3。
    */
   async getPage(pageId: string) {
-    return pageRecordMapCache.getOrCreate(pageId, async () => {
-      if (USE_OFFICIAL_PAGE_API) {
-        try {
-          const recordMap = await this.notionCompat.getPage(pageId);
-          return stripRecordMapRaw(recordMap);
-        } catch (error: any) {
-          console.warn(
-            '[NotionServer.getPage] 官方 API 失败，回退到 legacy api/v3:',
-            error.message || error
-          );
-        }
-      }
-
+    if (USE_OFFICIAL_PAGE_API) {
       try {
-        const page = await this.notionAPI.getPage(pageId);
-        return stripRecordMapRaw(page);
+        const recordMap = await this.notionCompat.getPage(pageId);
+        return stripRecordMapRaw(recordMap);
       } catch (error: any) {
-        console.error('Error fetching page (legacy):', error.body || error);
-        throw new Error('Failed to fetch page');
+        console.warn(
+          '[NotionServer.getPage] 官方 API 失败，回退到 legacy api/v3:',
+          error.message || error
+        );
       }
-    });
+    }
+
+    try {
+      const page = await this.notionAPI.getPage(pageId);
+      return stripRecordMapRaw(page);
+    } catch (error: any) {
+      console.error('Error fetching page (legacy):', error.body || error);
+      throw new Error('Failed to fetch page');
+    }
   }
   /**
    * 在指定页面上查询
