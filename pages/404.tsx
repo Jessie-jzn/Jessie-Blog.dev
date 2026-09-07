@@ -6,6 +6,14 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SiteConfig from '@/site.config';
 import PageHeader from '@/components/common/PageHeader';
+import type { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'zh', ['common'])),
+  },
+});
 
 export default function Custom404() {
   const router = useRouter();
