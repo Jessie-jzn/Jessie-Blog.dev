@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   ARTICLE_IMAGE_FALLBACK,
   articleImageSource,
+  shouldBypassImageOptimization,
 } from "@/lib/images/articleImageSource";
 
 type ArticleImageProps = Omit<ImageProps, "src"> & {
@@ -14,6 +15,7 @@ export default function ArticleImage({
   src,
   alt,
   onError,
+  unoptimized = false,
   ...props
 }: ArticleImageProps) {
   const normalizedSource = articleImageSource(src);
@@ -28,6 +30,9 @@ export default function ArticleImage({
       {...props}
       src={currentSource}
       alt={alt}
+      unoptimized={
+        unoptimized || shouldBypassImageOptimization(currentSource)
+      }
       onError={(event) => {
         if (currentSource !== ARTICLE_IMAGE_FALLBACK) {
           setCurrentSource(ARTICLE_IMAGE_FALLBACK);

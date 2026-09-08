@@ -1,6 +1,11 @@
 export const ARTICLE_IMAGE_FALLBACK = "/images/default.jpg";
 const IMAGE_PROXY_PATH = "/api/image-proxy/";
 const LEGACY_IMAGE_PROXY_PATH = "/api/image-proxy";
+
+export function shouldBypassImageOptimization(source: string): boolean {
+  return source === IMAGE_PROXY_PATH || source.startsWith(`${IMAGE_PROXY_PATH}?`);
+}
+
 const isPrivateIpv4 = (hostname: string): boolean => {
   const octets = hostname.split(".").map(Number);
   if (

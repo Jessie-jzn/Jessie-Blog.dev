@@ -6,6 +6,7 @@ import {
   ARTICLE_IMAGE_FALLBACK,
   articleImageSource,
   isPrivateNetworkAddress,
+  shouldBypassImageOptimization,
   validateRemoteImageUrl,
 } from "../../lib/images/articleImageSource.ts";
 
@@ -37,6 +38,16 @@ test("wraps public HTTP images in the local proxy exactly once", () => {
     articleImageSource(remote),
     `/api/image-proxy/?url=${encodeURIComponent(remote)}`
   );
+});
+
+test("bypasses Next image optimization for already proxied article covers", () => {
+  assert.equal(
+    shouldBypassImageOptimization(
+      "/api/image-proxy/?url=https%3A%2F%2Fapp.notion.com%2Fcover.jpg"
+    ),
+    true
+  );
+  assert.equal(shouldBypassImageOptimization("/images/default.jpg"), false);
 });
 
 test("rejects localhost and private network image targets", () => {
