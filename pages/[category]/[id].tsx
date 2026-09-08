@@ -15,16 +15,11 @@ import { NOTION_POST_ID } from "@/lib/constants";
 import BlogComments from '@/components/BlogComments';
 import PostDetailLayout from '@/components/layouts/PostDetailLayout'
 import {
-  canonicalArticleRoute,
   createArticleRouteCatalog,
 } from '@/lib/routing/articleRoute';
 import { preserveArticlePageOnTransientFailure } from '@/lib/routing/articlePageFailure';
 
 const notionService = new NotionService();
-const envPrebuildLimit = Number(process.env.NEXT_PREBUILD_POST_LIMIT ?? 40);
-const PREBUILD_POST_LIMIT = Number.isFinite(envPrebuildLimit)
-  ? Math.max(0, envPrebuildLimit)
-  : 40;
 
 interface StaticProps {
   params: {
@@ -147,34 +142,10 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const databaseId = NOTION_POST_ID;
-  const { categoryMap } = await getDataBaseList({
-    pageId: databaseId,
-    from: "post-id",
-  });
-
-  // 用 Set 去重，避免 slug 和 pageId 重复生成导致 build 时 API 调用翻倍
-  const seen = new Set<string>();
-  const paths: { params: { category: string; id: string } }[] = [];
-
-  if (categoryMap) {
-    Object.entries(categoryMap).forEach(([category, data]: [string, any]) => {
-      const articles = (data.articles || []).slice(0, PREBUILD_POST_LIMIT);
-      articles.forEach((article: any) => {
-        const route = canonicalArticleRoute(article);
-        const key = `${route.category}/${route.reference}`;
-        if (!seen.has(key)) {
-          seen.add(key);
-          paths.push({
-            params: { category: route.category, id: route.reference },
-          });
-        }
-      });
-    });
-  }
-
+  // 正文逐篇调用 Notion。构建时批量生成会触发 API 限流，并把部分文章部署成 404。
+  // 交给 blocking ISR 在首次访问时单篇生成，生成成功后由 Vercel 缓存。
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 };
