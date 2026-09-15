@@ -11,6 +11,10 @@ export default function Document() {
           name="google-site-verification"
           content="W2wkuqoDDz3O3Q48KLqG2HQOSnx4gFvUU8yLgOcXT-0"
         />
+        <meta
+          name="msvalidate.01"
+          content="A0F81C77AB4371BC4FD58C703D315F49"
+        />
         <link
           rel="icon"
           type="image/png"
