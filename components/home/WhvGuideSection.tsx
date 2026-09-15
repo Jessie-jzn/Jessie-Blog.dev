@@ -6,6 +6,7 @@ import SectionHeader from '@/components/common/SectionHeader';
 import GuidePostCards from '@/components/home/GuidePostCards';
 import HomePageSection from '@/components/home/HomePageSection';
 import * as Types from '@/lib/type';
+import { WHV_TOOL_URL } from '@/lib/home/whvToolPromotion';
 
 const whvSteps = [
   { title: '行前', link: '/tag/preparation', desc: '签证' },
@@ -84,6 +85,21 @@ const WhvGuideSection = ({
           </Link>
         ))}
       </div>
+
+      <a
+        href={WHV_TOOL_URL}
+        className='editorial-focus mb-10 block rounded-xl border border-line bg-primarySoft p-5 transition-colors hover:border-primaryStrong md:mb-12 md:p-6'
+      >
+        <p className='text-sm font-semibold text-ink'>
+          {t('landing.whv.tool.title')}
+        </p>
+        <p className='mt-2 text-sm leading-relaxed text-subtle'>
+          {t('landing.whv.tool.description')}
+        </p>
+        <span className='mt-3 inline-block text-sm font-medium text-primaryStrong'>
+          {t('landing.whv.tool.cta')}
+        </span>
+      </a>
 
       <GuidePostCards posts={posts} />
     </HomePageSection>

@@ -131,7 +131,7 @@ export const getStaticProps: GetStaticProps<
         recordMap,
         postData,
         relatedPosts: relatedArticles ?? [],
-        ...(await serverSideTranslations(locale ?? "en", ["common"])),
+        ...(await serverSideTranslations(locale ?? "en", ["common", "home"])),
       },
       revalidate: 3600,
     };

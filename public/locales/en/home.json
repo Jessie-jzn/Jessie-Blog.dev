@@ -70,7 +70,12 @@
       "kicker": "Working holiday",
       "title": "My year on an Australian WHV",
       "subtitle": "I read plenty of guides before leaving. There was still a lot to figure out once I arrived. These are my notes from that year.",
-      "intro": "Stories from that year, with practical notes along the way."
+      "intro": "Stories from that year, with practical notes along the way.",
+      "tool": {
+        "title": "Australia 462 postcode checker",
+        "description": "Before you look for work, use my Australia 462 postcode checker to confirm a location and eligible specified-work types.",
+        "cta": "Check a postcode →"
+      }
     },
     "cta": {
       "sectionEyebrow": "Keep in touch",

@@ -18,6 +18,8 @@ import { BlogSEO } from '@/components/SEO';
 import { mapPageUrl, mapImageUrl } from '@/lib/notion-utils';
 import AdSense from '@/components/AdSense';
 import PostEngagementBar from '@/components/stats/PostEngagementBar';
+import { isWhvJobPost, WHV_TOOL_URL } from '@/lib/home/whvToolPromotion';
+import { useTranslation } from 'next-i18next';
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -136,6 +138,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
 }) => {
   const router = useRouter();
   const { locale } = router;
+  const { t } = useTranslation('home');
 
   useEffect(() => {
     if (!recordMap || !recordMap.block) {
@@ -171,6 +174,7 @@ const NotionPage: React.FC<NotionPageProps> = ({
     block?.type === 'page' && block?.parent_table === 'collection';
 
   const showTableOfContents = !!isBlogPost;
+  const showWhvToolPromotion = !!postData && isWhvJobPost(postData);
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {};
@@ -243,6 +247,21 @@ const NotionPage: React.FC<NotionPageProps> = ({
           // footer={footer}
         />
       </div>
+
+      {showWhvToolPromotion ? (
+        <aside className='mt-8 rounded-xl border border-line bg-primarySoft p-5 md:p-6'>
+          <p className='font-semibold text-ink'>{t('landing.whv.tool.title')}</p>
+          <p className='mt-2 text-sm leading-relaxed text-subtle'>
+            {t('landing.whv.tool.description')}
+          </p>
+          <a
+            href={WHV_TOOL_URL}
+            className='editorial-focus mt-3 inline-block rounded-md text-sm font-medium text-primaryStrong hover:underline'
+          >
+            {t('landing.whv.tool.cta')}
+          </a>
+        </aside>
+      ) : null}
 
       <AdSense />
     </>
