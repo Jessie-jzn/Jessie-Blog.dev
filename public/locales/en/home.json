@@ -8,14 +8,16 @@
         "Hi, I'm Jessie."
       ],
       "paragraphs": [
-        "I work in AI development in Shanghai. Before coming back to China, I spent a year on a working holiday in Australia.",
-        "I write here about problems I run into doing AI development, my year in Australia, trips I’ve taken, and life back in China."
+        "8+ years building for the web. Now working in AI development in Shanghai.",
+        "Writing code, and writing about my working holiday in Australia, travel, and everyday life."
       ],
       "primaryMailSubject": "Hello Jessie",
       "primaryCta": "Write to me",
       "secondaryCta": "Read the blog",
       "servicesAnchor": "#whv-guides",
-      "mailHint": ""
+      "mailHint": "",
+      "footerLeft": "Code and everyday life",
+      "footerRight": "Think independently. Keep writing."
     },
     "worlds": {
       "eyebrow": "Have a look around",
@@ -41,11 +43,11 @@
           "description": "Places I’ve been, routes I’ve taken, and things I wanted to write about after coming home.",
           "href": "/travel"
         },
-        "life": {
-          "eyebrow": "LIFE",
-          "title": "Life",
-          "description": "Working again after coming back to China, and notes from my everyday life.",
-          "href": "/life"
+        "projects": {
+          "eyebrow": "PROJECTS",
+          "title": "Projects",
+          "description": "Open-source tools, AI projects, and notes from building them.",
+          "href": "/projects"
         }
       }
     },
@@ -55,11 +57,33 @@
       "subtitle": "Notes on problems I run into doing AI development."
     },
     "projects": {
-      "eyebrow": "Projects",
-      "title": "Things I work on",
+      "eyebrow": "OPEN SOURCE",
+      "title": "My open-source projects",
       "description": "My AI projects, this blog, and notes from previous work.",
       "allProjects": "Projects and experience →",
       "aria": "Projects and experience"
+    },
+    "openSource": {
+      "guide": "Study guide",
+      "source": "View source",
+      "starsAsOf": "Stars as of {{date}}",
+      "items": {
+        "exam": { "title": "Software Designer Exam Guide", "description": "Study plans, notes, and exam practice." },
+        "tickets": { "title": "Ticket Monitor", "description": "Multi-platform ticket monitoring and email alerts." },
+        "chainlens": { "title": "ChainLens", "description": "A multi-model AI research assistant with evidence citations and reverse fact-checking." },
+        "whv-map": { "title": "WHV Map Marker", "description": "Batch-save Australian postcodes to Google Maps." }
+      }
+    },
+    "profile": {
+      "title": "A developer, always on the road",
+      "experience": "years building for the web",
+      "skills": "Tools and current interests",
+      "more": "More about my journey",
+      "journey": {
+        "frontend": { "title": "Frontend", "description": "From pages to products, learning by building." },
+        "whv": { "title": "Australian WHV", "description": "Working on the road, seeing more of the world." },
+        "ai": { "title": "AI in Shanghai", "description": "Back in Shanghai, building AI-native products." }
+      }
     },
     "travelSection": {
       "kicker": "Travel",

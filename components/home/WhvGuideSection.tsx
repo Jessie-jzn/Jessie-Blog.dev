@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'next-i18next';
-import SectionHeader from '@/components/common/SectionHeader';
+import HomeSectionHeading from '@/components/home/HomeSectionHeading';
+import { FiFileText, FiArrowUpRight } from 'react-icons/fi';
 import GuidePostCards from '@/components/home/GuidePostCards';
 import HomePageSection from '@/components/home/HomePageSection';
 import * as Types from '@/lib/type';
@@ -36,10 +37,6 @@ const WhvGuideSection = ({
 
   const ttl = title ?? t('landing.whv.title');
   const sub = subtitle ?? t('landing.whv.subtitle');
-  const kicker = editorialKicker ?? t('landing.whv.kicker');
-  const defaultIntro = (
-    <p>{t('landing.whv.intro')}</p>
-  );
 
   const stepTitles =
     i18n.language === 'en'
@@ -51,23 +48,21 @@ const WhvGuideSection = ({
       : whvSteps.map((s) => s.desc);
 
   return (
-    <HomePageSection id={sectionId} aria-label={t('landing.aria.whv')}>
-      <div className='mb-8 border-b border-line pb-8 md:mb-10 md:pb-10'>
-        <SectionHeader
-          variant='editorial'
-          editorialKicker={kicker}
+    <HomePageSection id={sectionId} aria-label={t('landing.aria.whv')} tone='muted'>
+        <HomeSectionHeading
+          display={editorialKicker || 'A YEAR IN AUSTRALIA'}
           title={ttl}
-          subtitle={sub}
-          readMoreLink='/whv'
+          description={sub}
+          href='/whv'
         />
-      </div>
+      {intro ? <div className='mb-6 text-sm leading-7 text-subtle'>{intro}</div> : null}
 
-      <div className='mb-10 grid grid-cols-2 gap-x-6 md:mb-12 md:grid-cols-4'>
+      <div className='mb-6 grid grid-cols-2 gap-3 md:grid-cols-4'>
         {whvSteps.map((step, i) => (
           <Link
             key={step.link}
             href={step.link}
-            className='editorial-focus group border-t border-line py-5 transition-colors duration-300 hover:border-primaryStrong focus-visible:border-primaryStrong'
+            className='editorial-focus group rounded-lg border border-line bg-surface px-4 py-3 transition-colors hover:border-primaryStrong'
           >
             <div className='flex items-start gap-3'>
               <span className='text-xs font-medium tabular-nums tracking-[0.12em] text-primaryStrong'>
@@ -86,22 +81,26 @@ const WhvGuideSection = ({
         ))}
       </div>
 
+      <GuidePostCards posts={posts} layout='feature' />
+
       <a
         href={WHV_TOOL_URL}
-        className='editorial-focus mb-10 block rounded-xl border border-line bg-primarySoft p-5 transition-colors hover:border-primaryStrong md:mb-12 md:p-6'
+        className='editorial-focus mt-5 flex flex-wrap items-center gap-4 rounded-xl border border-line bg-primarySoft p-5 transition-colors hover:border-primaryStrong sm:p-6'
       >
-        <p className='text-sm font-semibold text-ink'>
+        <FiFileText aria-hidden='true' className='h-7 w-7 shrink-0 text-primaryStrong' />
+        <div className='min-w-0 flex-1'>
+        <p className='text-sm font-medium text-primaryStrong'>
           {t('landing.whv.tool.title')}
         </p>
-        <p className='mt-2 text-sm leading-relaxed text-subtle'>
+        <p className='mt-1 text-xs leading-6 text-subtle'>
           {t('landing.whv.tool.description')}
         </p>
-        <span className='mt-3 inline-block text-sm font-medium text-primaryStrong'>
-          {t('landing.whv.tool.cta')}
+        </div>
+        <span className='inline-flex min-h-11 items-center gap-2 rounded-full bg-primaryStrong px-5 text-xs font-medium text-surface'>
+          {t('landing.whv.tool.cta')} <FiArrowUpRight aria-hidden='true' />
         </span>
       </a>
 
-      <GuidePostCards posts={posts} />
     </HomePageSection>
   );
 };

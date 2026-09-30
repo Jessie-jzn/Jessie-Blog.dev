@@ -2,55 +2,47 @@
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import HomePageSection from '@/components/home/HomePageSection';
+import HomeSectionHeading from '@/components/home/HomeSectionHeading';
+import { FiMonitor, FiBriefcase, FiMapPin, FiCode } from 'react-icons/fi';
 
-export const HOME_WORLD_KEYS = ['ai', 'whv', 'travel', 'life'] as const;
+export const HOME_WORLD_KEYS = ['ai', 'whv', 'travel', 'projects'] as const;
 
 export default function HomeContentWorlds() {
   const { t } = useTranslation('home');
+  const icons = { ai: FiMonitor, whv: FiBriefcase, travel: FiMapPin, projects: FiCode };
 
   return (
-    <HomePageSection aria-label={t('landing.worlds.aria')}>
-      <div className='max-w-2xl'>
-        <p className='text-[11px] font-medium uppercase tracking-[0.22em] text-primaryStrong'>
-          {t('landing.worlds.eyebrow')}
-        </p>
-        <h2 className='mt-3 text-3xl font-semibold tracking-[-0.03em] text-ink sm:text-4xl'>
-          {t('landing.worlds.title')}
-        </h2>
-      </div>
-
-      <div className='mt-10 divide-y divide-line border-y border-line'>
-        {HOME_WORLD_KEYS.map((key, index) => (
+    <HomePageSection aria-label={t('landing.worlds.aria')} tone='muted'>
+      <HomeSectionHeading title={t('landing.worlds.title')} href='/post' />
+      <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>
+        {HOME_WORLD_KEYS.map((key, index) => {
+          const Icon = icons[key];
+          return (
           <Link
             key={key}
             href={t(`landing.worlds.items.${key}.href`)}
-            className='editorial-focus group grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-2 py-6 transition-colors hover:bg-muted motion-reduce:transition-none sm:grid-cols-[4rem_minmax(0,0.8fr)_minmax(0,1.2fr)_auto] sm:items-center sm:gap-6 sm:px-3'
+            className='editorial-focus group flex flex-col rounded-xl border border-line bg-surface p-5 transition-colors hover:border-primary motion-reduce:transition-none'
           >
-            <span className='row-span-2 text-xs tabular-nums text-subtle sm:row-span-1'>
+            <span className='mb-4 flex justify-between text-xs tabular-nums text-subtle'>
               {String(index + 1).padStart(2, '0')}
+              <Icon aria-hidden='true' className='h-5 w-5 text-ink' />
             </span>
-            <span className='text-base font-semibold text-ink sm:text-lg'>
+            <span className='text-sm font-semibold tracking-tight text-ink'>{t(`landing.worlds.items.${key}.eyebrow`)}</span>
+            <span className='mt-1 text-sm font-medium text-ink'>
               {t(`landing.worlds.items.${key}.title`)}
             </span>
-            <span className='col-start-2 text-sm leading-relaxed text-subtle sm:col-start-auto'>
+            <span className='mt-2 text-xs leading-6 text-subtle'>
               {t(`landing.worlds.items.${key}.description`)}
             </span>
             <span
               aria-hidden='true'
-              className='col-start-2 text-lg text-primaryStrong transition-transform group-hover:translate-x-1 motion-reduce:transition-none sm:col-start-auto'
+              className='mt-auto self-end pt-3 text-lg text-primaryStrong transition-transform group-hover:translate-x-1 motion-reduce:transition-none'
             >
               →
             </span>
           </Link>
-        ))}
+        );})}
       </div>
-
-      <Link
-        href='/post'
-        className='editorial-focus mt-6 inline-flex text-sm font-medium text-primaryStrong hover:underline'
-      >
-        {t('landing.worlds.allArticles')}
-      </Link>
     </HomePageSection>
   );
 }

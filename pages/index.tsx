@@ -18,6 +18,7 @@ import TravelGuideSection from '@/components/home/TravelGuideSection';
 import HomeConsultCta from '@/components/home/HomeConsultCta';
 import HomeContentWorlds from '@/components/home/HomeContentWorlds';
 import HomeProjectsPreview from '@/components/home/HomeProjectsPreview';
+import HomeAboutPreview from '@/components/home/HomeAboutPreview';
 import { selectTechnicalPosts } from '@/lib/home/selectTechnicalPosts';
 import { selectTravelPosts } from '@/lib/home/selectTravelPosts';
 import { isLocalePost } from '@/lib/routing/localizedPosts';
@@ -86,6 +87,10 @@ const Home = ({ technicalPosts, whvPosts, travelPosts }: HomeProps) => {
         <HomeHero email={SiteConfig.email} />
 
         <div className='relative z-10'>
+          <HomeProjectsPreview />
+
+          <HomeAboutPreview />
+
           <HomeContentWorlds />
 
           <TechnicalGuideSection posts={technicalPosts} />
@@ -93,8 +98,6 @@ const Home = ({ technicalPosts, whvPosts, travelPosts }: HomeProps) => {
           <WhvGuideSection posts={whvPosts} />
 
           <TravelGuideSection sectionId='travel-guides' posts={travelPosts} />
-
-          <HomeProjectsPreview />
 
           <HomeConsultCta />
         </div>

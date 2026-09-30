@@ -201,7 +201,7 @@ test("shared shell controls preserve hero overlay props and use line borders", (
     navbar,
     /const controlSurface = btnColor \?\? \(!showSolidBg \? overlayControlSurface : undefined\);/,
   );
-  assert.match(homeLayout, /<Navbar isFull=\{true\} currentTheme="dark" \/>/);
+  assert.match(homeLayout, /<Navbar \/>/);
   assert.match(travelListLayout, /<Navbar isFull=\{false\} \/>/);
   assert.match(
     navbar,
@@ -213,11 +213,9 @@ test("shared shell controls preserve hero overlay props and use line borders", (
   );
 });
 
-test("home hero starts behind the transparent Navbar without nested main landmarks", () => {
+test("home clears the unchanged Navbar without nested main landmarks", () => {
   assert.doesNotMatch(homeLayout, /<main\b/);
-  assert.doesNotMatch(homeLayout, /\b(?:xs:)?pt-(?:14|16)\b/);
-  assert.match(homeLayout, /\bpb-20\b/);
-  assert.match(homeLayout, /\bmd:pb-24\b/);
+  assert.match(homeLayout, /pt-14 sm:pt-16/);
   assert.doesNotMatch(homePage, /<main\b/);
   assert.doesNotMatch(projectsPage, /<main\b/);
 });

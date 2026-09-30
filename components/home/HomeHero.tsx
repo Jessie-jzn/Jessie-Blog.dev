@@ -1,9 +1,10 @@
-/** 渲染首页 Hero，结合 home i18n 内容、内容世界链接与减弱动画偏好。 */
+/** 浅色双栏首页首屏，保留真实介绍、邮件和 GitHub 入口。 */
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
-import { HOME_WORLD_KEYS } from '@/components/home/HomeContentWorlds';
+import { FiGithub, FiArrowUpRight } from 'react-icons/fi';
+import { GITHUB_PROFILE_URL } from '@/lib/home/openSourceProjects';
 
 interface HomeHeroProps {
   email: string;
@@ -30,97 +31,74 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
     : [];
 
   return (
-    <section className='relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden border-b border-white/15'>
-      <Image
-        src='/images/home/hero.jpg'
-        alt=''
-        fill
-        className='-z-20 scale-[1.02] object-cover object-center'
-        priority
-        sizes='100vw'
-      />
-      <div className='absolute inset-0 -z-10 bg-gradient-to-r from-neutral-950/90 via-neutral-950/60 to-neutral-950/25' />
-      <div className='absolute inset-0 -z-10 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/15' />
-
-      <div className='site-container relative z-10 grid min-h-[calc(100dvh-4rem)] items-end gap-10 pb-12 pt-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.6fr)] lg:gap-16'>
+    <section className='relative overflow-hidden bg-canvas'>
+      <div className='site-container grid items-center gap-8 pb-10 pt-12 md:min-h-[34rem] md:grid-cols-2 md:gap-10 md:py-16'>
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className='max-w-2xl motion-reduce:transition-none'
+          className='relative z-10 max-w-xl motion-reduce:transition-none'
         >
-          <p className='mb-5 text-[11px] font-medium tracking-[0.12em] text-white/75'>
+          <p className='mb-6 text-[11px] font-medium tracking-[0.08em] text-subtle'>
             {t('landing.hero.badge')}
           </p>
 
-          <h1 className='text-[2.15rem] font-semibold leading-[1.08] tracking-[-0.04em] text-white [text-shadow:0_4px_40px_rgba(0,0,0,0.45)] xs:text-[2.5rem] sm:text-5xl lg:text-[3.4rem]'>
+          <h1 className='text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.055em] text-ink sm:text-[3.5rem] lg:text-[4.25rem]'>
+            <span className='block'>CODE.</span>
+            <span className='block'>TRAVEL. LIVE.</span>
+          </h1>
+          <p className='mt-6 text-xl font-medium tracking-tight text-ink'>
             {headline.map((line, i) => (
               <span key={`headline-${i}`}>
                 {line}
                 {i < headline.length - 1 ? <br /> : null}
               </span>
             ))}
-          </h1>
+          </p>
 
-          <div className='mt-6 max-w-xl space-y-4 text-sm leading-[1.7] text-white/85 sm:text-[15px]'>
+          <div className='mt-3 max-w-md space-y-2 text-sm leading-7 text-subtle'>
             {paragraphs.map((block, idx) => (
               <p
                 key={`paragraph-${idx}`}
-                className='whitespace-pre-line [text-shadow:0_2px_20px_rgba(0,0,0,0.35)]'
+                className='whitespace-pre-line'
               >
                 {block}
               </p>
             ))}
           </div>
 
-          <div className='mt-8 flex flex-wrap gap-3'>
+          <div className='mt-7 flex flex-wrap items-center gap-3'>
+            <Link href='/post' className='editorial-focus inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-[#171717] transition-colors hover:bg-primarySoft hover:text-primaryStrong'>
+              {t('landing.hero.secondaryCta')} <FiArrowUpRight aria-hidden='true' />
+            </Link>
+            <a href={GITHUB_PROFILE_URL} target='_blank' rel='noreferrer' className='editorial-focus inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-medium text-ink transition-colors hover:border-primary hover:bg-primarySoft'>
+              <FiGithub aria-hidden='true' /> GitHub <FiArrowUpRight aria-hidden='true' />
+            </a>
             <a
               href={`mailto:${email}?subject=${encodeURIComponent(
                 t('landing.hero.primaryMailSubject'),
               )}`}
-              className='editorial-focus inline-flex min-h-[2.85rem] items-center justify-center whitespace-nowrap rounded-full border border-white/30 bg-surface px-7 text-sm font-semibold text-ink transition-colors hover:bg-primarySoft motion-reduce:transition-none'
+              className='editorial-focus inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-xs font-medium text-primaryStrong hover:underline motion-reduce:transition-none'
             >
-              {t('landing.hero.primaryCta')}
+              {t('landing.hero.primaryCta')} <FiArrowUpRight aria-hidden='true' />
             </a>
-            <Link
-              href='/post'
-              className='editorial-focus inline-flex min-h-[2.85rem] items-center justify-center whitespace-nowrap rounded-full border border-white/35 bg-neutral-950/20 px-7 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10 motion-reduce:transition-none'
-            >
-              {t('landing.hero.secondaryCta')}
-            </Link>
           </div>
           {mailHint?.trim() ? (
-            <p className='mt-4 text-[11px] text-white/50 leading-relaxed max-w-md'>
+            <p className='mt-4 max-w-md text-[11px] leading-relaxed text-subtle'>
               {mailHint}
             </p>
           ) : null}
         </motion.div>
 
-        <nav
-          aria-label={t('landing.worlds.aria')}
-          className='divide-y divide-white/15 border-y border-white/20'
-        >
-          {HOME_WORLD_KEYS.map((key, index) => (
-            <Link
-              key={key}
-              href={t(`landing.worlds.items.${key}.href`)}
-              className='editorial-focus group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 py-4 text-white transition-colors hover:bg-white/[0.07] motion-reduce:transition-none sm:grid-cols-[3rem_minmax(0,1fr)_auto] lg:px-2'
-            >
-              <span className='text-xs tabular-nums text-white/50'>
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <span className='text-sm font-medium sm:text-base'>
-                {t(`landing.worlds.items.${key}.title`)}
-              </span>
-              <span
-                aria-hidden='true'
-                className='text-lg text-white/55 transition-transform group-hover:translate-x-1 motion-reduce:transition-none'
-              >
-                →
-              </span>
-            </Link>
-          ))}
-        </nav>
+        <div className='relative aspect-[4/3] overflow-hidden rounded-xl bg-muted md:aspect-auto md:h-[26rem]'>
+          <Image src='/images/home/editorial-desk.webp' alt='' fill priority sizes='(max-width: 767px) 100vw, (max-width: 1152px) 50vw, 544px' className='object-cover dark:brightness-75' />
+        </div>
+      </div>
+      <div className='site-container'>
+        <div className='flex flex-wrap justify-between gap-2 border-t border-line py-4 text-[11px] text-subtle'>
+          <span>{t('landing.hero.footerLeft')}</span>
+          <span>{t('landing.hero.footerRight')}</span>
+        </div>
       </div>
     </section>
   );

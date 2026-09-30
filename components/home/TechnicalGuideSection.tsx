@@ -1,6 +1,6 @@
 /** 渲染首页技术文章栏目。 */
 import { useTranslation } from 'next-i18next';
-import SectionHeader from '@/components/common/SectionHeader';
+import HomeSectionHeading from '@/components/home/HomeSectionHeading';
 import GuidePostCards from '@/components/home/GuidePostCards';
 import HomePageSection from '@/components/home/HomePageSection';
 import type { Post } from '@/lib/type';
@@ -15,15 +15,12 @@ const TechnicalGuideSection = ({ posts }: { posts: Post[] }) => {
       id='technical-articles'
       aria-label={t('landing.aria.technical')}
     >
-      <div className='mb-8 border-b border-line pb-8 md:mb-10 md:pb-10'>
-        <SectionHeader
-          variant='editorial'
-          editorialKicker={t('landing.technicalSection.kicker')}
+        <HomeSectionHeading
+          display='AI & TECH'
           title={t('landing.technicalSection.title')}
-          subtitle={t('landing.technicalSection.subtitle')}
-          readMoreLink='/technical'
+          description={t('landing.technicalSection.subtitle')}
+          href='/technical'
         />
-      </div>
 
       <GuidePostCards posts={posts} />
     </HomePageSection>

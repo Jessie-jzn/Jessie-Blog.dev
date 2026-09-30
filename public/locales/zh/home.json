@@ -8,14 +8,16 @@
         "你好，我是 Jessie。"
       ],
       "paragraphs": [
-        "我现在在上海做 AI 开发。之前去澳洲打工度假了一年，后来回国工作。",
-        "我在这里写 AI 开发时遇到的问题，也写澳洲那一年的生活、旅行，还有回国以后的日子。"
+        "8 年以上 Web 开发经验，现在在上海做 AI 开发。",
+        "写代码，也记录澳洲打工度假、旅行和生活。"
       ],
       "primaryMailSubject": "你好 Jessie",
       "primaryCta": "给我写信",
       "secondaryCta": "看看文章",
       "servicesAnchor": "#whv-guides",
-      "mailHint": ""
+      "mailHint": "",
+      "footerLeft": "写代码，也写生活",
+      "footerRight": "独立思考，持续记录"
     },
     "worlds": {
       "eyebrow": "随便翻翻",
@@ -41,11 +43,11 @@
           "description": "去过的地方、走过的路线，以及旅行回来还想写下来的事。",
           "href": "/travel"
         },
-        "life": {
-          "eyebrow": "LIFE",
-          "title": "生活",
-          "description": "回国以后重新工作的日子，还有我平时的一些记录。",
-          "href": "/life"
+        "projects": {
+          "eyebrow": "PROJECTS",
+          "title": "项目",
+          "description": "我做的开源工具、AI 项目，以及开发中的实践记录。",
+          "href": "/projects"
         }
       }
     },
@@ -55,11 +57,33 @@
       "subtitle": "我做 AI 开发时遇到的问题，记在这里。"
     },
     "projects": {
-      "eyebrow": "项目",
-      "title": "写文章之外，也做点东西",
+      "eyebrow": "OPEN SOURCE",
+      "title": "我做的开源项目",
       "description": "我做的 AI 项目、这个博客，还有以前的工作记录。",
       "allProjects": "看看项目与经历 →",
       "aria": "项目与经历"
+    },
+    "openSource": {
+      "guide": "学习资料",
+      "source": "查看源码",
+      "starsAsOf": "Star 数据：{{date}}",
+      "items": {
+        "exam": { "title": "软件设计师备考指南", "description": "备考计划、知识笔记与刷题方法。" },
+        "tickets": { "title": "票务监控工具", "description": "多平台票务监控与邮件通知。" },
+        "chainlens": { "title": "ChainLens", "description": "多模型 AI 研究助手：产业链研究、证据引用与反向核查。" },
+        "whv-map": { "title": "WHV 地图标记插件", "description": "将澳洲邮编批量收藏到 Google Maps。" }
+      }
+    },
+    "profile": {
+      "title": "开发者，也一直在路上",
+      "experience": "年 Web 开发经验",
+      "skills": "我常用的技术与研究方向",
+      "more": "了解我的经历",
+      "journey": {
+        "frontend": { "title": "前端开发", "description": "从页面到产品，持续学习与实践。" },
+        "whv": { "title": "澳洲 WHV", "description": "在路上工作，看看更大的世界。" },
+        "ai": { "title": "上海 AI 开发", "description": "回到上海，探索 AI 原生产品。" }
+      }
     },
     "travelSection": {
       "kicker": "旅行",

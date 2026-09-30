@@ -1,65 +1,59 @@
-/** 结合项目配置和 home i18n 渲染首页项目预览及项目页入口。 */
-import Link from 'next/link';
+/** 展示公开开源项目和带查询日期的星标快照。 */
 import { useTranslation } from 'next-i18next';
-import { PROJECTS } from '@/lib/projects';
+import Image from 'next/image';
+import { FiGithub, FiStar, FiArrowUpRight } from 'react-icons/fi';
+import { OPEN_SOURCE_PROJECTS, OPEN_SOURCE_STARS_AS_OF, GITHUB_PROFILE_URL } from '@/lib/home/openSourceProjects';
 import HomePageSection from '@/components/home/HomePageSection';
 
 export default function HomeProjectsPreview() {
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation('home');
 
   return (
-    <HomePageSection aria-label={t('landing.projects.aria')}>
+    <HomePageSection id='open-source' aria-label={t('landing.projects.aria')} tone='muted'>
       <div className='flex flex-wrap items-end justify-between gap-5'>
         <div>
-          <p className='text-[11px] font-medium uppercase tracking-[0.22em] text-primaryStrong'>
+          <h2 className='text-2xl font-semibold tracking-[-0.035em] text-ink sm:text-[1.9rem]'>
             {t('landing.projects.eyebrow')}
-          </p>
-          <h2 className='mt-3 text-2xl font-semibold tracking-tight text-ink'>
-            {t('landing.projects.title')}
           </h2>
-          <p className='mt-2 max-w-xl text-sm leading-relaxed text-subtle'>
-            {t('landing.projects.description')}
+          <p className='mt-1.5 text-base font-medium text-ink'>
+            {t('landing.projects.title')}
           </p>
         </div>
-        <Link
-          href='/projects'
-          className='editorial-focus inline-flex min-h-11 items-center whitespace-nowrap rounded-md text-sm font-medium text-primaryStrong transition hover:underline focus-visible:outline-ink active:translate-y-px motion-reduce:transform-none'
+        <a
+          href={GITHUB_PROFILE_URL} target='_blank' rel='noreferrer'
+          className='editorial-focus inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-md text-xs font-medium text-primaryStrong transition hover:underline focus-visible:outline-ink active:translate-y-px motion-reduce:transform-none'
         >
-          {t('landing.projects.allProjects')}
-        </Link>
+          <FiGithub aria-hidden='true' className='h-4 w-4' /> Jessie-jzn <FiArrowUpRight aria-hidden='true' />
+        </a>
       </div>
 
-      {PROJECTS.length > 0 ? (
-        <div className='mt-8 divide-y divide-line border-y border-line'>
-          {PROJECTS.map((project, index) => {
-            const title = t(`projectsPage.items.${project.id}.title`, {
-              ns: 'common',
-            });
-
-            return (
+        <div className='mt-7 grid gap-4 md:grid-cols-2'>
+          {OPEN_SOURCE_PROJECTS.map((project) => (
               <article
                 key={project.id}
-                className='grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-3 py-6 sm:grid-cols-[4rem_minmax(0,1fr)_minmax(12rem,0.45fr)] sm:items-start sm:gap-x-8'
+                className='flex min-w-0 gap-4 rounded-xl border border-line bg-surface p-4 sm:gap-5 sm:p-5'
               >
-                <p className='text-xs font-semibold tabular-nums tracking-[0.16em] text-primaryStrong'>
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <div>
-                  <h3 className='text-base font-semibold text-ink'>{title}</h3>
-                  <p className='mt-2 text-sm leading-relaxed text-subtle'>
-                    {t(`projectsPage.items.${project.id}.summary`, {
-                      ns: 'common',
-                    })}
-                  </p>
+                <div aria-hidden='true' className='relative w-20 shrink-0 overflow-hidden rounded-lg bg-primarySoft sm:w-28 lg:w-36'>
+                  <Image src={project.image} alt='' fill sizes='(max-width: 639px) 80px, (max-width: 1023px) 112px, 144px' className='object-cover' />
                 </div>
-                <p className='col-start-2 text-xs font-medium uppercase leading-relaxed tracking-[0.1em] text-subtle sm:col-start-3 sm:text-right'>
-                  {t(`projectsPage.items.${project.id}.role`, { ns: 'common' })}
-                </p>
+                <div className='min-w-0 flex-1'>
+                  <div className='flex items-start justify-between gap-2'>
+                    <p className='break-all font-mono text-[10px] leading-5 text-primaryStrong'>{project.repository}</p>
+                    <span className='inline-flex shrink-0 items-center gap-1 rounded-md bg-muted px-2 py-1 text-[10px] text-subtle'><FiStar aria-hidden='true' />{project.stars}</span>
+                  </div>
+                  <h3 className='mt-2 text-base font-medium text-ink'>{t(`landing.openSource.items.${project.id}.title`)}</h3>
+                  <p className='mt-2 text-xs leading-6 text-subtle'>{t(`landing.openSource.items.${project.id}.description`)}</p>
+                  <div className='mt-4 flex flex-wrap items-center justify-between gap-2'>
+                    <span className='rounded-full bg-primarySoft px-2.5 py-1 text-[10px] text-primaryStrong'>{project.language || t('landing.openSource.guide')}</span>
+                    <a href={`${GITHUB_PROFILE_URL}/${project.repository}`} target='_blank' rel='noreferrer' className='editorial-focus inline-flex min-h-11 items-center gap-1 rounded-md text-xs font-medium text-primaryStrong hover:underline'>
+                      {t('landing.openSource.source')} <FiArrowUpRight aria-hidden='true' />
+                    </a>
+                  </div>
+                </div>
               </article>
-            );
-          })}
+          ))}
         </div>
-      ) : null}
+      <p className='mt-4 text-right text-[10px] text-subtle'>{t('landing.openSource.starsAsOf', { date: OPEN_SOURCE_STARS_AS_OF })}</p>
     </HomePageSection>
   );
 }

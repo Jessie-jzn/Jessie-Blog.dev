@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 
 import SiteConfig from '../../site.config.ts';
+import { OPEN_SOURCE_PROJECTS, OPEN_SOURCE_STARS_AS_OF } from '../../lib/home/openSourceProjects.ts';
 
 const source = (path: string) => readFileSync(path, 'utf8');
 
@@ -67,7 +68,7 @@ test('home places a six-article technical section before WHV', () => {
 
   const section = source('components/home/TechnicalGuideSection.tsx');
   assert.match(section, /if \(!posts\?\.length\) return null/);
-  assert.match(section, /readMoreLink='\/technical'/);
+  assert.match(section, /href='\/technical'/);
   assert.match(section, /<GuidePostCards posts=\{posts\} \/>/);
 
   for (const locale of ['en', 'zh']) {
@@ -96,25 +97,37 @@ test('collaboration keeps the configured email and translated subject', () => {
   assert.match(cta, /landing\.cta\.primaryBtn/);
 });
 
-test('home uses indexed continuous surfaces instead of card grids', () => {
+test('home uses compact responsive topic and repository cards', () => {
   const worlds = source('components/home/HomeContentWorlds.tsx');
   const projects = source('components/home/HomeProjectsPreview.tsx');
   const consultation = source('components/home/HomeConsultCta.tsx');
-  assert.match(worlds, /divide-y/);
-  assert.match(projects, /divide-y/);
-  assert.match(consultation, /divide-y/);
-  assert.match(projects, /PROJECTS\.map\(\(project, index\)/);
-  assert.match(projects, /String\(index \+ 1\)\.padStart\(2, '0'\)/);
-  assert.doesNotMatch(worlds, /grid[^"']*lg:grid-cols-4/);
-  assert.doesNotMatch(projects, /md:grid-cols-3/);
-  assert.doesNotMatch(consultation, /sm:grid-cols-3/);
+  assert.match(worlds, /sm:grid-cols-2 lg:grid-cols-4/);
+  assert.match(projects, /md:grid-cols-2/);
+  assert.match(projects, /OPEN_SOURCE_PROJECTS\.map/);
+  assert.match(consultation, /bg-primarySoft/);
+});
+
+test('homepage separates designed project visuals from real article covers', () => {
+  const card = source('components/home/HomePostCard.tsx');
+  assert.match(card, /post\.pageCoverThumbnail \|\| post\.pageCover/);
+  assert.match(card, /canonicalArticlePath\(post\)/);
+  assert.match(card, /post\.title/);
+  assert.doesNotMatch(card, /project-.*\.webp/);
+
+  const projects = source('components/home/HomeProjectsPreview.tsx');
+  assert.match(projects, /src=\{project\.image\}/);
+  assert.equal(new Set(OPEN_SOURCE_PROJECTS.map((p) => p.image)).size, 4);
+  for (const project of OPEN_SOURCE_PROJECTS) {
+    assert.ok(existsSync(`public${project.image}`));
+  }
 });
 
 test('project actions resolve to their shipped route', () => {
   const preview = source('components/home/HomeProjectsPreview.tsx');
   const routePath = 'pages/projects/index.tsx';
 
-  assert.match(preview, /href='\/projects'/);
+  assert.match(preview, /href=\{GITHUB_PROFILE_URL\}/);
+  assert.match(preview, /\$\{GITHUB_PROFILE_URL\}\/\$\{project\.repository\}/);
   assert.ok(existsSync(routePath), 'Expected the /projects page to ship');
 
   const route = source(routePath);
@@ -190,12 +203,11 @@ test('project records keep locale-neutral metadata and render common translation
 
   assert.doesNotMatch(records, /\b(?:title|summary|role):\s*string/);
   assert.doesNotMatch(records, /\b(?:title|summary|role):\s*["']/);
-  assert.match(preview, /useTranslation\(\[['"]home['"],\s*['"]common['"]\]\)/);
+  assert.match(preview, /useTranslation\('home'\)/);
   assert.match(route, /t\(["']projectsPage\.stackLabel["'],\s*\{\s*title\s*\}\)/);
 
   for (const field of ['title', 'summary', 'role']) {
     const key = `projectsPage\\.items\\.\\$\\{project\\.id\\}\\.${field}`;
-    assert.match(preview, new RegExp(key));
     assert.match(route, new RegExp(key));
   }
 });
@@ -214,13 +226,10 @@ test('end-section actions stay stable, focusable, and pressable', () => {
   }
 });
 
-test('collaboration is the only accent home section', () => {
-  const homeSource = readdirSync('components/home')
-    .filter((name) => name.endsWith('.tsx'))
-    .map((name) => source(`components/home/${name}`))
-    .join('\n');
-  assert.equal(homeSource.match(/tone='accent'/g)?.length, 1);
-  assert.match(source('components/home/HomeConsultCta.tsx'), /tone='accent'/);
+test('collaboration keeps its mint panel within a neutral section', () => {
+  const cta = source('components/home/HomeConsultCta.tsx');
+  assert.match(cta, /bg-primarySoft/);
+  assert.match(cta, /GITHUB_PROFILE_URL/);
 });
 
 test('Hero and closing email actions use the same label in every locale', () => {
@@ -250,22 +259,28 @@ test('home copy starts from Jessie lived experience instead of brand language', 
   assert.doesNotMatch(en.hero.paragraphs.join('\n'), /personal publication|ongoing exploration/);
 });
 
-test('project preview omits its ruled surface when no projects exist', () => {
-  const projects = source('components/home/HomeProjectsPreview.tsx');
-  assert.match(
-    projects,
-    /PROJECTS\.length > 0 \? \(\s*<div className='mt-8 divide-y/,
-  );
-  assert.match(projects, /\) : null/);
+test('open-source selection includes ChainLens instead of the personal blog', () => {
+  assert.deepEqual(OPEN_SOURCE_PROJECTS.map((project) => project.repository), [
+    'Software-Designer-Exam-Guide', 'tickets-monitor', 'chainlens', 'whv_ai_map_marker',
+  ]);
+  assert.match(OPEN_SOURCE_STARS_AS_OF, /^\d{4}-\d{2}-\d{2}$/);
+  for (const project of OPEN_SOURCE_PROJECTS) {
+    assert.ok(Number.isInteger(project.stars) && project.stars >= 0);
+    for (const locale of ['en', 'zh']) {
+      const landing = JSON.parse(source(`public/locales/${locale}/home.json`)).landing;
+      const copy = landing.openSource.items[project.id];
+      assert.ok(copy.title.length && copy.description.length);
+    }
+  }
 });
 
-test('hero is asymmetric and exposes a content index', () => {
+test('hero uses a light two-column composition and a GitHub action', () => {
   const hero = source('components/home/HomeHero.tsx');
   assert.match(
     hero,
-    /lg:grid-cols-\[minmax\(0,1\.4fr\)_minmax\(16rem,0\.6fr\)\]/
+    /md:grid-cols-2/
   );
-  assert.match(hero, /landing\.worlds\.items/);
+  assert.match(hero, /GITHUB_PROFILE_URL/);
   assert.match(hero, /motion-reduce:transition-none/);
 });
 
@@ -315,15 +330,15 @@ test('website avatar displays and BlogSEO use the local avatar asset', () => {
 test('Hero preloads a bounded repository-owned background photograph', () => {
   const hero = source('components/home/HomeHero.tsx');
   const heroImage = hero.match(
-    /<Image\s+src=['"]\/images\/home\/hero\.jpg['"][\s\S]*?\/>/,
+    /<Image\s+src=['"]\/images\/home\/editorial-desk\.webp['"][\s\S]*?\/>/,
   )?.[0];
 
   assert.ok(heroImage, 'Expected the local Hero background Image');
   assert.match(heroImage, /\sfill(?:\s|$)/);
   assert.match(heroImage, /\spriority(?:\s|$)/);
-  assert.match(heroImage, /sizes=['"]100vw['"]/);
+  assert.match(heroImage, /sizes=['"][^'"]*50vw[^'"]*['"]/);
 
-  const heroPath = 'public/images/home/hero.jpg';
+  const heroPath = 'public/images/home/editorial-desk.webp';
   assert.ok(existsSync(heroPath));
   assert.ok(
     statSync(heroPath).size <= 500 * 1024,
@@ -331,12 +346,11 @@ test('Hero preloads a bounded repository-owned background photograph', () => {
   );
 });
 
-test('hero and content directory share a stable world index contract', () => {
+test('hero exposes real reading and email actions while topics retain their index', () => {
   const hero = source('components/home/HomeHero.tsx');
   const worlds = source('components/home/HomeContentWorlds.tsx');
 
   assert.match(worlds, /export const HOME_WORLD_KEYS/);
-  assert.match(hero, /import \{ HOME_WORLD_KEYS \}/);
   assert.doesNotMatch(hero, /const worldKeys/);
   assert.match(hero, /key=\{`headline-\$\{i\}`\}/);
   assert.match(hero, /key=\{`paragraph-\$\{idx\}`\}/);
@@ -348,7 +362,7 @@ test('home locales provide the bilingual Article CTA and world directory', () =>
     en: 'Read the blog',
     zh: '看看文章',
   } as const;
-  const expectedHrefs = ['/technical', '/whv', '/travel', '/life'];
+  const expectedHrefs = ['/technical', '/whv', '/travel', '/projects'];
 
   for (const locale of ['en', 'zh'] as const) {
     const messages = JSON.parse(
@@ -361,7 +375,7 @@ test('home locales provide the bilingual Article CTA and world directory', () =>
       'ai',
       'whv',
       'travel',
-      'life',
+      'projects',
     ]);
     assert.deepEqual(
       (Object.values(landing.worlds.items) as Array<{ href: string }>).map(
@@ -373,28 +387,28 @@ test('home locales provide the bilingual Article CTA and world directory', () =>
   }
 });
 
-test('guide collections expose lead and index article variants', () => {
+test('guide collections offer grid, feature and photo layouts', () => {
   const guides = source('components/home/GuidePostCards.tsx');
   const article = source('components/articles/EditorialArticleCardBody.tsx');
   assert.match(guides, /const \[lead, \.\.\.supporting\] = posts/);
-  assert.match(guides, /variant='lead'/);
-  assert.match(guides, /variant='index'/);
-  assert.match(guides, /border-y border-line divide-y divide-line/);
+  assert.match(guides, /variant='feature'/);
+  assert.match(guides, /variant='photo'/);
+  assert.match(guides, /lg:grid-cols-3/);
   assert.doesNotMatch(guides, /xl:grid-cols-4/);
   assert.match(article, /"lead"/);
   assert.match(article, /"index"/);
 });
 
-test('guide collection omits its index when the lead has no supporting Articles', () => {
+test('guide collection guards empty and single-article collections', () => {
   const guides = source('components/home/GuidePostCards.tsx');
-  assert.match(guides, /const hasSupporting = supporting\.length > 0/);
-  assert.match(guides, /hasSupporting \? \(/);
-  assert.match(guides, /\) : null/);
+  assert.match(guides, /if \(!posts\?\.length\) return null/);
+  assert.match(guides, /supporting\.length \?/);
+  assert.match(guides, /: null/);
 });
 
 test('guide collection does not stretch a single supporting Article', () => {
   const guides = source('components/home/GuidePostCards.tsx');
-  assert.match(guides, /grid items-start gap-8/);
+  assert.match(guides, /grid items-start gap-4/);
 });
 
 test('guide Article conversion preserves a full cover independently of its thumbnail', () => {
@@ -446,7 +460,7 @@ test('WHV process contains no emoji presentation', () => {
 test('travel keeps its empty collection guard without an editorial intro', () => {
   const travel = source('components/home/TravelGuideSection.tsx');
   assert.match(travel, /if \(!posts\?\.length\) return null/);
-  assert.match(travel, /<GuidePostCards posts=\{posts\} \/>/);
+  assert.match(travel, /<GuidePostCards posts=\{posts\} layout='photos' \/>/);
   assert.doesNotMatch(travel, /defaultIntro|introLine1|introLine2Before/);
   assert.doesNotMatch(travel, /rounded-2xl border border-line bg-muted/);
 });
