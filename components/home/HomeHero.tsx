@@ -1,5 +1,6 @@
 /** 浅色双栏首页首屏，保留真实介绍、邮件和 GitHub 入口。 */
-import Image from 'next/image';
+import HeroPortrait from './HeroPortrait';
+import TypewriterText from './TypewriterText';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'next-i18next';
@@ -44,13 +45,13 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
           </p>
 
           <h1 className='text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.055em] text-ink sm:text-[3.5rem] lg:text-[4.25rem]'>
-            <span className='block'>CODE.</span>
-            <span className='block'>TRAVEL. LIVE.</span>
+            <span className='block'><TypewriterText text='CODE.' delay={0.15} /></span>
+            <span className='block'><TypewriterText text='TRAVEL. LIVE.' delay={0.65} /></span>
           </h1>
           <p className='mt-6 text-xl font-medium tracking-tight text-ink'>
             {headline.map((line, i) => (
               <span key={`headline-${i}`}>
-                {line}
+                <TypewriterText text={line} delay={1.57 + headline.slice(0, i).join('').length * 0.06} />
                 {i < headline.length - 1 ? <br /> : null}
               </span>
             ))}
@@ -90,9 +91,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({ email }) => {
           ) : null}
         </motion.div>
 
-        <div className='relative aspect-[4/3] overflow-hidden rounded-xl bg-muted md:aspect-auto md:h-[26rem]'>
-          <Image src='/images/home/editorial-desk.webp' alt='' fill priority sizes='(max-width: 767px) 100vw, (max-width: 1152px) 50vw, 544px' className='object-cover dark:brightness-75' />
-        </div>
+        <HeroPortrait />
       </div>
       <div className='site-container'>
         <div className='flex flex-wrap justify-between gap-2 border-t border-line py-4 text-[11px] text-subtle'>

@@ -82,7 +82,7 @@ test('home places a six-article technical section before WHV', () => {
 });
 
 test('only the above-the-fold Hero image is eagerly prioritized', () => {
-  const hero = source('components/home/HomeHero.tsx');
+  const hero = source('components/home/HeroPortrait.tsx');
   const guideCards = source('components/home/GuidePostCards.tsx');
 
   assert.match(hero, /priority/);
@@ -327,18 +327,18 @@ test('website avatar displays and BlogSEO use the local avatar asset', () => {
   }
 });
 
-test('Hero preloads a bounded repository-owned background photograph', () => {
-  const hero = source('components/home/HomeHero.tsx');
+test('Hero preloads a bounded repository-owned cartoon portrait', () => {
+  const hero = source('components/home/HeroPortrait.tsx');
   const heroImage = hero.match(
-    /<Image\s+src=['"]\/images\/home\/editorial-desk\.webp['"][\s\S]*?\/>/,
+    /<Image\s+src=['"]\/images\/home\/jessie-editorial\.webp['"][\s\S]*?\/>/,
   )?.[0];
 
-  assert.ok(heroImage, 'Expected the local Hero background Image');
+  assert.ok(heroImage, 'Expected the local Hero portrait Image');
   assert.match(heroImage, /\sfill(?:\s|$)/);
   assert.match(heroImage, /\spriority(?:\s|$)/);
   assert.match(heroImage, /sizes=['"][^'"]*50vw[^'"]*['"]/);
 
-  const heroPath = 'public/images/home/editorial-desk.webp';
+  const heroPath = 'public/images/home/jessie-editorial.webp';
   assert.ok(existsSync(heroPath));
   assert.ok(
     statSync(heroPath).size <= 500 * 1024,

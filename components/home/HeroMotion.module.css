@@ -1,0 +1,60 @@
+.character { position: relative; }
+.character[data-caret="true"]::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 5%;
+  height: 90%;
+  width: 2px;
+  background: currentColor;
+  pointer-events: none;
+}
+.portrait {
+  position: relative;
+  height: 24rem;
+}
+.pointerLayer {
+  position: relative;
+  height: 100%;
+  transform-origin: 50% 90%;
+}
+.breathing {
+  position: relative;
+  height: calc(100% - 2rem);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+  margin-inline: auto;
+  animation: breathe 4.8s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+.blink {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  clip-path: polygon(40% 25%, 57% 24%, 57% 31%, 39% 31%, 40% 25%, 61% 21%, 74% 21%, 74% 27%, 61% 27%, 61% 21%);
+  animation: blink 5.7s steps(1, end) infinite;
+  pointer-events: none;
+}
+@keyframes typeCharacter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes typingCaret {
+  0% { opacity: 0; }
+  1%, 99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.007); }
+}
+@keyframes blink {
+  0%, 52%, 55%, 100% { opacity: 0; }
+  53%, 54% { opacity: 1; }
+}
+@media (min-width: 768px) { .portrait { height: 28rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .character, .character::after, .breathing, .blink { animation: none; }
+  .character { visibility: visible !important; }
+  .character::after, .blink { opacity: 0; }
+}
+
+.blink[data-active="false"] { visibility: hidden; }
