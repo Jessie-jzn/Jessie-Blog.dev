@@ -10,10 +10,10 @@ import * as Types from '@/lib/type';
 import { WHV_TOOL_URL } from '@/lib/home/whvToolPromotion';
 
 const whvSteps = [
-  { title: '行前', link: '/tag/preparation', desc: '签证' },
-  { title: '落地', link: '/tag/landing', desc: '卡 / 税号' },
-  { title: '工作', link: '/tag/jobs', desc: '求职' },
-  { title: '离境', link: '/tag/tax', desc: '退税' },
+  { title: '行前', desc: '签证' },
+  { title: '落地', desc: '卡 / 税号' },
+  { title: '工作', desc: '求职' },
+  { title: '离境', desc: '退税' },
 ];
 
 interface WhvGuideSectionProps {
@@ -60,8 +60,8 @@ const WhvGuideSection = ({
       <div className='mb-6 grid grid-cols-2 gap-3 md:grid-cols-4'>
         {whvSteps.map((step, i) => (
           <Link
-            key={step.link}
-            href={step.link}
+            key={step.title}
+            href='/whv'
             className='editorial-focus group rounded-lg border border-line bg-surface px-4 py-3 transition-colors hover:border-primaryStrong'
           >
             <div className='flex items-start gap-3'>

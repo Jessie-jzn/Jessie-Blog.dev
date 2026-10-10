@@ -444,14 +444,9 @@ test('lead and index Articles keep canonical routing and responsive images', () 
 test('WHV process contains no emoji presentation', () => {
   const whv = source('components/home/WhvGuideSection.tsx');
   assert.doesNotMatch(whv, /✈️|🇦🇺|💼|💰/);
-  for (const href of [
-    '/tag/preparation',
-    '/tag/landing',
-    '/tag/jobs',
-    '/tag/tax',
-  ]) {
-    assert.match(whv, new RegExp(href));
-  }
+  assert.match(whv, /href='\/whv'/);
+  assert.doesNotMatch(whv, /\/tag\//);
+  assert.doesNotMatch(whv, /href=\{step\.link\}/);
   assert.match(whv, /\['Prep', 'Landing', 'Jobs', 'Exit'\]/);
   assert.match(whv, /\['Visa', 'Cards \/ TFN', 'Finding work', 'Tax \/ depart'\]/);
   assert.match(whv, /String\(i \+ 1\)\.padStart\(2, '0'\)/);
